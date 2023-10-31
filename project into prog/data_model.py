@@ -41,15 +41,3 @@ class EmergencyProfile:
         self.number_of_relatives = number_of_relatives
         self.timestamp = timestamp
 
-        # test joe 22222
-        # 1001 th test joe
-
-        #1002 tets joe
-        #1005 joe
-        #1006 joe
-
-
-        # 1003
-
-        #1002 tets joe
-        #1000
