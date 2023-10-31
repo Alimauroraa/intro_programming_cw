@@ -45,5 +45,3 @@ class EmergencyProfile:
         # 1001 th test joe
         #1002 tets joe
         #1005 joe
-        #1006 joe
-        #10078
