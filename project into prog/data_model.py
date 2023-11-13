@@ -5,6 +5,18 @@ class Admin:
         self.email = email
         self.created_plans = []  # List of HumanitarianPlans created by this admin
 
+    def AdminLogIn(username, password):
+        user = admin_df[(admin_df['username'] == username) & (admin_df['password'] == password)]
+        if not user.empty:
+            print("Access granted", username, "!")
+        else:
+            print("The username or password you have entered is wrong.")
+
+    def DisplayVolunteers(csv):
+        """This is a function which takes a csv and displays it - for the purpose of displaying the Volunteer credentials csv file """
+        for index, row in csv.iterrows():
+            print(row)
+
 class HumanitarianPlan:
     def __init__(self, plan_id, description, geographical_area, start_date, closing_date=None):
         self.plan_id = plan_id
