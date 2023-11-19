@@ -1,7 +1,27 @@
+import csv
 import tkinter as tk
 from tkinter import messagebox
 from data_model import Admin, Volunteer
-# Import your existing functions here
+
+# Function to load volunteer accounts from a CSV file
+def load_volunteers_from_csv(volunteers_file):
+    volunteers = []
+    with open(volunteers_file, mode='r', newline='') as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            volunteer = Volunteer(**row)
+            volunteers.append(volunteer)
+    return volunteers
+
+# Function to save updated volunteer data to the CSV file
+def save_volunteers_to_csv(volunteers_file, volunteers):
+    with open(volunteers_file, mode='w', newline='') as file:
+        fieldnames = ['user_id', 'username', 'user_password', 'first_name', 'last_name', 'dob', 'user_email',
+                      'contact_number', 'address1', 'address2', 'city', 'acc_type', 'availability', 'gender', 'active']
+        writer = csv.DictWriter(file, fieldnames=fieldnames)
+        writer.writeheader()
+        for volunteer in volunteers:
+            writer.writerow(vars(volunteer))
 
 # Create the main window
 root = tk.Tk()
