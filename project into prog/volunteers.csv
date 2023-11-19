@@ -1,0 +1,4 @@
+user_id,Username,Password,Name,first_name,last_name,birthday,email,phone,camp_id,address1,address2,city,gender,active,availbility
+1,m1,111,mike ray,mike,ray,1998/11/9,mike1@gmail.com,7666592136,Camp1,wood street,dd,London,male,TRUE,Yes
+2,j1,111,john conley,john,conley,1988/9/16,jjohn890@gmail.com,7562332145,Camp2,11th avenue,xx,NewYork,female,FALSE,No
+3,d1,111,diaz james,diaz,james,1990/8/26,james567@outlook.com,7877569743,Camp3,rain street,ee,Toronto,male,TRUE,No
