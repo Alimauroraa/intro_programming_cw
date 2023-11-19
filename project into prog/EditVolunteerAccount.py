@@ -9,6 +9,7 @@ def load_volunteers_from_csv(volunteers_file):
     with open(volunteers_file, mode='r', newline='') as file:
         reader = csv.DictReader(file)
         for row in reader:
+            row.pop('emergency_profiles', None)
             volunteer = Volunteer(**row)
             volunteers.append(volunteer)
     return volunteers
@@ -26,21 +27,24 @@ def save_volunteers_to_csv(volunteers_file, volunteers):
 
 # Create the main window
 root = tk.Tk()
+root.title("Edit Volunteer")
+root.geometry("700x800")
+root['bg'] = '#021631'
 
 # Create form fields
 fields = ['user_id', 'username', 'user_password', 'first_name', 'last_name', 'dob', 'user_email',
               'contact_number', 'address1', 'address2', 'city', 'acc_type', 'availability', 'gender', 'active',
               'camp_id', 'emergency_profiles']
-entries = {field: tk.Entry(root) for field in fields}
+entries = {field: tk.Entry(root, bd=2, font="calibri 10") for field in fields}
 
 # Arrange the form fields in a grid
 for i, field in enumerate(fields):
-    tk.Label(root, text=field).grid(row=i)
-    entries[field].grid(row=i, column=1)
+    tk.Label(root, text=field, font="calibri 16", bg="#021631", fg="#fff").grid(row=i, pady=10)  # Add vertical padding
+    entries[field].grid(row=i, column=1, pady=10)  # Add vertical padding
 
 # Create a listbox for displaying volunteers
 volunteers_listbox = tk.Listbox(root)
-volunteers_listbox.grid(row=0, column=2, rowspan=len(fields))
+volunteers_listbox.grid(row=0, column=2, rowspan=len(fields), padx=20)
 
 # Load volunteers from the CSV file
 volunteers = load_volunteers_from_csv('volunteers_file.csv')
