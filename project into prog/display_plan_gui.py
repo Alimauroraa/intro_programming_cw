@@ -11,17 +11,23 @@
 import tkinter as tk
 from tkinter import ttk
 import pandas as pd
+from tkinter import messagebox
 def display_plan():
     try:
         plan_id = int(entry.get())
         df = pd.read_csv("plan.csv")
-        plan_info = df[df['PlanID'] == plan_id]
-        show_table(plan_info)
+        if plan_id in df['PlanID']:
+            plan_info = df[df['PlanID'] == plan_id]
+            show_table(plan_info)
+        elif plan_id not in df['PlanID'] or plan_id=='':
+            messagebox.showerror("Error","Plan ID not found")
+
     except ValueError:
-        result_text.config(state=tk.NORMAL)
-        result_text.delete('1.0', tk.END)
-        result_text.insert(tk.END, "Please enter a valid Plan ID.")
-        result_text.config(state=tk.DISABLED)
+        messagebox.showerror("Error", "Please enter a valid plan ID, numerical character only")
+        #result_text.config(state=tk.NORMAL)
+        #result_text.delete('1.0', tk.END)
+        #result_text.insert(tk.END, "Please enter a valid Plan ID.")
+        #result_text.config(state=tk.DISABLED)
 
 def show_table(dataframe):
     top = tk.Toplevel(root)
@@ -44,10 +50,14 @@ def show_table(dataframe):
     for index, row in dataframe.iterrows():
         tree.insert("", tk.END, values=list(row))
 
+def back(root):
+    root.grid_forget()
+
 def display_plan_frame(parent):
+    global root
     # Create tkinter window
     root = tk.Frame(parent,width=600, height=600, bg='#021631')
-    root.pack_propagate(False)
+    root.grid_propagate(False)
     #root.title("Display Plan")
 
     # Create label and entry for Plan ID
@@ -61,7 +71,11 @@ def display_plan_frame(parent):
     button = tk.Button(root, text="Display Plan", bg="#FFFFFF", command=display_plan)
     button.place(x=270, y=320)
 
-    # Create text widget to display the result
+    back_button=tk.Button(root, text="Back", width=10, bg="#FFFFFF", command=lambda:back(root))
+    back_button.place(x=270, y=500)
+
+
+    # #Create text widget to display the result
     # global result_text
     # result_text = tk.Text(root, height=10, width=50)
     # result_text.pack()

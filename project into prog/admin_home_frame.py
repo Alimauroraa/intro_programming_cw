@@ -23,8 +23,7 @@ def plan_creator_frame(root):
 
 
 def plan_summary_frame(root):
-    summary_frame=display_plan_gui.display_plan_frame(root)
-    summary_frame.pack()
+    display_plan_gui.display_plan_frame(root).grid(row=0, column=0)
 
 def edit_volunteer_frame():
     pass
