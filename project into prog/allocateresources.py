@@ -7,12 +7,20 @@ class ResourceAllocationApp:
     def __init__(self, root):
         self.root = root
         self.root.title("Resource Allocation")
+        self.root.geometry("700x600")  # Set window size
+        self.root['bg'] = '#021631'  # Set background color
 
         self.camps = self.load_camps_from_csv('camps_information.csv')
         self.resources = self.load_resources_from_csv('inventory.csv')
 
         self.selected_camp = tk.StringVar()
-        self.selected_camp.set(self.camps.camp_id)  # Default to the first camp
+        self.volunteer_id_var = tk.StringVar()
+        self.location_var = tk.StringVar()
+        self.capacity_var = tk.StringVar()
+        self.specific_needs_var = tk.StringVar()
+        self.allocate_resources_var = tk.StringVar()
+        self.camp_id_var = tk.StringVar()
+        self.selected_camp.trace('w', self.update_camp_info)  # Default to the first camp
 
         self.selected_resource = tk.StringVar()
         self.selected_resource.set(list(self.resources.keys())[0])  # Default to the first resource
@@ -26,7 +34,7 @@ class ResourceAllocationApp:
         with open(filename, mode='r', newline='') as file:
             reader = csv.DictReader(file)
             for row in reader:
-                row = {str(key): value for key, value in row.items()}
+                row = {key.strip(): value for key, value in row.items() if key is not None}  # Strip spaces from keys
                 camp = Camp(**row)
                 camps.append(camp)
         return camps
@@ -72,6 +80,14 @@ class ResourceAllocationApp:
         self.save_resources_to_csv('inventory.csv', self.resources)
         messagebox.showinfo("Success", "Data saved successfully.")
 
+    def update_camp_info(self, *args):
+        selected_camp_id = self.selected_camp.get()
+        selected_camp = next(camp for camp in self.camps if camp.camp_id == selected_camp_id)
+        self.camp_id_var.set(selected_camp.camp_id)
+        self.specific_needs_var.set(selected_camp.specific_needs)
+        self.location_var.set(selected_camp.location)
+
+
     def setup_ui(self):
         # Select Camp Section
         camp_label = tk.Label(self.root, text="Select Camp:")
@@ -80,10 +96,18 @@ class ResourceAllocationApp:
         camp_label.grid(row=0, column=0)
         camp_dropdown.grid(row=0, column=1)
 
-        # Display Camp Information
         camp_info_label = tk.Label(self.root, text="Camp Information:")
-        camp_info_label.grid(row=1, column=0, columnspan=2)
+        camp_info_label.grid(row=0, column=3, columnspan=2)
 
+        camp_id_label = tk.Label(self.root, textvariable=self.camp_id_var)
+        camp_id_label.grid(row=2, column=3)
+
+        specific_needs_label = tk.Label(self.root, textvariable=self.specific_needs_var)
+        specific_needs_label.grid(row=3, column=3)
+
+        location_label = tk.Label(self.root, textvariable=self.location_var)
+        location_label.grid(row=4, column=3)
+        
         # Resource Allocation Section
         resource_allocation_label = tk.Label(self.root, text="Allocate Resources:")
         resource_allocation_label.grid(row=2, column=0, columnspan=2)
