@@ -1,9 +1,9 @@
 import csv
 import tkinter as tk
 from tkinter import messagebox
-from data_model import Admin, Volunteer
+from data_model import Volunteer
 
-# Function to load volunteer accounts from a CSV file
+# Function to load, volunteer accounts from a CSV file
 def load_volunteers_from_csv(volunteers_file):
     volunteers = []
     with open(volunteers_file, mode='r', newline='') as file:
@@ -17,7 +17,8 @@ def load_volunteers_from_csv(volunteers_file):
 def save_volunteers_to_csv(volunteers_file, volunteers):
     with open(volunteers_file, mode='w', newline='') as file:
         fieldnames = ['user_id', 'username', 'user_password', 'first_name', 'last_name', 'dob', 'user_email',
-                      'contact_number', 'address1', 'address2', 'city', 'acc_type', 'availability', 'gender', 'active']
+              'contact_number', 'address1', 'address2', 'city', 'acc_type', 'availability', 'gender', 'active',
+              'camp_id', 'emergency_profiles']
         writer = csv.DictWriter(file, fieldnames=fieldnames)
         writer.writeheader()
         for volunteer in volunteers:
@@ -28,7 +29,8 @@ root = tk.Tk()
 
 # Create form fields
 fields = ['user_id', 'username', 'user_password', 'first_name', 'last_name', 'dob', 'user_email',
-          'contact_number', 'address1', 'address2', 'city', 'acc_type', 'availability', 'gender', 'active']
+              'contact_number', 'address1', 'address2', 'city', 'acc_type', 'availability', 'gender', 'active',
+              'camp_id', 'emergency_profiles']
 entries = {field: tk.Entry(root) for field in fields}
 
 # Arrange the form fields in a grid
@@ -41,7 +43,7 @@ volunteers_listbox = tk.Listbox(root)
 volunteers_listbox.grid(row=0, column=2, rowspan=len(fields))
 
 # Load volunteers from the CSV file
-volunteers = load_volunteers_from_csv('volunteers.csv')
+volunteers = load_volunteers_from_csv('volunteers_file.csv')
 
 # Listbox callback function
 def update_form(event):
@@ -64,10 +66,13 @@ def load_volunteers():
 def save_volunteers():
     # Update the selected volunteer with the form data
     selected_index = volunteers_listbox.curselection()[0]
+    print(f"Saving volunteer at index {selected_index}")
     for field, entry in entries.items():
-        setattr(volunteers[selected_index], field, entry.get())
+        entry_value = entry.get()
+        print(f"Setting attribute {field} to {entry_value}")
+        setattr(volunteers[selected_index], field, entry_value)
     # Save the volunteers to the CSV file
-    save_volunteers_to_csv('volunteers.csv', volunteers)
+    save_volunteers_to_csv('volunteers_file.csv', volunteers)
     messagebox.showinfo("Success", "Volunteer data saved successfully.")
 
 def deactivate_volunteer():

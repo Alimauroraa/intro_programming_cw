@@ -1,0 +1,2 @@
+user_id,username,user_password,first_name,last_name,dob,user_email,contact_number,address1,address2,city,acc_type,availability,gender,active,camp_id,emergency_profiles
+3,d12,111,diazz,james,1990/8/26,james567@outlook.com,7877569743,Camp3,rain street,ee,Toronto,male,TRUE,No,333,

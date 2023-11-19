@@ -68,10 +68,10 @@ class Camp:
 class Volunteer(Users):
     def __init__(self, user_id, username, user_password, first_name, last_name,
                  dob, user_email, contact_number, address1, address2, city, acc_type,
-                 availability, gender, active):
+                 availability, gender, active, camp_id,):
         super().__init__(user_id, username, user_password, first_name, last_name,
                  dob, user_email, contact_number, address1, address2, city, acc_type,
-                 availability, gender, active)
+                 availability, gender, active,)
         self.camp_id = camp_id
         self.emergency_profiles = []  # List of EmergencyProfiles created by this volunteer
 
