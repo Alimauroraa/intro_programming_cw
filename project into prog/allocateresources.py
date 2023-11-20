@@ -86,40 +86,36 @@ class ResourceAllocationApp:
         self.camp_id_var.set(selected_camp.camp_id)
         self.specific_needs_var.set(selected_camp.specific_needs)
         self.location_var.set(selected_camp.location)
-
-
+    
     def setup_ui(self):
-        # Select Camp Section
-        camp_label = tk.Label(self.root, text="Select Camp:")
+    # Select Camp Section
+        camp_label = tk.Label(self.root, text="Select Camp:", fg='white', bg='#021631')
         camp_dropdown = ttk.Combobox(self.root, textvariable=self.selected_camp,
-                                     values=[camp.camp_id for camp in self.camps], state="readonly")
+                                 values=[camp.camp_id for camp in self.camps], state="readonly")
         camp_label.grid(row=0, column=0)
         camp_dropdown.grid(row=0, column=1)
 
-        camp_info_label = tk.Label(self.root, text="Camp Information:")
+        camp_info_label = tk.Label(self.root, text="Camp Information:", fg='white', bg='#021631')
         camp_info_label.grid(row=0, column=3, columnspan=2)
 
-        camp_id_label = tk.Label(self.root, textvariable=self.camp_id_var)
+        camp_id_label = tk.Label(self.root, textvariable=self.camp_id_var, fg='white', bg='#021631')
         camp_id_label.grid(row=2, column=3)
 
-        specific_needs_label = tk.Label(self.root, textvariable=self.specific_needs_var)
+        specific_needs_label = tk.Label(self.root, textvariable=self.specific_needs_var, fg='white', bg='#021631')
         specific_needs_label.grid(row=3, column=3)
 
-        location_label = tk.Label(self.root, textvariable=self.location_var)
+        location_label = tk.Label(self.root, textvariable=self.location_var, fg='white', bg='#021631')
         location_label.grid(row=4, column=3)
         
-        # Resource Allocation Section
-        resource_allocation_label = tk.Label(self.root, text="Allocate Resources:")
+    # Resource Allocation Section
+        resource_allocation_label = tk.Label(self.root, text="Allocate Resources:", fg='white', bg='#021631')
         resource_allocation_label.grid(row=2, column=0, columnspan=2)
 
-        resource_label = tk.Label(self.root, text="Select Resource:")
-        self.resource_combobox = ttk.Combobox(self.root, textvariable=self.selected_resource,
-                                             values=list(self.resources.keys()), state="readonly")
-        resource_label.grid(row=3, column=0)
-        self.resource_combobox.grid(row=3, column=1)
+        resource_label = tk.Label(self.root, text="Select Resource:", fg='white', bg='#021631')
 
-        quantity_label = tk.Label(self.root, text="Quantity:")
-        quantity_entry = tk.Entry(self.root, textvariable=self.quantity_var)
+
+        quantity_label = tk.Label(self.root, text="Quantity:",fg='white', bg='#021631')
+        quantity_entry = tk.Entry(self.root, textvariable=self.quantity_var, fg='white', bg='#021631')
         quantity_label.grid(row=4, column=0)
         quantity_entry.grid(row=4, column=1)
 
