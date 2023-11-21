@@ -1,9 +1,9 @@
+
 import pandas as pd
 import tkinter as tk
 from tkinter import simpledialog
 from tkinter import messagebox
 from tkinter import ttk
-
 csv_filename = 'Refugee_DataFrame.csv'
 refugee_df = pd.read_csv(csv_filename)
 
@@ -19,10 +19,10 @@ class MainMenuWindow:
 
         # Calculate the x and y coordinates for the main window to be centered
         x = (screen_width - 550) // 2  # Adjust 500 based on the width of your window
-        y = (screen_height - 550) // 2  # Adjust 300 based on the height of your window
+        y = (screen_height - 600) // 2  # Adjust 300 based on the height of your window
 
         # Set the geometry of the main window
-        master.geometry(f"500x300+{x}+{y}")
+        master.geometry(f"600x600+{x}+{y}")
 
         self.label = tk.Label(master, text="Hello and welcome to the refugee portal!")
         self.label.pack()
@@ -36,6 +36,9 @@ class MainMenuWindow:
 
         self.view_button = tk.Button(master, text="View the database", command=self.view_database)
         self.view_button.pack()
+
+        self.delete_button = tk.Button(master, text="Delete a refugee", command=self.delete_refugee)
+        self.delete_button.pack()
 
         self.show_database = True
 
@@ -427,6 +430,24 @@ class MainMenuWindow:
         # Make the Text widget read-only
         text_widget.config(state=tk.DISABLED)
 
+    def delete_refugee(self):
+        self.view_database()
+        while True:
+            refugee_id_to_delete = simpledialog.askinteger("Delete Refugee",
+                                                           "Enter the Refugee ID you want to delete (or 'cancel' to exit):")
+            if refugee_id_to_delete is None:
+                return  # User clicked Cancel
+
+            if refugee_id_to_delete not in refugee_df["Refugee_ID"].values:
+                messagebox.showerror("Delete Refugee", "Refugee does not exist")
+
+            else:
+                confirm_delete = messagebox.askokcancel("Delete Refugee", "Are you sure you want to delete this refugee?")
+                if confirm_delete:
+                    refugee_df.drop(refugee_df[refugee_df['Refugee_ID'] == refugee_id_to_delete].index, inplace=True)
+                    refugee_df.to_csv(csv_filename, index=False)
+                    messagebox.showinfo("Delete Refugee", f"Refugee ID {refugee_id_to_delete} deleted successfully.")
+                    break
 
 
 root = tk.Tk()
