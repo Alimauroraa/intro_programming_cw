@@ -67,8 +67,15 @@ import pandas as pd
 
 
 
-def login():
 
+from tkinter import *
+from tkinter import messagebox
+import pandas as pd
+
+
+
+def login():
+    global user_index
     username = enrey1.get()
     password = enrey2.get()
 
@@ -82,12 +89,12 @@ def login():
     user = user_df[(user_df['username'] == username) & (user_df['user_password'] == password)]
 
     if not user.empty:
+        user_index=user.index[0]
         # full_name = user.iloc[0]["first_name"] + " " + user.iloc[0]["last_name"]
         messagebox.showinfo("", f"Access granted, {username}!")
-        return user.index[0]
     else:
         messagebox.showinfo("", "The username or password you have entered is wrong! ")
-        return None
+        user_index=None
 
 root = Tk()
 root.title('Volunteer Login')
@@ -127,7 +134,7 @@ Button(root, text="Login", command=login, height=2, width=13, bd=6).place(x=100,
 
 root.mainloop()
 
-user_index=login()
+
 
 def add_volunteer(username, password, first_name, last_name,birthday, phone, address1, address2, city,acc_type,email,gender,active,availbility,):
     global user_df
