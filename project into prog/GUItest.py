@@ -1,69 +1,4 @@
 
-# def login():
-#     username=enrey1.get()
-#     password=enrey2.get()
-#
-#     if username=='x' and password=='y':
-#         messagebox.showinfo("",'login successful')
-
-# def login():
-#     username = enrey1.get()
-#     password = int(enrey2.get())
-#     user_df = pd.read_csv('volunteers.csv')
-#     user = user_df[(user_df['Username'] == username) & (user_df['Password'] == password)]
-#
-#     if not user.empty:
-#         full_name = user.iloc[0]["first_name"] + " " + user.iloc[0]["last_name"]
-#         messagebox.showinfo("", f"Welcome, {full_name}!")
-#         return user.index[0]
-#     else:
-#         messagebox.showinfo("", f"Invalid username or password.")
-#         return None
-#
-# root=Tk()
-# root.title('Login')
-# root.geometry("300x200")
-#
-#
-# global enrey1
-# global enrey2
-#
-# Label(root,text="Username").place(x=20,y=20)
-#
-# Label(root,text="Password").place(x=20,y=70)
-#
-# enrey1=Entry(root,bd=5)
-# enrey1.place(x=140,y=20)
-#
-# enrey2=Entry(root,bd=5)
-# enrey2.place(x=140,y=70)
-#
-# Button(root,text="Login",command=login,height=3,width=13,bd=6).place(x=100,y=120)
-# root.mainloop()
-
-
-
-
-#
-# def login(username, password):
-#
-#     user_df = pd.read_csv('volunteers.csv')
-#     user = user_df[(user_df['Username'] == username) & (user_df['Password'] == password)]
-#
-#     if not user.empty:
-#         full_name = user.iloc[0]["first_name"] + " " + user.iloc[0]["last_name"]
-#         print(f"Welcome, {full_name}!")
-#         return user.index[0]
-#     else:
-#         print("Invalid username or password.")
-#         return None
-# from tkinter import *
-# from tkinter import messagebox
-# import pandas as pd
-
-from tkinter import *
-from tkinter import messagebox
-import pandas as pd
 
 
 
@@ -226,64 +161,15 @@ while True:
             if operation == "add":
                 new_volunteer_info = input_new_volunteer_info()
                 add_volunteer(**new_volunteer_info)
-                user_df.to_csv('volunteers.csv', index=False)
+                user_df.to_csv('volunteers_file.csv', index=False)
             elif operation == "update":
                 print("Fields to update: contact_number, address1, address2, city, user_email")
                 field_to_update = input("Enter the field you want to update: ")
                 new_value = input("Enter the new value: ")
                 update_information(user_index, field_to_update, new_value, user_df)
-                user_df.to_csv('volunteers.csv', index=False)
+                user_df.to_csv('volunteers_file.csv', index=False)
             elif operation=='quit':
                 print('Thanks for your editing!')
                 break
             else:
                 print("Invalid operation.")
-#
-# username = enrey1.get()
-# password = enrey2.get()
-
-#
-# def update_information(user_index, field_to_update, new_value,user_df):
-#     valid_fields = ["contact_number", "address1", "address2", "city", "user_email"]
-#
-#     if field_to_update in valid_fields:
-#         if field_to_update == "phone":
-#             new_value = int(new_value)
-#         user_df.loc[user_index, field_to_update] = new_value
-#         print(f"{field_to_update} updated successfully.")
-#     else:
-#         print("Invalid field to update. Valid fields are:", valid_fields)
-#
-# user_df = pd.read_csv('volunteers_file.csv')
-#
-#
-# def display_user_row(user_index, user_df):
-#     user_row = user_df.loc[[user_index]]
-#     print("\nUser Information:")
-#     print(user_row.to_string(index=False))
-#
-# #
-# # username, password, user_index = login()
-# #
-#
-# user_index=login()
-# print(user_index)
-# #
-#
-# while True:
-#     if user_index is not None:
-#             print("Options: Update/Display/Quit")
-#             operation = input("Enter the operation you want to perform: ").lower()
-#             if operation == "display":
-#                 display_user_row(user_index, user_df)
-#             elif operation == "update":
-#                 print("Fields to update: contact_number, address1, address2, city, user_email")
-#                 field_to_update = input("Enter the field you want to update: ")
-#                 new_value = input("Enter the new value: ")
-#                 update_information(user_index, field_to_update, new_value, user_df)
-#                 # user_df.to_csv('volunteers.csv', index=False)
-#             elif operation=='quit':
-#                 print('Thanks for your editing!')
-#                 break
-#             else:
-#                 print("Invalid operation.")
