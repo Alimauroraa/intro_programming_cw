@@ -146,8 +146,8 @@ def main_application():
     main_window = Toplevel(root)
     main_window.title('Volunteer Management System')
 
-    main_window_width = 400
-    main_window_height = 300
+    main_window_width = 350
+    main_window_height = 200
 
 
     screen_width = main_window.winfo_screenwidth()
