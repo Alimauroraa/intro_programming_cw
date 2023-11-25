@@ -7,14 +7,13 @@ logging.basicConfig(level=logging.INFO,filename='create_plan_logging.log',
 
 #class for the plan
 class HumanitarianPlan:
-    def __init__(self, admin_id, plan_name,description, geographical_area,  start_date,
-                 closing_date,number_camps):
+    def __init__(self, admin_id, plan_name,description, geographical_area,  start_date,number_camps):
         self.admin_id=admin_id
         self.plan_name=plan_name
         self.description = description
         self.geographical_area = geographical_area
         self.start_date = start_date
-        self.closing_date = closing_date
+        #self.closing_date = closing_date
         self.number_camps=number_camps
         self.plan_df = pd.read_csv("plan.csv")                          #drop csv file to python
         self.plan_id = self.plan_df['PlanID'].iloc[-1] + 1
@@ -53,18 +52,21 @@ class HumanitarianPlan:
             logging.info(f"Associated camp no: {self.camp_id}")
 
         print(f"camp id: {self.camp_id}")
-        new_data=[[self.plan_id,self.plan_name,self.start_date,self.closing_date,self.geographical_area,
+        new_data=[[self.plan_id,self.plan_name,self.start_date,self.geographical_area,
                    self.description, self.admin_id, self.active, self.number_camps,self.camp_id]]
 
-        added_df = pd.DataFrame(new_data,columns=['planID', 'planName', 'startDate', 'closingDate',
+
+        added_df = pd.DataFrame(new_data,columns=['planID', 'planName', 'startDate',
                                                     'geographicalArea','planDesc', 'adminID',
                                                     'active', 'NumberOfCamps', 'campID'])
+        added_df['closingDate'] = ''
+        column_order=['planID', 'planName', 'startDate', 'closingDate',
+                        'geographicalArea','planDesc', 'adminID',
+                        'active', 'NumberOfCamps', 'campID']
+        added_df=added_df.reindex(columns=column_order)
         added_df.to_csv("plan.csv", mode='a',header=False, index=False)
 
-    # def close_plan(self):
-    #     now = d.now()
-    #     current_date = now.strftime("$y-%m-%d")
-    #     print(current_date)
+
 
 
 
