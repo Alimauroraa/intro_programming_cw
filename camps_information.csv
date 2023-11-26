@@ -1,3 +1,5 @@
-Camp ID,Volunteer ID,Location,Capacity,Specific Needs,Allocated Resources
-Camp Alpha,v1,Location1,500,Medical Aid,"{'ResourcesAllocated': '0', 'Medical Supplies': 4}"
-Camp Beta,v2,Location2,300,Shelter,{'ResourcesAllocated': '0'}
+camp_id,volunteer_id,location,capacity,specific_needs,allocatedresources,volunteers
+111,v1,Location1,500,Medical Aid,"{'ResourcesAllocated': '0', 'Medical Supplies': 4, 'Food Packets': 3, 'Clothing': 10}",[]
+122,v2,Location2,300,Shelter,{'ResourcesAllocated': '0'},[]
+133,v1,Location1,500,Medical Aid,"{'ResourcesAllocated': '0', 'Medical Supplies': 4, 'Food Packets': 3}",[]
+144,v2,Location2,300,Shelter,{'ResourcesAllocated': '0'},[]

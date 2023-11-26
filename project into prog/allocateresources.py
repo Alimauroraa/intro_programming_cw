@@ -140,29 +140,22 @@ class ResourceAllocationApp:
         camp_label = tk.Label(self.root, text="Select Camp:", fg=fg_color, bg=bg_color, font=font_style)
         camp_dropdown = ttk.Combobox(self.root, textvariable=self.selected_camp,
                                  values=[camp.camp_id for camp in self.camps], state="readonly")
-        camp_label.grid(row=1, column=0, padx=20, pady=20)
-        camp_dropdown.grid(row=1, column=1, padx=20, pady=20)
+        camp_label.grid(row=3, column=0, padx=20, pady=20)
+        camp_dropdown.grid(row=3, column=1, padx=20, pady=20)
 
         camp_info_label = tk.Label(self.root, text="Camp Information:", fg=fg_color, bg=bg_color, font=font_style)
-        camp_info_label.grid(row=1, column=2, columnspan=2, padx=20, pady=20)
+        camp_info_label.grid(row=3, column=2, columnspan=2, padx=20, pady=20)
 
-        camp_id_label = tk.Label(self.root, textvariable=self.camp_id_var, fg=fg_color, bg=bg_color, font=font_style)
-        camp_id_label.grid(row=2, column=2, padx=20, pady=20)
+        labels = ["Camp ID", "Specific Needs", "Volunteer ID", "Location", "Capacity", "Allocated Resources"]
+        variables = [self.camp_id_var, self.specific_needs_var, self.volunteer_id_var,
+                 self.location_var, self.capacity_var, self.allocatedresources_var]
 
-        specific_needs_label = tk.Label(self.root, textvariable=self.specific_needs_var, fg=fg_color, bg=bg_color, font=font_style)
-        specific_needs_label.grid(row=3, column=2, padx=20, pady=20)
+        for i, label_text in enumerate(labels):
+         label = tk.Label(self.root, text=label_text, fg=fg_color, bg=bg_color, font=font_style)
+         label.grid(row=i + 2, column=2, padx=20, pady=20)
 
-        volunteer_id_label = tk.Label(self.root, textvariable=self.volunteer_id_var,fg=fg_color, bg=bg_color, font=font_style)
-        volunteer_id_label.grid(row=4, column=2, padx=20, pady=20)
-
-        location_label = tk.Label(self.root, textvariable=self.location_var,fg=fg_color, bg=bg_color, font=font_style)
-        location_label.grid(row=5, column=2, padx=20, pady=20)
-
-        capacity_label = tk.Label(self.root, textvariable=self.capacity_var,fg=fg_color, bg=bg_color, font=font_style)
-        capacity_label.grid(row=6, column=2)
-
-        allocated_resources_label = tk.Label(self.root, textvariable=self.allocatedresources_var,fg=fg_color, bg=bg_color, font=font_style)
-        allocated_resources_label.grid(row=7, column=2, padx=20, pady=20)
+        variable_label = tk.Label(self.root, textvariable=variables[i], fg=fg_color, bg=bg_color, font=font_style)
+        variable_label.grid(row=i + 2, column=3, padx=20, pady=20)
 
         resource_quantity_label = tk.Label(self.root, textvariable=self.selected_resource_quantity_var)
         resource_quantity_label.grid(row=3, column=2, padx=20, pady=20)
@@ -175,7 +168,7 @@ class ResourceAllocationApp:
         resource_dropdown.grid(row=4, column=1, padx=20, pady=20)
 
         quantity_label = tk.Label(self.root, text="Quantity:", fg=fg_color, bg=bg_color, font=font_style)
-        quantity_entry = tk.Entry(self.root, textvariable=self.quantity_var,bg="white")
+        quantity_entry = tk.Entry(self.root, textvariable=self.quantity_var, bg="white")
         quantity_label.grid(row=5, column=0, padx=20, pady=20)
         quantity_entry.grid(row=5, column=1, padx=20, pady=20)
 
