@@ -80,10 +80,24 @@ def save_volunteers():
     messagebox.showinfo("Success", "Volunteer data saved successfully.")
 
 def deactivate_volunteer():
-    # Deactivate the selected volunteer
-    selected_index = volunteers_listbox.curselection()[0]
-    volunteers[selected_index].active = False
-    messagebox.showinfo("Success", "Volunteer deactivated successfully.")
+    # Get the selected volunteer
+    selected_index = volunteers_listbox.curselection()
+    if selected_index:  # Check if a volunteer is selected
+        selected_index = selected_index[0]
+        # Get the user_id of the selected volunteer
+        selected_user_id = volunteers[selected_index].user_id
+        # Deactivate the selected volunteer
+        for volunteer in volunteers:
+            if volunteer.user_id == selected_user_id:
+                volunteer.active = False
+                break
+        # Save the updated volunteers list to the CSV file
+        save_volunteers_to_csv('volunteers_file.csv', volunteers)
+        # Show a success message
+        messagebox.showinfo("Success", "Volunteer deactivated successfully.")
+    else:
+        # Show an error message if no volunteer is selected
+        messagebox.showerror("Error", "No volunteer selected.")
 
 def delete_volunteer():
     # Delete the selected volunteer

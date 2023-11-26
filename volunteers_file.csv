@@ -1,2 +1,4 @@
 user_id,username,user_password,first_name,last_name,dob,user_email,contact_number,address1,address2,city,acc_type,availability,gender,active,camp_id,emergency_profiles
-3,d123,111,diazz,james,1990/8/26,james567@outlook.com,7877569743,Camp3,rain street,ee,Toronto,male,TRUE,No,333,
+12,volunteer1,111,Mike,Ray,1998/11/9,mike1@gmail.com,3333333,wood street,dd,London,volunteer,Yes,male,True,111,[]
+2,j1,111,John,Conley,1988/9/16,jjohn890@gmail.com,7562332145,11th avenue,xx,NewYork,volunteer,No,female,False,122,[]
+3,d1,111,Diaz,James,1990/8/26,james567@outlook.com,7877569743,rain street,ee,Toronto,volunteer,No,male,True,132,[]
