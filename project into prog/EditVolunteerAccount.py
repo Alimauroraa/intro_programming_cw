@@ -113,17 +113,23 @@ def delete_volunteer():
         # Show an error message if no volunteer is selected
         messagebox.showerror("Error", "No volunteer selected.")
 
+def go_back():
+    # Code to go back to the previous screen
+    pass
+
 # Create buttons
 load_button = tk.Button(root, text="Load Volunteers", command=load_volunteers)
 save_button = tk.Button(root, text="Save Volunteers", command=save_volunteers)
 deactivate_button = tk.Button(root, text="Deactivate Volunteer", command=deactivate_volunteer)
 delete_button = tk.Button(root, text="Delete Volunteer", command=delete_volunteer)
+go_back_button = tk.Button(root, text="Go Back", command=go_back)
 
 # Arrange the buttons in a grid
 load_button.grid(row=len(fields), column=0)
 save_button.grid(row=len(fields), column=1)
 deactivate_button.grid(row=len(fields), column=2)
 delete_button.grid(row=len(fields), column=3)
+go_back_button.grid(row=len(fields), column=4)
 
 # Run the application
 root.mainloop()
