@@ -54,7 +54,7 @@ volunteers_listbox.grid(row=0, column=2, rowspan=len(fields), padx=20)
 volunteers = load_volunteers_from_csv('volunteers_file.csv')
 
 # Listbox callback function
-def update_form(event):
+def update_form(Event):
     # Update the form fields with the selected volunteer's data
     selected_index = volunteers_listbox.curselection()[0]
     for field, entry in entries.items():
@@ -76,12 +76,28 @@ def save_volunteers():
     selected_index = volunteers_listbox.curselection()[0]
     print(f"Saving volunteer at index {selected_index}")
     for field, entry in entries.items():
-        entry_value = entry.get()
-        print(f"Setting attribute {field} to {entry_value}")
-        setattr(volunteers[selected_index], field, entry_value)
+        if field != 'active':
+            entry_value = entry.get()
+            print(f"Setting attribute {field} to {entry_value}")
+            setattr(volunteers[selected_index], field, entry_value)
     # Save the volunteers to the CSV file
     save_volunteers_to_csv('volunteers_file.csv', volunteers)
     messagebox.showinfo("Success", "Volunteer data saved successfully.")
+
+def reactivate_volunteer():
+    # Get the selected volunteer
+    selected_index = volunteers_listbox.curselection()
+    if selected_index:  # Check if a volunteer is selected
+        selected_index = selected_index[0]
+        # Reactivate the selected volunteer
+        volunteers[selected_index].active = 'True'
+        # Save the updated volunteers list to the CSV file
+        save_volunteers_to_csv('volunteers_file.csv', volunteers)
+        # Show a success message
+        messagebox.showinfo("Success", "Volunteer reactivated successfully.")
+    else:
+        # Show an error message if no volunteer is selected
+        messagebox.showerror("Error", "No volunteer selected.")
 
 def deactivate_volunteer():
     # Get the selected volunteer
@@ -97,6 +113,7 @@ def deactivate_volunteer():
     else:
         # Show an error message if no volunteer is selected
         messagebox.showerror("Error", "No volunteer selected.")
+
 
 def delete_volunteer():
     # Get the selected volunteer
@@ -123,6 +140,7 @@ save_button = tk.Button(root, text="Save Volunteers", command=save_volunteers)
 deactivate_button = tk.Button(root, text="Deactivate Volunteer", command=deactivate_volunteer)
 delete_button = tk.Button(root, text="Delete Volunteer", command=delete_volunteer)
 go_back_button = tk.Button(root, text="Go Back", command=go_back)
+reactivate_button = tk.Button(root, text="Reactivate Volunteer", command=reactivate_volunteer)
 
 # Arrange the buttons in a grid
 load_button.grid(row=len(fields), column=0)
@@ -130,6 +148,7 @@ save_button.grid(row=len(fields), column=1)
 deactivate_button.grid(row=len(fields), column=2)
 delete_button.grid(row=len(fields), column=3)
 go_back_button.grid(row=len(fields), column=4)
+reactivate_button.grid(row=len(fields), column=5)
 
 # Run the application
 root.mainloop()
