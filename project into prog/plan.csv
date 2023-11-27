@@ -13,5 +13,3 @@ PlanID,planName,startDate,closingDate,geographicalArea,planDesc,adminID,active,N
 ",3,1,2,"12,13"
 9,Gaza Humanitarian Plan,2030-03-30,2030-03-31,Gaza,"A war in Gaza
 ",1,1,2,"14,15"
-10,test,2030-03-30,2040-03-30,Home,"test
-",1,1,2,"16,17"
