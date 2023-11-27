@@ -73,46 +73,32 @@ class HumanitarianPlan:
         return self.camp_id.split(',')
 
     def generate_camps_from_plan(self, camp_ids):
+        # Create a DataFrame for the new camps
+        new_camps_df = pd.DataFrame(camp_ids, columns=['CampID'])
+        new_camps_df['Location'] = ''
+        new_camps_df['Capacity'] = ''
+        new_camps_df['SpecificNeeds'] = ''
+        new_camps_df['Volunteers'] = ''
+        new_camps_df['Refugees'] = ''
+        new_camps_df['ResourcesAllocated'] = ''
+
         try:
-            # Read existing plans to get geographical areas
-            plans_df = pd.read_csv('plan.csv')
-
-            # Read existing camps
-            try:
-                existing_camps_df = pd.read_csv('camps.csv')
-            except (FileNotFoundError, pd.errors.EmptyDataError):
-                existing_camps_df = pd.DataFrame(
-                    columns=['CampID', 'Location', 'Capacity', 'SpecificNeeds', 'Volunteers', 'Refugees', 'ResourcesAllocated'])
-
-            # Create DataFrame for new camps with inherited locations
-            new_camps_data = []
-            for camp_id in camp_ids:
-                # Find the plan associated with this camp
-                plan = plans_df[plans_df['campID'].astype(str).str.contains(camp_id)]
-                geographical_area = plan['geographicalArea'].iloc[0] if not plan.empty else ''
-
-                new_camps_data.append({
-                    'CampID': camp_id,
-                    'Location': geographical_area,
-                    'Capacity': '',
-                    'SpecificNeeds': '',
-                    'Volunteers': '',
-                    'Refugees': '',
-                    'ResourcesAllocated': ''
-                })
-
-            new_camps_df = pd.DataFrame(new_camps_data)
-
-            # Append new camp data to existing data
-            combined_camps_df = pd.concat([existing_camps_df, new_camps_df], ignore_index=True)
-            combined_camps_df.to_csv('camps.csv', index=False)
-
+            # Try to read existing camps from 'camps.csv'
+            existing_camps_df = pd.read_csv('camps.csv')
+            # Check if the DataFrame is empty
+            if existing_camps_df.empty:
+                combined_camps_df = new_camps_df
+            else:
+                # Append new camp data to existing data
+                combined_camps_df = pd.concat([existing_camps_df, new_camps_df], ignore_index=True)
         except (FileNotFoundError, pd.errors.EmptyDataError):
-            # Handle the case where plan.csv is missing or empty
-            pass
+            # If the file doesn't exist or is empty, use new camps data as the entire dataset
+            combined_camps_df = new_camps_df
 
-    @staticmethod
-    def generate_missing_camps_from_plans():
+        # Write the combined DataFrame to 'camps.csv'
+        combined_camps_df.to_csv('camps.csv', index=False)
+
+    def generate_missing_camps_from_plans(self):
         try:
             plans_df = pd.read_csv('plan.csv')
             if not plans_df.empty and 'campID' in plans_df.columns:
@@ -130,28 +116,19 @@ class HumanitarianPlan:
                 # Identify missing camp IDs
                 missing_camps = [cid for cid in camp_ids if cid not in existing_camps_df['CampID'].astype(str).tolist()]
 
-                # Create DataFrame for missing camps with inherited locations
-                missing_camps_data = []
-                for camp_id in missing_camps:
-                    # Find the plan associated with this camp
-                    plan = plans_df[plans_df['campID'].astype(str).str.contains(camp_id)]
-                    geographical_area = plan['geographicalArea'].iloc[0] if not plan.empty else ''
+                # Create DataFrame for missing camps
+                if missing_camps:
+                    missing_camps_df = pd.DataFrame(missing_camps, columns=['CampID'])
+                    missing_camps_df['Location'] = ''
+                    missing_camps_df['Capacity'] = ''
+                    missing_camps_df['SpecificNeeds'] = ''
+                    missing_camps_df['Volunteers'] = ''
+                    missing_camps_df['Refugees'] = ''
+                    missing_camps_df['ResourcesAllocated'] = ''
 
-                    missing_camps_data.append({
-                        'CampID': camp_id,
-                        'Location': geographical_area,
-                        'Capacity': '',
-                        'SpecificNeeds': '',
-                        'Volunteers': '',
-                        'Refugees': '',
-                        'ResourcesAllocated': ''
-                    })
-
-                missing_camps_df = pd.DataFrame(missing_camps_data)
-
-                # Append missing camps to existing camps and save
-                combined_camps_df = pd.concat([existing_camps_df, missing_camps_df], ignore_index=True)
-                combined_camps_df.to_csv('camps.csv', index=False)
+                    # Append missing camps to existing camps and save
+                    combined_camps_df = pd.concat([existing_camps_df, missing_camps_df], ignore_index=True)
+                    combined_camps_df.to_csv('camps.csv', index=False)
 
         except (FileNotFoundError, pd.errors.EmptyDataError):
             # Handle the case where plan.csv is missing or empty
