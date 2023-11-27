@@ -1,3 +1,4 @@
+from logging import root
 import tkinter as tk
 from tkinter import messagebox, ttk
 import csv
@@ -19,8 +20,33 @@ with open('inventory.csv', newline='') as csvfile:
         inventory_data.append(Inventory(**row))
 
 # Create a tkinter window
-window = tk.Tk()
-window.title("Camp Resource Allocation")
+root = tk.Tk()
+root.title("Camp Resource Allocation")
+root.configure(bg='#021631')
+
+main_window = root
+
+# Set the window size
+main_window_width = 850
+main_window_height = 500
+
+    # Get screen width and height
+screen_width = main_window.winfo_screenwidth()
+screen_height = main_window.winfo_screenheight()
+
+screen_width = main_window.winfo_screenwidth()
+screen_height = main_window.winfo_screenheight()
+
+    # Calculate the position to center the window
+x_position = (screen_width - main_window_width) // 2
+y_position = (screen_height - main_window_height) // 2
+
+    # Set the window geometry
+main_window.geometry(f"{main_window_width}x{main_window_height}+{x_position}+{y_position}")
+
+
+frame = tk.Frame(main_window, width=850, height=500, bg='#021631')
+#frame.grid(row=0, column=0, padx=0, sticky='nsew')
 
 # Create a function to display camp information
 def display_camp_information():
@@ -95,16 +121,16 @@ def save_data():
     messagebox.showinfo("Save Success", "Data saved successfully.")
 
 # Create tkinter buttons, labels, and entry
-display_button = tk.Button(window, text="Display Information", command=display_information)
-allocate_button = tk.Button(window, text="Allocate Resources", command=allocate_resources)
-save_button = tk.Button(window, text="Save Data", command=save_data)
-clear_button = tk.Button(window, text="Go Back", command=clear_text)
+display_button = tk.Button(frame,width=16,height=0,bg="#FFFFFF",fg='black',cursor='hand2',activebackground='#B8B8B8', activeforeground='black', text="Display Camp Information", command=display_information)
+allocate_button = tk.Button(root, text="Allocate Resources", command=allocate_resources)
+save_button = tk.Button(root, text="Save Data", command=save_data)
+clear_button = tk.Button(root, text="Go Back", command=clear_text)
 
-quantity_label = tk.Label(window, text="Quantity:")
-quantity_entry = tk.Entry(window)
+quantity_label = tk.Label(root, text="Quantity:")
+quantity_entry = tk.Entry(root)
 
 # Place the buttons, labels, and entry in the tkinter window using grid layout
-display_button.grid(row=0, column=0, padx=10, pady=10)
+#display_button.place(x=236,y=300)
 allocate_button.grid(row=0, column=1, padx=10, pady=10)
 save_button.grid(row=0, column=2, padx=10, pady=10)
 clear_button.grid(row=0, column=3, padx=10, pady=10)
@@ -112,22 +138,22 @@ quantity_label.grid(row=1, column=0, padx=10, pady=10)
 quantity_entry.grid(row=1, column=1, padx=10, pady=10)
 
 # Create Text widgets to display camp information and inventory
-camp_info_text = tk.Text(window, height=15, width=40)
+camp_info_text = tk.Text(root, height=15, width=40)
 camp_info_text.grid(row=2, column=0, padx=10, pady=10)
 
-inventory_info_text = tk.Text(window, height=15, width=40)
+inventory_info_text = tk.Text(root, height=15, width=40)
 inventory_info_text.grid(row=2, column=1, padx=10, pady=10)
 
 # Create dropdown menus for camps and inventory
 camp_var = tk.StringVar(value=camps_information[0].camp_id)  # Default value
-camp_dropdown = ttk.Combobox(window, textvariable=camp_var, values=[camp.camp_id for camp in camps_information])
+camp_dropdown = ttk.Combobox(root, textvariable=camp_var, values=[camp.camp_id for camp in camps_information])
 
 inventory_var = tk.StringVar(value=inventory_data[0].inventory_name)  # Default value
-inventory_dropdown = ttk.Combobox(window, textvariable=inventory_var, values=[item.inventory_name for item in inventory_data])
+inventory_dropdown = ttk.Combobox(root, textvariable=inventory_var, values=[item.inventory_name for item in inventory_data])
 
 # Place the dropdowns in the tkinter window using grid layout
 camp_dropdown.grid(row=3, column=0, padx=10, pady=10)
 inventory_dropdown.grid(row=3, column=1, padx=10, pady=10)
 
 # Start the tkinter event loop
-window.mainloop()
+root.mainloop()

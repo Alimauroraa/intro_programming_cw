@@ -186,19 +186,19 @@ def go_back():
 
 # Create buttons
 load_button = tk.Button(root, text="Load Volunteers", command=load_volunteers)
-save_button = tk.Button(root, text="Save Volunteers", command=save_volunteers)
+save_button = tk.Button(root, text="Save Volunteer Data", command=save_volunteers)
 deactivate_button = tk.Button(root, text="Deactivate Volunteer", command=deactivate_volunteer)
 delete_button = tk.Button(root, text="Delete Volunteer", command=delete_volunteer)
 go_back_button = tk.Button(root, text="Go Back", command=go_back)
 reactivate_button = tk.Button(root, text="Reactivate Volunteer", command=reactivate_volunteer)
 
 # Arrange the buttons in a grid
-load_button.grid(row=len(field), column=0)
-save_button.grid(row=len(field), column=1)
-deactivate_button.grid(row=len(field), column=2)
-delete_button.grid(row=len(field), column=3)
-go_back_button.grid(row=len(field), column=4)
-reactivate_button.grid(row=len(field), column=5)
+load_button.grid(row=5, column=2)
+save_button.grid(row=12, column=2)
+deactivate_button.grid(row=13, column=2)
+delete_button.grid(row=15, column=2)
+go_back_button.grid(row=16, column=2)
+reactivate_button.grid(row=14, column=2)
 
 # Run the application
 root.mainloop()
