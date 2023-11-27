@@ -22,6 +22,11 @@ class HumanitarianPlan:
         self.camp_id=''                                                 #empty string for camp_id at first
 
     def create_plan(self):
+        # Check if plan.csv is not empty and set plan_id accordingly
+        if not self.plan_df.empty:
+            self.plan_id = self.plan_df['PlanID'].max() + 1
+        else:
+            self.plan_id = 1  # Start from 1 if the file is empty
         self.active = 1
         self.camp_id=''
         print(self.plan_df['campID'].iloc[-1])
@@ -60,6 +65,38 @@ class HumanitarianPlan:
                                                     'geographicalArea','planDesc', 'adminID',
                                                     'active', 'NumberOfCamps', 'campID'])
         added_df.to_csv("plan.csv", mode='a',header=False, index=False)
+
+        # Log the creation
+        logging.info(f"Plan created with ID: {self.plan_id} and Camp IDs: {self.camp_id}")
+
+        # Return the camp_ids for further processing
+        return self.camp_id.split(',')
+
+    def generate_camps_from_plan(self, camp_ids):
+        # Create a DataFrame for the new camps
+        new_camps_df = pd.DataFrame(camp_ids, columns=['CampID'])
+        new_camps_df['Location'] = ''
+        new_camps_df['Capacity'] = ''
+        new_camps_df['SpecificNeeds'] = ''
+        new_camps_df['Volunteers'] = ''
+        new_camps_df['Refugees'] = ''
+        new_camps_df['ResourcesAllocated'] = ''
+
+        try:
+            # Try to read existing camps from 'camps.csv'
+            existing_camps_df = pd.read_csv('camps.csv')
+            # Check if the DataFrame is empty
+            if existing_camps_df.empty:
+                combined_camps_df = new_camps_df
+            else:
+                # Append new camp data to existing data
+                combined_camps_df = pd.concat([existing_camps_df, new_camps_df], ignore_index=True)
+        except (FileNotFoundError, pd.errors.EmptyDataError):
+            # If the file doesn't exist or is empty, use new camps data as the entire dataset
+            combined_camps_df = new_camps_df
+
+        # Write the combined DataFrame to 'camps.csv'
+        combined_camps_df.to_csv('camps.csv', index=False)
 
     # def close_plan(self):
     #     now = d.now()

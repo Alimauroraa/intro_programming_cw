@@ -98,7 +98,7 @@ def validate_input(admin_id, plan_name, description,geographical_area, start_dat
     return True                                 #if all checks are ok, it'll return True
 
 def submit_plan():
-    #retrieve the entry
+    # Retrieve the entry
     admin_id = admin_entry.get()
     plan_name = name_entry.get()
     description = desc_entry.get(1.0, tk.END)
@@ -107,9 +107,16 @@ def submit_plan():
     closing_date = end_entry.get()
     number_camps = camps_entry.get()
 
-    if validate_input(admin_id, plan_name, description,geographical_area, start_date,closing_date,number_camps):    #if this is true we will add it to csv, if not, we won't add it
-        add_plan = HumanitarianPlan(admin_id, plan_name, description, geographical_area, start_date,closing_date,number_camps)
-        add_plan.create_plan()          #create an instance
+    if validate_input(admin_id, plan_name, description, geographical_area, start_date, closing_date, number_camps):
+        # Create the plan
+        new_plan = HumanitarianPlan(admin_id, plan_name, description, geographical_area, start_date, closing_date, number_camps)
+        camp_ids = new_plan.create_plan()  # Assume this method now returns the camp_ids
+
+        # Generate camps based on the created plan
+        new_plan.generate_camps_from_plan(camp_ids)
+
+        # Inform the user that the plan and camps have been created
+        messagebox.showinfo("Success", "Plan and associated camps created successfully.")
 
 def plan_creator_frame(parent):
     # initializing

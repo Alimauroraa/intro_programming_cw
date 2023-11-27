@@ -113,3 +113,105 @@
 19-Nov-23 12:42:06 - INFO - Plan name: Response to earthquake in Turkey
 19-Nov-23 12:42:13 - INFO - New plan is created. Plan id: 9
 19-Nov-23 12:42:13 - INFO - Associated camp no: 14,15,16
+23-Nov-23 03:53:24 - INFO - Plan name: Hao
+23-Nov-23 03:53:44 - INFO - Plan name: Hao
+23-Nov-23 03:54:03 - INFO - Plan name: Hao
+23-Nov-23 03:54:04 - INFO - New plan is created. Plan id: 10
+23-Nov-23 03:54:04 - INFO - Associated camp no: 17,18,19,20
+23-Nov-23 03:54:04 - INFO - Plan created with ID: 10 and Camp IDs: 17,18,19,20
+23-Nov-23 03:54:05 - INFO - Camps generated successfully.
+23-Nov-23 04:07:20 - INFO - Plan name: HaoTest
+23-Nov-23 04:07:25 - INFO - Plan name: HaoTest
+23-Nov-23 04:07:26 - INFO - New plan is created. Plan id: 11
+23-Nov-23 04:07:26 - INFO - Associated camp no: 21,22
+23-Nov-23 04:07:26 - INFO - Plan created with ID: 11 and Camp IDs: 21,22
+23-Nov-23 04:07:26 - INFO - Camps generated successfully.
+23-Nov-23 05:17:35 - INFO - Plan name: yesyesyes
+23-Nov-23 05:17:36 - INFO - New plan is created. Plan id: 12
+23-Nov-23 05:17:36 - INFO - Associated camp no: 23
+23-Nov-23 05:17:36 - INFO - Plan created with ID: 12 and Camp IDs: 23
+23-Nov-23 05:17:36 - INFO - Camps generated successfully.
+23-Nov-23 07:24:31 - INFO - Plan name: HTest
+23-Nov-23 07:24:32 - INFO - New plan is created. Plan id: 13
+23-Nov-23 07:24:32 - INFO - Associated camp no: 24,25
+23-Nov-23 07:24:32 - INFO - Plan created with ID: 13 and Camp IDs: 24,25
+23-Nov-23 07:24:32 - INFO - Camps generated successfully.
+23-Nov-23 07:26:32 - INFO - Plan name: g
+23-Nov-23 07:26:33 - INFO - New plan is created. Plan id: 14
+23-Nov-23 07:26:33 - INFO - Associated camp no: 26,27,28,29,30
+23-Nov-23 07:26:33 - INFO - Plan created with ID: 14 and Camp IDs: 26,27,28,29,30
+23-Nov-23 07:26:33 - INFO - Camps generated successfully.
+23-Nov-23 07:28:24 - INFO - Plan name: planet
+23-Nov-23 07:28:25 - INFO - New plan is created. Plan id: 15
+23-Nov-23 07:28:25 - INFO - Associated camp no: 31,32,33,34,35
+23-Nov-23 07:28:25 - INFO - Plan created with ID: 15 and Camp IDs: 31,32,33,34,35
+23-Nov-23 07:28:25 - INFO - Camps generated successfully.
+23-Nov-23 08:18:22 - INFO - Plan name: dsa
+23-Nov-23 08:18:23 - INFO - New plan is created. Plan id: 16
+23-Nov-23 08:18:23 - INFO - Associated camp no: 36,37
+23-Nov-23 08:18:23 - INFO - Plan created with ID: 16 and Camp IDs: 36,37
+23-Nov-23 08:18:23 - INFO - Camps generated successfully.
+26-Nov-23 15:39:25 - INFO - Plan name: Hao
+26-Nov-23 15:39:26 - INFO - New plan is created. Plan id: 17
+26-Nov-23 15:39:26 - INFO - Associated camp no: 38,39,40
+26-Nov-23 15:39:26 - INFO - Plan created with ID: 17 and Camp IDs: 38,39,40
+26-Nov-23 15:39:26 - INFO - Camps generated successfully.
+26-Nov-23 15:52:18 - INFO - Plan name: Tiff
+26-Nov-23 15:52:19 - INFO - New plan is created. Plan id: 18
+26-Nov-23 15:52:19 - INFO - Associated camp no: 41,42,43,44,45
+26-Nov-23 15:52:19 - INFO - Plan created with ID: 18 and Camp IDs: 41,42,43,44,45
+26-Nov-23 15:52:19 - INFO - Camps generated successfully.
+26-Nov-23 15:55:55 - INFO - Plan name: gggd
+26-Nov-23 15:55:56 - INFO - New plan is created. Plan id: 19
+26-Nov-23 15:55:56 - INFO - Associated camp no: 46,47,48,49,50
+26-Nov-23 15:55:56 - INFO - Plan created with ID: 19 and Camp IDs: 46,47,48,49,50
+26-Nov-23 15:55:56 - INFO - Camps generated successfully.
+26-Nov-23 16:05:01 - INFO - Plan name: yoxi
+26-Nov-23 16:05:07 - INFO - Plan name: yoxi
+26-Nov-23 16:05:08 - INFO - New plan is created. Plan id: 20
+26-Nov-23 16:05:08 - INFO - Associated camp no: 51,52,53
+26-Nov-23 16:05:08 - INFO - Plan created with ID: 20 and Camp IDs: 51,52,53
+26-Nov-23 16:05:08 - INFO - Camps generated successfully.
+26-Nov-23 16:17:23 - INFO - Plan name: joke
+26-Nov-23 16:17:24 - INFO - New plan is created. Plan id: 21
+26-Nov-23 16:17:24 - INFO - Associated camp no: 54,55,56
+26-Nov-23 16:17:24 - INFO - Plan created with ID: 21 and Camp IDs: 54,55,56
+26-Nov-23 16:17:24 - INFO - Camps generated successfully.
+26-Nov-23 16:41:00 - INFO - Plan name: hu
+26-Nov-23 16:41:01 - INFO - New plan is created. Plan id: 22
+26-Nov-23 16:41:01 - INFO - Associated camp no: 57,58,59,60,61,62
+26-Nov-23 16:41:01 - INFO - Plan created with ID: 22 and Camp IDs: 57,58,59,60,61,62
+26-Nov-23 16:41:01 - INFO - Camps generated successfully.
+26-Nov-23 17:12:27 - INFO - Plan name: sdf
+26-Nov-23 17:12:28 - INFO - New plan is created. Plan id: 23
+26-Nov-23 17:12:28 - INFO - Associated camp no: 63,64,65
+26-Nov-23 17:12:28 - INFO - Plan created with ID: 23 and Camp IDs: 63,64,65
+26-Nov-23 17:12:28 - INFO - Camps generated successfully.
+26-Nov-23 17:39:43 - INFO - Plan name: sdaufih
+26-Nov-23 17:39:44 - INFO - New plan is created. Plan id: 24
+26-Nov-23 17:39:44 - INFO - Associated camp no: 66,67,68
+26-Nov-23 17:39:44 - INFO - Plan created with ID: 24 and Camp IDs: 66,67,68
+26-Nov-23 17:39:44 - INFO - Camps generated and updated successfully.
+26-Nov-23 17:44:45 - INFO - Plan name: Response Plan for Flooding in United Kingdom
+26-Nov-23 17:45:08 - INFO - Plan name: Response Plan for Flooding in United Kingdom
+26-Nov-23 17:45:15 - INFO - Plan name: Response Plan for Flooding in United Kingdom
+26-Nov-23 17:46:15 - INFO - Plan name: fg
+26-Nov-23 17:51:43 - INFO - Plan name: new
+26-Nov-23 17:51:45 - INFO - New plan is created. Plan id: 10
+26-Nov-23 17:51:45 - INFO - Associated camp no: 17,18,19,20,21
+26-Nov-23 17:51:45 - INFO - Plan created with ID: 10 and Camp IDs: 17,18,19,20,21
+26-Nov-23 17:54:37 - INFO - Plan name: ffsd
+26-Nov-23 17:55:55 - INFO - Plan name: fa
+27-Nov-23 04:53:23 - INFO - Plan name: test
+27-Nov-23 04:58:32 - INFO - Plan name: Hao
+27-Nov-23 04:58:34 - INFO - New plan is created. Plan id: 9
+27-Nov-23 04:58:34 - INFO - Associated camp no: 14,15
+27-Nov-23 04:58:34 - INFO - Plan created with ID: 9 and Camp IDs: 14,15
+27-Nov-23 05:01:10 - INFO - Plan name: Lol
+27-Nov-23 05:01:11 - INFO - New plan is created. Plan id: 10
+27-Nov-23 05:01:11 - INFO - Associated camp no: 16,17
+27-Nov-23 05:01:11 - INFO - Plan created with ID: 10 and Camp IDs: 16,17
+27-Nov-23 05:03:31 - INFO - Plan name: Haha
+27-Nov-23 05:03:32 - INFO - New plan is created. Plan id: 11
+27-Nov-23 05:03:32 - INFO - Associated camp no: 18,19
+27-Nov-23 05:03:32 - INFO - Plan created with ID: 11 and Camp IDs: 18,19
