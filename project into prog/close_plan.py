@@ -26,14 +26,11 @@ class ClosePlan:
 
     def close_plan(self):
         for i in self.plan_df['closingDate']:
-            if i<self.now:
-
+            if i=='':
+                pass
+            elif (i<self.now):
                 #updating the values in active column, set it to 0 if closingDate has passed
                 self.plan_df.loc[self.plan_df['closingDate'] < self.now, 'active'] = 0
-            else:
-
-                #updating the value in column
-                self.plan_df.loc[self.plan_df['closingDate'] >= self.now, 'active'] = 1
 
         inactive_plan = self.plan_df[self.plan_df['active'] == 0]['PlanID']  # find associated planID with active=0
         inactive_plan_id = inactive_plan.unique()
@@ -45,3 +42,5 @@ class ClosePlan:
 #calling class and method
 plan=ClosePlan(plan_df)
 plan.close_plan()
+
+

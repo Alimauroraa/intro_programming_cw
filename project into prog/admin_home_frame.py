@@ -2,7 +2,11 @@ import tkinter as tk
 from tkinter import ttk
 import create_plan_frame
 import display_plan_gui
+
+import close_plan_frame
+
 from manage_camps_frame import ManageCampsFrame
+
 
 bg_color = '#021631'
 
@@ -25,6 +29,9 @@ def plan_creator_frame(root):
 
 def plan_summary_frame(root):
     display_plan_gui.display_plan_frame(root).grid(row=0, column=0)
+
+def terminate_plan(root):
+    close_plan_frame.close_plan_frame(root).grid(row=0, column=0)
 
 def edit_volunteer_frame():
     pass
@@ -52,7 +59,12 @@ def admin_home(root):
         widget.destroy()
     root.title("Admin home page")
     root.eval("tk::PlaceWindow . center")  # --Placing the window on the centre of the screen
-    root.geometry("600x600")
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    x = (screen_width - 550) // 2
+    y = (screen_height - 600) // 2
+    # root.geometry("600x600")
+    root.geometry(f"600x600+{x}+{y}")
     root['bg'] = '#021631'
 
     # frames
@@ -82,6 +94,19 @@ def admin_home(root):
 
     tk.Button(
         home_frame,
+        text="Terminate plan",
+        font=("Calibri", 12),
+        width=16,
+        height=0,
+        bg="#FFFFFF",
+        fg="black",
+        cursor="hand2",
+        activebackground="#B8B8B8",
+        activeforeground="black",
+        command=lambda:terminate_plan(root)).place(x=236, y=300)  # this will open admin login page when clicked
+
+    tk.Button(
+        home_frame,
         text="View plan summary",
         font=("Calibri", 12),
         width=16,
@@ -91,7 +116,7 @@ def admin_home(root):
         cursor="hand2",
         activebackground="#B8B8B8",
         activeforeground="black",
-        command=lambda:plan_summary_frame(root)).place(x=236,y=300)  # this will open admin login page when clicked
+        command=lambda:plan_summary_frame(root)).place(x=236,y=350)  # this will open admin login page when clicked
 
     tk.Button(
         home_frame,
@@ -104,7 +129,7 @@ def admin_home(root):
         cursor="hand2",
         activebackground="#B8B8B8",
         activeforeground="black",
-        command=edit_volunteer_frame).place(x=236,y=350)  # this will open admin login page when clicked
+        command=edit_volunteer_frame).place(x=236,y=450)  # this will open admin login page when clicked
 
     tk.Button(
         home_frame,
