@@ -33,8 +33,28 @@ def save_volunteers_to_csv(volunteers_file, volunteers):
 # Create the main window
 root = tk.Tk()
 root.title("Edit Volunteer")
-root.geometry("700x800")
+#root.geometry("700x800")
 root['bg'] = '#021631'
+
+main_window = root
+main_window.title('Volunteer Management System')
+# Set the window size
+main_window_width = 700
+main_window_height = 800
+
+    # Get screen width and height
+screen_width = main_window.winfo_screenwidth()
+screen_height = main_window.winfo_screenheight()
+
+screen_width = main_window.winfo_screenwidth()
+screen_height = main_window.winfo_screenheight()
+
+    # Calculate the position to center the window
+x_position = (screen_width - main_window_width) // 2
+y_position = (screen_height - main_window_height) // 2
+
+    # Set the window geometry
+main_window.geometry(f"{main_window_width}x{main_window_height}+{x_position}+{y_position}")
 
 # Create a mapping from field names to labels
 field_labels = {
