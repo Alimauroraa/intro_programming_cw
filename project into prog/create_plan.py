@@ -22,6 +22,11 @@ class HumanitarianPlan:
         self.camp_id=''                                                 #empty string for camp_id at first
 
     def create_plan(self):
+        # Check if plan.csv is not empty and set plan_id accordingly
+        if not self.plan_df.empty:
+            self.plan_id = self.plan_df['PlanID'].max() + 1
+        else:
+            self.plan_id = 1  # Start from 1 if the file is empty
         self.active = 1
         self.camp_id=''
         print(self.plan_df['campID'].iloc[-1])
@@ -60,6 +65,74 @@ class HumanitarianPlan:
                                                     'geographicalArea','planDesc', 'adminID',
                                                     'active', 'NumberOfCamps', 'campID'])
         added_df.to_csv("plan.csv", mode='a',header=False, index=False)
+
+        # Log the creation
+        logging.info(f"Plan created with ID: {self.plan_id} and Camp IDs: {self.camp_id}")
+
+        # Return the camp_ids for further processing
+        return self.camp_id.split(',')
+
+    def generate_camps_from_plan(self, camp_ids):
+        # Create a DataFrame for the new camps
+        new_camps_df = pd.DataFrame(camp_ids, columns=['CampID'])
+        new_camps_df['Location'] = ''
+        new_camps_df['Capacity'] = ''
+        new_camps_df['SpecificNeeds'] = ''
+        new_camps_df['Volunteers'] = ''
+        new_camps_df['Refugees'] = ''
+        new_camps_df['ResourcesAllocated'] = ''
+
+        try:
+            # Try to read existing camps from 'camps.csv'
+            existing_camps_df = pd.read_csv('camps.csv')
+            # Check if the DataFrame is empty
+            if existing_camps_df.empty:
+                combined_camps_df = new_camps_df
+            else:
+                # Append new camp data to existing data
+                combined_camps_df = pd.concat([existing_camps_df, new_camps_df], ignore_index=True)
+        except (FileNotFoundError, pd.errors.EmptyDataError):
+            # If the file doesn't exist or is empty, use new camps data as the entire dataset
+            combined_camps_df = new_camps_df
+
+        # Write the combined DataFrame to 'camps.csv'
+        combined_camps_df.to_csv('camps.csv', index=False)
+
+    def generate_missing_camps_from_plans(self):
+        try:
+            plans_df = pd.read_csv('plan.csv')
+            if not plans_df.empty and 'campID' in plans_df.columns:
+                camp_ids = set()  # A set to store unique camp IDs
+                for ids in plans_df['campID']:
+                    camp_ids.update(str(ids).split(','))
+
+                try:
+                    existing_camps_df = pd.read_csv('camps.csv')
+                except (FileNotFoundError, pd.errors.EmptyDataError):
+                    existing_camps_df = pd.DataFrame(
+                        columns=['CampID', 'Location', 'Capacity', 'SpecificNeeds', 'Volunteers', 'Refugees',
+                                 'ResourcesAllocated'])
+
+                # Identify missing camp IDs
+                missing_camps = [cid for cid in camp_ids if cid not in existing_camps_df['CampID'].astype(str).tolist()]
+
+                # Create DataFrame for missing camps
+                if missing_camps:
+                    missing_camps_df = pd.DataFrame(missing_camps, columns=['CampID'])
+                    missing_camps_df['Location'] = ''
+                    missing_camps_df['Capacity'] = ''
+                    missing_camps_df['SpecificNeeds'] = ''
+                    missing_camps_df['Volunteers'] = ''
+                    missing_camps_df['Refugees'] = ''
+                    missing_camps_df['ResourcesAllocated'] = ''
+
+                    # Append missing camps to existing camps and save
+                    combined_camps_df = pd.concat([existing_camps_df, missing_camps_df], ignore_index=True)
+                    combined_camps_df.to_csv('camps.csv', index=False)
+
+        except (FileNotFoundError, pd.errors.EmptyDataError):
+            # Handle the case where plan.csv is missing or empty
+            pass
 
     # def close_plan(self):
     #     now = d.now()

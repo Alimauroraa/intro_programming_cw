@@ -1,6 +1,7 @@
 import tkinter as tk
 #import the login page for volunteer and admin
 from admin_login_gui import Admin
+from create_plan import HumanitarianPlan
 
 def admin_login_page():
     admin_login_frame=Admin("","","")
@@ -77,3 +78,6 @@ def home_page():
 
 if __name__=='__main__':
     home_page()
+    # Create an instance of HumanitarianPlan and call the method
+    humanitarian_plan_instance = HumanitarianPlan(None, None, None, None, None, None, None)
+    humanitarian_plan_instance.generate_missing_camps_from_plans()
