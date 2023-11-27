@@ -1,3 +1,2 @@
 PlanID planName	startDate closingDate geographicalArea planDesc adminID active
 1      Response Plan for Flooding in United Kingdom	23-Oct-23	23-Nov-23	UK	Distribute foods to 100 people affected, establish community kitchen, distribute emergency shelter to 50 households, set up temporary clinic and emergency sanitation facility	1	1
-

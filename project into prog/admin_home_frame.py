@@ -2,7 +2,11 @@ import tkinter as tk
 from tkinter import ttk
 import create_plan_frame
 import display_plan_gui
+
 import close_plan_frame
+
+from manage_camps_frame import ManageCampsFrame
+
 
 bg_color = '#021631'
 
@@ -32,12 +36,27 @@ def terminate_plan(root):
 def edit_volunteer_frame():
     pass
 
+
+def open_manage_camps(root):
+    # Clear existing widgets in root
+    for widget in root.winfo_children():
+        widget.destroy()
+
+    # Create an instance of ManageCampsFrame
+    manage_camps_frame = ManageCampsFrame(root)
+    manage_camps_frame.setup_ui()
+
+    # Add a 'Go Back' button
+    go_back_button = tk.Button(root, text="Go Back", command=lambda: admin_home(root))
+    go_back_button.grid(row=1, column=0, pady=20, sticky='ew')
+
 def allocate_resources_frame():
     pass
 
 def admin_home(root):
     # initializing
-    root = tk.Tk()
+    for widget in root.winfo_children():
+        widget.destroy()
     root.title("Admin home page")
     root.eval("tk::PlaceWindow . center")  # --Placing the window on the centre of the screen
     screen_width = root.winfo_screenwidth()
@@ -125,7 +144,22 @@ def admin_home(root):
         activeforeground="black",
         command=allocate_resources_frame).pack(pady=70) # this will open admin login page when clicked
 
-    root.mainloop()
+    manage_camps_button = tk.Button(
+        home_frame,
+        text="Manage Camps",
+        font=("Calibri", 12),
+        width=16,
+        height=2,
+        bg="#FFFFFF",
+        fg="black",
+        cursor="hand2",
+        activebackground="#B8B8B8",
+        activeforeground="black",
+        command=lambda: open_manage_camps(root)  # This button will call the open_manage_camps function
+    )
+    manage_camps_button.place(x=236, y=400)  # Adjust the position as needed
+
+    root.deiconify()
 
 if __name__=='__main__':
     # initializing
