@@ -219,3 +219,26 @@
 27-Nov-23 05:05:52 - INFO - New plan is created. Plan id: 12
 27-Nov-23 05:05:52 - INFO - Associated camp no: 20,21
 27-Nov-23 05:05:52 - INFO - Plan created with ID: 12 and Camp IDs: 20,21
+27-Nov-23 07:11:55 - INFO - New plan is created. Plan id: 13
+27-Nov-23 07:12:55 - INFO - New plan is created. Plan id: 9
+27-Nov-23 07:15:11 - INFO - Plan name: Gaza Humanitarian Plan
+27-Nov-23 07:15:13 - INFO - Plan name: Gaza Humanitarian Plan
+27-Nov-23 07:15:21 - INFO - Plan name: Gaza Humanitarian Plan
+27-Nov-23 07:15:22 - INFO - New plan is created. Plan id: 9
+27-Nov-23 07:15:22 - INFO - Associated camp no: 14,15
+27-Nov-23 07:15:22 - INFO - Plan created with ID: 9 and Camp IDs: 14,15
+27-Nov-23 07:16:11 - INFO - New plan is created. Plan id: 10
+27-Nov-23 07:16:51 - INFO - New plan is created. Plan id: 10
+27-Nov-23 07:19:13 - INFO - New plan is created. Plan id: 10
+27-Nov-23 07:20:27 - INFO - New plan is created. Plan id: 10
+27-Nov-23 07:27:30 - INFO - Plan name: test
+27-Nov-23 07:27:31 - INFO - New plan is created. Plan id: 10
+27-Nov-23 07:27:31 - INFO - Associated camp no: 16,17
+27-Nov-23 07:27:31 - INFO - Plan created with ID: 10 and Camp IDs: 16,17
+27-Nov-23 07:28:00 - INFO - New plan is created. Plan id: 11
+27-Nov-23 07:29:34 - INFO - New plan is created. Plan id: 11
+27-Nov-23 07:38:37 - INFO - Plan name: fda
+27-Nov-23 07:38:38 - INFO - New plan is created. Plan id: 11
+27-Nov-23 07:38:38 - INFO - Associated camp no: 18,19
+27-Nov-23 07:38:38 - INFO - Plan created with ID: 11 and Camp IDs: 18,19
+27-Nov-23 07:53:24 - INFO - New plan is created. Plan id: 10
