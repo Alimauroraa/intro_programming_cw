@@ -242,3 +242,16 @@
 27-Nov-23 07:38:38 - INFO - Associated camp no: 18,19
 27-Nov-23 07:38:38 - INFO - Plan created with ID: 11 and Camp IDs: 18,19
 27-Nov-23 07:53:24 - INFO - New plan is created. Plan id: 10
+27-Nov-23 07:57:05 - INFO - Plan name: hello
+27-Nov-23 07:57:09 - INFO - Plan name: hello
+27-Nov-23 07:57:16 - INFO - Plan name: hello
+27-Nov-23 07:57:17 - INFO - New plan is created. Plan id: 10
+27-Nov-23 07:57:17 - INFO - Associated camp no: 16,17
+27-Nov-23 07:57:17 - INFO - Plan created with ID: 10 and Camp IDs: 16,17
+27-Nov-23 07:58:00 - INFO - Plan name: hi
+27-Nov-23 08:01:52 - INFO - Plan name: Final
+27-Nov-23 08:01:53 - INFO - New plan is created. Plan id: 9
+27-Nov-23 08:01:53 - INFO - Associated camp no: 14,15
+27-Nov-23 08:01:53 - INFO - Plan created with ID: 9 and Camp IDs: 14,15
+27-Nov-23 08:02:09 - INFO - New plan is created. Plan id: 10
+27-Nov-23 08:02:48 - INFO - New plan is created. Plan id: 10
