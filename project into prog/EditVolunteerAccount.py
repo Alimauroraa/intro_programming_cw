@@ -14,6 +14,7 @@ def load_volunteers_from_csv(volunteers_file):
             volunteers.append(volunteer)
     return volunteers
 
+
 # Function to save updated volunteer data to the CSV file
 def save_volunteers_to_csv(volunteers_file, volunteers):
     with open(volunteers_file, mode='w', newline='') as csvfile:
@@ -35,20 +36,49 @@ root.title("Edit Volunteer")
 root.geometry("700x800")
 root['bg'] = '#021631'
 
+# Create a mapping from field names to labels
+field_labels = {
+    'user_id': 'User ID',
+    'username': 'Username',
+    'user_password': 'User Password',
+    'first_name': 'First Name',
+    'last_name': 'Last Name',
+    'dob': 'Date of Birth',
+    'user_email': 'User Email',
+    'contact_number': 'Contact Number',
+    'address1': 'Address 1',
+    'address2': 'Address 2',
+    'city': 'City',
+    'acc_type': 'Account Type',
+    'availability': 'Availability',
+    'gender': 'Gender',
+    'active': 'Active',
+    'camp_id': 'Camp ID',
+    'emergency_profiles': 'Emergency Profiles'
+}
+
 # Create form fields
-fields = ['user_id', 'username', 'user_password', 'first_name', 'last_name', 'dob', 'user_email',
-              'contact_number', 'address1', 'address2', 'city', 'acc_type', 'availability', 'gender', 'active',
-              'camp_id', 'emergency_profiles']
-entries = {field: tk.Entry(root, bd=2, font="calibri 10") for field in fields}
+entries = {field: tk.Entry(root, bd=2, font="calibri 10") for field in field_labels.keys()}
 
 # Arrange the form fields in a grid
-for i, field in enumerate(fields):
-    tk.Label(root, text=field, font="calibri 16", bg="#021631", fg="#fff").grid(row=i, pady=10)  # Add vertical padding
+for i, field in enumerate(field_labels.keys()):
+    tk.Label(root, text=field_labels[field], font="calibri 16", bg="#021631", fg="#fff").grid(row=i, pady=10)  # Add vertical padding
     entries[field].grid(row=i, column=1, pady=10)  # Add vertical padding
+
+# # Create form fields
+# fields = ['user_id', 'username', 'user_password', 'first_name', 'last_name', 'dob', 'user_email',
+#               'contact_number', 'address1', 'address2', 'city', 'acc_type', 'availability', 'gender', 'active',
+#               'camp_id', 'emergency_profiles']
+# entries = {field: tk.Entry(root, bd=2, font="calibri 10") for field in fields}
+
+# # Arrange the form fields in a grid
+# for i, field in enumerate(fields):
+#     tk.Label(root, text=field, font="calibri 16", bg="#021631", fg="#fff").grid(row=i, pady=10)  # Add vertical padding
+#     entries[field].grid(row=i, column=1, pady=10)  # Add vertical padding
 
 # Create a listbox for displaying volunteers
 volunteers_listbox = tk.Listbox(root)
-volunteers_listbox.grid(row=0, column=2, rowspan=len(fields), padx=20)
+volunteers_listbox.grid(row=0, column=2, rowspan=len(field), padx=20)
 
 # Load volunteers from the CSV file
 volunteers = load_volunteers_from_csv('volunteers_file.csv')
@@ -143,12 +173,12 @@ go_back_button = tk.Button(root, text="Go Back", command=go_back)
 reactivate_button = tk.Button(root, text="Reactivate Volunteer", command=reactivate_volunteer)
 
 # Arrange the buttons in a grid
-load_button.grid(row=len(fields), column=0)
-save_button.grid(row=len(fields), column=1)
-deactivate_button.grid(row=len(fields), column=2)
-delete_button.grid(row=len(fields), column=3)
-go_back_button.grid(row=len(fields), column=4)
-reactivate_button.grid(row=len(fields), column=5)
+load_button.grid(row=len(field), column=0)
+save_button.grid(row=len(field), column=1)
+deactivate_button.grid(row=len(field), column=2)
+delete_button.grid(row=len(field), column=3)
+go_back_button.grid(row=len(field), column=4)
+reactivate_button.grid(row=len(field), column=5)
 
 # Run the application
 root.mainloop()

@@ -1,6 +1,6 @@
 inventory_id,admin_id,inventory_name,quantity
 1,1,Food Packets,2497
-2,1,Medical Supplies,2000
+2,1,Medical Supplies,1998
 3,2,Water Bottles,10000
 4,2,Blankets,900
 5,3,Clothing,490
