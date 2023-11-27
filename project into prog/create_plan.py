@@ -98,6 +98,42 @@ class HumanitarianPlan:
         # Write the combined DataFrame to 'camps.csv'
         combined_camps_df.to_csv('camps.csv', index=False)
 
+    def generate_missing_camps_from_plans(self):
+        try:
+            plans_df = pd.read_csv('plan.csv')
+            if not plans_df.empty and 'campID' in plans_df.columns:
+                camp_ids = set()  # A set to store unique camp IDs
+                for ids in plans_df['campID']:
+                    camp_ids.update(str(ids).split(','))
+
+                try:
+                    existing_camps_df = pd.read_csv('camps.csv')
+                except (FileNotFoundError, pd.errors.EmptyDataError):
+                    existing_camps_df = pd.DataFrame(
+                        columns=['CampID', 'Location', 'Capacity', 'SpecificNeeds', 'Volunteers', 'Refugees',
+                                 'ResourcesAllocated'])
+
+                # Identify missing camp IDs
+                missing_camps = [cid for cid in camp_ids if cid not in existing_camps_df['CampID'].astype(str).tolist()]
+
+                # Create DataFrame for missing camps
+                if missing_camps:
+                    missing_camps_df = pd.DataFrame(missing_camps, columns=['CampID'])
+                    missing_camps_df['Location'] = ''
+                    missing_camps_df['Capacity'] = ''
+                    missing_camps_df['SpecificNeeds'] = ''
+                    missing_camps_df['Volunteers'] = ''
+                    missing_camps_df['Refugees'] = ''
+                    missing_camps_df['ResourcesAllocated'] = ''
+
+                    # Append missing camps to existing camps and save
+                    combined_camps_df = pd.concat([existing_camps_df, missing_camps_df], ignore_index=True)
+                    combined_camps_df.to_csv('camps.csv', index=False)
+
+        except (FileNotFoundError, pd.errors.EmptyDataError):
+            # Handle the case where plan.csv is missing or empty
+            pass
+
     # def close_plan(self):
     #     now = d.now()
     #     current_date = now.strftime("$y-%m-%d")
