@@ -39,7 +39,7 @@ root['bg'] = '#021631'
 main_window = root
 main_window.title('Volunteer Management System')
 # Set the window size
-main_window_width = 700
+main_window_width = 800
 main_window_height = 800
 
     # Get screen width and height
