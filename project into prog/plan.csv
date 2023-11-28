@@ -25,3 +25,9 @@ PlanID,planName,startDate,closingDate,geographicalArea,planDesc,adminID,active,N
 13,"Response to Flood in Andorra
 ",2023-11-30,,Andorra,"distribute foods
 ",1,1,2,"21,22"
+14,"Response to Flood in Angola
+",2023-11-30,,Angola,"distribute foods
+",1,1,1,23
+15,"Response to Flood in Anguilla
+",2023-11-30,,Anguilla,"distribute medical supplies
+",1,1,1,24

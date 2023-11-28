@@ -7,7 +7,7 @@ logging.basicConfig(level=logging.INFO,filename='create_plan_logging.log',
 
 #class for the plan
 class HumanitarianPlan:
-    def __init__(self, admin_id, plan_name,description, geographical_area,  start_date,number_camps):
+    def __init__(self, admin_id, plan_name,description, geographical_area, start_date,number_camps):
         self.admin_id=admin_id
         self.plan_name=plan_name
         self.description = description
