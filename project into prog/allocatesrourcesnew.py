@@ -27,7 +27,7 @@ root.configure(bg='#021631')
 main_window = root
 
 # Set the window size
-main_window_width = 850
+main_window_width = 750
 main_window_height = 500
 
     # Get screen width and height
@@ -62,7 +62,7 @@ def display_camp_information():
 # Create a function to display inventory
 def display_inventory():
     inventory_info_text.delete(1.0, tk.END)  # Clear the inventory text widget
-    inventory_info_text.insert(tk.END, "Inventory Information:\n\n")
+    inventory_info_text.insert(tk.END, "Current Inventory:\n\n")
     for item in inventory_data:
         inventory_info_text.insert(tk.END, f"{item.inventory_name}\nQuantity: {item.quantity}\n\n")
 
@@ -121,7 +121,7 @@ def save_data():
     messagebox.showinfo("Save Success", "Data saved successfully.")
 
 # Create tkinter buttons, labels, and entry
-display_button = tk.Button(frame,width=16,height=0,bg="#FFFFFF",fg='black',cursor='hand2',activebackground='#B8B8B8', activeforeground='black', text="Display Camp Information", command=display_information)
+display_button = tk.Button(root, text="Display Information", command=display_information)
 allocate_button = tk.Button(root, text="Allocate Resources", command=allocate_resources)
 save_button = tk.Button(root, text="Save Data", command=save_data)
 clear_button = tk.Button(root, text="Go Back", command=clear_text)
@@ -131,11 +131,13 @@ quantity_entry = tk.Entry(root)
 
 # Place the buttons, labels, and entry in the tkinter window using grid layout
 #display_button.place(x=236,y=300)
-allocate_button.grid(row=0, column=1, padx=10, pady=10)
+display_button.grid(row=0, column=0, padx=5, pady=5)
+allocate_button.grid(row=4, column=1, padx=10, pady=10)
 save_button.grid(row=0, column=2, padx=10, pady=10)
-clear_button.grid(row=0, column=3, padx=10, pady=10)
-quantity_label.grid(row=1, column=0, padx=10, pady=10)
-quantity_entry.grid(row=1, column=1, padx=10, pady=10)
+clear_button.grid(row=0, column=2, padx=10, pady=10)
+quantity_label.grid(row=3, column=0, padx=10, pady=10)
+quantity_entry.grid(row=3, column=1, padx=10, pady=10)
+save_button.grid(row=1, column=2, padx=10, pady=10)
 
 # Create Text widgets to display camp information and inventory
 camp_info_text = tk.Text(root, height=15, width=40)
@@ -152,8 +154,8 @@ inventory_var = tk.StringVar(value=inventory_data[0].inventory_name)  # Default 
 inventory_dropdown = ttk.Combobox(root, textvariable=inventory_var, values=[item.inventory_name for item in inventory_data])
 
 # Place the dropdowns in the tkinter window using grid layout
-camp_dropdown.grid(row=3, column=0, padx=10, pady=10)
-inventory_dropdown.grid(row=3, column=1, padx=10, pady=10)
+camp_dropdown.grid(row=1, column=0, padx=10, pady=10)
+inventory_dropdown.grid(row=1, column=1, padx=10, pady=10)
 
 # Start the tkinter event loop
 root.mainloop()
