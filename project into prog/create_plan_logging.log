@@ -413,3 +413,24 @@
 27-Nov-23 08:02:09 - INFO - New plan is created. Plan id: 10
 27-Nov-23 08:02:48 - INFO - New plan is created. Plan id: 10
 
+27-Nov-23 12:17:10 - INFO - Plan name: Response to Flood in US
+
+27-Nov-23 12:17:11 - INFO - New plan is created. Plan id: 11
+27-Nov-23 12:17:11 - INFO - Associated camp no: 19
+27-Nov-23 12:17:11 - INFO - Plan created with ID: 11 and Camp IDs: 19
+27-Nov-23 12:17:11 - INFO - New plan is created. Plan id: 12
+27-Nov-23 12:17:11 - INFO - Associated camp no: 20
+27-Nov-23 12:17:11 - INFO - Plan created with ID: 12 and Camp IDs: 20
+28-Nov-23 15:16:43 - INFO - Plan name: Response to Flood in Algeria
+
+28-Nov-23 15:16:45 - INFO - New plan is created. Plan id: 12
+28-Nov-23 15:16:45 - INFO - Associated camp no: 20
+28-Nov-23 15:16:45 - INFO - Plan created with ID: 12 and Camp IDs: 20
+28-Nov-23 15:16:45 - INFO - New plan is created. Plan id: 13
+28-Nov-23 15:16:45 - INFO - Associated camp no: 21
+28-Nov-23 15:16:45 - INFO - Plan created with ID: 13 and Camp IDs: 21
+28-Nov-23 15:32:06 - INFO - Plan name: Response to Flood in Andorra
+
+28-Nov-23 15:32:07 - INFO - New plan is created. Plan id: 13
+28-Nov-23 15:32:07 - INFO - Associated camp no: 21,22
+28-Nov-23 15:32:07 - INFO - Plan created with ID: 13 and Camp IDs: 21,22

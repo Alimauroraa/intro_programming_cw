@@ -121,8 +121,8 @@ def submit_plan():
 #         add_plan.create_plan()          #create an instance
 
     if validate_input(admin_id, plan_name, description, geographical_area, start_date, number_camps):
-        add_plan = HumanitarianPlan(admin_id, plan_name, description, geographical_area, start_date,number_camps)
-        add_plan.create_plan()          #create an instance
+        # add_plan = HumanitarianPlan(admin_id, plan_name, description, geographical_area, start_date,number_camps)
+        # add_plan.create_plan()          #create an instance
         
         # Create the plan
         new_plan = HumanitarianPlan(admin_id, plan_name, description, geographical_area, start_date, number_camps)
