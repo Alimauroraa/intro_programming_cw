@@ -86,5 +86,5 @@ def home_page():
 if __name__=='__main__':
     home_page()
     # Create an instance of HumanitarianPlan and call the method
-    humanitarian_plan_instance = HumanitarianPlan(None, None, None, None, None, None, None)
+    humanitarian_plan_instance = HumanitarianPlan(None, None, None, None, None, None)
     humanitarian_plan_instance.generate_missing_camps_from_plans()
