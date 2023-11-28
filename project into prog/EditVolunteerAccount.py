@@ -33,7 +33,7 @@ def save_volunteers_to_csv(volunteers_file, volunteers):
 # Create the main window
 root = tk.Tk()
 root.title("Edit Volunteer")
-#root.geometry("700x800")
+root.geometry("700x800")
 root['bg'] = '#021631'
 
 main_window = root
