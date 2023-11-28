@@ -105,9 +105,6 @@ def updating():
     update_button = Button(update_window, text="Update", command=update_info)
     update_button.pack(pady=10)
 
-    # back_button = Button(update_window, text="Back", command=back_to_main)
-    # back_button.pack(pady=10)
-
     if pd.isnull(user['camp_id'].iloc[0]):
         # Add the redirect_button only when the condition is true
         redirect_button = Button(update_window, text="Redirect to Main", command=redirect_to_main)
@@ -298,7 +295,7 @@ screen_height = root.winfo_screenheight()
 x_position = (screen_width - window_width) // 2
 y_position = (screen_height - window_height) // 2
 
-# Set the window geometry
+# Set the window geometryy
 root.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
 
 
