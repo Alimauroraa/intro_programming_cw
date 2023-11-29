@@ -194,7 +194,6 @@ def main_application():
     # Calculate the position to center the window
     x_position = (screen_width - main_window_width) // 2
     y_position = (screen_height - main_window_height) // 2
-s
     # Set the window geometry
     main_window.geometry(f"{main_window_width}x{main_window_height}+{x_position}+{y_position}")
 
