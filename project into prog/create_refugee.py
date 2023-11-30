@@ -399,13 +399,13 @@ class MainMenuWindow:
             camp_dropdown.pack(pady=10)
 
             def submit():
-                global new_value
+                nonlocal new_value
                 new_value = camp_ID_var_edit.get()
                 camp_window.destroy()
 
             # Function to handle the Cancel button click
             def cancel():
-                global new_value
+                nonlocal new_value
                 new_value = None
                 camp_window.destroy()
 
