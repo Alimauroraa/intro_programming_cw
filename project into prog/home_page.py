@@ -13,15 +13,16 @@ def home_page():
     #main frame initialisation
     root = tk.Tk()
     root.title("The Hope Trust: A Humanitarian Management System")  # --Can change this later, only for demo
-    root.eval("tk::PlaceWindow . center")  # --Placing the window on the centre of the screen
+    #root.eval("tk::PlaceWindow . center")  # --Placing the window on the centre of the screen
 
-    screen_width=root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
+    #screen_width=root.winfo_screenwidth()
+    #screen_height = root.winfo_screenheight()
 
-    x= (screen_width-550)//2
-    y=(screen_height-600)//2
+    #x= (screen_width-600)//2
+    #y=(screen_height-750)//2
     #root.geometry("600x600")
-    root.geometry(f"600x600+{x}+{y}")
+    #root.geometry(f"700x700+{x}+{y}")
+    root.geometry('400x350+0+0')
     root['bg'] = '#021631'
 
     # creating frame
@@ -39,40 +40,40 @@ def home_page():
     logo_widget = tk.Label(
         home,
         image=logo_image,
-        width=250,
-        height=250,
+        width=150,
+        height=150,
         bg=bg_color
     )
     logo_widget.image = logo_image
-    logo_widget.pack(expand=False, fill='none', padx=10,pady=50)
+    logo_widget.pack(expand=False, fill='none', padx=10,pady=20)
 
     tk.Label(
         home,
         text="Welcome change makers! Ready to make an impact?",
         bg=bg_color,
         fg="white",
-        font=("Calibri", 16)
+        font=("Calibri", 12, 'bold')
     ).pack()
 
     # button components
     tk.Button(
         home,
         text="Admin",
-        font=("Calibri", 12),
-        width=15,
+        font=("Calibri", 11),
+        width=10,
         height=0,
         bg="#FFFFFF",
         fg="black",
         cursor="hand2",
         activebackground="#B8B8B8",
         activeforeground="black",
-        command=admin_login_page).pack(padx=20,pady=30)  #this will open admin login page when clicked
+        command=admin_login_page).pack(padx=20,pady=15)  #this will open admin login page when clicked
 
     tk.Button(
         home,
         text="Volunteer",
-        font=("Calibri", 12),
-        width=15,
+        font=("Calibri", 11),
+        width=10,
         height=0,
         bg="#FFFFFF",
         fg="black",

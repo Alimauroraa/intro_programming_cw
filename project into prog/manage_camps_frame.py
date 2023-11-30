@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk, Entry
 import pandas as pd
 from tkinter import messagebox
+import numpy as np
 
 class EntryPopup(Entry):
     def __init__(self, parent, iid, column, text, **kw):
@@ -33,9 +34,11 @@ class ManageCampsFrame:
         self.setup_ui()
 
     def setup_ui(self):
+        tk.Label(self.root, text="Manage camps", font="calibri 16", bg="#021631", fg="#fff").place(x=25, y=30)
         # Create the Treeview with horizontal scrollbar
-        self.tree = ttk.Treeview(self.root, xscrollcommand=lambda f, l: self.on_xscroll(f, l))
-        self.tree.grid(row=0, column=0, sticky="nsew", padx=10, pady=10)
+        #self.tree = ttk.Treeview(self.root, xscrollcommand=lambda f, l: self.on_xscroll(f, l))
+        self.tree = ttk.Treeview(self.root)
+        self.tree.grid(row=0, column=0, sticky="nsew", padx=25, pady=100)
 
         # Define the columns for the treeview
         self.tree['columns'] = ('CampID', 'Location', 'Capacity', 'Specific Needs', 'Volunteers', 'Refugees', 'Resources Allocated')
@@ -44,34 +47,43 @@ class ManageCampsFrame:
         # Setting the column headings and widths
         for col in self.tree['columns']:
             self.tree.heading(col, text=col)
-            self.tree.column(col, width=120, stretch=tk.YES)
+            #self.tree.column(col, width=100, stretch=tk.YES)
+        self.tree.column('CampID', width=52, stretch=tk.YES)
+        self.tree.column('Location', width=77, stretch=tk.YES)
+        self.tree.column('Capacity', width=70, stretch=tk.YES)
+        self.tree.column('Specific Needs', width=111, stretch=tk.YES)
+        self.tree.column('Volunteers', width=111, stretch=tk.YES)
+        self.tree.column('Refugees', width=111, stretch=tk.YES)
+        self.tree.column('Resources Allocated', width=116, stretch=tk.YES)
+        self.tree.config(height=20)
 
-        # Add a horizontal scrollbar
-        self.xscrollbar = ttk.Scrollbar(self.root, orient='horizontal', command=self.tree.xview)
-        self.xscrollbar.grid(row=1, column=0, sticky='ew')
-        self.tree.configure(xscrollcommand=self.xscrollbar.set)
-
-        # Configure the treeview to use the scrollbar
-        self.tree.configure(xscrollcommand=self.xscrollbar.set)
+        # # Add a horizontal scrollbar
+        # self.xscrollbar = ttk.Scrollbar(self.root, orient='horizontal', command=self.tree.xview)
+        # self.xscrollbar.grid(row=1, column=0, sticky='ew')
+        # self.tree.configure(xscrollcommand=self.xscrollbar.set)
+        #
+        # # Configure the treeview to use the scrollbar
+        # self.tree.configure(xscrollcommand=self.xscrollbar.set)
 
         # Enable editing on double-click
         self.tree.bind('<Double-1>', self.edit_cell)
 
         # Button to save changes
         save_button = tk.Button(self.root, text="Save Changes", command=self.save_changes)
-        save_button.grid(row=2, column=0, pady=20, sticky='ew')
+        #save_button.grid(row=2, column=0, pady=20, sticky='ew')
+        save_button.place(x=250, y=600)
 
         # Initially display camps
         self.display_camps()
 
-    def on_xscroll(self, *args):
-        """Handle horizontal scrolling"""
-        self.xscrollbar.set(*args)
-        self.tree.xview(*args)
+    # def on_xscroll(self, *args):
+    #     """Handle horizontal scrolling"""
+    #     self.xscrollbar.set(*args)
+    #     self.tree.xview(*args)
 
     def save_changes(self):
         camps_data = [{col: self.tree.set(child_id, col) for col in self.tree['columns']}
-                      for child_id in self.tree.get_children()]
+                       for child_id in self.tree.get_children()]
         df = pd.DataFrame(camps_data)
         df.to_csv('camps.csv', index=False)
         messagebox.showinfo("Success", "Changes saved to camps.csv")

@@ -19,7 +19,7 @@ class ClosePlan:
         self.plan_id=self.plan_df['PlanID']
 
         # convert the closingDate column to datetime format
-        self.plan_df['closingDate']=pd.to_datetime(self.plan_df['closingDate'], format="%m/%d/%Y")
+        self.plan_df['closingDate']=pd.to_datetime(self.plan_df['closingDate'], format="mixed") #%m/%d/%Y
 
         # state current date
         self.now=datetime.now()
