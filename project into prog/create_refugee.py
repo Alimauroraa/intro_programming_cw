@@ -1,11 +1,14 @@
-
+import random
 import pandas as pd
 import tkinter as tk
 from tkinter import simpledialog
 from tkinter import messagebox
 from tkinter import ttk
 csv_filename = 'Refugee_DataFrame.csv'
+camp_csv = 'camps.csv'
 refugee_df = pd.read_csv(csv_filename)
+camps_df = pd.read_csv(camp_csv)
+
 
 
 class MainMenuWindow:
@@ -42,133 +45,142 @@ class MainMenuWindow:
 
         self.show_database = True
 
-
-
-        # self.view_button = tk.Button(master, text="View the database", command=self.view_database)
-        # self.view_button.pack()
-        #
         # self.view_details_button = tk.Button(master, text="View refugee's details", command=self.view_refugee_details)
         # self.view_details_button.pack()
-        #
-        # self.exit_button = tk.Button(master, text="Exit the program", command=self.master.destroy)
-        # self.exit_button.pack()
+
+        self.exit_button = tk.Button(master, text="Exit the program", command=self.master.destroy)
+        self.exit_button.pack()
 
     def add_refugee(self):
+        self.master.iconify()
+        # Create a new window for input
+        input_window = tk.Toplevel(self.master)
+        input_window.title("Add New Refugee")
+
         while True:
-            while True:
-                refugee_ID = simpledialog.askstring("Add New Refugee", "Enter the new Refugee's ID:")
-                if refugee_ID is None:
-                    # User clicked Cancel
-                    return
-                if refugee_ID.isdigit():
-                    break
-                else:
-                    messagebox.showerror("Invalid Input", "Invalid Refugee ID. Ensure it consists of only numbers.")
+            random_refugee_id = random.randint(1, 9999)
 
-            while True:
-                camp_ID = simpledialog.askstring("Add New Refugee", "Enter the new Camp's ID:")
-                if camp_ID is None:
-                    return
-                if camp_ID.isdigit():
-                    break
-                else:
-                    messagebox.showerror("Invalid Input", "Invalid Camp ID. Ensure it consists of only numbers.")
+            # Check if the generated ID is not already in the DataFrame
+            if random_refugee_id not in refugee_df["Refugee_ID"].values:
+                refugee_ID_var = tk.StringVar(value=str(random_refugee_id))
+                break
 
-            while True:
-                first_name = simpledialog.askstring("Add New Refugee", "Enter the new Refugee's First Name:").capitalize()
-                if first_name is None:
-                    return
-                if first_name.isalpha():
-                    break
-                else:
-                    messagebox.showerror("Invalid Input", "Invalid First Name. Ensure it has no numbers or special characters.")
+        while True:
+            random_profile_id = random.randint(1, 999)
 
-            while True:
-                last_name = simpledialog.askstring("Add New Refugee", "Enter the Refugee's Last Name:").capitalize()
-                if last_name is None:
-                    return
-                if last_name.isalpha():
-                    break
-                else:
-                    messagebox.showerror("Invalid Input", "Invalid Last name. Ensure it has no numbers or special characters.")
+            if random_profile_id not in refugee_df["Profile_ID"].values:
+                profile_ID_var = tk.StringVar(value=str(random_profile_id))
+                break
 
-            while True:
-                gender = simpledialog.askstring("Add New Refugee", "Enter the Refugee's Gender:").capitalize()
-                if gender is None:
-                    return
-                if gender and gender in ['Male', 'Female', 'Undisclosed']:
-                    break
-                else:
-                    messagebox.showerror("Invalid Input", "Invalid Gender. Ensure entered gender is either 'Male', 'Female' or 'Undisclosed' .")
+        available_camp_ids = camps_df['Camp ID'].tolist()
 
+
+        camp_ID_var = tk.StringVar()
+        camp_ID_var.set(available_camp_ids[0])  # Set the default value
+
+        def back(input_window):
+            input_window.destroy()
+            self.master.deiconify()
+
+        # Function to validate and process the entered data
+        def process_input():
+            # Your input validation logic goes here
+            # For simplicity, I'm only checking if the fields are not empty
             while True:
-                volunteer_ID = simpledialog.askstring("Add New Refugee", "Enter the Volunteer's ID:")
-                if volunteer_ID is None:
+                if not first_name_var.get() or not last_name_var.get() \
+                        or not gender_var.get() or not volunteer_ID_var.get() or not medical_condition_var.get() \
+                        or not lead_family_member_var.get() or not lead_phone_number_var.get() or not number_of_relatives_var.get():
+                    messagebox.showerror("Invalid Input", "All fields must be filled")
                     return
-                if volunteer_ID.isdigit():
-                    break
                 else:
-                    messagebox.showerror("Invalid Input", "Invalid Volunteer ID. Ensure it consists of only numbers.")
+                    break
+
+            # Additional validation can be added here (e.g., checking gender, ensuring numbers are valid, etc.)
+            while True:
+                camp_id_value = camp_ID_var.get()
+                if not camp_id_value.isdigit():
+                    messagebox.showerror("Invalid Input", "Ensure Camp ID is a number")
+                    return
+                else:
+                    break
 
             while True:
-                profile_ID = simpledialog.askstring("Add New Refugee", "Enter the Profile ID:")
-                if profile_ID is None:
+                first_name_value = first_name_var.get().capitalize()
+                if not first_name_value.isalpha():
+                    messagebox.showerror("Invalid Input", "Ensure first name has no numbers or special characters")
                     return
-                if profile_ID.isdigit():
-                    break
                 else:
-                    messagebox.showerror("Invalid Input", "Invalid Profile ID. Ensure it consists of only numbers.")
-
-
-            medical_condition = simpledialog.askstring("Add New Refugee", "Enter the Medical Condition:").capitalize()
-            if medical_condition is None:
-                return
+                    break
 
             while True:
-                lead_family_member = simpledialog.askstring("Add New Refugee", "Enter the Lead Family Member:").capitalize()
-                if lead_family_member is None:
+                last_name_value = last_name_var.get().capitalize()
+                if not last_name_value.isalpha():
+                    messagebox.showerror("Invalid Input", "Ensure last name has no numbers or special characters")
                     return
-                if lead_family_member.isalpha():
-                    break
                 else:
-                    messagebox.showerror("Invalid Input", "Invalid Name. Ensure name has no numbers or special characters.")
+                    break
 
             while True:
-                lead_phone_number = simpledialog.askstring("Add New Refugee", "Enter the Lead Phone Number:")
-                if lead_phone_number is None:
-                    return
-                if lead_phone_number.isdigit():
+                gender_value = gender_var.get().capitalize()
+                if gender_value.capitalize() in ["Male", "Female", "Other"]:
                     break
                 else:
-                    messagebox.showerror("Invalid Input", "Invalid Phone Number. Ensure it consists of only numbers.")
+                    messagebox.showerror("Invalid Input", "Ensure gender is either Male, Female, or Other")
+                    return
 
             while True:
-                number_of_relatives = simpledialog.askstring("Add New Refugee", "Enter the Number of Relatives:")
-                if number_of_relatives is None:
+                volunteer_ID_value = volunteer_ID_var.get()
+                if not volunteer_ID_value.isdigit():
+                    messagebox.showerror("Invalid Input", "Ensure volunteer ID is number")
                     return
-                if number_of_relatives.isdigit():
-                    break
                 else:
-                    messagebox.showerror("Invalid Input", "Invalid Number. Ensure it consists of only numbers.")
+                    break
 
-            # Now you have all the input values, you can continue with the rest of your code
+            medical_condition_value = medical_condition_var.get().capitalize()
+
+            while True:
+                lead_family_member_value = lead_family_member_var.get().capitalize()
+                if not lead_family_member_value.isalpha():
+                    messagebox.showerror("Invalid Input", "Ensure lead family member name does not have numbers or special characters")
+                    return
+                else:
+                    break
+
+            while True:
+                lead_phone_number_value = lead_phone_number_var.get()
+                if not lead_phone_number_value.isdigit():
+                    messagebox.showerror("Invalid Input", "Ensure there are no letters, only numbers")
+                    return
+                else:
+                    break
+
+            while True:
+                number_of_relatives_value = number_of_relatives_var.get()
+                if not number_of_relatives_value.isdigit():
+                    messagebox.showerror("Invalid Input", "Ensure there are only numbers for number of relatives")
+                    return
+                else:
+                    break
+
+
             # Create a new DataFrame with the user's input, and append it to the existing data
             new_data = pd.DataFrame({
-                'Refugee_ID': [refugee_ID],
-                'Camp_ID': [camp_ID],
-                'First_name': [first_name],
-                'Last_name': [last_name],
-                'Gender': [gender],
-                'Volunteer_ID': [volunteer_ID],
-                'Profile_ID': [profile_ID],
-                'Medical_Condition': [medical_condition],
-                'Lead_Family_Member': [lead_family_member],
-                'Lead_Phone_Number': [lead_phone_number],
-                'Number_of_Relatives': [number_of_relatives]
+                'Refugee_ID': [refugee_ID_var.get()],
+                'Camp_ID': [camp_ID_var.get()],
+                'First_name': [first_name_value],
+                'Last_name': [last_name_value],
+                'Gender': [gender_value],
+                'Volunteer_ID': [volunteer_ID_value],
+                'Profile_ID': [int(profile_ID_var.get())],
+                'Medical_Condition': [medical_condition_value],
+                'Lead_Family_Member': [lead_family_member_value],
+                'Lead_Phone_Number': [lead_phone_number_value],
+                'Number_of_Relatives': [number_of_relatives_value]
             })
 
             try:
                 existing_data = pd.read_csv(csv_filename)
+                existing_data['Profile_ID'] = existing_data['Profile_ID'].astype(int)
                 updated_data = pd.concat([existing_data, new_data], ignore_index=True)
             except pd.errors.EmptyDataError:
                 updated_data = new_data
@@ -176,7 +188,58 @@ class MainMenuWindow:
             updated_data.to_csv(csv_filename, index=False)
             messagebox.showinfo("Adding Refugee",
                                 f"New refugee information appended to {csv_filename}. Please reopen application to view changes")
-            break
+            input_window.destroy()
+            self.master.deiconify()
+
+        # Create StringVar for each entry
+        refugee_ID_var = tk.StringVar(value=str(random_refugee_id))
+        # camp_ID_var = tk.StringVar()
+        first_name_var = tk.StringVar()
+        last_name_var = tk.StringVar()
+        gender_var = tk.StringVar()
+        volunteer_ID_var = tk.StringVar()
+        profile_ID_var = tk.StringVar(value=str(random_profile_id))
+        medical_condition_var = tk.StringVar()
+        lead_family_member_var = tk.StringVar()
+        lead_phone_number_var = tk.StringVar()
+        number_of_relatives_var = tk.StringVar()
+
+
+        # tk.Label(input_window, text="Camp ID:").grid(row=1, column=0)
+        # tk.Entry(input_window, textvariable=camp_ID_var).grid(row=1, column=1)
+
+        tk.Label(input_window, text="Camp ID:").grid(row=1, column=0)
+
+        camp_dropdown = ttk.Combobox(input_window, textvariable=camp_ID_var, values=available_camp_ids, state="readonly")
+        camp_dropdown.grid(row=1, column=1)
+
+        tk.Label(input_window, text="First Name:").grid(row=2, column=0)
+        tk.Entry(input_window, textvariable=first_name_var).grid(row=2, column=1)
+
+        tk.Label(input_window, text="Last Name:").grid(row=3, column=0)
+        tk.Entry(input_window, textvariable=last_name_var).grid(row=3, column=1)
+
+        tk.Label(input_window, text="Gender:").grid(row=4, column=0)
+        tk.Entry(input_window, textvariable=gender_var).grid(row=4, column=1)
+
+        tk.Label(input_window, text="Volunteer ID:").grid(row=5, column=0)
+        tk.Entry(input_window, textvariable=volunteer_ID_var).grid(row=5, column=1)
+
+        tk.Label(input_window, text="Medical Condition:").grid(row=7, column=0)
+        tk.Entry(input_window, textvariable=medical_condition_var).grid(row=7, column=1)
+
+        tk.Label(input_window, text="Lead Family Member:").grid(row=8, column=0)
+        tk.Entry(input_window, textvariable=lead_family_member_var).grid(row=8, column=1)
+
+        tk.Label(input_window, text="Lead Phone Number:").grid(row=9, column=0)
+        tk.Entry(input_window, textvariable=lead_phone_number_var).grid(row=9, column=1)
+
+        tk.Label(input_window, text="Number of Relatives:").grid(row=10, column=0)
+        tk.Entry(input_window, textvariable=number_of_relatives_var).grid(row=10, column=1)
+
+        # Button to submit the data
+        tk.Button(input_window, text="Submit", command=process_input).grid(row=11, column=1, columnspan=1)
+        tk.Button(input_window, text="Go Back", command=lambda: back(input_window)).grid(row=11, column=0, columnspan=1)
 
     def get_valid_input(self, title, prompt, validator, error_message):
         while True:
@@ -262,6 +325,7 @@ class MainMenuWindow:
         field_window = tk.Toplevel(self.master)
         field_window.title("Select Field to Edit")
 
+
         # Get screen width and height
         screen_width = field_window.winfo_screenwidth()
         screen_height = field_window.winfo_screenheight()
@@ -279,7 +343,7 @@ class MainMenuWindow:
         field_label = tk.Label(field_window, text="Select Field to Edit:")
         field_label.pack()
 
-        field_dropdown = ttk.Combobox(field_window, textvariable=field_var, values=fields)
+        field_dropdown = ttk.Combobox(field_window, textvariable=field_var, values=fields, state="readonly")
         field_dropdown.pack()
 
         ok_button = tk.Button(field_window, text="OK", command=field_window.destroy)
@@ -299,6 +363,8 @@ class MainMenuWindow:
                 refugee_df['Refugee_ID'] == int(refugee_id_to_edit), selected_field.replace(" ", "_")] = new_value
             refugee_df.to_csv(csv_filename, index=False)
 
+        field_window.update()
+        field_window.destroy()
         
 
         messagebox.showinfo("Edit Refugee",
@@ -313,8 +379,49 @@ class MainMenuWindow:
         new_value = None
 
         if field_name == 'Camp ID':
-            new_value = simpledialog.askinteger("Edit Camp ID",
-                                                    f"Enter the new {field_name} (or 'cancel' to keep current value):")
+            camp_window = tk.Toplevel(self.master)
+            camp_window.title("Edit Refugee")
+
+            camp_window.geometry("300x150")
+            camp_window.title("Choose Camp")
+
+            label = tk.Label(camp_window, text="Choose the camp you'd like to assign the refugee:")
+            label.pack(pady=10)
+
+
+
+            available_camp_ids = camps_df['Camp ID'].tolist()
+
+            camp_ID_var_edit = tk.StringVar()
+            camp_ID_var_edit.set(available_camp_ids[0])  # Set the default value
+
+            camp_dropdown = ttk.Combobox(camp_window, textvariable=camp_ID_var_edit, values=available_camp_ids, state="readonly")
+            camp_dropdown.pack(pady=10)
+
+            def submit():
+                global new_value
+                new_value = camp_ID_var_edit.get()
+                camp_window.destroy()
+
+            # Function to handle the Cancel button click
+            def cancel():
+                global new_value
+                new_value = None
+                camp_window.destroy()
+
+            # Add Submit and Cancel buttons
+            submit_button = tk.Button(camp_window, text="Submit", command=submit)
+            submit_button.pack(side=tk.LEFT, padx=10)
+
+            cancel_button = tk.Button(camp_window, text="Cancel", command=cancel)
+            cancel_button.pack(side=tk.RIGHT, padx=10)
+
+            camp_window.wait_window()
+
+            # new_value = camp_ID_var_edit.get()
+            camp_window.destroy()
+            # new_value = simpledialog.askinteger("Edit Camp ID",
+            #                                         f"Enter the new {field_name} (or 'cancel' to keep current value):")
             if new_value is not None:
                 new_value = new_value
 
@@ -402,7 +509,7 @@ class MainMenuWindow:
             if new_value is not None:
                 new_value = new_value
 
-        root.destroy()  # Destroy the hidden root window
+        root.destroy() # Destroy the hidden root window
         return new_value
 
 
