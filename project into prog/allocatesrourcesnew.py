@@ -5,11 +5,23 @@ import csv
 import ast
 from data_model import Camp, Inventory
 
-# Load camp information from camps_information.csv
+# Load camp information from camps.csv
 camps_information = []
-with open('camps_information.csv', newline='') as csvfile:
+with open('camps.csv', newline='') as csvfile:
     reader = csv.DictReader(csvfile)
     for row in reader:
+        #row['Resources Allocated'] = ast.literal_eval(row['Resources Allocated'])
+        row['location'] = row.pop('Location')
+        row['camp_id'] = row.pop('CampID')
+        row['max_capacity'] = row.pop('Max_Capacity')
+        row['specific_needs'] = row.pop('Specific Needs')
+        row['allocatedresources'] = row.pop('Resources Allocated')
+        row['volunteers'] = row.pop('Volunteers')
+        row['volunteer_id'] = row.pop('VolunteerID')
+        row['refugees'] = row.pop('Refugees')
+        row['refugeeID'] = row.pop('RefugeesID')
+        row['planname'] = row.pop('PlanName')
+        row['current_availability'] = row.pop('CurrentAvailability')
         camps_information.append(Camp(**row))
 
 # Load inventory from inventory.csv
@@ -103,8 +115,8 @@ def clear_text():
 
 # Create a function to save the updated data
 def save_data():
-    # Save camp and inventory data to camps_information.csv and inventory.csv
-    with open('camps_information.csv', 'w', newline='') as csvfile:
+    # Save camp and inventory data to camps.csv and inventory.csv
+    with open('camps.csv', 'w', newline='') as csvfile:
         fieldnames = camps_information[0].__dict__.keys()
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
