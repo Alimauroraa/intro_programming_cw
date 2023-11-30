@@ -11,6 +11,7 @@ camps_df = pd.read_csv(camp_csv)
 
 
 
+
 class MainMenuWindow:
     def __init__(self, master):
         self.master = master
@@ -72,7 +73,7 @@ class MainMenuWindow:
                 profile_ID_var = tk.StringVar(value=str(random_profile_id))
                 break
 
-        available_camp_ids = camps_df['Camp ID'].tolist()
+        available_camp_ids = camps_df['CampID'].tolist()
 
 
         camp_ID_var = tk.StringVar()
@@ -390,7 +391,7 @@ class MainMenuWindow:
 
 
 
-            available_camp_ids = camps_df['Camp ID'].tolist()
+            available_camp_ids = camps_df['CampID'].tolist()
 
             camp_ID_var_edit = tk.StringVar()
             camp_ID_var_edit.set(available_camp_ids[0])  # Set the default value
@@ -493,7 +494,7 @@ class MainMenuWindow:
 
                 elif not new_value.isalpha():
                     messagebox.showerror("Enter new Lead Family Member (",
-                                         "Invalid input, ensure it only has letters and no spaces")
+                                         "Invalid input, ensure lead family member only has letters and no spaces")
 
         elif field_name == 'Lead Phone Number':
             new_value = simpledialog.askinteger("Edit Lead Phone Number",
