@@ -16,18 +16,23 @@ def display_plan():
     try:
         plan_id = int(entry.get())
         df = pd.read_csv("plan.csv")
-        if plan_id in df['PlanID']:
-            plan_info = df[df['PlanID'] == plan_id]
-            show_table(plan_info)
-        elif plan_id not in df['PlanID'] or plan_id=='':
-            messagebox.showerror("Error","Plan ID not found")
+
+        # Ensure that PlanID column exists and the DataFrame is not empty
+        if 'PlanID' in df.columns and not df.empty:
+            # Convert PlanID in DataFrame to integer if it's not already
+            df['PlanID'] = df['PlanID'].astype(int)
+
+            if plan_id in df['PlanID'].values:  # Use .values for checking membership
+                plan_info = df[df['PlanID'] == plan_id]
+                show_table(plan_info)
+            else:
+                messagebox.showerror("Error", "Plan ID not found")
+        else:
+            messagebox.showerror("Error", "No plans available")
 
     except ValueError:
-        messagebox.showerror("Error", "Please enter a valid plan ID, numerical character only")
-        #result_text.config(state=tk.NORMAL)
-        #result_text.delete('1.0', tk.END)
-        #result_text.insert(tk.END, "Please enter a valid Plan ID.")
-        #result_text.config(state=tk.DISABLED)
+        messagebox.showerror("Error", "Please enter a valid plan ID, numerical characters only")
+
 
 def show_table(dataframe):
     top = tk.Toplevel(root)

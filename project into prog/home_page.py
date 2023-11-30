@@ -1,6 +1,7 @@
 import tkinter as tk
 #import the login page for volunteer and admin
 from admin_login_gui import Admin
+from create_plan import HumanitarianPlan
 
 def admin_login_page():
     admin_login_frame=Admin("","","")
@@ -13,7 +14,14 @@ def home_page():
     root = tk.Tk()
     root.title("The Hope Trust: A Humanitarian Management System")  # --Can change this later, only for demo
     root.eval("tk::PlaceWindow . center")  # --Placing the window on the centre of the screen
-    root.geometry("600x600")
+
+    screen_width=root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+
+    x= (screen_width-550)//2
+    y=(screen_height-600)//2
+    #root.geometry("600x600")
+    root.geometry(f"600x600+{x}+{y}")
     root['bg'] = '#021631'
 
     # creating frame
@@ -77,3 +85,6 @@ def home_page():
 
 if __name__=='__main__':
     home_page()
+    # Create an instance of HumanitarianPlan and call the method
+    humanitarian_plan_instance = HumanitarianPlan(None, None, None, None, None, None)
+    humanitarian_plan_instance.generate_missing_camps_from_plans()
