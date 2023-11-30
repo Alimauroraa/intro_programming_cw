@@ -100,11 +100,11 @@ class HumanitarianPlan:
                 new_camps_data.append({
                     'CampID': camp_id,
                     'Location': geographical_area,
-                    'Capacity': '',
-                    'SpecificNeeds': '',
-                    'Volunteers': '',
-                    'Refugees': '',
-                    'ResourcesAllocated': ''
+                    'Capacity': "",
+                    'SpecificNeeds': "",
+                    'Volunteers': "",
+                    'Refugees': "",
+                    'ResourcesAllocated': ""
                 })
 
             new_camps_df = pd.DataFrame(new_camps_data)
