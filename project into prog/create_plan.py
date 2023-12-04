@@ -57,7 +57,7 @@ class HumanitarianPlan:
             logging.info(f"Associated camp no: {self.camp_id}")
 
         print(f"camp id: {self.camp_id}")
-        new_data=[[self.plan_id,self.plan_name,self.start_date,self.geographical_area,
+        new_data=[[self.plan_id,self.plan_name,self.start_date.strftime('%m/%d/%Y'),self.geographical_area,
                    self.description, self.admin_id, self.active, self.number_camps,self.camp_id]]
 
 

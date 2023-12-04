@@ -5,166 +5,151 @@ import csv
 import ast
 from data_model import Camp, Inventory
 
-# Load camp information from camps.csv
-camps_information = []
-with open('camps.csv', newline='') as csvfile:
-    reader = csv.DictReader(csvfile)
-    for row in reader:
-        in csvfile:
-        CampID = camp_id
+def create_gui(parent):
+    # Load camp information from camps.csv
+    camps_information = []
+    with open('camps.csv', newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        print(reader)
+        for row in reader:
+            row['location'] = row.pop('location')
+            row['camp_id'] = row.pop('camp_id')
+            row['max_capacity'] = row.pop('max_capacity')
+            row['specific_needs'] = row.pop('specific_needs')
+            row['allocatedresources'] = row.pop('allocatedresources')
+            row['volunteers'] = row.pop('volunteers')
+            row['volunteer_id'] = row.pop('volunteer_id')
+            row['refugees'] = row.pop('refugees')
+            row['refugeeID'] = row.pop('refugeeID')
+            row['planname'] = row.pop('planname')
+            row['current_availability'] = row.pop('current_availability')
+            camps_information.append(Camp(**row))
 
-        camps_information.append(Camp(**row))
+    # Load inventory from inventory.csv
+    inventory_data = []
+    with open('inventory.csv', newline='') as csvfile:
+        reader = csv.DictReader(csvfile)
+        for row in reader:
+            inventory_data.append(Inventory(**row))
 
-# Load inventory from inventory.csv
-inventory_data = []
-with open('inventory.csv', newline='') as csvfile:
-    reader = csv.DictReader(csvfile)
-    for row in reader:
-        inventory_data.append(Inventory(**row))
+    frame=tk.Frame(parent,width=700, height=800,bg='#021631')
+    tk.Label(frame,text='Allocate resources to camps', font="calibri 16",bg="#021631", fg="#fff").grid(row=4, column=0, padx=10, pady=30)
+    # Create Text widgets to display camp information and inventory
+    camp_info_text = tk.Text(frame, height=15, width=40)
+    camp_info_text.grid(row=9, column=0, padx=10, pady=10)
 
-# Create a tkinter window
-root = tk.Tk()
-root.title("Camp Resource Allocation")
-root.configure(bg='#021631')
+    inventory_info_text = tk.Text(frame, height=15, width=40)
+    inventory_info_text.grid(row=9, column=1, padx=10, pady=10)
 
-main_window = root
-frame = tk.Frame(root)
-frame.place(relx=0.5, rely=0.5, anchor='center')
+    # Create dropdown menus for camps and inventory
+    camp_var = tk.StringVar(value=camps_information[0].camp_id)  # Default value
+    camp_dropdown = ttk.Combobox(frame, textvariable=camp_var, values=[camp.camp_id for camp in camps_information])
 
-# Set the window size
-main_window_width = 700
-main_window_height = 800
+    inventory_var = tk.StringVar(value=inventory_data[0].inventory_name)  # Default value
+    inventory_dropdown = ttk.Combobox(frame, textvariable=inventory_var, values=[item.inventory_name for item in inventory_data])
 
-    # Get screen width and height
-screen_width = main_window.winfo_screenwidth()
-screen_height = main_window.winfo_screenheight()
+    # Place the dropdowns in the tkinter window using grid layout
+    camp_dropdown.grid(row=7, column=0, padx=10, pady=10)
+    inventory_dropdown.grid(row=7, column=1, padx=10, pady=10)
 
-screen_width = main_window.winfo_screenwidth()
-screen_height = main_window.winfo_screenheight()
-
-    # Calculate the position to center the window
-x_position = (screen_width - main_window_width) // 2
-y_position = (screen_height - main_window_height) // 2
-
-    # Set the window geometry
-main_window.geometry(f"{main_window_width}x{main_window_height}+{x_position}+{y_position}")
-
-#frame.grid(row=0, column=0, padx=0, sticky='nsew')
-
-# Create a function to display camp information
-def display_camp_information():
-    selected_camp_id = camp_var.get()  # Get the selected camp from the dropdown menu
-    camp_info_text.delete(1.0, tk.END)  # Clear the camp information text widget
-    camp_info_text.insert(tk.END, "Camp Information:\n\n")
-
-    for camp in camps_information:
-        if camp.camp_id == selected_camp_id:
-            camp_info_text.insert(tk.END, f"{camp.camp_id}\nLocation: {camp.location}\nCapacity: {camp.capacity}\nSpecific Needs: {camp.specific_needs}\nAllocated Resources: {camp.allocatedresources}\n\n")
-            break
-
-# Create a function to display inventory
-def display_inventory():
-    inventory_info_text.delete(1.0, tk.END)  # Clear the inventory text widget
-    inventory_info_text.insert(tk.END, "Current Inventory:\n\n")
-    for item in inventory_data:
-        inventory_info_text.insert(tk.END, f"{item.inventory_name}\nQuantity: {item.quantity}\n\n")
-
-# Create a function to display both camp information and inventory
-def display_information():
-    display_camp_information()
-    display_inventory()
-
-# Create a function to allocate resources
-def allocate_resources():
-    selected_camp_id = camp_var.get()  # Get the selected camp from the dropdown menu
-    selected_inventory_name = inventory_var.get()  # Get the selected inventory from the dropdown menu
-
-    try:
-        allocated_quantity = int(quantity_entry.get())  # Get the quantity from the entry widget
-        if allocated_quantity <= 0:
-            raise ValueError("Quantity must be greater than zero.")
-
+    # Create a function to display camp information
+    def display_camp_information():
+        selected_camp_id = camp_dropdown.get()
+        camp_info_text.delete(1.0, tk.END)
+        camp_info_text.insert(tk.END, "Camp Information:\n\n")
         for camp in camps_information:
             if camp.camp_id == selected_camp_id:
-                for item in inventory_data:
-                    if item.inventory_name == selected_inventory_name:
-                        resources_allocated = ast.literal_eval(camp.resources_allocated)  # Convert string to dictionary
-                        resources_allocated[selected_inventory_name] = allocated_resources.get(selected_inventory_name, 0) + allocated_quantity
-                        camp.resources_allocated = str(allocated_resources)  # Convert dictionary to string
-                        item.quantity = str(int(item.quantity) - allocated_quantity)  # Update quantity as a string
-                        messagebox.showinfo("Allocation Success", f"{allocated_quantity} {selected_inventory_name} allocated to {selected_camp_id}")
-                        display_camp_information()  # Update the displayed camp information
-                        break
+                camp_info_text.insert(tk.END, f"{camp.camp_id}\nLocation: {camp.location}\nCapacity: {camp.max_capacity}\nSpecific Needs: {camp.specific_needs}\nAllocated Resources: {camp.allocatedresources}\n\n")
                 break
-    except ValueError as e:
-        messagebox.showerror("Allocation Error", str(e))
-
-# Create a function to clear the text boxes
-def clear_text():
-    camp_info_text.delete(1.0, tk.END)
-    inventory_info_text.delete(1.0, tk.END)
-
-# Create a function to save the updated data
-def save_data():
-    # Save camp and inventory data to camps_information.csv and inventory.csv
-    with open('camps.csv', 'w', newline='') as csvfile:
-        fieldnames = camps_information[0].__dict__.keys()
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
-        for camp in camps_information:
-            writer.writerow(camp.__dict__)
-
-    with open('inventory.csv', 'w', newline='') as csvfile:
-        fieldnames = inventory_data[0].__dict__.keys()
-        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-        writer.writeheader()
+        camp_info_text.config(state=tk.DISABLED)
+    # Create a function to display inventory
+    def display_inventory():
+        inventory_info_text.delete(1.0, tk.END)
+        inventory_info_text.insert(tk.END, "Current Inventory:\n\n")
         for item in inventory_data:
-            writer.writerow(item.__dict__)
+            inventory_info_text.insert(tk.END, f"{item.inventory_name}\nQuantity: {item.quantity}\n\n")
+        inventory_info_text.config(state=tk.DISABLED)
+    # Create a function to display both camp information and inventory
+    def display_information():
+        display_camp_information()
+        display_inventory()
 
-    messagebox.showinfo("Save Success", "Data saved successfully.")
+    # Create a function to allocate resources
+    def allocate_resources():
+        selected_camp_id = camp_dropdown.get()
+        selected_inventory_name = inventory_dropdown.get()
 
-# Create tkinter buttons, labels, and entry
-display_button = tk.Button(frame, text="Display Information", command=display_information)
-allocate_button = tk.Button(frame, text="Allocate Resources", command=allocate_resources)
-save_button = tk.Button(frame, text="Save Data", command=save_data)
-clear_button = tk.Button(frame, text="Go Back", command=clear_text)
-quantity_label = tk.Label(frame, text="Quantity:")
-quantity_entry = tk.Entry(frame)
+        try:
+            allocated_quantity = int(quantity_entry.get())
+            if allocated_quantity <= 0:
+                raise ValueError("Quantity must be greater than zero.")
 
-# Place the buttons, labels, and entry in the tkinter window using grid layout
-display_button.grid(row=0, column=0, padx=5, pady=5)
-allocate_button.grid(row=5, column=1, padx=10, pady=10)
-clear_button.grid(row=6, column=0, padx=10, pady=10)
-quantity_label.grid(row=4, column=0, padx=10, pady=10)
-quantity_entry.grid(row=4, column=1, padx=10, pady=10)
-save_button.grid(row=5, column=0, padx=10, pady=10)
+            for camp in camps_information:
+                if camp.camp_id == selected_camp_id:
+                    for item in inventory_data:
+                        if item.inventory_name == selected_inventory_name:
+                            allocated_resources = ast.literal_eval(camp.allocatedresources)
+                            allocated_resources[selected_inventory_name] = allocated_resources.get(
+                                selected_inventory_name, 0) + allocated_quantity
+                            camp.allocatedresources = str(allocated_resources)
+                            item.quantity = str(int(item.quantity) - allocated_quantity)
+                            messagebox.showinfo("Allocation Success",
+                                                f"{allocated_quantity} {selected_inventory_name} allocated to {selected_camp_id}")
+                            display_camp_information()
+                            break
+                    break
+        except ValueError as e:
+                messagebox.showerror("Allocation Error", str(e))
 
-choose_camp_label = tk.Label(frame, text="CAMPS \n Choose which camp to display \n from the list below:")
-choose_camp_label.grid(row=1, column=0, padx=10, pady=10)
+    # Create a function to clear the text boxes
+    def back(frame):
+        frame.grid_forget()
+        
+    # Create a function to save the updated data
+    def save_data():
+        with open('camps.csv', 'w', newline='') as csvfile:
+            fieldnames = camps_information[0].__dict__.keys()
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            for camp in camps_information:
+                writer.writerow(camp.__dict__)
 
-choose_inventory_label = tk.Label(frame, text=" RESOURCES \n Choose resource to allocate to each camp from below. \n If you need multiple resources, \n please allocate them one at a time")
-choose_inventory_label.grid(row=1, column=1, padx=10, pady=10)
+        with open('inventory.csv', 'w', newline='') as csvfile:
+            fieldnames = inventory_data[0].__dict__.keys()
+            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+            writer.writeheader()
+            for item in inventory_data:
+                writer.writerow(item.__dict__)
 
-info_label = tk.Label(frame, text="Allocate Resources to Camps")
-info_label.grid(row=0, column=1, padx=10, pady=10)
+        messagebox.showinfo("Save Success", "Data saved successfully.")
 
-# Create Text widgets to display camp information and inventory
-camp_info_text = tk.Text(frame, height=15, width=40)
-camp_info_text.grid(row=3, column=0, padx=10, pady=10)
+    # Create tkinter buttons, labels, and entry
+    display_button = tk.Button(frame, text="Display Information", command=display_information)
+    allocate_button = tk.Button(frame, text="Allocate Resources", command=allocate_resources)
+    save_button = tk.Button(frame, text="Save Data", width=10,command=save_data)
+    back_button = tk.Button(frame, text="Back", width=10,command=lambda:back(frame))
+    quantity_label = tk.Label(frame, text="Quantity:",font="calibri 10", bg="#021631",fg="#fff")
+    quantity_entry = tk.Entry(frame)
 
-inventory_info_text = tk.Text(frame, height=15, width=40)
-inventory_info_text.grid(row=3, column=1, padx=10, pady=10)
+    # Place the buttons, labels, and entry in the tkinter window using grid layout
+    display_button.grid(row=8, column=0, padx=10, pady=10)
+    allocate_button.grid(row=11, column=1, padx=10, pady=10)
+    back_button.grid(row=15, column=0, padx=10, pady=10)
+    quantity_label.grid(row=10, column=0, padx=10, pady=10)
+    quantity_entry.grid(row=10, column=1, padx=10, pady=10)
+    save_button.grid(row=11, column=0, padx=10, pady=10)
 
-# Create dropdown menus for camps and inventory
-camp_var = tk.StringVar(value=camps_information[0].camp_id)  # Default value
-camp_dropdown = ttk.Combobox(frame, textvariable=camp_var, values=[camp.camp_id for camp in camps_information])
+    choose_camp_label = tk.Label(frame, text="CAMPS \n \n Choose which camp to display \n from the list below:",font="calibri 10", bg="#021631",fg="#fff")
+    choose_camp_label.grid(row=6, column=0, padx=10, pady=10)
 
-inventory_var = tk.StringVar(value=inventory_data[0].inventory_name)  # Default value
-inventory_dropdown = ttk.Combobox(frame, textvariable=inventory_var, values=[item.inventory_name for item in inventory_data])
+    choose_inventory_label = tk.Label(frame, text=" RESOURCES \n \n Choose resource to allocate to each camp. \n If you need multiple resources, \n please allocate them one at a time",font="calibri 10", bg="#021631",fg="#fff")
+    choose_inventory_label.grid(row=6, column=1, padx=10, pady=10)
 
-# Place the dropdowns in the tkinter window using grid layout
-camp_dropdown.grid(row=2, column=0, padx=10, pady=10)
-inventory_dropdown.grid(row=2, column=1, padx=10, pady=10)
+    # info_label = tk.Label(frame, text="Allocate Resources to Camps")
+    # info_label.grid(row=0, column=1, padx=10, pady=10)
 
-# Start the tkinter event loop
-root.mainloop()
+    return frame
+    # # Start the tkinter event loop
+    # root.mainloop()
+
+

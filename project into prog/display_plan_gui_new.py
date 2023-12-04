@@ -85,19 +85,26 @@ def show_info(dataframe):
     frame.pack(padx=20, pady=10, expand=True, fill='both')
 
     for idx, col in enumerate(dataframe.columns):
-        label = tk.Label(frame, text=col,bg='#021631',
-        fg="white", font=("Calibri", 10) )
-        label.grid(row=idx, column=0, padx=5, pady=5, sticky="w")
-
         if col == 'active':
             active_value = dataframe.iloc[0][col]
             message = "Plan is currently active" if active_value != 0 else "Plan is inactive"
             messagebox.showinfo("Plan Status", message)
         else:
-            entry = ttk.Entry(frame, width=100)
-            entry.insert(tk.END, str(dataframe.iloc[0][col]))
-            entry.grid(row=idx, column=1, padx=20, pady=10, sticky="w")
-            entry.config(state=tk.DISABLED)  # Make the entry non-editable
+            label = tk.Label(frame, text=col, bg='#021631',
+                             fg="white", font=("Calibri", 10))
+            label.grid(row=idx, column=0, padx=5, pady=5, sticky="w")
+            if col=='closingDate':
+                closing_date=pd.to_datetime(dataframe.iloc[0][col]).strftime('%m/%d/%Y')
+                entry= ttk.Entry(frame,width=100)
+                entry.insert(tk.END, closing_date)
+                entry.grid(row=idx, column=1, padx=20, pady=10, sticky="w")
+                entry.config(state=tk.DISABLED)  # Make the entry non-editable
+
+            else:
+                entry = ttk.Entry(frame, width=100)
+                entry.insert(tk.END, str(dataframe.iloc[0][col]))
+                entry.grid(row=idx, column=1, padx=20, pady=10, sticky="w")
+                entry.config(state=tk.DISABLED)  # Make the entry non-editable
 
     # Add the 'Display Volunteers for Plan' button at the bottom
     volunteers_button = tk.Button(frame, text="Display Volunteers for Plan",bg="#FFFFFF", fg="black",command=lambda: display_volunteers(top, dataframe))
@@ -112,6 +119,35 @@ def display_error(message):
 
 def back(root):
     root.grid_forget()
+
+def display_all_plan(root):
+    df=pd.read_csv('plan.csv')
+
+    df['startDate'] = pd.to_datetime(df['startDate'], errors='coerce').dt.strftime('%m/%d/%Y')
+    df['closingDate']=pd.to_datetime(df['closingDate']).dt.strftime('%m/%d/%Y')
+
+    new_window=tk.Toplevel(root)
+    new_window.title('Plans Table')
+
+    #create treeview to display table
+    tree=ttk.Treeview(new_window, show='headings')
+    tree['columns']=list(df.columns)
+
+    #display columns
+    for col in df.columns:
+        tree.column(col, anchor='center')
+        tree.heading(col, text=col, anchor='center')
+
+    for i, row in df.iterrows():
+        #formatted_row=[str(val).replace('-','/') if isinstance(val,pd.Timestamp) else val for val in row]
+        tree.insert('','end', values=list(row))
+
+    #adding scrollbar
+    scrollbar= ttk.Scrollbar(new_window, orient='vertical', command=tree.yview)
+    tree.configure(yscrollcommand=scrollbar.set)
+    scrollbar.pack(side='right', fill='y')
+
+    tree.pack(expand=True, fill='both')
 
 def display_plan_frame(parent):
     global root
@@ -133,6 +169,9 @@ def display_plan_frame(parent):
     # Create 'Display Plan' button
     button = tk.Button(root, text="Display Plan", bg="#FFFFFF", command=display_plan)
     button.place(x=270, y=320)
+
+    tk.Button(root, text="Display all plans", bg="#FFFFFF", fg="black", width=15, height=1,
+              command=lambda: display_all_plan(root)).place(x=50, y=100)
 
     back_button=tk.Button(root, text="Back", width=10, bg="#FFFFFF", command=lambda:back(root))
     back_button.place(x=270, y=500)

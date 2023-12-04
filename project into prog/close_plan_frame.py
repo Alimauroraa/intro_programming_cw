@@ -35,6 +35,37 @@ def validate_date(plan_id,closing_date):
             return False
     return True
 
+def display_plan(close_plan_frame):
+    df=pd.read_csv('plan.csv')
+
+    df['startDate'] = pd.to_datetime(df['startDate'],errors='coerce')
+    df['startDate'] = df['startDate'].dt.strftime('%m/%d/%Y')
+    df['closingDate']=pd.to_datetime(df['closingDate']).dt.strftime('%m/%d/%Y')
+
+    new_window=tk.Toplevel(close_plan_frame)
+    new_window.title('Plans Table')
+
+    #create treeview to display table
+    tree=ttk.Treeview(new_window, show='headings')
+    tree['columns']=list(df.columns)
+
+    #display columns
+    for col in df.columns:
+        tree.column(col, anchor='center')
+        tree.heading(col, text=col, anchor='center')
+
+    for i, row in df.iterrows():
+        #formatted_row=[str(val).replace('-','/') if isinstance(val,pd.Timestamp) else val for val in row]
+        tree.insert('','end', values=list(row))
+
+    #adding scrollbar
+    scrollbar= ttk.Scrollbar(new_window, orient='vertical', command=tree.yview)
+    tree.configure(yscrollcommand=scrollbar.set)
+    scrollbar.pack(side='right', fill='y')
+
+    tree.pack(expand=True, fill='both')
+
+
 def submit_date():
     #retrieve entry
     plan_id= plan_id_entry.get()
@@ -60,20 +91,22 @@ def close_plan_frame(parent):
     # defining the entries as global variable
     global plan_id_entry
     global end_entry
-
-    plan_id_entry = ttk.Combobox(close_plan_frame, values=[i for i in map(str, plan_df['PlanID'].tolist())], width=31)
+    active_plans=plan_df[plan_df['active']==1]['PlanID'].tolist()    #filter only active plans
+    plan_id_entry = ttk.Combobox(close_plan_frame, values=[str(i) for i in active_plans], width=31)
     end_entry = tk.Entry(close_plan_frame, width=29, bd=2, font="calibri 10")
 
-    plan_id_entry.place(x=239, y=260)
-    end_entry.place(x=239, y=360)
+    plan_id_entry.place(x=239, y=280)
+    end_entry.place(x=239, y=380)
 
     # button
+    tk.Button(close_plan_frame,text="Display all plans",bg="#FFFFFF", fg="black", width=15, height=1,
+              command=lambda:display_plan(close_plan_frame)).place(x=70, y=170)
     tk.Button(close_plan_frame, text="Back", bg="#FFFFFF", fg="black", width=10, height=1,
-              command=lambda: back(close_plan_frame)).place(x=200, y=600)
-    tk.Button(close_plan_frame, text="Clear", bg="#FFFFFF", fg="black", width=10, height=1, command=clear).place(x=300,
-                                                                                                                  y=600)
+              command=lambda: back(close_plan_frame)).place(x=220, y=670)
+    tk.Button(close_plan_frame, text="Clear", bg="#FFFFFF", fg="black", width=10, height=1, command=clear).place(x=320,
+                                                                                                                  y=670)
     tk.Button(close_plan_frame, text="Submit", bg="#FFFFFF", fg="black", width=10, height=1,
-              command=submit_date).place(x=400, y=600)
+              command=submit_date).place(x=420, y=670)
 
     close_plan_frame.grid(row=0, column=0, sticky="nsew")
     return close_plan_frame
