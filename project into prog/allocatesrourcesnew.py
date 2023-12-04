@@ -12,18 +12,9 @@ def create_gui(parent):
         reader = csv.DictReader(csvfile)
         print(reader)
         for row in reader:
-            row['location'] = row.pop('location')
-            row['camp_id'] = row.pop('camp_id')
-            row['max_capacity'] = row.pop('max_capacity')
-            row['specific_needs'] = row.pop('specific_needs')
-            row['allocatedresources'] = row.pop('allocatedresources')
-            row['volunteers'] = row.pop('volunteers')
-            row['volunteer_id'] = row.pop('volunteer_id')
-            row['refugees'] = row.pop('refugees')
-            row['refugeeID'] = row.pop('refugeeID')
-            row['planname'] = row.pop('planname')
-            row['current_availability'] = row.pop('current_availability')
             camps_information.append(Camp(**row))
+
+#camp_id,location,volunteers_number,refugees_number,plan_name,current_availability,max_capacity,specific_needs,allocated_resources
 
     # Load inventory from inventory.csv
     inventory_data = []
