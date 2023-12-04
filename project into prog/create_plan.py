@@ -28,13 +28,13 @@ class HumanitarianPlan:
             self.plan_id = 1  # Start from 1 if the file is empty
         self.active = 1
         self.camp_id=''
-        print(self.plan_df['campID'].iloc[-1])
-        if ',' not in str(self.plan_df['campID'].iloc[-1]):
-            self.last_camp_no = int(self.plan_df['campID'].iloc[-1])
+        print(self.plan_df['camp_id'].iloc[-1])
+        if ',' not in str(self.plan_df['camp_id'].iloc[-1]):
+            self.last_camp_no = int(self.plan_df['camp_id'].iloc[-1])
 
         else:
             #access last element in last row (since if there are multiple elements we add with ,)
-            self.last_camp_no=int(self.plan_df['campID'].iloc[-1].split(',')[-1])
+            self.last_camp_no=int(self.plan_df['camp_id'].iloc[-1].split(',')[-1])
             print(self.last_camp_no)
 
         if int(self.number_camps)==1:
@@ -88,23 +88,26 @@ class HumanitarianPlan:
                 existing_camps_df = pd.read_csv('camps.csv')
             except (FileNotFoundError, pd.errors.EmptyDataError):
                 existing_camps_df = pd.DataFrame(
-                    columns=['CampID', 'Location', 'Capacity', 'SpecificNeeds', 'Volunteers', 'Refugees', 'ResourcesAllocated'])
+                    columns=['camp_id', 'location', 'volunteers_number', 'refugees_number', 'plan_name',
+                             'current_availability', 'max_capacity' 'specific_needs', 'allocated_resources'])
 
             # Create DataFrame for new camps with inherited locations
             new_camps_data = []
             for camp_id in camp_ids:
                 # Find the plan associated with this camp
-                plan = plans_df[plans_df['campID'].astype(str).str.contains(camp_id)]
+                plan = plans_df[plans_df['camp_id'].astype(str).str.contains(camp_id)]
                 geographical_area = plan['geographicalArea'].iloc[0] if not plan.empty else ''
 
                 new_camps_data.append({
-                    'CampID': camp_id,
-                    'Location': geographical_area,
-                    'Capacity': "",
-                    'SpecificNeeds': "",
-                    'Volunteers': "",
-                    'Refugees': "",
-                    'ResourcesAllocated': ""
+                    'camp_id': camp_id,
+                    'location': geographical_area,
+                    'volunteers_number': "",
+                    'refugees_number': "",
+                    'plan_name': "",
+                    'current_availability': "",
+                    'max_capacity': "",
+                    'specific_needs': "",
+                    'allocated_resources': ""
                 })
 
             new_camps_df = pd.DataFrame(new_camps_data)
@@ -120,30 +123,32 @@ class HumanitarianPlan:
     def generate_missing_camps_from_plans(self):
         try:
             plans_df = pd.read_csv('plan.csv')
-            if not plans_df.empty and 'campID' in plans_df.columns:
+            if not plans_df.empty and 'camp_id' in plans_df.columns:
                 camp_ids = set()  # A set to store unique camp IDs
-                for ids in plans_df['campID']:
+                for ids in plans_df['camp_id']:
                     camp_ids.update(str(ids).split(','))
 
                 try:
                     existing_camps_df = pd.read_csv('camps.csv')
                 except (FileNotFoundError, pd.errors.EmptyDataError):
                     existing_camps_df = pd.DataFrame(
-                        columns=['CampID', 'Location', 'Capacity', 'SpecificNeeds', 'Volunteers', 'Refugees',
-                                 'ResourcesAllocated'])
+                        columns=['camp_id', 'location', 'volunteers_number', 'refugees_number', 'plan_name',
+                                 'current_availability', 'max_capacity' 'specific_needs', 'allocated_resources'])
 
                 # Identify missing camp IDs
-                missing_camps = [cid for cid in camp_ids if cid not in existing_camps_df['CampID'].astype(str).tolist()]
+                missing_camps = [cid for cid in camp_ids if cid not in existing_camps_df['camp_id'].astype(str).tolist()]
 
                 # Create DataFrame for missing camps
                 if missing_camps:
-                    missing_camps_df = pd.DataFrame(missing_camps, columns=['CampID'])
-                    missing_camps_df['Location'] = ''
-                    missing_camps_df['Capacity'] = ''
-                    missing_camps_df['SpecificNeeds'] = ''
-                    missing_camps_df['Volunteers'] = ''
-                    missing_camps_df['Refugees'] = ''
-                    missing_camps_df['ResourcesAllocated'] = ''
+                    missing_camps_df = pd.DataFrame(missing_camps, columns=['camp_id'])
+                    missing_camps_df['location'] = ''
+                    missing_camps_df['volunteers_number'] = ''
+                    missing_camps_df['refugees_number'] = ''
+                    missing_camps_df['plan_name'] = ''
+                    missing_camps_df['current_availability'] = ''
+                    missing_camps_df['max_capacity'] = ''
+                    missing_camps_df['specific_needs'] = ''
+                    missing_camps_df['allocated_resources'] = ''
 
                     # Append missing camps to existing camps and save
                     combined_camps_df = pd.concat([existing_camps_df, missing_camps_df], ignore_index=True)

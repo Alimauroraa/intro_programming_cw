@@ -56,20 +56,17 @@ class Refugee:
         self.refugee_gender=refugee_gender
 
 class Camp:
-    def __init__(self, location, camp_id, max_capacity, specific_needs, allocatedresources, volunteers, volunteer_id, refugees, refugeeID, planname, current_availability):
+    def __init__(self, camp_id, location, volunteers_number, refugees_number, plan_name, current_availability,
+                 max_capacity, specific_needs, allocated_resources):
         self.camp_id = camp_id
         self.location = location
-        self.volunteers=volunteers
-        self.refugeeID=refugeeID
-        self.refugees=refugees
-        self.planname=planname
-        self.current_availability=current_availability
-        self.volunteer_id=volunteer_id
+        self.volunteers_number = volunteers_number
+        self.refugees_number = refugees_number
+        self.plan_name = plan_name
+        self.current_availability = current_availability
         self.max_capacity = max_capacity
         self.specific_needs = specific_needs
-        self.volunteers = []  # List of Volunteers in this camp
-        self.refugees = []    # List of Refugees in this camp
-        self.allocatedresources = allocatedresources
+        self.allocated_resources = allocated_resources
 
 class Volunteer(Users):
     def __init__(self, user_id, username, user_password, first_name, last_name,
