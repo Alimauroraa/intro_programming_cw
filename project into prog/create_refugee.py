@@ -49,8 +49,12 @@ class MainMenuWindow:
         # self.view_details_button = tk.Button(master, text="View refugee's details", command=self.view_refugee_details)
         # self.view_details_button.pack()
 
-        self.exit_button = tk.Button(master, text="Exit the program", command=self.master.destroy)
+        self.exit_button = tk.Button(master, text="Go back", command=self.exit_application)
         self.exit_button.pack()
+
+    def exit_application(self):
+        # Implement the functionality for quitting the application here
+        self.master.destroy()
 
     def add_refugee(self):
         self.master.iconify()
@@ -558,9 +562,11 @@ class MainMenuWindow:
                     break
 
 
-root = tk.Tk()
+root = tk.Toplevel()
+
 main_menu_window = MainMenuWindow(root)
 root.mainloop()
+
 
 # # Path to the CSV file
 # csv_filename = 'Refugee_DataFrame.csv'

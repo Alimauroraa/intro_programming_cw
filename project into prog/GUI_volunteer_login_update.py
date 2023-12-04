@@ -1,10 +1,13 @@
-
+import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
 import pandas as pd
 from tkinter import ttk
 
+
 user_df = pd.read_csv('volunteers_file.csv')
+csv_filename = 'Refugee_DataFrame.csv'
+refugee_df = pd.read_csv(csv_filename)
 bg_color = '#021631'
 
 def login():
@@ -214,9 +217,23 @@ def main_application():
     quit_button.pack(pady=10)
 
 def open_refugee_portal():
-    from create_refugee import MainMenuWindow
-    refugee_portal_window = Toplevel(root)
-    refugee_portal_window = MainMenuWindow(refugee_portal_window)
+    import create_refugee
+    from create_refugee import MainMenuWindow, main_menu_window
+    # Check if the main_menu_window already exists
+    if main_menu_window is not None:
+        try:
+            main_menu_window.master.destroy()  # Attempt to destroy the existing window
+        except AttributeError:
+            pass  # Handle the case where destroy method doesn't exist
+
+    # Create a new instance of Tk for the main application window
+    root = tk.Toplevel()
+    main_menu_window = MainMenuWindow(root)
+
+
+
+
+
 
 def edit_camp():
     from edit_camp_frame import EditCampFrame
