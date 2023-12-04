@@ -1,10 +1,13 @@
-
+import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
 import pandas as pd
 from tkinter import ttk
 
+
 user_df = pd.read_csv('volunteers_file.csv')
+csv_filename = 'Refugee_DataFrame.csv'
+refugee_df = pd.read_csv(csv_filename)
 bg_color = '#021631'
 
 def login():
@@ -185,7 +188,7 @@ def main_application():
     main_window.title('Volunteer Management System')
     # Set the window size
     main_window_width = 350
-    main_window_height = 500
+    main_window_height = 300
     main_window['bg'] = '#021631'
     # Get screen width and height
     screen_width = main_window.winfo_screenwidth()
@@ -194,19 +197,48 @@ def main_application():
     # Calculate the position to center the window
     x_position = (screen_width - main_window_width) // 2
     y_position = (screen_height - main_window_height) // 2
-
     # Set the window geometry
     main_window.geometry(f"{main_window_width}x{main_window_height}+{x_position}+{y_position}")
 
     # Add widgets and functionality for the main application
-    display_button = Button(main_window, text="Display Information",command=display_information)
+    display_button = Button(main_window, text="Display Information", command=display_information, font=("Calibri", 12))
     display_button.pack(pady=10)
 
-    update_button = Button(main_window, text="Update Information",command=updating)
+    update_button = Button(main_window, text="Update Information", command=updating, font=("Calibri", 12))
     update_button.pack(pady=10)
 
-    quit_button = Button(main_window, text="Quit", command=quit_application)
+    refugee_portal_button = Button(main_window, text="Refugee Portal", command=open_refugee_portal,font=("Calibri", 12))
+    refugee_portal_button.pack(pady=10)
+
+    edit_camp_button = Button(main_window, text="Edit Camp", command=edit_camp, font=("Calibri", 12))
+    edit_camp_button.pack(pady=10)
+
+    quit_button = Button(main_window, text="Quit", command=quit_application, font=("Calibri", 12))
     quit_button.pack(pady=10)
+
+def open_refugee_portal():
+    import create_refugee
+    from create_refugee import MainMenuWindow, main_menu_window
+    # Check if the main_menu_window already exists
+    if main_menu_window is not None:
+        try:
+            main_menu_window.master.destroy()  # Attempt to destroy the existing window
+        except AttributeError:
+            pass  # Handle the case where destroy method doesn't exist
+
+    # Create a new instance of Tk for the main application window
+    root = tk.Toplevel()
+    main_menu_window = MainMenuWindow(root)
+
+
+
+
+
+
+def edit_camp():
+    from edit_camp_frame import EditCampFrame
+    from edit_camp_frame import  main
+    main()
 
 def add_volunteer(username, user_password, first_name, last_name,birthday, phone, address1, address2, city,acc_type,email,gender,active,availability,camp_id):
     global user_df
