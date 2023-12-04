@@ -50,7 +50,7 @@ def create_gui(parent):
         camp_info_text.insert(tk.END, "Camp Information:\n\n")
         for camp in camps_information:
             if camp.camp_id == selected_camp_id:
-                camp_info_text.insert(tk.END, f"{camp.camp_id}\nLocation: {camp.location}\nCapacity: {camp.max_capacity}\nSpecific Needs: {camp.specific_needs}\nAllocated Resources: {camp.allocatedresources}\n\n")
+                camp_info_text.insert(tk.END, f"{camp.camp_id}\nLocation: {camp.location}\nCapacity: {camp.max_capacity}\nSpecific Needs: {camp.specific_needs}\nAllocated Resources: {camp.allocated_resources}\n\n")
                 break
         camp_info_text.config(state=tk.DISABLED)
     # Create a function to display inventory
@@ -79,10 +79,10 @@ def create_gui(parent):
                 if camp.camp_id == selected_camp_id:
                     for item in inventory_data:
                         if item.inventory_name == selected_inventory_name:
-                            allocated_resources = ast.literal_eval(camp.allocatedresources)
-                            allocated_resources[selected_inventory_name] = allocated_resources.get(
+                            aresources = ast.literal_eval(camp.allocated_resources)
+                            aresources[selected_inventory_name] = aresources.get(
                                 selected_inventory_name, 0) + allocated_quantity
-                            camp.allocatedresources = str(allocated_resources)
+                            camp.allocated_resources = str(aresources)
                             item.quantity = str(int(item.quantity) - allocated_quantity)
                             messagebox.showinfo("Allocation Success",
                                                 f"{allocated_quantity} {selected_inventory_name} allocated to {selected_camp_id}")

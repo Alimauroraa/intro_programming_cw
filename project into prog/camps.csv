@@ -1,6 +1,6 @@
 camp_id,location,volunteers_number,refugees_number,plan_name,current_availability,max_capacity,specific_needs,allocated_resources
-1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0
-41,United States,,,,,,,
+1,London,6,7,plan1,47,100,MedicalAid,"{'MedicalAid': 3, 'Water Bottles': 5}"
+41,United States,7,8,plan2,67,200,FoodPackets,"{'MedicalAid': 3, 'Food Packets': 5}"
 42,United States,,,,,,,
 14,,,,,,,,
 29,,,,,,,,
