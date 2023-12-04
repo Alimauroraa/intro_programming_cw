@@ -35,26 +35,22 @@ class ManageCampsFrame:
 
     def setup_ui(self):
         tk.Label(self.root, text="Manage camps", font="calibri 16", bg="#021631", fg="#fff").place(x=25, y=30)
-        # Create the Treeview with horizontal scrollbar
-        #self.tree = ttk.Treeview(self.root, xscrollcommand=lambda f, l: self.on_xscroll(f, l))
+
+        # Create the Treeview
         self.tree = ttk.Treeview(self.root)
         self.tree.grid(row=0, column=0, sticky="nsew", padx=25, pady=100)
 
         # Define the columns for the treeview
-        self.tree['columns'] = ('CampID', 'Location', 'Capacity', 'Specific Needs', 'Volunteers', 'Refugees', 'Resources Allocated')
+        self.tree['columns'] = ('camp_id', 'location', 'volunteers_number', 'refugees_number',
+                                'plan_name', 'current_availability', 'max_capacity',
+                                'specific_needs', 'allocated_resources')
         self.tree['show'] = 'headings'
 
         # Setting the column headings and widths
         for col in self.tree['columns']:
-            self.tree.heading(col, text=col)
-            #self.tree.column(col, width=100, stretch=tk.YES)
-        self.tree.column('CampID', width=52, stretch=tk.YES)
-        self.tree.column('Location', width=77, stretch=tk.YES)
-        self.tree.column('Capacity', width=70, stretch=tk.YES)
-        self.tree.column('Specific Needs', width=111, stretch=tk.YES)
-        self.tree.column('Volunteers', width=111, stretch=tk.YES)
-        self.tree.column('Refugees', width=111, stretch=tk.YES)
-        self.tree.column('Resources Allocated', width=116, stretch=tk.YES)
+            self.tree.heading(col, text=col.replace("_", " ").title())  # Replace underscores with spaces and title-case
+            self.tree.column(col, width=100, stretch=tk.YES)  # Adjust the width as needed
+
         self.tree.config(height=20)
 
         # # Add a horizontal scrollbar
@@ -108,34 +104,17 @@ class ManageCampsFrame:
         except pd.errors.EmptyDataError:
             messagebox.showinfo("Info", "The file 'camps.csv' is empty.")
             return
+
+        # Clear existing data in the tree
         for i in self.tree.get_children():
             self.tree.delete(i)
-        try:
-            camps_df = pd.read_csv('camps.csv')
-            camps_df.fillna('', inplace=True)
 
-            # Ensure the column name used here matches exactly with your CSV file's column name.
-            # If your CSV has 'Camp ID', use 'Camp ID' instead of 'CampID'.
-            if 'CampID' in camps_df.columns:
-                # Correctly convert 'Camp ID' to an integer if it's a valid number
-                def convert_to_int(val):
-                    try:
-                        return int(val)
-                    except ValueError:
-                        return val  # Return as is if it can't be converted to an integer
+        # Fill NaN values with empty strings for all columns
+        camps_df.fillna('', inplace=True)
 
-                camps_df['CampID'] = camps_df['CampID'].apply(convert_to_int)
-            else:
-                raise KeyError("Column 'Camp ID' does not exist in CSV.")
-
-        except FileNotFoundError:
-            messagebox.showerror("Error", "The file 'camps.csv' does not exist.")
-            return
-        except KeyError as e:
-            messagebox.showerror("Error", str(e))
-            return
-
+        # Insert rows into the treeview
         for _, row in camps_df.iterrows():
+            # Convert all values to strings for display
             values = [str(value) for value in row.tolist()]
             self.tree.insert('', 'end', values=values)
 

@@ -1,4 +1,4 @@
-PlanID,planName,startDate,closingDate,geographicalArea,planDesc,adminID,active,NumberOfCamps,campID
+PlanID,planName,startDate,closingDate,geographicalArea,planDesc,adminID,active,NumberOfCamps,camp_id
 1,Response Plan for Flooding in United Kingdom,10/23/2023,2023-11-25,UK,100 people affected,1,0,2,"1,2"
 2,Response to Flood in Japan,11/8/2023,2023-12-01,Japan,distribute food supply and build shelter,1,0,1,3
 3,Response to Flood in South Korea,9/10/2023,2023-12-03,South Korea,provide shelter in affected areas and build community kitchen,1,0,2,"4,5"
@@ -58,3 +58,18 @@ PlanID,planName,startDate,closingDate,geographicalArea,planDesc,adminID,active,N
 24,"Response to Flood in Bermuda
 ",12/05/2023,,Bermuda,"50 people affected
 ",1,1,1,34
+25,"Hao
+",03/30/2030,,China,"Test	
+",1,1,2,"35,36"
+26,"HaoPlz	
+",03/30/2030,,China,"fsdfasd
+",1,1,2,"37,38"
+27,"PLz
+",03/30/2030,,Chile,"fdga
+",1,1,2,"39,40"
+28,"OMG	
+",03/31/2030,,United States,"dsfs
+",1,1,2,"41,42"
+29,"test plan
+",12/12/2023,,Albania,"test
+",1,1,1,43
