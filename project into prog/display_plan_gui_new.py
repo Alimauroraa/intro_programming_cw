@@ -113,9 +113,11 @@ def show_info(dataframe):
     refugees_button = tk.Button(frame, text="Display Refugees for Plan",bg="#FFFFFF", fg="black",command=lambda: display_refugees(top, dataframe))
     refugees_button.grid(row=len(dataframe.columns) + 1, column=1, pady=10, padx=20)
 
-
+error_label= None
 def display_error(message):
-    error_label.config(text=message)
+    global error_label
+    if error_label is not None:
+        error_label.config(text=message)
 
 def back(root):
     root.grid_forget()
@@ -175,7 +177,6 @@ def display_plan_frame(parent):
 
     back_button=tk.Button(root, text="Back", width=10, bg="#FFFFFF", command=lambda:back(root))
     back_button.place(x=270, y=500)
-
     # error_label = ttk.Label(root, text="", foreground="red")
     # error_label.pack()
 

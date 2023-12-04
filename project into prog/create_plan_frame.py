@@ -52,14 +52,6 @@ def validate_input(admin_id, plan_name, description,geographical_area, start_dat
         messagebox.showerror("Error", "Please enter a valid description")
         return False
 
-    # #validate geographical area
-    # if len(geographical_area)==1 or geographical_area not in country:
-    #     messagebox.showerror("Error", "Required. Please enter valid country name")
-    #     return False
-    # elif not all(char==',' or char.isalpha() or char.isspace() for char in geographical_area) and 1 < len(geographical_area) < 200:
-    #     messagebox.showerror("Error", "Please enter a valid country, alphabetical character only")
-    #     return False
-
     #validate country
     if len(geographical_area)==0:
         messagebox.showerror("Error", "Required. Please select the country")
@@ -86,22 +78,6 @@ def validate_input(admin_id, plan_name, description,geographical_area, start_dat
             messagebox.showerror("Error", "Required. Please enter a start date in YYYY-MM-DD format")
             return False
 
-    # # validate end date
-    # if len(closing_date) == 0:
-    #     messagebox.showerror("Error", "Required. Please enter a closing date")
-    #     return False
-    # else:
-    #     try:
-    #         end = d.fromisoformat(closing_date)
-    #         if end > dt.now().date() and end > start:
-    #             print(end)
-    #         else:
-    #             messagebox.showerror("Error", "Closing date should be later than current and start date")
-    #             return False
-    #     except ValueError as e:
-    #         messagebox.showerror("Error", "Required. Please enter a start date in YYYY-MM-DD format")
-    #         return False
-
     # validate number of camps
     if len(number_camps) == 0:
         messagebox.showerror("Error", "Required. Please select of camps")
@@ -119,11 +95,6 @@ def submit_plan():
     #plan_df['startDate'] = pd.to_datetime(start_date, format="mixed")
     #closing_date = end_entry.get()
     number_camps = camps_entry.get()
-
-
-#     if validate_input(admin_id, plan_name, description,geographical_area, start_date,number_camps):    #if this is true we will add it to csv, if not, we won't add it
-#         add_plan = HumanitarianPlan(admin_id, plan_name, description, geographical_area, start_date,number_camps)
-#         add_plan.create_plan()          #create an instance
 
     if validate_input(admin_id, plan_name, description, geographical_area, start_date, number_camps):
         # add_plan = HumanitarianPlan(admin_id, plan_name, description, geographical_area, start_date,number_camps)

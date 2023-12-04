@@ -65,7 +65,6 @@ def display_plan(close_plan_frame):
 
     tree.pack(expand=True, fill='both')
 
-
 def submit_date():
     #retrieve entry
     plan_id= plan_id_entry.get()
