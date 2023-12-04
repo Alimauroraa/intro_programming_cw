@@ -7,7 +7,7 @@ from datetime import datetime
 def submit_update():
     selected_camp = camp_var.get()
     update_message = update_entry.get()
-    selected_categories = [category_var.get() for category_var in category_vars]
+    selected_categories = [str(category_var.get()) for category_var in category_vars]
 
     # Check if camp, message, and at least one category are selected
     if selected_camp and update_message and any(selected_categories):
@@ -43,7 +43,7 @@ root.title("Live Updates")
 root.configure(bg='#021631')
 
 # Create a frame to center the widgets
-frame = tk.Frame(root, bg = '#021631')
+frame = tk.Frame(root, bg='#021631')
 frame.place(relx=0.5, rely=0.5, anchor='center')
 
 # Create label for camp selection
@@ -61,16 +61,15 @@ update_label.pack()
 update_entry = ttk.Entry(frame)
 update_entry.pack()
 
-
-message_label = tk.Label(frame, text="What is your live update message about? Check all the boxes that apply.", background = "#021631", foreground="white")
+message_label = tk.Label(frame, text="What is your live update message about? Check all the boxes that apply.", background="#021631", foreground="white")
 message_label.pack()
 # Create checkboxes for message categories
 category_labels = ["Resources", "Weather", "Emergency", "Refugees"]
-category_vars = [tk.StringVar() for _ in category_labels]
+category_vars = [tk.IntVar() for _ in category_labels]
 checkboxes = []
 
 for i, category_label in enumerate(category_labels):
-    checkbox = tk.Checkbutton(frame, text=category_label, variable=category_vars[i], bg= "#021631" , fg="white")
+    checkbox = tk.Checkbutton(frame, text=category_label, variable=category_vars[i], bg="#021631", fg="white")
     checkbox.pack()
     checkboxes.append(checkbox)
 
@@ -92,5 +91,3 @@ y_position = (screen_height - main_window_height) // 2
 root.geometry(f"{main_window_width}x{main_window_height}+{x_position}+{y_position}")
 
 root.mainloop()
-
-
