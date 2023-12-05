@@ -1,5 +1,5 @@
 camp_id,location,volunteers_number,refugees_number,plan_name,current_availability,max_capacity,specific_needs,allocated_resources
 1,United Kingdom,8.0,9.0,"Flood In UCL
-",,,,
+",,,,{}
 2,United Kingdom,,,"Flood In UCL
-",,,,
+",,,,"{'Medical Supplies': 5, 'Water Bottles': 5}"

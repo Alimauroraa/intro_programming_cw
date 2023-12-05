@@ -35,7 +35,10 @@ class ManageCampsFrame:
 
     def setup_ui(self):
         tk.Label(self.root, text="Manage camps", font="calibri 16", bg="#021631", fg="#fff").place(x=25, y=30)
-
+        # Display a message above the table
+        info_label = tk.Label(self.root, text="Location, Max Capacity & Specific Needs fields can be clicked & edited",
+                              font="calibri 12")
+        info_label.place(x=25, y=60)
         # Create the Treeview
         self.tree = ttk.Treeview(self.root)
         self.tree.grid(row=0, column=0, sticky="nsew", padx=25, pady=100)
@@ -86,6 +89,12 @@ class ManageCampsFrame:
 
     def edit_cell(self, event):
         column = self.tree.identify_column(event.x)
+        editable_columns = ['#2', '#7', '#8']  # Columns that should be editable
+
+        # Check if the column is in the list of editable columns
+        if column not in editable_columns:
+            return  # Do nothing if the column is not editable
+
         row = self.tree.identify_row(event.y)
         x, y, width, height = self.tree.bbox(row, column)
         text = self.tree.item(row)['values'][int(column[1:]) - 1]

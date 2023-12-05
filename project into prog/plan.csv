@@ -1,5 +1,4 @@
 PlanID,planName,startDate,closingDate,geographicalArea,planDesc,adminID,active,NumberOfCamps,camp_id
-
 1,"Flood In UCL
 ",2023-12-23 00:00:00,,United Kingdom,"UCL is flooded
 ",1,1,2,"1,2"
