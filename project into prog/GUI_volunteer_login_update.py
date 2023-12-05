@@ -323,6 +323,14 @@ def open_refugee_portal():
     root = tk.Toplevel()
     main_menu_window = MainMenuWindow(root)
 
+    # def open_refugee_portal():
+    # # Create an instance of MainMenuWindow when the button is clicked
+    # from create_refugee import MainMenuWindow
+    # refugee_portal_window = Toplevel(root)
+    # # refugee_portal_window.title("Refugee Portal")
+    # # Pass user_df to the MainMenuWindow constructor
+    # refugee_portal_window = MainMenuWindow(refugee_portal_window)
+
 def edit_camp():
     from edit_camp_frame import EditCampFrame
     from edit_camp_frame import  main
