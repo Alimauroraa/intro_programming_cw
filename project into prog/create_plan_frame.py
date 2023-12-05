@@ -13,6 +13,7 @@ logging.basicConfig(level=logging.INFO,filename='create_plan_logging.log',
                     format="%(asctime)s - %(levelname)s - %(message)s", datefmt='%d-%b-%y %H:%M:%S')
 
 admin_df = pd.read_csv("admin_credentials.csv")
+plan_df= pd.read_csv('plan.csv')
 
 def back(create_plan_frame):
     create_plan_frame.grid_forget()
@@ -36,28 +37,27 @@ def validate_input(admin_id, plan_name, description,geographical_area, start_dat
     if len(plan_name)==1:
         messagebox.showerror("Error", "Required. Please enter the plan name")
         return False
-    elif not all(char.isalpha() or char.isspace() for char in plan_name) and 1 < len(plan_name) < 200:
+    elif not all(char.isalpha() or char.isspace() for char in plan_name):
         messagebox.showerror("Error", "Please enter a valid plan name, alphabetical character only")
         return False
-    else:
-        logging.info(f"Plan name: {plan_name}")
+    elif not 1 < len(plan_name) < 200:
+        messagebox.showerror("Error","Maximum 200 characters are allowed for plan name")
+        return False
+    # else:
+    #     logging.info(f"Plan name: {plan_name}")
 
     #validate description
     if len(description)==1:
         messagebox.showerror("Error", "Required. Please enter the description")
         return False
 
-    elif not all(char==',' or char.isalpha() or char.isspace() or char.isdigit() for char in description) and 1 < len(description) < 500:
+    elif not all(char==',' or char.isalpha() or char.isspace() or char.isdigit() for char in description):
         messagebox.showerror("Error", "Please enter a valid description")
         return False
 
-    # #validate geographical area
-    # if len(geographical_area)==1 or geographical_area not in country:
-    #     messagebox.showerror("Error", "Required. Please enter valid country name")
-    #     return False
-    # elif not all(char==',' or char.isalpha() or char.isspace() for char in geographical_area) and 1 < len(geographical_area) < 200:
-    #     messagebox.showerror("Error", "Please enter a valid country, alphabetical character only")
-    #     return False
+    elif not 1 < len(description) < 500:
+        messagebox.showerror("Error","Maximum 500 characters are allowed for description")
+        return False
 
     #validate country
     if len(geographical_area)==0:
@@ -71,6 +71,8 @@ def validate_input(admin_id, plan_name, description,geographical_area, start_dat
     else:
         try:
             print(start_date)
+            global start
+            #start_date=start_date.replace('-','/')
             start = d.fromisoformat(start_date)
             #start=dt.strptime(start_date,'%Y-%m-%d')
             print(type(start))
@@ -83,28 +85,13 @@ def validate_input(admin_id, plan_name, description,geographical_area, start_dat
             messagebox.showerror("Error", "Required. Please enter a start date in YYYY-MM-DD format")
             return False
 
-    # # validate end date
-    # if len(closing_date) == 0:
-    #     messagebox.showerror("Error", "Required. Please enter a closing date")
-    #     return False
-    # else:
-    #     try:
-    #         end = d.fromisoformat(closing_date)
-    #         if end > dt.now().date() and end > start:
-    #             print(end)
-    #         else:
-    #             messagebox.showerror("Error", "Closing date should be later than current and start date")
-    #             return False
-    #     except ValueError as e:
-    #         messagebox.showerror("Error", "Required. Please enter a start date in YYYY-MM-DD format")
-    #         return False
-
     # validate number of camps
     if len(number_camps) == 0:
         messagebox.showerror("Error", "Required. Please select of camps")
         return False
     messagebox.showinfo("Success","Plan is created")
-    return True                                 #if all checks are ok, it'll return True
+    logging.info(f"Plan name: {plan_name}, is created")
+    return True                                             #if all checks are ok, it'll return True
 
 def submit_plan():
     # Retrieve the entry
@@ -113,20 +100,16 @@ def submit_plan():
     description = desc_entry.get(1.0, tk.END)
     geographical_area = geo_entry.get()
     start_date = start_entry.get()
+    #plan_df['startDate'] = pd.to_datetime(start_date, format="mixed")
     #closing_date = end_entry.get()
     number_camps = camps_entry.get()
-
-
-#     if validate_input(admin_id, plan_name, description,geographical_area, start_date,number_camps):    #if this is true we will add it to csv, if not, we won't add it
-#         add_plan = HumanitarianPlan(admin_id, plan_name, description, geographical_area, start_date,number_camps)
-#         add_plan.create_plan()          #create an instance
 
     if validate_input(admin_id, plan_name, description, geographical_area, start_date, number_camps):
         # add_plan = HumanitarianPlan(admin_id, plan_name, description, geographical_area, start_date,number_camps)
         # add_plan.create_plan()          #create an instance
         
         # Create the plan
-        new_plan = HumanitarianPlan(admin_id, plan_name, description, geographical_area, start_date, number_camps)
+        new_plan = HumanitarianPlan(admin_id, plan_name, description, geographical_area, start, number_camps)
         camp_ids = new_plan.create_plan()  # Assume this method now returns the camp_ids
 
         # Generate camps based on the created plan
@@ -138,7 +121,7 @@ def submit_plan():
 
 def plan_creator_frame(parent):
     # initializing
-    create_plan_frame=tk.Frame(parent,width=600, height=600, bg='#021631')
+    create_plan_frame=tk.Frame(parent, bg='#021631')
 
     #heading
     tk.Label(create_plan_frame, text="Create new humanitarian plan", font="calibri 16",bg="#021631", fg="#fff").place(x=50,y=50)
@@ -433,9 +416,9 @@ def plan_creator_frame(parent):
     camps_entry.place(x=300, y=450)
 
     #button
-    tk.Button(create_plan_frame,text="Back", bg="#FFFFFF", fg="black", width=10, height=1,command=lambda:back(create_plan_frame)).place(x=200, y=600)
-    tk.Button(create_plan_frame,text="Clear", bg="#FFFFFF", fg="black", width=10, height=1, command=clear).place(x=300, y=600)
-    tk.Button(create_plan_frame,text="Submit", bg="#FFFFFF", fg="black", width=10, height=1, command=submit_plan).place(x=400, y=600)
+    tk.Button(create_plan_frame,text="Back", bg="#FFFFFF", fg="black", width=10, height=1,command=lambda:back(create_plan_frame)).place(x=220, y=650)
+    tk.Button(create_plan_frame,text="Clear", bg="#FFFFFF", fg="black", width=10, height=1, command=clear).place(x=320, y=650)
+    tk.Button(create_plan_frame,text="Submit", bg="#FFFFFF", fg="black", width=10, height=1, command=submit_plan).place(x=420, y=650)
 
     create_plan_frame.grid(row=0,column=0, sticky="nsew")
     return create_plan_frame
