@@ -4,7 +4,6 @@ from tkinter import messagebox
 import pandas as pd
 from tkinter import ttk
 
-
 user_df = pd.read_csv('volunteers_file.csv')
 csv_filename = 'Refugee_DataFrame.csv'
 refugee_df = pd.read_csv(csv_filename)
@@ -78,8 +77,8 @@ def updating():
     update_window.title("Update Information")
     update_window['bg'] = '#021631'
     # Set window size
-    window_width = 480
-    window_height = 340
+    window_width = 700
+    window_height = 800
 
 
 
@@ -94,7 +93,7 @@ def updating():
     # Set the window geometry
     update_window.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
 
-    Label(update_window, text="Select field to update: ",bg=bg_color,fg="white",font=("Calibri", 14)).pack(pady=10)
+    Label(update_window, text="Select field to update: ",bg=bg_color,fg="white",font=("Calibri", 14)).pack(pady=(200,10))
     field_var = ttk.Combobox(update_window, values=valid_fields)
     field_var.pack(pady=10)
     field_var.set("Choose a field")
@@ -105,16 +104,40 @@ def updating():
 
 
     # Button(update_window, text="Update", command=update_info).pack(pady=10)
-    update_button = Button(update_window, text="Update", command=update_info)
+    update_button = Button(update_window, text="Update", command=update_info,
+                           font=("Calibri", 12),
+                           width=16,
+                           height=0,
+                           bg="#FFFFFF",
+                           fg="black",
+                           cursor="hand2",
+                           activebackground="#B8B8B8",
+                           activeforeground="black", )
     update_button.pack(pady=10)
 
     if pd.isnull(user['camp_id'].iloc[0]):
         # Add the redirect_button only when the condition is true
-        redirect_button = Button(update_window, text="Redirect to Main", command=redirect_to_main)
+        redirect_button = Button(update_window, text="Redirect to Main", command=redirect_to_main,
+                                 font=("Calibri", 12),
+                                 width=16,
+                                 height=0,
+                                 bg="#FFFFFF",
+                                 fg="black",
+                                 cursor="hand2",
+                                 activebackground="#B8B8B8",
+                                 activeforeground="black", )
         redirect_button.pack(pady=10)
     else:
         # Add the back_button when the condition is false
-        back_button = Button(update_window, text="Back", command=back_to_main)
+        back_button = Button(update_window, text="Back", command=back_to_main,
+                             font=("Calibri", 12),
+                             width=16,
+                             height=0,
+                             bg="#FFFFFF",
+                             fg="black",
+                             cursor="hand2",
+                             activebackground="#B8B8B8",
+                             activeforeground="black", )
         back_button.pack(pady=10)
     # redirect_button = Button(update_window, text="Redirect to Main", command=redirect_to_main)
     # redirect_button.pack(pady=10)
@@ -130,32 +153,47 @@ def updating():
 def create_account_window():
     add_window = Toplevel(root)
     add_window.title('Create Account')
-    window_width = 300
-    window_height = 650
+    window_width = 700
+    window_height = 800
     add_window['bg'] = '#021631'
-    # Get screen width and height
+
     screen_width = add_window.winfo_screenwidth()
     screen_height = add_window.winfo_screenheight()
 
-    # Calculate the position to center the window
-    x_position = (screen_width - window_width) // 2
-    y_position = (screen_height - window_height) // 2
+    x_position = (screen_width - 600) // 2
+    y_position = (screen_height - 850) // 2
 
-    # Set the window geometry
     add_window.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
     fields = ["Username", "Password", "First Name", "Last Name", "Birthday", "Phone", "Address1", "Address2", "City", "Email", "Gender", "Availability","Camp_id"]
 
     entry_vars = []
 
     for i, field in enumerate(fields):
-        Label(add_window, text=f"{field}: ",bg=bg_color,fg="white",font=("Calibri", 14)).grid(row=i, column=0, padx=10, pady=5)
+        Label(add_window, text=f"{field}: ",bg=bg_color,fg="white",font=("Calibri", 14)).place(x=220,y=125+i*30)
         entry_var = StringVar()
-        Entry(add_window, textvariable=entry_var).grid(row=i, column=1, padx=10, pady=5)
+        Entry(add_window, textvariable=entry_var).place(x=340,y=130+i*30)
         entry_vars.append(entry_var)
-    back_button = Button(add_window, text="Back", command=add_window.destroy)
-    back_button.grid(row=len(fields) + 1, column=0, columnspan=2, pady=10)
-    submit_button = Button(add_window, text="Add Volunteer", command=lambda: create_account(entry_vars, add_window))
-    submit_button.grid(row=len(fields), column=0, columnspan=2, pady=10)
+    back_button = Button(add_window, text="Back", command=add_window.destroy,
+        font=("Calibri", 12),
+        width=16,
+        height=0,
+        bg="#FFFFFF",
+        fg="black",
+        cursor="hand2",
+        activebackground="#B8B8B8",
+        activeforeground="black",)
+    back_button.place(x=280,y=600)
+    submit_button = Button(add_window, text="Create Account", command=lambda: create_account(entry_vars, add_window),
+        font=("Calibri", 12),
+        width=16,
+        height=0,
+        bg="#FFFFFF",
+        fg="black",
+        cursor="hand2",
+        activebackground="#B8B8B8",
+        activeforeground="black",)
+        # submit_button.grid(row=len(fields), column=0, columnspan=2, pady=10)
+    submit_button.place(x=280,y=650)
 
 def create_account(entry_vars, add_window):
     fields = ["username", "user_password", "first_name", "last_name", "birthday", "phone", "address1", "address2", "city",
@@ -187,8 +225,8 @@ def main_application():
     main_window = Toplevel(root)
     main_window.title('Volunteer Management System')
     # Set the window size
-    main_window_width = 350
-    main_window_height = 300
+    main_window_width = 700
+    main_window_height = 800
     main_window['bg'] = '#021631'
     # Get screen width and height
     screen_width = main_window.winfo_screenwidth()
@@ -199,23 +237,78 @@ def main_application():
     y_position = (screen_height - main_window_height) // 2
     # Set the window geometry
     main_window.geometry(f"{main_window_width}x{main_window_height}+{x_position}+{y_position}")
-
+    welcome_label = Label(main_window, text="Welcome volunteer! What do you want to do for today?",
+                          bg=bg_color,
+                          fg="white",
+                          font=("Calibri", 14))
+    welcome_label.pack(pady=(150, 10), side='top', anchor='center')
     # Add widgets and functionality for the main application
-    display_button = Button(main_window, text="Display Information", command=display_information, font=("Calibri", 12))
-    display_button.pack(pady=10)
+    display_button = Button(main_window, text="Account Information", command=display_information,
+        font=("Calibri", 12),
+        width=16,
+        height=0,
+        bg="#FFFFFF",
+        fg="black",
+        cursor="hand2",
+        activebackground="#B8B8B8",
+        activeforeground="black",)
+    display_button.pack(pady=( 10), side='top', anchor='center')
 
-    update_button = Button(main_window, text="Update Information", command=updating, font=("Calibri", 12))
-    update_button.pack(pady=10)
 
-    refugee_portal_button = Button(main_window, text="Refugee Portal", command=open_refugee_portal,font=("Calibri", 12))
-    refugee_portal_button.pack(pady=10)
+    update_button = Button(main_window, text="Update Information", command=updating, font=("Calibri", 12),
+        width=16,
+        height=0,
+        bg="#FFFFFF",
+        fg="black",
+        cursor="hand2",
+        activebackground="#B8B8B8",
+        activeforeground="black",)
+    update_button.pack(pady=10, side='top', anchor='center')
 
-    edit_camp_button = Button(main_window, text="Edit Camp", command=edit_camp, font=("Calibri", 12))
-    edit_camp_button.pack(pady=10)
+    refugee_portal_button = Button(main_window, text="Refugee Portal", command=open_refugee_portal,
+        font=("Calibri", 12),
+        width=16,
+        height=0,
+        bg="#FFFFFF",
+        fg="black",
+        cursor="hand2",
+        activebackground="#B8B8B8",
+        activeforeground="black",)
+    refugee_portal_button.pack(pady=10, side='top', anchor='center')
 
-    quit_button = Button(main_window, text="Quit", command=quit_application, font=("Calibri", 12))
-    quit_button.pack(pady=10)
 
+    edit_camp_button = Button(main_window, text="Edit Camp", command=edit_camp,
+        font=("Calibri", 12),
+        width=16,
+        height=0,
+        bg="#FFFFFF",
+        fg="black",
+        cursor="hand2",
+        activebackground="#B8B8B8",
+        activeforeground="black",)
+    edit_camp_button.pack(pady=10, side='top', anchor='center')
+
+    live_update_button = Button(main_window, text="Send Live Updates", command=lambda: live_update(),
+                              font=("Calibri", 12),
+                              width=16,
+                              height=0,
+                              bg="#FFFFFF",
+                              fg="black",
+                              cursor="hand2",
+                              activebackground="#B8B8B8",
+                              activeforeground="black", )
+    live_update_button.pack(pady=10, side='top', anchor='center')
+
+    quit_button = Button(main_window, text="Quit", command=quit_application,
+        font=("Calibri", 12),
+        width=16,
+        height=0,
+        bg="#FFFFFF",
+        fg="black",
+        cursor="hand2",
+        activebackground="#B8B8B8",
+        activeforeground="black",)
+    quit_button.pack(pady=10, side='top', anchor='center')
 def open_refugee_portal():
     import create_refugee
     from create_refugee import MainMenuWindow, main_menu_window
@@ -230,16 +323,13 @@ def open_refugee_portal():
     root = tk.Toplevel()
     main_menu_window = MainMenuWindow(root)
 
-
-
-
-
-
 def edit_camp():
     from edit_camp_frame import EditCampFrame
     from edit_camp_frame import  main
     main()
-
+def live_update():
+    from liveupdatevolunteer import submit_update
+    submit_update()
 def add_volunteer(username, user_password, first_name, last_name,birthday, phone, address1, address2, city,acc_type,email,gender,active,availability,camp_id):
     global user_df
     new_user_id = user_df['user_id'].max() + 1
@@ -273,8 +363,8 @@ def display_user_row(user_index, user_df):
     display_window.title("User Information")
     display_window['bg'] = '#021631'
     # Set window size
-    window_width = 400
-    window_height = 420
+    window_width = 700
+    window_height = 800
 
     # Get screen width and height
     screen_width = display_window.winfo_screenwidth()
@@ -308,7 +398,15 @@ def display_user_row(user_index, user_df):
     tree.pack(pady=10,expand=True, fill="y")
 
     # Add a close button to close the display window
-    close_button = Button(display_window, text="Back", command=display_window.destroy)
+    close_button = Button(display_window, text="Back", command=display_window.destroy,
+                          font=("Calibri", 12),
+                          width=16,
+                          height=0,
+                          bg="#FFFFFF",
+                          fg="black",
+                          cursor="hand2",
+                          activebackground="#B8B8B8",
+                          activeforeground="black", )
     close_button.pack(pady=10)
 
 
@@ -347,11 +445,25 @@ enrey2.place(x=140, y=70)
 
 
 # Button(root, text="Login", command=login, height=2, width=13, bd=6).place(x=100, y=120)
-log_button = Button(root, text="Login", command=login)
-log_button.place(x=130, y=110)
+log_button = Button(root, text="Log In", command=login,font=("Calibri", 12),
+        width=16,
+        height=0,
+        bg="#FFFFFF",
+        fg="black",
+        cursor="hand2",
+        activebackground="#B8B8B8",
+        activeforeground="black")
+log_button.place(x=80, y=110)
 
-add_button = Button(root, text="Create Account", command=create_account_window)
+add_button = Button(root, text="Create Account", command=create_account_window,font=("Calibri", 12),
+        width=16,
+        height=0,
+        bg="#FFFFFF",
+        fg="black",
+        cursor="hand2",
+        activebackground="#B8B8B8",
+        activeforeground="black")
 
-add_button.place(x=100, y=150)
+add_button.place(x=80, y=150)
 
 root.mainloop()
