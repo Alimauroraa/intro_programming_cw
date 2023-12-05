@@ -6,16 +6,13 @@ import ast
 from data_model import Camp, Inventory
 
 def create_gui(parent):
-    # Load camp information from camps.csv
     camps_information = []
     with open('camps.csv', newline='') as csvfile:
         reader = csv.DictReader(csvfile)
         print(reader)
         for row in reader:
-            # camps_information.append(Camp(**row))
-            # Check if 'allocated_resources' column exists and if its value is empty or not
             if 'allocated_resources' in row and not row['allocated_resources']:
-                allocated_resources = {}  # Empty dictionary if 'allocated_resources' is empty or missing
+                allocated_resources = {}  
             else:
                 allocated_resources = row['allocated_resources']
             camp_instance = Camp(
@@ -40,25 +37,25 @@ def create_gui(parent):
 
     frame=tk.Frame(parent,width=700, height=800,bg='#021631')
     tk.Label(frame,text='Allocate resources to camps', font="calibri 16",bg="#021631", fg="#fff").grid(row=4, column=0, padx=10, pady=30)
-    # Create Text widgets to display camp information and inventory
+    
     camp_info_text = tk.Text(frame, height=15, width=40)
     camp_info_text.grid(row=9, column=0, padx=10, pady=10)
 
     inventory_info_text = tk.Text(frame, height=15, width=40)
     inventory_info_text.grid(row=9, column=1, padx=10, pady=10)
 
-    # Create dropdown menus for camps and inventory
+    
     camp_var = tk.StringVar(value=camps_information[0].camp_id)  # Default value
     camp_dropdown = ttk.Combobox(frame, textvariable=camp_var, values=[camp.camp_id for camp in camps_information])
 
     inventory_var = tk.StringVar(value=inventory_data[0].inventory_name)  # Default value
     inventory_dropdown = ttk.Combobox(frame, textvariable=inventory_var, values=[item.inventory_name for item in inventory_data])
 
-    # Place the dropdowns in the tkinter window using grid layout
+    
     camp_dropdown.grid(row=7, column=0, padx=10, pady=10)
     inventory_dropdown.grid(row=7, column=1, padx=10, pady=10)
 
-    # Create a function to display camp information
+    
     def display_camp_information():
         selected_camp_id = camp_dropdown.get()
         camp_info_text.delete(1.0, tk.END)
@@ -67,24 +64,56 @@ def create_gui(parent):
             if camp.camp_id == selected_camp_id:
                 camp_info_text.insert(tk.END, f"{camp.camp_id}\nLocation: {camp.location}\nCapacity: {camp.max_capacity}\nSpecific Needs: {camp.specific_needs}\nAllocated Resources: {camp.allocated_resources}\n\n")
                 break
-        # camp_info_text.config(state='normal')
-        # camp_info_text.config(state='disabled')
-    # Create a function to display inventory
+
     def display_inventory():
         inventory_info_text.delete(1.0, tk.END)
         inventory_info_text.insert(tk.END, "Current Inventory:\n\n")
         for item in inventory_data:
             inventory_info_text.insert(tk.END, f"{item.inventory_name}\nQuantity: {item.quantity}\n\n")
         # inventory_info_text.config(state=tk.DISABLED)
-    # Create a function to display both camp information and inventory
+
     def display_information():
         display_camp_information()
         display_inventory()
 
-    # Create a function to allocate resources
+    
     def allocate_resources():
+        quantity = quantity_entry.get()
         selected_camp_id = camp_dropdown.get()
         selected_inventory_name = inventory_dropdown.get()
+        quantity = quantity_entry.get()
+
+        if not selected_camp_id:
+            messagebox.showerror("Error", "No camp selected to allocate a resource.")
+            return
+        
+        if not quantity:
+            messagebox.showerror("Error", "Please enter a quantity.")
+            return
+
+        if not quantity.isdigit():
+            messagebox.showerror("Error", "Quantity must be a number.")
+            return
+
+        quantity = int(quantity)
+
+        inventory_dict = {}
+        
+        with open('inventory.csv', 'r') as f:
+            reader = csv.reader(f)
+            next(reader)  # Skip the header row
+            for row in reader:
+                inventory_dict[row[2]] = int(row[3])
+
+        inventory = inventory_dict.get(selected_inventory_name)
+
+        if inventory is None:
+            messagebox.showerror("Error", "Choose an inventory item.")
+            return
+
+        if quantity > inventory:
+            messagebox.showerror("Error", "Quantity cannot be greater than the inventory.")
+            return
 
         try:
             allocated_quantity = int(quantity_entry.get())
@@ -111,11 +140,15 @@ def create_gui(parent):
         except ValueError as e:
                 messagebox.showerror("Allocation Error", str(e))
 
-    # Create a function to clear the text boxes
+    data_saved = tk.BooleanVar()
+    data_saved.set(False)
+
     def back(frame):
-        frame.grid_forget()
+        if not data_saved.get():
+            messagebox.showwarning("Warning", "You have not saved your data.")
+        else:
+            frame.grid_forget()
         
-    # Create a function to save the updated data
     def save_data():
         with open('camps.csv', 'w', newline='') as csvfile:
             fieldnames = camps_information[0].__dict__.keys()
@@ -133,7 +166,7 @@ def create_gui(parent):
 
         messagebox.showinfo("Save Success", "Data saved successfully.")
 
-    # Create tkinter buttons, labels, and entry
+    # buttons here
     display_button = tk.Button(frame, text="Display Information", command=display_information)
     allocate_button = tk.Button(frame, text="Allocate Resources", command=allocate_resources)
     save_button = tk.Button(frame, text="Save Data", width=10,command=save_data)
@@ -141,14 +174,13 @@ def create_gui(parent):
     quantity_label = tk.Label(frame, text="Quantity:",font="calibri 10", bg="#021631",fg="#fff")
     quantity_entry = tk.Entry(frame)
 
-    # Place the buttons, labels, and entry in the tkinter window using grid layout
+    # place 
     display_button.grid(row=8, column=0, padx=10, pady=10)
     allocate_button.grid(row=11, column=1, padx=10, pady=10)
-    back_button.grid(row=15, column=0, padx=10, pady=10)
+    back_button.grid(row=11, column=0, padx=10, pady=10)
     quantity_label.grid(row=10, column=0, padx=10, pady=10)
     quantity_entry.grid(row=10, column=1, padx=10, pady=10)
-    save_button.grid(row=11, column=0, padx=10, pady=10)
-
+    save_button.grid(row=12, column=1, padx=10, pady=10)
     choose_camp_label = tk.Label(frame, text="CAMPS \n \n Choose which camp to display \n from the list below:",font="calibri 10", bg="#021631",fg="#fff")
     choose_camp_label.grid(row=6, column=0, padx=10, pady=10)
 
@@ -159,7 +191,7 @@ def create_gui(parent):
     # info_label.grid(row=0, column=1, padx=10, pady=10)
 
     return frame
-    # # Start the tkinter event loop
+
     # root.mainloop()
 
 
