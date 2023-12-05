@@ -198,7 +198,6 @@ def create_gui(parent):
     quantity_label.grid(row=10, column=0, padx=10, pady=10)
     quantity_entry.grid(row=10, column=1, padx=10, pady=10)
     save_button.grid(row=12, column=1, padx=10, pady=10)
-
     choose_camp_label = tk.Label(frame, text="CAMPS \n \n Choose which camp to display \n from the list below:",font="calibri 10", bg="#021631",fg="#fff")
     choose_camp_label.grid(row=6, column=0, padx=10, pady=10)
 
