@@ -14,26 +14,31 @@ def clear():
     plan_id_entry.set('')
     end_entry.delete(0,tk.END)
 
-def validate_date(plan_id,closing_date):
+def validate_date(plan_id, closing_date):
     # validate end date
     if len(closing_date) == 0:
         messagebox.showerror("Error", "Required. Please enter a closing date")
         return False
     else:
         try:
-            matching_row=plan_df.loc[plan_df['PlanID']== int(plan_id)]
+            matching_row = plan_df.loc[plan_df['PlanID'] == int(plan_id)]
             if len(matching_row) > 0:
+                # Handle potential NaT in startDate
+                if pd.isna(matching_row['startDate'].iloc[0]):
+                    messagebox.showerror("Error", "Cannot terminate the plan as the start date is not set.")
+                    return False
                 start = pd.to_datetime(matching_row['startDate']).dt.date.iloc[0]
-                end= dt.strptime(closing_date,'%Y-%m-%d').date()
-            if end >= dt.now().date() and end > start:
-                return True
-            else:
-                messagebox.showerror("Error", "Closing date should be later than current and start date")
-                return False
+                end = dt.strptime(closing_date, '%Y-%m-%d').date()
+                if end >= dt.now().date() and end > start:
+                    return True
+                else:
+                    messagebox.showerror("Error", "Closing date should be later than current and start date")
+                    return False
         except ValueError as e:
-            messagebox.showerror("Error", "Required. Please enter a start date in YYYY-MM-DD format")
+            messagebox.showerror("Error", f"Invalid date format: {e}. Please enter the date in YYYY-MM-DD format")
             return False
     return True
+
 
 def display_plan(close_plan_frame):
     df=pd.read_csv('plan.csv')
