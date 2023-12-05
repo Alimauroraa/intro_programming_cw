@@ -17,7 +17,6 @@ plan_df= pd.read_csv('plan.csv')
 
 def back(create_plan_frame):
     create_plan_frame.grid_forget()
-    #admin_home_frame.home_frame.tkraise()
 
 def clear():
     admin_entry.set('')
@@ -27,11 +26,11 @@ def clear():
     start_entry.delete(0,tk.END)
     camps_entry.set('')
 
-def validate_input(admin_id, plan_name, description,geographical_area, start_date,number_camps):
+def validate_input( plan_name, description,geographical_area, start_date,number_camps):
     #validate admin id
-    if len(admin_id)==0:
-        messagebox.showerror("Error", "Required. Please select the admin id")
-        return False        #by returning False, this will prevent us from adding it to csv
+    # if len(admin_id)==0:
+    #     messagebox.showerror("Error", "Required. Please select the admin id")
+    #     return False        #by returning False, this will prevent us from adding it to csv
 
     #validate plan name
     if len(plan_name)==1:
@@ -51,7 +50,7 @@ def validate_input(admin_id, plan_name, description,geographical_area, start_dat
         messagebox.showerror("Error", "Required. Please enter the description")
         return False
 
-    elif not all(char==',' or char.isalpha() or char.isspace() or char.isdigit() for char in description):
+    elif not all(char==',' or char=='.' or char.isalpha() or char.isspace() or char.isdigit() for char in description):
         messagebox.showerror("Error", "Please enter a valid description")
         return False
 
@@ -72,11 +71,11 @@ def validate_input(admin_id, plan_name, description,geographical_area, start_dat
         try:
             print(start_date)
             global start
-            #start_date=start_date.replace('-','/')
+            # start_date=start_date.replace('-','/')
             start = d.fromisoformat(start_date)
-            #start=dt.strptime(start_date,'%Y-%m-%d')
+            # start=dt.strptime(start_date,'%Y-%m-%d')
             print(type(start))
-            if start > dt.now().date(): #.date()
+            if start > dt.now().date():  # .date()
                 print(start)
             else:
                 messagebox.showerror("Error", "Start date should be later than current date")
@@ -102,14 +101,14 @@ def submit_plan():
     start_date = start_entry.get()
     number_camps = camps_entry.get()
 
-    if validate_input(admin_id, plan_name, description, geographical_area, start_date, number_camps):
+
+    if validate_input( plan_name, description, geographical_area, start_date, number_camps):
         # Create the plan
-        new_plan = HumanitarianPlan(admin_id, plan_name, description, geographical_area, start_date, number_camps)
+        new_plan = HumanitarianPlan(admin_id, plan_name, description, geographical_area, start, number_camps)
         camp_ids = new_plan.create_plan()  # This method now handles plan and camp creation
 
         # Inform the user that the plan and camps have been created
         messagebox.showinfo("Success", "Plan and associated camps created successfully.")
-
 
 def plan_creator_frame(parent):
     # initializing
@@ -387,7 +386,10 @@ def plan_creator_frame(parent):
                'Zambia',
                'Zimbabwe']
 
-    admin_entry = ttk.Combobox(create_plan_frame, values=[i for i in map(str, admin_df['user_id'].tolist())], width=50)
+    #admin_entry = ttk.Combobox(create_plan_frame, values=[i for i in map(str, admin_df['user_id'].tolist())], width=50)
+    admin_entry=tk.Entry(create_plan_frame,width=45, bd=2, font="calibri 10")
+    admin_entry.insert(0,'1')
+    admin_entry.config(state='readonly')
     # admin_id= admin_df.loc[admin_df['username']==entered_username, 'user_id'].tolist()
     # admin_entry= ttk.Combobox(create_plan_frame, values= admin_id, width=50)
     name_entry = tk.Text(create_plan_frame, width=45, height=1, bd=2, font="calibri 10")
