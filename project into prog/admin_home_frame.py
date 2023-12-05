@@ -9,7 +9,7 @@ from manage_camps_frame import ManageCampsFrame
 import EditVolunteerAccount
 import allocatesrourcesnew
 import livefeed
-
+from allocate_volunteer_frame import AllocateVolunteersFrame
 
 bg_color = '#021631'
 
@@ -45,6 +45,19 @@ def open_manage_camps(root):
 
 def allocate_resources_frame(root):
     allocatesrourcesnew.create_gui(root).grid(row=0, column=0)
+
+def open_allocate_volunteers_frame(root):
+    # Clear existing widgets in root
+    for widget in root.winfo_children():
+        widget.destroy()
+
+    # Create and display an instance of AllocateVolunteersFrame
+    allocate_volunteers_frame = AllocateVolunteersFrame(root)
+    allocate_volunteers_frame.pack()
+
+    # Back button
+    back_button = tk.Button(root, text="Back", width=10, command=lambda: admin_home(root))
+    back_button.place(x=370,y=600)
 
 def live_feed_frame(root):
     livefeed.livefeed_frame(root).grid(row=0, column=0)
@@ -138,7 +151,7 @@ def admin_home(root):
         cursor="hand2",
         activebackground="#B8B8B8",
         activeforeground="black",
-        command=allocate_volunteer).place(x=286, y=550)
+        command=lambda: open_allocate_volunteers_frame(root)).place(x=286, y=550)
 
     tk.Button(
         home_frame,
