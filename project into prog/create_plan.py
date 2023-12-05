@@ -80,7 +80,7 @@ class HumanitarianPlan:
 
     def generate_camps_from_plan(self, camp_ids):
         try:
-            # Read existing plans to get geographical areas
+            # Read existing plans to get geographical areas and plan names
             plans_df = pd.read_csv('plan.csv')
 
             # Read existing camps
@@ -89,21 +89,26 @@ class HumanitarianPlan:
             except (FileNotFoundError, pd.errors.EmptyDataError):
                 existing_camps_df = pd.DataFrame(
                     columns=['camp_id', 'location', 'volunteers_number', 'refugees_number', 'plan_name',
-                             'current_availability', 'max_capacity' 'specific_needs', 'allocated_resources'])
+                             'current_availability', 'max_capacity', 'specific_needs', 'allocated_resources'])
 
-            # Create DataFrame for new camps with inherited locations
+            # Create DataFrame for new camps with inherited locations and plan names
             new_camps_data = []
             for camp_id in camp_ids:
                 # Find the plan associated with this camp
                 plan = plans_df[plans_df['camp_id'].astype(str).str.contains(camp_id)]
-                geographical_area = plan['geographicalArea'].iloc[0] if not plan.empty else ''
+                if not plan.empty:
+                    geographical_area = plan['geographicalArea'].iloc[0]
+                    inherited_plan_name = plan['planName'].iloc[0]  # Extract plan name
+                else:
+                    geographical_area = ''
+                    inherited_plan_name = ''
 
                 new_camps_data.append({
                     'camp_id': camp_id,
                     'location': geographical_area,
                     'volunteers_number': "",
                     'refugees_number': "",
-                    'plan_name': "",
+                    'plan_name': inherited_plan_name,  # Use inherited plan name
                     'current_availability': "",
                     'max_capacity': "",
                     'specific_needs': "",
