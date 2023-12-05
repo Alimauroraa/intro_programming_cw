@@ -145,9 +145,9 @@ def create_gui(parent):
 
     def back(frame):
         if not data_saved.get():
-            messagebox.showwarning("Warning", "You have not saved your data.")
-        else:
-            frame.grid_forget()
+            if messagebox.askyesno("Warning", "You have not saved your data. Would you like to save now?"):
+                save_data()
+        frame.grid_forget()
         
     def save_data():
         with open('camps.csv', 'w', newline='') as csvfile:
