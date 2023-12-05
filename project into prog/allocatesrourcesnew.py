@@ -143,23 +143,11 @@ def create_gui(parent):
     data_saved = tk.BooleanVar()
     data_saved.set(False)
 
-    def save_data():
-        with open('camps.csv', 'w', newline='') as csvfile:
-            fieldnames = camps_information[0].__dict__.keys()
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            writer.writeheader()
-            for camp in camps_information:
-                writer.writerow(camp.__dict__)
-
-        with open('inventory.csv', 'w', newline='') as csvfile:
-            fieldnames = inventory_data[0].__dict__.keys()
-            writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-            writer.writeheader()
-            for item in inventory_data:
-                writer.writerow(item.__dict__)
-        data_saved.set(True)
-
-        messagebox.showinfo("Save Success", "Data saved successfully.")
+    def back(frame):
+        if not data_saved.get():
+            messagebox.showwarning("Warning", "You have not saved your data.")
+        else:
+            frame.grid_forget()
         
     def save_data():
         with open('camps.csv', 'w', newline='') as csvfile:
