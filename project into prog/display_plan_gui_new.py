@@ -156,7 +156,7 @@ def display_plan_frame(parent):
 
     global combo
     plan_ids = load_plan_ids()
-    combo = ttk.Combobox(root, values=plan_ids)
+    combo = ttk.Combobox(root, values=plan_ids, state='readonly')
     combo.place(x=230, y=270)
     #entry = tk.Entry(root,width=20, bd=2, font="calibri 10")
     #entry.place(x=230, y=270)

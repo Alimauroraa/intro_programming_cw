@@ -1,5 +1,5 @@
 camp_id,location,volunteers_number,refugees_number,plan_name,current_availability,max_capacity,specific_needs,allocated_resources
-1,London,6.0,7.0,plan1,47.0,100.0,MedicalAid,"{'MedicalAid': 3, 'Water Bottles': 5, 'Clothing': 5, 'Tents': 3, 'Blankets': 5}"
+1,London,6.0,7.0,plan1,47.0,100.0,MedicalAid,"{'MedicalAid': 3, 'Water Bottles': 5, 'Clothing': 5, 'Tents': 3, 'Blankets': 5, 'Food Packets': 10}"
 41,United States,7.0,8.0,plan2,67.0,200.0,FoodPackets,"{'MedicalAid': 3, 'Food Packets': 15, 'Blankets': 5, 'Clothing': 10, 'Tents': 4}"
 42,United States,,,,,,,{}
 14,,,,,,,,{}
