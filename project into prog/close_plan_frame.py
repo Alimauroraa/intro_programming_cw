@@ -39,13 +39,31 @@ def validate_date(plan_id, closing_date):
             return False
     return True
 
+def date_parser(x):
+    formats = ['%Y-%m-%d', '%m-%d-%Y', '%m/%d/%Y', '%Y/%m/%d' ]  # Add more formats as needed
+    for fmt in formats:
+        try:
+            return pd.to_datetime(x, format=fmt)
+        except ValueError:
+            pass
+    return pd.NaT
+
+def update_active_flag():
+    today_date = dt.now().date()
+    df = pd.read_csv('plan.csv', parse_dates=['startDate', 'closingDate'], date_parser=date_parser)
+
+    # Check if the 'startDate' matches the current date and update 'active' column accordingly
+    df.loc[df['closingDate'].dt.date >= today_date, 'active'] = 0
+
+    # Save the updated dataframe back to the CSV file
+    df.to_csv('plan.csv', index=False)
 
 def display_plan(close_plan_frame):
-    df=pd.read_csv('plan.csv')
+    df = pd.read_csv('plan.csv', parse_dates=['startDate', 'closingDate'], date_parser=date_parser)
 
-    df['startDate'] = pd.to_datetime(df['startDate'],errors='coerce')
+    # Convert the dates to the desired format
     df['startDate'] = df['startDate'].dt.strftime('%m/%d/%Y')
-    df['closingDate']=pd.to_datetime(df['closingDate']).dt.strftime('%m/%d/%Y')
+    df['closingDate'] = df['closingDate'].dt.strftime('%m/%d/%Y')
 
     new_window=tk.Toplevel(close_plan_frame)
     new_window.title('Plans Table')
@@ -69,6 +87,7 @@ def display_plan(close_plan_frame):
     scrollbar.pack(side='right', fill='y')
 
     tree.pack(expand=True, fill='both')
+
 
 def submit_date():
     #retrieve entry
