@@ -12,3 +12,7 @@
 , is created
 05-Dec-23 14:54:39 - ERROR - start_date is not a string: 2030-03-31 00:00:00
 05-Dec-23 14:54:39 - INFO - Plan created with ID: 2 and Camp IDs: 3,4,5,6,7
+05-Dec-23 15:51:55 - INFO - Plan name: Pleasework
+, is created
+05-Dec-23 15:51:55 - ERROR - start_date is not a string: 2044-04-04 00:00:00
+05-Dec-23 15:51:55 - INFO - Plan created with ID: 3 and Camp IDs: 8,9,10,11,12,13,14

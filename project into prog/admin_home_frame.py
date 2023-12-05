@@ -51,8 +51,13 @@ def open_allocate_volunteers_frame(root):
     for widget in root.winfo_children():
         widget.destroy()
 
-    # Create an instance of AllocateVolunteersFrame
-    allocate_volunteers_frame = AllocateVolunteersFrame(root, lambda: admin_home(root))
+    # Create and display an instance of AllocateVolunteersFrame
+    allocate_volunteers_frame = AllocateVolunteersFrame(root)
+    allocate_volunteers_frame.pack()
+
+    # Back button
+    back_button = tk.Button(root, text="Back", width=10, command=lambda: admin_home(root))
+    back_button.place(x=370,y=600)
 
 def live_feed_frame(root):
     livefeed.livefeed_frame(root).grid(row=0, column=0)

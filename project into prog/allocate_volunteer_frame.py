@@ -3,11 +3,11 @@ from tkinter import ttk
 from tkinter import messagebox
 import pandas as pd
 
-class AllocateVolunteersFrame:
-    def __init__(self, root, back_callback=None):
+class AllocateVolunteersFrame(tk.Frame):
+    def __init__(self, root):
+        super().__init__(root)
         self.root = root
         self.root.title("Allocate Volunteers")
-        self.back_callback = back_callback
 
         # Read volunteers_file.csv and camps.csv
         self.volunteers_df = pd.read_csv("volunteers_file.csv")
@@ -24,10 +24,9 @@ class AllocateVolunteersFrame:
         # Dropdown for selecting a camp
         tk.Label(main_frame, text="Select Camp:").pack()
         self.camp_var = tk.StringVar()
-        self.camp_dropdown = ttk.Combobox(main_frame, textvariable=self.camp_var)
+        self.camp_dropdown = ttk.Combobox(main_frame, textvariable=self.camp_var, state="readonly")
         self.camp_dropdown['values'] = self.camps_df['camp_id'].tolist()
         self.camp_dropdown.pack()
-        # Add a callback for debugging
         self.camp_dropdown.bind('<<ComboboxSelected>>', self.on_camp_select)
 
         # Treeview for displaying volunteers
@@ -43,13 +42,6 @@ class AllocateVolunteersFrame:
         allocate_button = tk.Button(main_frame, text="Allocate Selected Volunteer",
                                     command=self.allocate_selected_volunteer)
         allocate_button.pack()
-        # Back button
-        back_button = tk.Button(self.root, text="Back", command=self.back)
-        back_button.pack()
-
-    def back(self):
-        if self.back_callback:
-            self.back_callback()
 
     def populate_volunteers_table(self):
         for index, row in self.volunteers_df.iterrows():
@@ -60,7 +52,7 @@ class AllocateVolunteersFrame:
         selected_camp_id = self.camp_var.get()
         print(f"Selected camp ID: '{selected_camp_id}'")  # Debugging line
 
-        if not selected_camp_id.strip():  # Also check for non-empty string
+        if not selected_camp_id.strip():
             messagebox.showerror("Error", "Please select a camp.")
             return
 
@@ -83,9 +75,12 @@ class AllocateVolunteersFrame:
         messagebox.showinfo("Success", f"Volunteer {selected_volunteer_id} allocated to Camp {selected_camp_id}.")
 
     def on_camp_select(self, event=None):
-        # Optional debugging method to verify camp selection
-        print("Selected camp:", self.camp_var.get())
+        # This method is triggered when a camp is selected from the dropdown
+        selected_camp = self.camp_dropdown.get()
+        print("Selected camp:", selected_camp)
 
+        # Update the self.camp_var with the selected camp
+        self.camp_var.set(selected_camp)
 
 
 if __name__ == '__main__':
