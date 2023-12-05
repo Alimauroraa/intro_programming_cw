@@ -22,8 +22,8 @@ def display_plan():
 def display_volunteers(parent, dataframe):
     camp_id = []
     # Find CampID and get corresponding volunteer data
-    if 'campID' in dataframe.columns:
-        camps = dataframe.iloc[0]['campID']
+    if 'camp_id' in dataframe.columns:
+        camps = dataframe.iloc[0]['camp_id']
         camp_list = [int(item) for item in camps.split(",")]
         volunteer_csv = pd.read_csv("volunteers_file.csv")
         volunteers_for_plan = volunteer_csv[volunteer_csv['camp_id'].isin(camp_list)]
@@ -51,8 +51,8 @@ def display_volunteers(parent, dataframe):
 def display_refugees(parent, dataframe):
     camp_id = []
     # Find CampID and get corresponding volunteer data
-    if 'campID' in dataframe.columns:
-        camps = dataframe.iloc[0]['campID']
+    if 'camp_id' in dataframe.columns:
+        camps = dataframe.iloc[0]['camp_id']
         camp_list = [int(item) for item in camps.split(",")]
         refugees_csv = pd.read_csv("Refugee_DataFrame.csv")
         refugees_for_plan = refugees_csv[refugees_csv['Camp_ID'].isin(camp_list)]
@@ -89,22 +89,15 @@ def show_info(dataframe):
             active_value = dataframe.iloc[0][col]
             message = "Plan is currently active" if active_value != 0 else "Plan is inactive"
             messagebox.showinfo("Plan Status", message)
-        else:
-            label = tk.Label(frame, text=col, bg='#021631',
-                             fg="white", font=("Calibri", 10))
-            label.grid(row=idx, column=0, padx=5, pady=5, sticky="w")
-            if col=='closingDate':
-                closing_date=pd.to_datetime(dataframe.iloc[0][col]).strftime('%m/%d/%Y')
-                entry= ttk.Entry(frame,width=100)
-                entry.insert(tk.END, closing_date)
-                entry.grid(row=idx, column=1, padx=20, pady=10, sticky="w")
-                entry.config(state=tk.DISABLED)  # Make the entry non-editable
-
-            else:
-                entry = ttk.Entry(frame, width=100)
-                entry.insert(tk.END, str(dataframe.iloc[0][col]))
-                entry.grid(row=idx, column=1, padx=20, pady=10, sticky="w")
-                entry.config(state=tk.DISABLED)  # Make the entry non-editable
+        if col=='closingDate':
+            dataframe['closingDate']=pd.to_datetime(dataframe[col], errors='coerce').dt.strftime('%m/%d/%Y')
+        label = tk.Label(frame, text=col, bg='#021631',
+                         fg="white", font=("Calibri", 10))
+        label.grid(row=idx, column=0, padx=5, pady=5, sticky="w")
+        entry = ttk.Entry(frame, width=100)
+        entry.insert(tk.END, str(dataframe.iloc[0][col]))
+        entry.grid(row=idx, column=1, padx=20, pady=10, sticky="w")
+        entry.config(state=tk.DISABLED)  # Make the entry non-editable
 
     # Add the 'Display Volunteers for Plan' button at the bottom
     volunteers_button = tk.Button(frame, text="Display Volunteers for Plan",bg="#FFFFFF", fg="black",command=lambda: display_volunteers(top, dataframe))

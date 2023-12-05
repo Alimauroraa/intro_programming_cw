@@ -12,9 +12,24 @@ def create_gui(parent):
         reader = csv.DictReader(csvfile)
         print(reader)
         for row in reader:
-            camps_information.append(Camp(**row))
-
-#camp_id,location,volunteers_number,refugees_number,plan_name,current_availability,max_capacity,specific_needs,allocated_resources
+            # camps_information.append(Camp(**row))
+            # Check if 'allocated_resources' column exists and if its value is empty or not
+            if 'allocated_resources' in row and not row['allocated_resources']:
+                allocated_resources = {}  # Empty dictionary if 'allocated_resources' is empty or missing
+            else:
+                allocated_resources = row['allocated_resources']
+            camp_instance = Camp(
+                camp_id=row['camp_id'],
+                location=row['location'],
+                volunteers_number=row['volunteers_number'],
+                refugees_number=row['refugees_number'],
+                plan_name=row['plan_name'],
+                current_availability=row['current_availability'],
+                max_capacity=row['max_capacity'],
+                specific_needs=row['specific_needs'],
+                allocated_resources=allocated_resources
+            )
+            camps_information.append(camp_instance)
 
     # Load inventory from inventory.csv
     inventory_data = []
@@ -52,14 +67,15 @@ def create_gui(parent):
             if camp.camp_id == selected_camp_id:
                 camp_info_text.insert(tk.END, f"{camp.camp_id}\nLocation: {camp.location}\nCapacity: {camp.max_capacity}\nSpecific Needs: {camp.specific_needs}\nAllocated Resources: {camp.allocated_resources}\n\n")
                 break
-        camp_info_text.config(state=tk.DISABLED)
+        # camp_info_text.config(state='normal')
+        # camp_info_text.config(state='disabled')
     # Create a function to display inventory
     def display_inventory():
         inventory_info_text.delete(1.0, tk.END)
         inventory_info_text.insert(tk.END, "Current Inventory:\n\n")
         for item in inventory_data:
             inventory_info_text.insert(tk.END, f"{item.inventory_name}\nQuantity: {item.quantity}\n\n")
-        inventory_info_text.config(state=tk.DISABLED)
+        # inventory_info_text.config(state=tk.DISABLED)
     # Create a function to display both camp information and inventory
     def display_information():
         display_camp_information()
@@ -79,7 +95,10 @@ def create_gui(parent):
                 if camp.camp_id == selected_camp_id:
                     for item in inventory_data:
                         if item.inventory_name == selected_inventory_name:
-                            aresources = ast.literal_eval(camp.allocated_resources)
+                            if not camp.allocated_resources:        #check if the camp.allocated resources is empty string or not
+                                aresources = {}
+                            else:
+                                aresources = ast.literal_eval(camp.allocated_resources)
                             aresources[selected_inventory_name] = aresources.get(
                                 selected_inventory_name, 0) + allocated_quantity
                             camp.allocated_resources = str(aresources)
