@@ -83,8 +83,42 @@ def create_gui(parent):
 
     # Create a function to allocate resources
     def allocate_resources():
+        quantity = quantity_entry.get()
         selected_camp_id = camp_dropdown.get()
         selected_inventory_name = inventory_dropdown.get()
+        quantity = quantity_entry.get()
+
+        if not selected_camp_id:
+            messagebox.showerror("Error", "No camp selected to allocate a resource.")
+            return
+        
+        if not quantity:
+            messagebox.showerror("Error", "Please enter a quantity.")
+            return
+
+        if not quantity.isdigit():
+            messagebox.showerror("Error", "Quantity must be a number.")
+            return
+
+        quantity = int(quantity)
+
+        inventory_dict = {}
+        
+        with open('inventory.csv', 'r') as f:
+            reader = csv.reader(f)
+            next(reader)  # Skip the header row
+            for row in reader:
+                inventory_dict[row[2]] = int(row[3])
+
+        inventory = inventory_dict.get(selected_inventory_name)
+
+        if inventory is None:
+            messagebox.showerror("Error", "Choose an inventory item.")
+            return
+
+        if quantity > inventory:
+            messagebox.showerror("Error", "Quantity cannot be greater than the inventory.")
+            return
 
         try:
             allocated_quantity = int(quantity_entry.get())
@@ -113,9 +147,15 @@ def create_gui(parent):
 
     # Create a function to clear the text boxes
     def back(frame):
-        frame.grid_forget()
+        if not data_saved.get():
+            messagebox.showwarning("Warning", "You have not saved your data.")
+        else:
+            frame.grid_forget()
         
     # Create a function to save the updated data
+    data_saved = tk.BooleanVar()
+    data_saved.set(False)
+
     def save_data():
         with open('camps.csv', 'w', newline='') as csvfile:
             fieldnames = camps_information[0].__dict__.keys()
@@ -130,6 +170,7 @@ def create_gui(parent):
             writer.writeheader()
             for item in inventory_data:
                 writer.writerow(item.__dict__)
+        data_saved.set(True)
 
         messagebox.showinfo("Save Success", "Data saved successfully.")
 
@@ -144,10 +185,10 @@ def create_gui(parent):
     # Place the buttons, labels, and entry in the tkinter window using grid layout
     display_button.grid(row=8, column=0, padx=10, pady=10)
     allocate_button.grid(row=11, column=1, padx=10, pady=10)
-    back_button.grid(row=15, column=0, padx=10, pady=10)
+    back_button.grid(row=11, column=0, padx=10, pady=10)
     quantity_label.grid(row=10, column=0, padx=10, pady=10)
     quantity_entry.grid(row=10, column=1, padx=10, pady=10)
-    save_button.grid(row=11, column=0, padx=10, pady=10)
+    save_button.grid(row=12, column=1, padx=10, pady=10)
 
     choose_camp_label = tk.Label(frame, text="CAMPS \n \n Choose which camp to display \n from the list below:",font="calibri 10", bg="#021631",fg="#fff")
     choose_camp_label.grid(row=6, column=0, padx=10, pady=10)
