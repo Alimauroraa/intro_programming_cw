@@ -21,39 +21,54 @@ def filter_and_display_updates():
                     formatted_update = f"{timestamp} - Camp {camp}: {update_message}\n"
                     live_feed_text.insert(tk.END, formatted_update)
 
-# Create tkinter window
-root = tk.Tk()
-root.title("Camp message live feed")
-root.configure(bg='#021631')
+def back(frame):
+    frame.grid_forget()
+def on_checkbox_change():
+    filter_and_display_updates()
 
-# Create a frame for the category checkboxes and live feed
-frame = tk.Frame(root, bg = '#021631')
-frame.pack(padx=10, pady=10)
+def livefeed_frame(parent):
 
-# Filter options for message categories
-category_labels = ["Resources", "Weather", "Emergency", "Refugees"]
-category_vars = [tk.IntVar() for _ in category_labels]
-checkboxes = []
+    # Create a frame for the category checkboxes and live feed
+    frame = tk.Frame(parent, bg='#021631')
+    checkbox_frame= tk.Frame(frame, width=700, height=800,bg='#021631')
+    checkbox_frame.pack(pady=10, padx=10, anchor="w")
 
-for i, category_label in enumerate(category_labels):
-    checkbox = tk.Checkbutton(frame, text=category_label, variable=category_vars[i], bg= "#021631" , fg="white")
-    checkbox.grid(row=i, column=0, sticky="w")
-    checkboxes.append(checkbox)
+    #create custom style for checkbox
+    custom=ttk.Style()
+    custom.configure('Custom.TCheckbutton',background='#021631', foreground='white', indicatoron=0)
 
-# Create a "Filter Updates" button
-filter_button = ttk.Button(frame, text="Filter Updates", command=filter_and_display_updates)
-filter_button.grid(row=len(category_labels), column=0, columnspan=2, pady=10)
+    # Filter options for message categories
+    global category_vars
+    category_labels = ["Resources", "Weather", "Emergency", "Refugees"]
+    category_vars = [tk.IntVar() for _ in category_labels]
 
-# Create a Text widget for displaying live updates
-live_feed_text = tk.Text(root, wrap=tk.WORD, height=20, width=60)
-live_feed_text.pack(padx=10, pady=10)
+    for i, category_label in enumerate(category_labels):
+        checkbox = ttk.Checkbutton(checkbox_frame, text=category_label, variable=category_vars[i], style='Custom.TCheckbutton',command=on_checkbox_change)
+        checkbox.grid(row=i+1, column=1, sticky="w")
 
-# Set the initial state of all checkboxes to selected
-for category_var in category_vars:
-    category_var.set(1)
+    back_button= tk.Button(frame,text="Back", bg="#FFFFFF", fg="black", width=10, height=1,command=lambda:back(frame))
+    back_button.pack(pady=10)
 
-# Initially filter and display all updates
-filter_and_display_updates()
+    #create label
+    options_label=tk.Label(checkbox_frame,text="Select from the options to filter messages:", font="calibri 11", bg="#021631",fg="#fff")
+    options_label.grid(row=0, column=0, columnspan=2, sticky='w')
 
-root.mainloop()
+    text_frame= tk.Frame(frame, width=700, height=800,bg='#021631')
+    text_frame.pack(pady=10, padx=10, anchor="w")
 
+    # Create a Text widget for displaying live updates
+    global live_feed_text
+    live_feed_text = tk.Text(text_frame, wrap=tk.WORD, height=20, width=60)
+    live_feed_text.pack(padx=20, pady=50, anchor='w')
+    # live_feed_text.grid(row=len(category_labels)+2, column=0, columnspan=2, pady=10, sticky='w')
+
+    # Set the initial state of all checkboxes to unselected
+    for category_var in category_vars:
+        category_var.set(0)
+
+    # Initially filter and display all updates
+    filter_and_display_updates()
+
+    return frame
+
+    # root.mainloop()

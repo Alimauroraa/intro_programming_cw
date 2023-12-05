@@ -8,6 +8,7 @@ import close_plan_frame
 from manage_camps_frame import ManageCampsFrame
 import EditVolunteerAccount
 import allocatesrourcesnew
+import livefeed
 
 
 bg_color = '#021631'
@@ -46,7 +47,7 @@ def allocate_resources_frame(root):
     allocatesrourcesnew.create_gui(root).grid(row=0, column=0)
 
 def live_feed_frame(root):
-    pass
+    livefeed.livefeed_frame(root).grid(row=0, column=0)
 
 def admin_home(root):
     # initializing

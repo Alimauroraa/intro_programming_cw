@@ -37,19 +37,26 @@ def validate_input(admin_id, plan_name, description,geographical_area, start_dat
     if len(plan_name)==1:
         messagebox.showerror("Error", "Required. Please enter the plan name")
         return False
-    elif not all(char.isalpha() or char.isspace() for char in plan_name) and 1 < len(plan_name) < 200:
+    elif not all(char.isalpha() or char.isspace() for char in plan_name):
         messagebox.showerror("Error", "Please enter a valid plan name, alphabetical character only")
         return False
-    else:
-        logging.info(f"Plan name: {plan_name}")
+    elif not 1 < len(plan_name) < 200:
+        messagebox.showerror("Error","Maximum 200 characters are allowed for plan name")
+        return False
+    # else:
+    #     logging.info(f"Plan name: {plan_name}")
 
     #validate description
     if len(description)==1:
         messagebox.showerror("Error", "Required. Please enter the description")
         return False
 
-    elif not all(char==',' or char.isalpha() or char.isspace() or char.isdigit() for char in description) and 1 < len(description) < 500:
+    elif not all(char==',' or char.isalpha() or char.isspace() or char.isdigit() for char in description):
         messagebox.showerror("Error", "Please enter a valid description")
+        return False
+
+    elif not 1 < len(description) < 500:
+        messagebox.showerror("Error","Maximum 500 characters are allowed for description")
         return False
 
     #validate country
@@ -83,7 +90,8 @@ def validate_input(admin_id, plan_name, description,geographical_area, start_dat
         messagebox.showerror("Error", "Required. Please select of camps")
         return False
     messagebox.showinfo("Success","Plan is created")
-    return True                                 #if all checks are ok, it'll return True
+    logging.info(f"Plan name: {plan_name}, is created")
+    return True                                             #if all checks are ok, it'll return True
 
 def submit_plan():
     # Retrieve the entry
