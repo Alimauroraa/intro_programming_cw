@@ -23,6 +23,7 @@ def filter_and_display_updates():
 
 def back(frame):
     frame.grid_forget()
+
 def on_checkbox_change():
     filter_and_display_updates()
 
@@ -30,28 +31,15 @@ def livefeed_frame(parent):
 
     # Create a frame for the category checkboxes and live feed
     frame = tk.Frame(parent, bg='#021631')
-    checkbox_frame= tk.Frame(frame, width=700, height=800,bg='#021631')
-    checkbox_frame.pack(pady=10, padx=10, anchor="w")
 
-    #create custom style for checkbox
-    custom=ttk.Style()
-    custom.configure('Custom.TCheckbutton',background='#021631', foreground='white', indicatoron=0)
 
     # Filter options for message categories
     global category_vars
     category_labels = ["Resources", "Weather", "Emergency", "Refugees"]
-    category_vars = [tk.IntVar() for _ in category_labels]
-
-    for i, category_label in enumerate(category_labels):
-        checkbox = ttk.Checkbutton(checkbox_frame, text=category_label, variable=category_vars[i], style='Custom.TCheckbutton',command=on_checkbox_change)
-        checkbox.grid(row=i+1, column=1, sticky="w")
+    category_vars = [tk.IntVar(value=0) for _ in category_labels]
 
     back_button= tk.Button(frame,text="Back", bg="#FFFFFF", fg="black", width=10, height=1,command=lambda:back(frame))
     back_button.pack(pady=10)
-
-    #create label
-    options_label=tk.Label(checkbox_frame,text="Select from the options to filter messages:", font="calibri 11", bg="#021631",fg="#fff")
-    options_label.grid(row=0, column=0, columnspan=2, sticky='w')
 
     text_frame= tk.Frame(frame, width=700, height=800,bg='#021631')
     text_frame.pack(pady=10, padx=10, anchor="w")
@@ -66,8 +54,23 @@ def livefeed_frame(parent):
     for category_var in category_vars:
         category_var.set(0)
 
+    def on_button_click(i):
+        # Toggle the value of the IntVar variable
+        category_vars[i].set(1 - category_vars[i].get())
+        # Update the text of the button
+        buttons[i].config(text=f"{category_labels[i]}: {'Selected' if category_vars[i].get() else 'Not selected'}")
+
+    # Create the buttons
+    buttons = []
+    checkbox_frame = tk.Frame(frame, bg='#021631')  # Define checkbox_frame
+    for i, category_label in enumerate(category_labels):
+        button = ttk.Button(checkbox_frame, text=f"{category_label}: Not selected", command=lambda i=i: on_button_click(i))
+        button.grid(row=i+1, column=1, sticky="w")
+        buttons.append(button)
+
     # Initially filter and display all updates
     filter_and_display_updates()
+
 
     return frame
 
