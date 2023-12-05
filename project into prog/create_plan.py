@@ -1,176 +1,161 @@
 import pandas as pd
-from datetime import date as d, datetime as dt
+from datetime import datetime as dt
 import logging
 
-logging.basicConfig(level=logging.INFO,filename='create_plan_logging.log',
+# Set up logging
+logging.basicConfig(level=logging.INFO, filename='create_plan_logging.log',
                     format="%(asctime)s - %(levelname)s - %(message)s", datefmt='%d-%b-%y %H:%M:%S')
 
-#class for the plan
 class HumanitarianPlan:
-    def __init__(self, admin_id, plan_name,description, geographical_area, start_date,number_camps):
-        self.admin_id=admin_id
-        self.plan_name=plan_name
+    def __init__(self, admin_id, plan_name, description, geographical_area, start_date, number_camps):
+        self.admin_id = admin_id
+        self.plan_name = plan_name
         self.description = description
         self.geographical_area = geographical_area
         self.start_date = start_date
-        #self.closing_date = closing_date
-        self.number_camps=number_camps
-        self.plan_df = pd.read_csv("plan.csv")                          #drop csv file to python
-        self.plan_id = self.plan_df['PlanID'].iloc[-1] + 1
-        logging.info(f"New plan is created. Plan id: {self.plan_id}")
-        self.camp_id=''                                                 #empty string for camp_id at first
+        self.number_camps = number_camps
 
-    def create_plan(self):
-        # Check if plan.csv is not empty and set plan_id accordingly
+        # Attempt to read plan.csv or create an empty DataFrame if the file does not exist
+        try:
+            self.plan_df = pd.read_csv("plan.csv")
+        except (FileNotFoundError, pd.errors.EmptyDataError):
+            self.plan_df = pd.DataFrame(columns=['PlanID', 'planName', 'startDate', 'closingDate',
+                                                 'geographicalArea', 'planDesc', 'adminID',
+                                                 'active', 'NumberOfCamps', 'campID'])
+        self.set_plan_id()
+
+    def set_plan_id(self):
         if not self.plan_df.empty:
             self.plan_id = self.plan_df['PlanID'].max() + 1
         else:
-            self.plan_id = 1  # Start from 1 if the file is empty
+            self.plan_id = 1
+
+    def create_plan(self):
+        self.set_plan_id()
         self.active = 1
-        self.camp_id=''
-        print(self.plan_df['camp_id'].iloc[-1])
-        if ',' not in str(self.plan_df['camp_id'].iloc[-1]):
-            self.last_camp_no = int(self.plan_df['camp_id'].iloc[-1])
+        self.camp_id = self.generate_camp_ids()
 
-        else:
-            #access last element in last row (since if there are multiple elements we add with ,)
-            self.last_camp_no=int(self.plan_df['camp_id'].iloc[-1].split(',')[-1])
-            print(self.last_camp_no)
+        # Create initial entries for these camps
+        new_camps = self.create_initial_camp_entries()
 
-        if int(self.number_camps)==1:
-            self.camp_id=''
-            self.camp_id+=str(self.last_camp_no+1)
-            print(self.camp_id,'i')
-            self.camp_id=self.camp_id
-            logging.info(f"Associated camp no: {self.camp_id}")
+        # Convert 'camp_id' to string for new camps
+        new_camps['camp_id'] = new_camps['camp_id'].astype(str)
 
-        else:
-            i=0
-            j=1
-            while i<(int(self.number_camps)):
-            #for i in range(1,int(self.number_camps)+1):
-                self.camp_id+=str(self.last_camp_no+j)
-                self.camp_id += ','
-                i+=1
-                j+=1
-            self.camp_id=self.camp_id[:-1]
-            logging.info(f"Associated camp no: {self.camp_id}")
+        # Read existing camps data
+        existing_camps_df = self.read_existing_camps()
 
-        print(f"camp id: {self.camp_id}")
-        new_data=[[self.plan_id,self.plan_name,self.start_date.strftime('%m/%d/%Y'),self.geographical_area,
-                   self.description, self.admin_id, self.active, self.number_camps,self.camp_id]]
+        # Convert 'camp_id' to string in existing camps if it's not already
+        existing_camps_df['camp_id'] = existing_camps_df['camp_id'].astype(str)
 
+        # Convert start_date to a datetime object if it's a string
+        if isinstance(self.start_date, str):
+            try:
+                self.start_date = pd.to_datetime(self.start_date, format='%Y-%m-%d', errors='raise')
+            except ValueError:
+                logging.error("Invalid start date format. Expected yyyy-mm-dd.")
+                raise ValueError("Invalid start date format. Please use yyyy-mm-dd format.")
 
-        added_df = pd.DataFrame(new_data,columns=['planID', 'planName', 'startDate',
-                                                    'geographicalArea','planDesc', 'adminID',
-                                                    'active', 'NumberOfCamps', 'campID'])
-        added_df['closingDate'] = ''
-        column_order=['planID', 'planName', 'startDate', 'closingDate',
-                        'geographicalArea','planDesc', 'adminID',
-                        'active', 'NumberOfCamps', 'campID']
-        added_df=added_df.reindex(columns=column_order)
-        added_df.to_csv("plan.csv", mode='a',header=False, index=False)
+        # Append new camp data to existing data
+        combined_camps_df = pd.concat([existing_camps_df, new_camps], ignore_index=True)
+        combined_camps_df.sort_values(by='camp_id', inplace=True)
+        combined_camps_df.to_csv('camps.csv', index=False)
 
-        
+        # Add new plan to plan.csv
+        self.add_plan_to_csv()
+
         # Log the creation
         logging.info(f"Plan created with ID: {self.plan_id} and Camp IDs: {self.camp_id}")
 
-        # Return the camp_ids for further processing
         return self.camp_id.split(',')
 
-    def generate_camps_from_plan(self, camp_ids):
-        try:
-            # Read existing plans to get geographical areas and plan names
-            plans_df = pd.read_csv('plan.csv')
+    def generate_camp_ids(self):
+        camp_id = ''
+        last_camp_no = self.get_last_camp_no()
+        for j in range(1, int(self.number_camps) + 1):
+            camp_id += str(last_camp_no + j) + ','
+        return camp_id.strip(',')
 
-            # Read existing camps
+    def get_last_camp_no(self):
+        if not self.plan_df.empty and 'camp_id' in self.plan_df.columns:
+            last_camp_id_str = str(self.plan_df['camp_id'].dropna().iloc[-1])
+            if ',' in last_camp_id_str:
+                return int(last_camp_id_str.split(',')[-1])
+            return int(last_camp_id_str)
+        return 0
+
+    def create_initial_camp_entries(self):
+        return pd.DataFrame([{'camp_id': cid, 'location': self.geographical_area, 'volunteers_number': '',
+                              'refugees_number': '', 'plan_name': self.plan_name, 'current_availability': '',
+                              'max_capacity': '', 'specific_needs': '', 'allocated_resources': ''}
+                             for cid in self.camp_id.split(',')])
+
+    def read_existing_camps(self):
+        try:
+            return pd.read_csv('camps.csv')
+        except (FileNotFoundError, pd.errors.EmptyDataError):
+            return pd.DataFrame(columns=['camp_id', 'location', 'volunteers_number',
+                                         'refugees_number', 'plan_name', 'current_availability',
+                                         'max_capacity', 'specific_needs', 'allocated_resources'])
+
+    def add_plan_to_csv(self):
+        # Convert start_date to a datetime object if it's a string
+        if isinstance(self.start_date, str):
             try:
-                existing_camps_df = pd.read_csv('camps.csv')
-            except (FileNotFoundError, pd.errors.EmptyDataError):
-                existing_camps_df = pd.DataFrame(
-                    columns=['camp_id', 'location', 'volunteers_number', 'refugees_number', 'plan_name',
-                             'current_availability', 'max_capacity', 'specific_needs', 'allocated_resources'])
-
-            # Create DataFrame for new camps with inherited locations and plan names
-            new_camps_data = []
-            for camp_id in camp_ids:
-                # Find the plan associated with this camp
-                plan = plans_df[plans_df['camp_id'].astype(str).str.contains(camp_id)]
-                if not plan.empty:
-                    geographical_area = plan['geographicalArea'].iloc[0]
-                    inherited_plan_name = plan['planName'].iloc[0]  # Extract plan name
+                self.start_date = pd.to_datetime(self.start_date, format='%Y-%m-%d', errors='coerce')
+                if pd.isna(self.start_date):
+                    # If conversion fails, log an error and use the original string
+                    logging.error(f"Invalid start date format: {self.start_date}")
+                    formatted_start_date = self.start_date  # Use the original string if conversion fails
                 else:
-                    geographical_area = ''
-                    inherited_plan_name = ''
+                    formatted_start_date = self.start_date.strftime('%Y-%m-%d')
+            except Exception as e:
+                logging.error(f"Error converting start date: {e}")
+                formatted_start_date = self.start_date  # Use the original string in case of exception
+        else:
+            # If start_date is not a string, use the original value
+            logging.error(f"start_date is not a string: {self.start_date}")
+            formatted_start_date = str(self.start_date)
 
-                new_camps_data.append({
-                    'camp_id': camp_id,
-                    'location': geographical_area,
-                    'volunteers_number': "",
-                    'refugees_number': "",
-                    'plan_name': inherited_plan_name,  # Use inherited plan name
-                    'current_availability': "",
-                    'max_capacity': "",
-                    'specific_needs': "",
-                    'allocated_resources': ""
-                })
+        new_data = [[self.plan_id, self.plan_name, formatted_start_date, self.geographical_area,
+                     self.description, self.admin_id, self.active, self.number_camps, self.camp_id]]
+        added_df = pd.DataFrame(new_data, columns=['planID', 'planName', 'startDate',
+                                                   'geographicalArea', 'planDesc', 'adminID',
+                                                   'active', 'NumberOfCamps', 'campID'])
+        added_df['closingDate'] = ''
+        column_order = ['planID', 'planName', 'startDate', 'closingDate',
+                        'geographicalArea', 'planDesc', 'adminID',
+                        'active', 'NumberOfCamps', 'campID']
+        added_df = added_df.reindex(columns=column_order)
+        added_df.to_csv("plan.csv", mode='a', header=False, index=False)
 
-            new_camps_df = pd.DataFrame(new_camps_data)
-
-            # Append new camp data to existing data
-            combined_camps_df = pd.concat([existing_camps_df, new_camps_df], ignore_index=True)
-            combined_camps_df.to_csv('camps.csv', index=False)
-
-        except (FileNotFoundError, pd.errors.EmptyDataError):
-            # Handle the case where plan.csv is missing or empty
-            pass
-
-    def generate_missing_camps_from_plans(self):
+    def terminate_plan(self, plan_id, closing_date=None):
+        # Load existing plans
         try:
             plans_df = pd.read_csv('plan.csv')
-            if not plans_df.empty and 'camp_id' in plans_df.columns:
-                camp_ids = set()  # A set to store unique camp IDs
-                for ids in plans_df['camp_id']:
-                    camp_ids.update(str(ids).split(','))
+        except FileNotFoundError:
+            raise FileNotFoundError("The plan.csv file does not exist.")
 
-                try:
-                    existing_camps_df = pd.read_csv('camps.csv')
-                except (FileNotFoundError, pd.errors.EmptyDataError):
-                    existing_camps_df = pd.DataFrame(
-                        columns=['camp_id', 'location', 'volunteers_number', 'refugees_number', 'plan_name',
-                                 'current_availability', 'max_capacity' 'specific_needs', 'allocated_resources'])
+        # Check if plan_id exists
+        if plan_id not in plans_df['PlanID'].values:
+            raise ValueError(f"No plan found with ID {plan_id}")
 
-                # Identify missing camp IDs
-                missing_camps = [cid for cid in camp_ids if cid not in existing_camps_df['camp_id'].astype(str).tolist()]
+        # Set closing_date if not provided
+        if closing_date is None:
+            closing_date = pd.Timestamp.now().strftime('%m/%d/%Y')
 
-                # Create DataFrame for missing camps
-                if missing_camps:
-                    missing_camps_df = pd.DataFrame(missing_camps, columns=['camp_id'])
-                    missing_camps_df['location'] = ''
-                    missing_camps_df['volunteers_number'] = ''
-                    missing_camps_df['refugees_number'] = ''
-                    missing_camps_df['plan_name'] = ''
-                    missing_camps_df['current_availability'] = ''
-                    missing_camps_df['max_capacity'] = ''
-                    missing_camps_df['specific_needs'] = ''
-                    missing_camps_df['allocated_resources'] = ''
+        # Update the plan's status
+        plans_df.loc[plans_df['PlanID'] == plan_id, 'active'] = 0
+        plans_df.loc[plans_df['PlanID'] == plan_id, 'closingDate'] = closing_date
 
-                    # Append missing camps to existing camps and save
-                    combined_camps_df = pd.concat([existing_camps_df, missing_camps_df], ignore_index=True)
-                    combined_camps_df.to_csv('camps.csv', index=False)
+        # Save the updated DataFrame
+        plans_df.to_csv('plan.csv', index=False)
 
-        except (FileNotFoundError, pd.errors.EmptyDataError):
-            # Handle the case where plan.csv is missing or empty
-            pass
+        # Log the termination
+        logging.info(f"Plan with ID {plan_id} terminated on {closing_date}")
 
-    # def close_plan(self):
-    #     now = d.now()
-    #     current_date = now.strftime("$y-%m-%d")
-    #     print(current_date)
-
-
-
-
+# Example Usage
+# new_plan = HumanitarianPlan(admin_id, plan_name, description, geographical_area, start_date, number_camps)
+# new_plan.create_plan()
 
 
 

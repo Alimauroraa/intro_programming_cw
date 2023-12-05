@@ -2083,3 +2083,90 @@
 05-Dec-23 10:06:48 - INFO - Plan 2 has been closed and is inactive
 05-Dec-23 10:06:48 - INFO - Plan 3 has been closed and is inactive
 05-Dec-23 10:06:48 - INFO - Plan 4 has been closed and is inactive
+05-Dec-23 10:22:26 - INFO - Plan 1 has been closed and is inactive
+05-Dec-23 10:22:26 - INFO - Plan 2 has been closed and is inactive
+05-Dec-23 10:22:26 - INFO - Plan 3 has been closed and is inactive
+05-Dec-23 10:22:26 - INFO - Plan 4 has been closed and is inactive
+05-Dec-23 10:26:43 - INFO - Plan 1 has been closed and is inactive
+05-Dec-23 10:26:43 - INFO - Plan 2 has been closed and is inactive
+05-Dec-23 10:26:43 - INFO - Plan 3 has been closed and is inactive
+05-Dec-23 10:26:43 - INFO - Plan 4 has been closed and is inactive
+05-Dec-23 10:27:18 - INFO - Plan name: haha	
+
+05-Dec-23 10:27:19 - INFO - New plan is created. Plan id: 33
+05-Dec-23 10:33:02 - INFO - Plan 1 has been closed and is inactive
+05-Dec-23 10:33:02 - INFO - Plan 2 has been closed and is inactive
+05-Dec-23 10:33:02 - INFO - Plan 3 has been closed and is inactive
+05-Dec-23 10:33:02 - INFO - Plan 4 has been closed and is inactive
+05-Dec-23 10:33:36 - INFO - Plan name: ppp	
+
+05-Dec-23 10:33:37 - INFO - New plan is created. Plan id: 33
+05-Dec-23 10:33:37 - INFO - Plan created with ID: 33 and Camp IDs: 49,50
+05-Dec-23 10:35:21 - INFO - Plan 1 has been closed and is inactive
+05-Dec-23 10:35:21 - INFO - Plan 2 has been closed and is inactive
+05-Dec-23 10:35:21 - INFO - Plan 3 has been closed and is inactive
+05-Dec-23 10:35:21 - INFO - Plan 4 has been closed and is inactive
+05-Dec-23 10:36:23 - INFO - Plan name: Last Test
+
+05-Dec-23 10:36:24 - INFO - New plan is created. Plan id: 34
+05-Dec-23 10:36:24 - INFO - Plan created with ID: 34 and Camp IDs: 51,52
+05-Dec-23 10:40:07 - INFO - Plan name: Flood in UCL
+
+05-Dec-23 10:40:14 - INFO - Plan name: Flood in UCL
+
+05-Dec-23 10:40:30 - INFO - Plan name: Flood in UCL
+
+05-Dec-23 10:42:41 - INFO - Plan name: Flood in UCL	
+
+05-Dec-23 10:46:06 - INFO - Plan name: UCL	
+
+05-Dec-23 10:47:45 - INFO - Plan name: dsfa
+
+05-Dec-23 10:50:00 - INFO - Plan name: hao	
+
+05-Dec-23 10:52:05 - INFO - Plan name: hao
+
+05-Dec-23 10:52:06 - INFO - Plan created with ID: 1 and Camp IDs: 1,2
+05-Dec-23 10:56:12 - INFO - Plan name: Hao
+
+05-Dec-23 10:56:12 - INFO - Plan created with ID: 1 and Camp IDs: 1,2
+05-Dec-23 11:00:16 - INFO - Plan name: Hao
+
+05-Dec-23 11:00:17 - INFO - Plan created with ID: 1 and Camp IDs: 1,2
+05-Dec-23 11:02:51 - INFO - Plan name: Hao
+
+05-Dec-23 11:02:52 - INFO - Plan created with ID: 1 and Camp IDs: 1,2
+05-Dec-23 11:05:00 - INFO - Plan name: hao	
+
+05-Dec-23 11:05:01 - INFO - Plan created with ID: 1 and Camp IDs: 1,2
+05-Dec-23 11:08:41 - INFO - Plan name: Hao
+
+05-Dec-23 11:10:44 - INFO - Plan name: Hao
+
+05-Dec-23 11:10:45 - INFO - Plan created with ID: 1 and Camp IDs: 1,2
+05-Dec-23 11:12:55 - INFO - Plan name: Hi
+
+05-Dec-23 11:14:38 - INFO - Plan name: Hao
+
+05-Dec-23 11:16:19 - INFO - Plan name: ts
+
+05-Dec-23 11:16:20 - INFO - Plan created with ID: 1 and Camp IDs: 1,2
+05-Dec-23 11:17:46 - INFO - Plan name: Flood in UCL
+
+05-Dec-23 11:17:50 - INFO - Plan name: Flood in UCL
+
+05-Dec-23 11:17:51 - INFO - Plan created with ID: 1 and Camp IDs: 1,2
+05-Dec-23 11:25:20 - INFO - Plan name: Test
+
+05-Dec-23 11:27:24 - INFO - Plan name: yes
+
+05-Dec-23 11:27:25 - ERROR - Invalid start date format: 2030-03-30
+05-Dec-23 11:27:26 - INFO - Plan created with ID: 2 and Camp IDs: 3,4
+05-Dec-23 11:32:41 - INFO - Plan name: UCL	
+
+05-Dec-23 11:32:41 - ERROR - start_date is not a string: 2030-03-30 00:00:00
+05-Dec-23 11:32:41 - INFO - Plan created with ID: 3 and Camp IDs: 5,6
+05-Dec-23 11:36:26 - INFO - Plan name: god	
+
+05-Dec-23 11:36:27 - ERROR - start_date is not a string: 2030-03-30 00:00:00
+05-Dec-23 11:36:27 - INFO - Plan created with ID: 4 and Camp IDs: 7,8

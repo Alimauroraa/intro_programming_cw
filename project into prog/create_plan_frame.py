@@ -92,20 +92,12 @@ def submit_plan():
     description = desc_entry.get(1.0, tk.END)
     geographical_area = geo_entry.get()
     start_date = start_entry.get()
-    #plan_df['startDate'] = pd.to_datetime(start_date, format="mixed")
-    #closing_date = end_entry.get()
     number_camps = camps_entry.get()
 
     if validate_input(admin_id, plan_name, description, geographical_area, start_date, number_camps):
-        # add_plan = HumanitarianPlan(admin_id, plan_name, description, geographical_area, start_date,number_camps)
-        # add_plan.create_plan()          #create an instance
-        
         # Create the plan
-        new_plan = HumanitarianPlan(admin_id, plan_name, description, geographical_area, start, number_camps)
-        camp_ids = new_plan.create_plan()  # Assume this method now returns the camp_ids
-
-        # Generate camps based on the created plan
-        new_plan.generate_camps_from_plan(camp_ids)
+        new_plan = HumanitarianPlan(admin_id, plan_name, description, geographical_area, start_date, number_camps)
+        camp_ids = new_plan.create_plan()  # This method now handles plan and camp creation
 
         # Inform the user that the plan and camps have been created
         messagebox.showinfo("Success", "Plan and associated camps created successfully.")
