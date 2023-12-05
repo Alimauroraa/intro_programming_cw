@@ -1,2 +1,14 @@
 09-Nov-23 12:37:20 - INFO - Plan name: Response to Flood in Vietnam
 
+05-Dec-23 12:36:51 - INFO - Plan name: hi
+, is created
+05-Dec-23 12:36:51 - ERROR - start_date is not a string: 2030-03-31 00:00:00
+05-Dec-23 12:36:51 - INFO - Plan created with ID: 1 and Camp IDs: 1,2
+05-Dec-23 14:48:49 - INFO - Plan name: Flood In UCL
+, is created
+05-Dec-23 14:48:49 - ERROR - start_date is not a string: 2023-12-23 00:00:00
+05-Dec-23 14:48:49 - INFO - Plan created with ID: 1 and Camp IDs: 1,2
+05-Dec-23 14:54:39 - INFO - Plan name: Hey
+, is created
+05-Dec-23 14:54:39 - ERROR - start_date is not a string: 2030-03-31 00:00:00
+05-Dec-23 14:54:39 - INFO - Plan created with ID: 2 and Camp IDs: 3,4,5,6,7
