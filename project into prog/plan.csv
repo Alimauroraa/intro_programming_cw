@@ -79,3 +79,6 @@ PlanID,planName,startDate,closingDate,geographicalArea,planDesc,adminID,active,N
 31,"Response to Flood in Netherlands
 ",12/05/2023,,Netherlands,"50 people affected
 ",1,1,1,45
+32,"test
+",12/19/2023,,United States,"test
+",1,1,1,46
