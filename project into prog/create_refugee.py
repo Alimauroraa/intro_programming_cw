@@ -36,7 +36,7 @@ class MainMenuWindow:
 
         # Buttons for menu options
         self.add_button = tk.Button(master, text="Add a new refugee", command=self.add_refugee, font=("Calibri", 12),
-        width=19,
+        width=20,
         height=0,
         bg="#FFFFFF",
         fg="black",
@@ -46,7 +46,7 @@ class MainMenuWindow:
         self.add_button.pack(pady=10)
 
         self.edit_button = tk.Button(master, text="Edit an existing refugee", command=self.edit_refugee, font=("Calibri", 12),
-        width=19,
+        width=20,
         height=0,
         bg="#FFFFFF",
         fg="black",
@@ -56,7 +56,7 @@ class MainMenuWindow:
         self.edit_button.pack(pady=10)
 
         self.view_button = tk.Button(master, text="View the database", command=self.view_database, font=("Calibri", 12),
-        width=19,
+        width=20,
         height=0,
         bg="#FFFFFF",
         fg="black",
@@ -66,7 +66,7 @@ class MainMenuWindow:
         self.view_button.pack(pady=10)
 
         self.delete_button = tk.Button(master, text="Delete a refugee", command=self.delete_refugee, font=("Calibri", 12),
-        width=19,
+        width=20,
         height=0,
         bg="#FFFFFF",
         fg="black",
@@ -81,7 +81,7 @@ class MainMenuWindow:
         # self.view_details_button.pack()
 
         self.exit_button = tk.Button(master, text="Go back", command=self.exit_application, font=("Calibri", 12),
-        width=19,
+        width=20,
         height=0,
         bg="#FFFFFF",
         fg="black",
