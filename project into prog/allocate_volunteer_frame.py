@@ -26,6 +26,7 @@ class AllocateVolunteersFrame(tk.Frame):
         self.camp_var = tk.StringVar()
         self.camp_dropdown = ttk.Combobox(main_frame, textvariable=self.camp_var, state="readonly")
         self.camp_dropdown['values'] = self.camps_df['camp_id'].tolist()
+        self.camp_dropdown['values'] = ['Not assigning camps for now'] + self.camps_df['camp_id'].tolist()
         self.camp_dropdown.pack()
         self.camp_dropdown.bind('<<ComboboxSelected>>', self.on_camp_select)
 
@@ -69,12 +70,15 @@ class AllocateVolunteersFrame(tk.Frame):
 
         selected_volunteer_id = self.volunteers_tree.item(selected_item[0])['values'][0]
 
-        # Convert selected_camp_id to integer before updating
-        try:
-            selected_camp_id_int = int(selected_camp_id)
-        except ValueError:
-            messagebox.showerror("Error", "Camp ID must be an integer.")
-            return
+        # Handle 'Not assigning camps for now' option
+        if selected_camp_id == 'Not assigning camps for now':
+            selected_camp_id_int = None  # Set to None to make the field empty
+        else:
+            try:
+                selected_camp_id_int = int(selected_camp_id)
+            except ValueError:
+                messagebox.showerror("Error", "Camp ID must be an integer.")
+                return
 
         # Update the selected volunteer's camp_id with the integer value
         self.volunteers_df.loc[self.volunteers_df['user_id'] == selected_volunteer_id, 'camp_id'] = selected_camp_id_int
