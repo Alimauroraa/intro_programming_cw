@@ -1,3 +1,2 @@
 PlanID,planName,startDate,closingDate,geographicalArea,planDesc,adminID,active,NumberOfCamps,camp_id
 1,Response Plan for Flooding in United Kingdom,10/23/2023,2023-11-25,UK,100 people affected,1,0,2,"1,2"
-
