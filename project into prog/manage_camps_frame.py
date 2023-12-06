@@ -36,7 +36,9 @@ class ManageCampsFrame:
     def setup_ui(self):
         tk.Label(self.root, text="Manage camps", font="calibri 16", bg="#021631", fg="#fff").place(x=25, y=30)
         # Display a message above the table
-        info_label = tk.Label(self.root, text="Location, Max Capacity & Specific Needs fields can be clicked & edited",
+        info_label = tk.Label(self.root, text="Location, Max Capacity & Specific Needs fields can be clicked & edited."
+                                              " Double click the field, make changes, "
+                                              "press Enter and click Save Changes.",
                               font="calibri 12")
         info_label.place(x=25, y=60)
         # Create the Treeview
@@ -52,7 +54,7 @@ class ManageCampsFrame:
         # Setting the column headings and widths
         for col in self.tree['columns']:
             self.tree.heading(col, text=col.replace("_", " ").title())  # Replace underscores with spaces and title-case
-            self.tree.column(col, width=100, stretch=tk.YES)  # Adjust the width as needed
+            self.tree.column(col, width=120, stretch=tk.YES)  # Adjust the width as needed
 
         self.tree.config(height=20)
 
@@ -131,6 +133,6 @@ class ManageCampsFrame:
 if __name__ == '__main__':
     root = tk.Tk()
     root.title("Manage Camps")
-    root.geometry("800x600")
+    root.geometry("1200x600")
     app = ManageCampsFrame(root)
     root.mainloop()
