@@ -36,7 +36,7 @@ class MainMenuWindow:
 
         # Buttons for menu options
         self.add_button = tk.Button(master, text="Add a new refugee", command=self.add_refugee, font=("Calibri", 12),
-        width=16,
+        width=19,
         height=0,
         bg="#FFFFFF",
         fg="black",
@@ -46,7 +46,7 @@ class MainMenuWindow:
         self.add_button.pack(pady=10)
 
         self.edit_button = tk.Button(master, text="Edit an existing refugee", command=self.edit_refugee, font=("Calibri", 12),
-        width=16,
+        width=19,
         height=0,
         bg="#FFFFFF",
         fg="black",
@@ -56,7 +56,7 @@ class MainMenuWindow:
         self.edit_button.pack(pady=10)
 
         self.view_button = tk.Button(master, text="View the database", command=self.view_database, font=("Calibri", 12),
-        width=16,
+        width=19,
         height=0,
         bg="#FFFFFF",
         fg="black",
@@ -66,7 +66,7 @@ class MainMenuWindow:
         self.view_button.pack(pady=10)
 
         self.delete_button = tk.Button(master, text="Delete a refugee", command=self.delete_refugee, font=("Calibri", 12),
-        width=16,
+        width=19,
         height=0,
         bg="#FFFFFF",
         fg="black",
@@ -81,7 +81,7 @@ class MainMenuWindow:
         # self.view_details_button.pack()
 
         self.exit_button = tk.Button(master, text="Go back", command=self.exit_application, font=("Calibri", 12),
-        width=16,
+        width=19,
         height=0,
         bg="#FFFFFF",
         fg="black",
@@ -432,7 +432,7 @@ class MainMenuWindow:
                 # Create a custom error dialog
                 error_dialog = tk.Toplevel(self.master)
                 error_dialog.title("Error")
-
+                error_dialog.geometry("200x60")
                 error_label = tk.Label(error_dialog, text="Refugee does not exist")
                 error_label.pack()
 
@@ -505,11 +505,12 @@ class MainMenuWindow:
         field_var = tk.StringVar()
         field_var.set(fields[0])  # Set the default value
 
-        field_label = tk.Label(field_window, text="Select Field to Edit:")
-        field_label.pack()
+        field_label = tk.Label(field_window, text="Select Field to Edit:", bg=bg_color, fg="white",
+                               font=("Calibri", 14))
+        field_label.pack(pady=(275, 10))
 
         field_dropdown = ttk.Combobox(field_window, textvariable=field_var, values=fields, state="readonly")
-        field_dropdown.pack()
+        field_dropdown.pack(pady=10)
 
         ok_button = tk.Button(field_window, text="OK", command=field_window.destroy, font=("Calibri", 12),
         width=16,
@@ -722,7 +723,7 @@ class MainMenuWindow:
         text_widget = tk.Text(database_window, wrap=tk.WORD)
         text_widget.pack(expand=True, fill="both")
 
-        database_window.geometry('1200x400')
+        database_window.geometry('1300x400')
 
         # Insert the database contents into the Text widget
         text_widget.insert(tk.END, refugee_df.to_string(index=False))
