@@ -10,7 +10,7 @@ class AllocateVolunteersFrame(tk.Frame):
         self.root.title("Allocate Volunteers")
 
         # Read volunteers_file.csv and camps.csv
-        self.volunteers_df = pd.read_csv("volunteers_file.csv")
+        self.volunteers_df = pd.read_csv("volunteers_file.csv", dtype={'camp_id': 'Int64'})
         self.camps_df = pd.read_csv("camps.csv")
 
         # Create and configure GUI components
@@ -69,8 +69,15 @@ class AllocateVolunteersFrame(tk.Frame):
 
         selected_volunteer_id = self.volunteers_tree.item(selected_item[0])['values'][0]
 
-        # Update the selected volunteer's camp_id
-        self.volunteers_df.loc[self.volunteers_df['user_id'] == selected_volunteer_id, 'camp_id'] = selected_camp_id
+        # Convert selected_camp_id to integer before updating
+        try:
+            selected_camp_id_int = int(selected_camp_id)
+        except ValueError:
+            messagebox.showerror("Error", "Camp ID must be an integer.")
+            return
+
+        # Update the selected volunteer's camp_id with the integer value
+        self.volunteers_df.loc[self.volunteers_df['user_id'] == selected_volunteer_id, 'camp_id'] = selected_camp_id_int
         self.volunteers_df.to_csv("volunteers_file.csv", index=False)
 
         # Update Treeview
@@ -78,7 +85,7 @@ class AllocateVolunteersFrame(tk.Frame):
             self.volunteers_tree.delete(item)
         self.populate_volunteers_table()
 
-        messagebox.showinfo("Success", f"Volunteer {selected_volunteer_id} allocated to Camp {selected_camp_id}.")
+        messagebox.showinfo("Success", f"Volunteer {selected_volunteer_id} allocated to Camp {selected_camp_id_int}.")
 
     def on_camp_select(self, event=None):
         # This method is triggered when a camp is selected from the dropdown
