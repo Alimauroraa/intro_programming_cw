@@ -51,9 +51,12 @@ class AllocateVolunteersFrame(tk.Frame):
         allocate_button.pack()
 
     def populate_volunteers_table(self):
-        for index, row in self.volunteers_df.iterrows():
-            self.volunteers_tree.insert('', index, values=(row['user_id'], row['first_name'], row['last_name'],
-                                                           row['camp_id']))
+        # Filter the DataFrame to include only active volunteers
+        active_volunteers_df = self.volunteers_df[self.volunteers_df['active'] == True]
+
+        for index, row in active_volunteers_df.iterrows():
+            self.volunteers_tree.insert('', index,
+                                        values=(row['user_id'], row['first_name'], row['last_name'], row['camp_id']))
 
     def allocate_selected_volunteer(self):
         selected_camp_id = self.camp_var.get()

@@ -28,7 +28,7 @@ def login():
     if not user.empty:
         if not pd.isnull(user['camp_id'].iloc[0]) and (user['user_password'].iloc[0] == password):
             user_index = user.index[0]
-            if user['active'].iloc[0] == 'False':
+            if user['active'].iloc[0] == False:
                 messagebox.showinfo("Warning", "Hey! Your account is not active. Please contact the administrator.")
             else:
                 messagebox.showinfo("", f"Access granted, {username}!")
@@ -58,6 +58,11 @@ def updating():
                     new_value = int(new_value)
                 elif field_to_update == "camp_id":
                     new_value = int(new_value)
+                    camp_ids = set(pd.read_csv('camps.csv')['camp_id'])
+                    if new_value not in camp_ids:
+                        result_label.config(text="Error: The entered camp_id does not exist.", fg="red",
+                                            font=("Calibri", 12))
+                        return
             except ValueError:
                 result_label.config(text="Invalid input. Please enter a valid value.", fg="red",font=("Calibri", 12))
                 return
