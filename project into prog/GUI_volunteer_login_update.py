@@ -333,11 +333,19 @@ def open_refugee_portal():
     # refugee_portal_window = MainMenuWindow(refugee_portal_window)
 
 def edit_camp():
-    # from manage_camps_frame import ManageCampsFrame
-    # manage_camp_window = Toplevel(root)
-    # manage_camp_window = ManageCampsFrame(manage_camp_window)
-    from manage_camps_frame import  main
-    main()
+    from manage_camps_frame import ManageCampsFrame
+
+    # Create a new Toplevel window
+    manage_camp_window = tk.Toplevel(root)
+
+    # Set the desired window size
+    manage_camp_window.geometry("1400x700")  # Adjust the size as needed
+
+    # Define the callback for the "Back" button
+    def on_back():
+        manage_camp_window.destroy()
+
+    manage_camp_app = ManageCampsFrame(manage_camp_window, on_back=on_back)
 
 def live_update():
     from liveupdatevolunteer import submit_update
