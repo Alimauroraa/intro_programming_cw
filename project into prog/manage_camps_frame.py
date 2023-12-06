@@ -38,9 +38,10 @@ class EntryPopup(Entry):
         self.destroy()
 
 class ManageCampsFrame:
-    def __init__(self, root, on_back=None):
+    def __init__(self, root, on_back=None, camp_id=None):
         self.root = root
         self.on_back = on_back
+        self.camp_id = camp_id
         self.tree = None
         self.xscrollbar = None
         self.setup_ui()
@@ -146,6 +147,10 @@ class ManageCampsFrame:
         except pd.errors.EmptyDataError:
             messagebox.showinfo("Info", "The file 'camps.csv' is empty.")
             return
+
+        # Filter the dataframe if a specific camp_id is provided
+        if self.camp_id is not None:
+            camps_df = camps_df[camps_df['camp_id'] == self.camp_id]
 
         # Clear existing data in the tree
         for i in self.tree.get_children():

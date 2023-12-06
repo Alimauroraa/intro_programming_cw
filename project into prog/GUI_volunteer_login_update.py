@@ -335,6 +335,9 @@ def open_refugee_portal():
 def edit_camp():
     from manage_camps_frame import ManageCampsFrame
 
+    # Extract the camp_id of the logged-in volunteer
+    volunteer_camp_id = user_df.loc[user_index, 'camp_id'] if user_index is not None else None
+
     # Create a new Toplevel window
     manage_camp_window = tk.Toplevel(root)
 
@@ -345,7 +348,9 @@ def edit_camp():
     def on_back():
         manage_camp_window.destroy()
 
-    manage_camp_app = ManageCampsFrame(manage_camp_window, on_back=on_back)
+    # Pass the volunteer's camp_id to the ManageCampsFrame
+    manage_camp_app = ManageCampsFrame(manage_camp_window, on_back=on_back, camp_id=volunteer_camp_id)
+
 
 def live_update():
     from liveupdatevolunteer import submit_update
