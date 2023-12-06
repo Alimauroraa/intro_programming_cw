@@ -31,13 +31,14 @@ class ManageCampsFrame:
     def __init__(self, root):
         self.root = root
         self.tree = None
+        self.xscrollbar = None
         self.setup_ui()
 
     def setup_ui(self):
         tk.Label(self.root, text="Manage camps", font="calibri 16", bg="#021631", fg="#fff").place(x=25, y=30)
         # Display a message above the table
         info_label = tk.Label(self.root, text="Location, Max Capacity & Specific Needs fields can be clicked & edited."
-                                              " Double click the field, make changes, "
+                                              "\n   Double click the field, make changes, "
                                               "press Enter and click Save Changes.",
                               font="calibri 12")
         info_label.place(x=25, y=60)
@@ -58,21 +59,21 @@ class ManageCampsFrame:
 
         self.tree.config(height=20)
 
-        # # Add a horizontal scrollbar
-        # self.xscrollbar = ttk.Scrollbar(self.root, orient='horizontal', command=self.tree.xview)
-        # self.xscrollbar.grid(row=1, column=0, sticky='ew')
-        # self.tree.configure(xscrollcommand=self.xscrollbar.set)
-        #
-        # # Configure the treeview to use the scrollbar
-        # self.tree.configure(xscrollcommand=self.xscrollbar.set)
+        # Add a horizontal scrollbar
+        self.xscrollbar = ttk.Scrollbar(self.root, orient='horizontal', command=self.tree.xview)
+        self.xscrollbar.grid(row=1, column=0, sticky='ew', padx=5)
+        self.tree.configure(xscrollcommand=self.xscrollbar.set)
+
+        # Grid configuration for the root window
+        self.root.grid_rowconfigure(0, weight=1)
+        self.root.grid_columnconfigure(0, weight=1)
 
         # Enable editing on double-click
         self.tree.bind('<Double-1>', self.edit_cell)
 
         # Button to save changes
         save_button = tk.Button(self.root, text="Save Changes", command=self.save_changes)
-        #save_button.grid(row=2, column=0, pady=20, sticky='ew')
-        save_button.place(x=250, y=600)
+        save_button.place(x=250, y=650)
 
         # Initially display camps
         self.display_camps()
@@ -103,6 +104,9 @@ class ManageCampsFrame:
         popup = EntryPopup(self.tree, row, column, text)
         popup.place(x=x, y=y, anchor='w', width=width, height=height)
 
+    def sort_camps_df(self, camps_df):
+        return camps_df.sort_values(by='camp_id', ascending=True)
+
     def display_camps(self):
         try:
             camps_df = pd.read_csv('camps.csv')
@@ -122,7 +126,7 @@ class ManageCampsFrame:
 
         # Fill NaN values with empty strings for all columns
         camps_df.fillna('', inplace=True)
-
+        camps_df = self.sort_camps_df(camps_df)
         # Insert rows into the treeview
         for _, row in camps_df.iterrows():
             # Convert all values to strings for display

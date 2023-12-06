@@ -36,6 +36,12 @@ class AllocateVolunteersFrame(tk.Frame):
         self.volunteers_tree.heading('first_name', text='First Name')
         self.volunteers_tree.heading('last_name', text='Last Name')
         self.volunteers_tree.heading('camp_id', text='Camp ID')
+
+        # Set column widths
+        self.volunteers_tree.column('user_id', width=100)
+        self.volunteers_tree.column('first_name', width=150)
+        self.volunteers_tree.column('last_name', width=150)
+        self.volunteers_tree.column('camp_id', width=100)
         self.volunteers_tree.pack()
 
         # Button to allocate volunteers
@@ -86,6 +92,6 @@ class AllocateVolunteersFrame(tk.Frame):
 if __name__ == '__main__':
     root = tk.Tk()
     root.title("Allocate Volunteer")
-    root.geometry("1200x600")
+    root.geometry("1200x1000")
     app = AllocateVolunteersFrame(root)
     root.mainloop()
