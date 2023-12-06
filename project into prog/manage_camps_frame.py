@@ -38,8 +38,9 @@ class EntryPopup(Entry):
         self.destroy()
 
 class ManageCampsFrame:
-    def __init__(self, root):
+    def __init__(self, root, on_back=None):
         self.root = root
+        self.on_back = on_back
         self.tree = None
         self.xscrollbar = None
         self.setup_ui()
@@ -84,6 +85,10 @@ class ManageCampsFrame:
         # Button to save changes
         save_button = tk.Button(self.root, text="Save Changes", command=self.save_changes)
         save_button.place(x=250, y=650)
+
+        if self.on_back is not None:
+            go_back_button = tk.Button(self.root, text="Back", width=10, command=self.on_back)
+            go_back_button.place(x=370, y=650)
 
         # Initially display camps
         self.display_camps()
@@ -155,10 +160,18 @@ class ManageCampsFrame:
             values = [str(value) for value in row.tolist()]
             self.tree.insert('', 'end', values=values)
 
-
-if __name__ == '__main__':
+def main():
     root = tk.Tk()
     root.title("Manage Camps")
     root.geometry("1200x600")
-    app = ManageCampsFrame(root)
+
+    # Define a callback function for the 'Back' button
+    def on_back():
+        print("Back button clicked")  # Replace with desired action
+        root.destroy()  # For example, this line will close the window
+
+    app = ManageCampsFrame(root, on_back=on_back)
     root.mainloop()
+
+if __name__ == '__main__':
+    main()
