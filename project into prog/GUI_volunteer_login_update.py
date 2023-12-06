@@ -3,6 +3,8 @@ from tkinter import *
 from tkinter import messagebox
 import pandas as pd
 from tkinter import ttk
+from display_camp_resources_frame import DisplayAllocatedResourcesFrame
+
 
 user_df = pd.read_csv('volunteers_file.csv')
 csv_filename = 'Refugee_DataFrame.csv'
@@ -283,17 +285,17 @@ def main_application():
         display_camp_resources_frame = DisplayCampResourcesFrame(display_camp_resources_window, volunteer_camp_id)
         display_camp_resources_frame.pack(expand=True, fill='both')
 
-    display_resources_button = Button(main_window, text="Display Camp Resources",
-                                      command=open_display_camp_resources_frame,
-                                      font=("Calibri", 12),
-                                      width=16,
-                                      height=0,
-                                      bg="#FFFFFF",
-                                      fg="black",
-                                      cursor="hand2",
-                                      activebackground="#B8B8B8",
-                                      activeforeground="black", )
-    display_resources_button.pack(pady=10, side='top', anchor='center')
+    display_allocated_resources_button = Button(main_window, text="Display Allocated Resources",
+                                                command=open_display_allocated_resources_frame,
+                                                font=("Calibri", 12),
+                                                width=16,
+                                                height=0,
+                                                bg="#FFFFFF",
+                                                fg="black",
+                                                cursor="hand2",
+                                                activebackground="#B8B8B8",
+                                                activeforeground="black")
+    display_allocated_resources_button.pack(pady=10, side='top', anchor='center')
 
     edit_camp_button = Button(main_window, text="Edit Camp", command=edit_camp,
         font=("Calibri", 12),
@@ -368,6 +370,14 @@ def edit_camp():
 
     # Pass the volunteer's camp_id to the ManageCampsFrame
     manage_camp_app = ManageCampsFrame(manage_camp_window, on_back=on_back, camp_id=volunteer_camp_id)
+def open_display_allocated_resources_frame():
+    print("Opening Display Allocated Resources Frame")
+    display_resources_window = tk.Toplevel(root)
+    display_resources_window.title("Allocated Resources")
+    volunteer_id = user_df.loc[user_index, 'user_id'] if user_index is not None else None
+    print(f"Volunteer ID: {volunteer_id}")
+    display_resources_frame = DisplayAllocatedResourcesFrame(display_resources_window, volunteer_id=volunteer_id)
+    display_resources_frame.pack(expand=True, fill='both')
 
 
 def live_update():
