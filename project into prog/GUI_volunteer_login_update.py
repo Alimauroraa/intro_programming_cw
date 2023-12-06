@@ -79,6 +79,7 @@ def updating():
     def redirect_to_main():
         update_window.destroy()
         main_application()
+    global update_window
     # Create the update window
     update_window = Toplevel(root)
     update_window.title("Update Information")
@@ -112,8 +113,8 @@ def updating():
 
     # Button(update_window, text="Update", command=update_info).pack(pady=10)
     update_button = Button(update_window, text="Update", command=update_info,
-                           font=("Calibri", 12),
-                           width=16,
+                           font=("Calibri", 10),
+                           width=15,
                            height=0,
                            bg="#FFFFFF",
                            fg="black",
@@ -125,8 +126,8 @@ def updating():
     if pd.isnull(user['camp_id'].iloc[0]):
         # Add the redirect_button only when the condition is true
         redirect_button = Button(update_window, text="Redirect to Main", command=redirect_to_main,
-                                 font=("Calibri", 12),
-                                 width=16,
+                                 font=("Calibri", 10),
+                                 width=15,
                                  height=0,
                                  bg="#FFFFFF",
                                  fg="black",
@@ -134,11 +135,22 @@ def updating():
                                  activebackground="#B8B8B8",
                                  activeforeground="black", )
         redirect_button.pack(pady=10)
+
+        display_camp_button = Button(update_window, text="Display all camps", command=lambda:display_all_camps(update_window),
+                                     font=("Calibri", 10),
+                                     width=15,
+                                     height=0,
+                                     bg="#FFFFFF",
+                                     fg="black",
+                                     cursor="hand2",
+                                     activebackground="#B8B8B8",
+                                     activeforeground="black", )
+        display_camp_button.place(x=40, y=70)
     else:
         # Add the back_button when the condition is false
         back_button = Button(update_window, text="Back", command=back_to_main,
-                             font=("Calibri", 12),
-                             width=16,
+                             font=("Calibri", 10),
+                             width=10,
                              height=0,
                              bg="#FFFFFF",
                              fg="black",
@@ -156,6 +168,32 @@ def updating():
         update_info()
 
     update_window.bind("<Return>", on_enter)
+def display_all_camps(update_window):
+    df = pd.read_csv('plan.csv')
+
+    new_window=tk.Toplevel(update_window)
+    new_window.title('Camps Table')
+
+    #create treeview to display table
+    tree=ttk.Treeview(new_window, columns=('Plan Name','Country','Number of Camps','Camp ID'), show='headings')
+    tree.heading('Plan Name',text='Plan Name')
+    tree.heading('Country', text='Country')
+    tree.heading('Number of Camps', text='Number of Camps')
+    tree.heading('Camp ID', text='Camp ID')
+
+    for i, row in df.iterrows():
+        plan_name= row['planName']
+        country= row['geographicalArea']
+        no_camps = row['NumberOfCamps']
+        campid= row['camp_id']
+        tree.insert(parent='',index=0, values=(plan_name,country,no_camps,campid))
+
+    #adding scrollbar
+    scrollbar= ttk.Scrollbar(new_window, orient='vertical', command=tree.yview)
+    tree.configure(yscrollcommand=scrollbar.set)
+    scrollbar.pack(side='right', fill='y')
+
+    tree.pack(expand=True, fill='both')
 
 def create_account_window():
     add_window = Toplevel(root)
@@ -251,8 +289,8 @@ def main_application():
     welcome_label.pack(pady=(150, 10), side='top', anchor='center')
     # Add widgets and functionality for the main application
     display_button = Button(main_window, text="Account Information", command=display_information,
-        font=("Calibri", 12),
-        width=16,
+        font=("Calibri", 11),
+        width=22,
         height=0,
         bg="#FFFFFF",
         fg="black",
@@ -262,8 +300,8 @@ def main_application():
     display_button.pack(pady=( 10), side='top', anchor='center')
 
 
-    update_button = Button(main_window, text="Update Information", command=updating, font=("Calibri", 12),
-        width=16,
+    update_button = Button(main_window, text="Update Information", command=updating, font=("Calibri", 11),
+        width=22,
         height=0,
         bg="#FFFFFF",
         fg="black",
@@ -273,8 +311,8 @@ def main_application():
     update_button.pack(pady=10, side='top', anchor='center')
 
     refugee_portal_button = Button(main_window, text="Refugee Portal", command=open_refugee_portal,
-        font=("Calibri", 12),
-        width=16,
+        font=("Calibri", 11),
+        width=22,
         height=0,
         bg="#FFFFFF",
         fg="black",
@@ -292,8 +330,8 @@ def main_application():
 
     display_allocated_resources_button = Button(main_window, text="Display Allocated Resources",
                                                 command=open_display_allocated_resources_frame,
-                                                font=("Calibri", 12),
-                                                width=16,
+                                                font=("Calibri", 11),
+                                                width=22,
                                                 height=0,
                                                 bg="#FFFFFF",
                                                 fg="black",
@@ -303,8 +341,8 @@ def main_application():
     display_allocated_resources_button.pack(pady=10, side='top', anchor='center')
 
     edit_camp_button = Button(main_window, text="Edit Camp", command=edit_camp,
-        font=("Calibri", 12),
-        width=16,
+        font=("Calibri", 11),
+        width=22,
         height=0,
         bg="#FFFFFF",
         fg="black",
@@ -314,8 +352,8 @@ def main_application():
     edit_camp_button.pack(pady=10, side='top', anchor='center')
 
     live_update_button = Button(main_window, text="Send Live Updates", command=lambda: live_update(),
-                              font=("Calibri", 12),
-                              width=16,
+                              font=("Calibri", 11),
+                              width=22,
                               height=0,
                               bg="#FFFFFF",
                               fg="black",
@@ -326,8 +364,8 @@ def main_application():
 
 
     quit_button = Button(main_window, text="Quit", command=quit_application,
-        font=("Calibri", 12),
-        width=16,
+        font=("Calibri", 11),
+        width=22,
         height=0,
         bg="#FFFFFF",
         fg="black",
