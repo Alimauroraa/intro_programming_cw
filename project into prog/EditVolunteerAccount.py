@@ -189,18 +189,18 @@ def edit_volunteer_frame(parent):
 
     # Create buttons
     load_button = tk.Button(root, text="Load Volunteers", command=load_volunteers, width=16)
-    save_button = tk.Button(root, text="Save Volunteer Data", command=save_volunteers)
+    # save_button = tk.Button(root, text="Save Volunteer Data", command=save_volunteers)
     deactivate_button = tk.Button(root, text="Deactivate Volunteer", command=deactivate_volunteer)
     delete_button = tk.Button(root, text="Delete Volunteer", command=delete_volunteer)
     go_back_button = tk.Button(root, text="Back", command=lambda:go_back(root))
     reactivate_button = tk.Button(root, text="Reactivate Volunteer", command=reactivate_volunteer)
 
     load_button.place(x=30,y=200, width=120)
-    save_button.place(x=200,y=650, width=120)
-    deactivate_button.place(x=200,y=690, width=120)
-    delete_button.place(x=350,y=650, width=120)
-    go_back_button.place(x=270,y=730, width=120)
-    reactivate_button.place(x=350,y=690, width=120)
+    # save_button.place(x=200,y=650, width=120)
+    deactivate_button.place(x=130,y=690, width=120)
+    delete_button.place(x=430,y=690, width=120)
+    go_back_button.place(x=280,y=730, width=120)
+    reactivate_button.place(x=280,y=690, width=120)
 
     # Create a mapping from field names to labels
     field_labels = {
@@ -225,7 +225,7 @@ def edit_volunteer_frame(parent):
 #'acc_type': 'Account Type',
     global entries
     # Create form fields
-    entries = {field: tk.Entry(root, bd=2, font="calibri 10") for field in field_labels.keys()}
+    entries = {field: tk.Entry(root, bd=2, font="calibri 10", state='readonly') for field in field_labels.keys()}
 
     for i, (field, label) in enumerate(field_labels.items()):
         tk.Label(root, text=label, font="calibri 12", bg="#021631", fg="#fff").place(x=200, y=130 + i * 30)
@@ -242,6 +242,18 @@ def edit_volunteer_frame(parent):
     # Load volunteers from the CSV file
     volunteers = load_volunteers_from_csv('volunteers_file.csv')
 
+    # Function to update form fields with selected volunteer's data
+    def update_form(Event):
+        selected_index = volunteers_listbox.curselection()
+        if selected_index:  # Check if a volunteer is selected
+            selected_index = selected_index[0]
+            volunteer_data = volunteers[selected_index]
+            for field, entry in entries.items():
+                if field in vars(volunteer_data):
+                    entry.config(state='normal')  # Set state to normal to update the entry
+                    entry.delete(0, tk.END)
+                    entry.insert(0, getattr(volunteer_data, field))
+                    entry.config(state='readonly')
     # Bind the listbox callback function
     volunteers_listbox.bind('<<ListboxSelect>>', update_form)
 

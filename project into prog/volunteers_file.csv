@@ -8,7 +8,6 @@ user_id,username,user_password,first_name,last_name,dob,user_email,contact_numbe
 14,volunteer14,111,Aiden,Turner,1997/09/09,aiden@gmail.com,14145555,Birch Lane,Suite 9,Treeton,volunteer,Yes,male,True,51,[]
 15,volunteer15,111,Sophie,Morris,1995/04/03,sophie@gmail.com,15156666,Cypress Street,Apartment 909,Woodstown,volunteer,Yes,female,True,1,[]
 16,volunteer16,111,Ethan,Baker,1998/10/17,ethan@gmail.com,16167777,Chestnut Avenue,Suite 10,Orchardtown,volunteer,Yes,male,True,16,[]
-17,volunteer17,111,Grace,Clark,1994/06/14,grace@gmail.com,17172222,Redwood Road,Apartment 101,Greenfield,volunteer,Yes,female,True,17,[]
 18,volunteer18,111,Logan,King,1996/09/27,logan@gmail.com,18183333,Spruce Lane,Suite 102,Highland,volunteer,Yes,male,True,,[]
 19,volunteer19,111,Addison,Wright,1998/12/06,addison@gmail.com,19194444,Linden Street,Unit 103,Greenville,volunteer,Yes,female,True,19,[]
 20,volunteer20,111,Jackie,Turner,1991/03/17,jackie@gmail.com,20205555,Silver Street,Suite 104,Silvertown,volunteer,Yes,male,True,20,[]
