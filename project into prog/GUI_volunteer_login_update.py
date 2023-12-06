@@ -45,6 +45,30 @@ def login():
         messagebox.showinfo("", "The user account does not exist!")
         user_index = None
 
+
+import pandas as pd
+
+def update_camp_volunteer_numbers():
+    global user_df
+    try:
+        user_df = pd.read_csv('volunteers_file.csv')
+        camps_df = pd.read_csv("camps.csv")
+
+        volunteer_counts = user_df['camp_id'].value_counts()
+
+        for camp_id, count in volunteer_counts.items():
+            camps_df.loc[camps_df['camp_id'] == camp_id, 'volunteers_number'] = count
+
+        camps_df['volunteers_number'] = camps_df['camp_id'].apply(lambda x: volunteer_counts.get(x, 0))
+
+        camps_df.to_csv("camps.csv", index=False)
+
+    except pd.errors.ParserError as e:
+        print(f"Error reading camps.csv: {e}")
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
 def updating():
     global user_df, user_index
     valid_fields = ["contact_number", "address1", "address2", "city", "user_email", "camp_id"]
@@ -72,6 +96,9 @@ def updating():
             user_df.to_csv('volunteers_file.csv', index=False)
         else:
             result_label.config(text=f"Invalid field to update. Valid fields are:\n {valid_fields}", fg="red",font=("Calibri", 12))
+        
+        if field_to_update == "camp_id":
+            update_camp_volunteer_numbers()
 
     def back_to_main():
         update_window.destroy()
