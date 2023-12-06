@@ -1,13 +1,4 @@
 camp_id,location,volunteers_number,refugees_number,plan_name,current_availability,max_capacity,specific_needs,allocated_resources
-1,afghanistan,,0.0,"test
-",100,100,,
-2,afghanistan,,0.0,"test
-",100,100,,
-3,afghanistan,,1.0,"test
-",99,100,,
-4,afghanistan,,100.0,"test
-",0,100,,
-
 1,London,6,7,plan1,47,34134,MedicalAid,"{'MedicalAid': 3, 'Water Bottles': 5, 'Clothing': 5, 'Tents': 3, 'Blankets': 5, 'Food Packets': 20}"
 2,London,6,7,plan1,47,26,MedicalAid,"{'MedicalAid': 3, 'Water Bottles': 5, 'Clothing': 5, 'Tents': 3, 'Blankets': 5, 'Food Packets': 20}"
 3,dfsa,0,0,"fsdhjjds

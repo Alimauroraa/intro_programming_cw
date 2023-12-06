@@ -84,7 +84,7 @@ def updating():
             user_df.to_csv('volunteers_file.csv', index=False)
         else:
             result_label.config(text=f"Invalid field to update. Valid fields are:\n {valid_fields}", fg="red",font=("Calibri", 12))
-            
+
         if field_to_update == "camp_id":
             update_camp_volunteer_numbers()
 
@@ -390,6 +390,7 @@ def edit_camp():
 
     # Pass the volunteer's camp_id to the ManageCampsFrame
     manage_camp_app = ManageCampsFrame(manage_camp_window, on_back=on_back, camp_id=volunteer_camp_id)
+    
 def open_display_allocated_resources_frame():
     print("Opening Display Allocated Resources Frame")
     display_resources_window = tk.Toplevel(root)
