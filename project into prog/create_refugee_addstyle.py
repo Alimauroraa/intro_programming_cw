@@ -660,6 +660,18 @@ root = tk.Toplevel()
 main_menu_window = MainMenuWindow(root)
 root.mainloop()
 
+
+
+# def main():
+#     root = tk.Tk()
+#     root.title("Refugee Portal")
+#     root['bg']=bg_color
+#     app = MainMenuWindow(root)
+#     root.mainloop()
+# if __name__ == '__main__':
+#     main()
+
+
 # # Path to the CSV file
 # csv_filename = 'Refugee_DataFrame.csv'
 #
