@@ -1,12 +1,5 @@
 camp_id,location,volunteers_number,refugees_number,plan_name,current_availability,max_capacity,specific_needs,allocated_resources
-1,London,6,7,plan1,47,34134,MedicalAid,"{'MedicalAid': 3, 'Water Bottles': 5, 'Clothing': 5, 'Tents': 3, 'Blankets': 5, 'Food Packets': 20}"
-2,London,6,7,plan1,47,26,MedicalAid,"{'MedicalAid': 3, 'Water Bottles': 5, 'Clothing': 5, 'Tents': 3, 'Blankets': 5, 'Food Packets': 20}"
-3,dfsa,0,0,"fsdhjjds
-",0,99,,
-4,dfsa,0,0,"fsdhjjds
-",0,0,,
-5,dfsa,0,0,"fsdhjjds
-",0,0,,
-6,dfsa,0,0,"fsdhjjds
-",0,0,,
-
+1,London,2,7,plan1,47,34134,MedicalAid,"{'MedicalAid': 3, 'Water Bottles': 5, 'Clothing': 5}"
+2,London,3,7,plan1,47,26,MedicalAid,"{'MedicalAid': 3, 'Water Bottles': 5}"
+3,China,2,7,plan1,47,26,MedicalAid,"{'MedicalAid': 3, 'Water Bottles': 5}"
+4,NY,1,7,plan1,47,26,MedicalAid,{'MedicalAid': 3}

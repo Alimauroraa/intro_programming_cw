@@ -45,22 +45,33 @@ def login():
         messagebox.showinfo("", "The user account does not exist!")
         user_index = None
 
+import pandas as pd
+
 def update_camp_volunteer_numbers():
     global user_df
-    camps_df = pd.read_csv("camps.csv")
+    try:
+        # Read the current data from the files
+        user_df = pd.read_csv('volunteers_file.csv')
+        camps_df = pd.read_csv("camps.csv")
 
-    volunteer_counts = user_df['camp_id'].value_counts()
+        # Count the number of volunteers in each camp
+        volunteer_counts = user_df['camp_id'].value_counts()
 
-    for camp_id, count in volunteer_counts.items():
-        camps_df.loc[camps_df['camp_id'] == camp_id, 'volunteer_number'] = count
+        # Update the camps dataframe
+        for camp_id, count in volunteer_counts.items():
+            camps_df.loc[camps_df['camp_id'] == camp_id, 'volunteers_number'] = count
 
-    all_camp_ids = set(camps_df['camp_id'])
-    counted_camp_ids = set(volunteer_counts.index)
-    camps_without_volunteers = all_camp_ids - counted_camp_ids
-    for camp_id in camps_without_volunteers:
-        camps_df.loc[camps_df['camp_id'] == camp_id, 'volunteer_number'] = 0
+        # Ensure camps without volunteers are also updated
+        camps_df['volunteers_number'] = camps_df['camp_id'].apply(lambda x: volunteer_counts.get(x, 0))
 
-    camps_df.to_csv("camps.csv", index=False)
+        # Save the updated camps dataframe
+        camps_df.to_csv("camps.csv", index=False)
+
+    except pd.errors.ParserError as e:
+        print(f"Error reading camps.csv: {e}")
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
 
 def updating():
     global user_df, user_index
@@ -87,6 +98,7 @@ def updating():
 
         if field_to_update == "camp_id":
             update_camp_volunteer_numbers()
+
 
     def back_to_main():
         update_window.destroy()
