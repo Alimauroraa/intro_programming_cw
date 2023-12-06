@@ -85,5 +85,7 @@ class AllocateVolunteersFrame(tk.Frame):
 
 if __name__ == '__main__':
     root = tk.Tk()
+    root.title("Allocate Volunteer")
+    root.geometry("1200x600")
     app = AllocateVolunteersFrame(root)
     root.mainloop()
