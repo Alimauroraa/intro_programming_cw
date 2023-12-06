@@ -299,6 +299,7 @@ def main_application():
                               activeforeground="black", )
     live_update_button.pack(pady=10, side='top', anchor='center')
 
+
     quit_button = Button(main_window, text="Quit", command=quit_application,
         font=("Calibri", 12),
         width=16,
@@ -332,9 +333,12 @@ def open_refugee_portal():
     # refugee_portal_window = MainMenuWindow(refugee_portal_window)
 
 def edit_camp():
-    from edit_camp_frame import EditCampFrame
-    from edit_camp_frame import  main
+    # from manage_camps_frame import ManageCampsFrame
+    # manage_camp_window = Toplevel(root)
+    # manage_camp_window = ManageCampsFrame(manage_camp_window)
+    from manage_camps_frame import  main
     main()
+
 def live_update():
     from liveupdatevolunteer import submit_update
     submit_update()
