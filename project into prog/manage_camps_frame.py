@@ -131,7 +131,7 @@ class ManageCampsFrame:
     def display_camps(self):
         try:
             dtype_spec = {
-                'current_availability': 'Int64',  # Using 'Int64' to handle NaN values as well
+                'current_availability': 'Int64',
                 'max_capacity': 'Int64',
                 'volunteers_number': 'Int64',
                 'refugees_number': 'Int64'
@@ -148,7 +148,15 @@ class ManageCampsFrame:
             messagebox.showinfo("Info", "The file 'camps.csv' is empty.")
             return
 
-        # Filter the dataframe if a specific camp_id is provided
+        # Replace NaN values with 0 in integer columns
+        integer_columns = ['current_availability', 'max_capacity', 'volunteers_number', 'refugees_number']
+        camps_df[integer_columns] = camps_df[integer_columns].fillna(0)
+
+        # Replace NaN with empty string in other columns
+        other_columns = [col for col in camps_df.columns if col not in integer_columns]
+        camps_df[other_columns] = camps_df[other_columns].fillna('')
+
+        # Apply the filter only if camp_id is not None
         if self.camp_id is not None:
             camps_df = camps_df[camps_df['camp_id'] == self.camp_id]
 
@@ -156,14 +164,13 @@ class ManageCampsFrame:
         for i in self.tree.get_children():
             self.tree.delete(i)
 
-        # Fill NaN values with empty strings for all columns
-        camps_df.fillna('', inplace=True)
         camps_df = self.sort_camps_df(camps_df)
+
         # Insert rows into the treeview
         for _, row in camps_df.iterrows():
-            # Convert all values to strings for display
             values = [str(value) for value in row.tolist()]
             self.tree.insert('', 'end', values=values)
+
 
 def main():
     root = tk.Tk()
