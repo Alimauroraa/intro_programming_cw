@@ -276,6 +276,24 @@ def main_application():
         activeforeground="black",)
     refugee_portal_button.pack(pady=10, side='top', anchor='center')
 
+    def open_display_camp_resources_frame():
+        volunteer_camp_id = user_df.loc[user_index, 'camp_id'] if user_index is not None else None
+        display_camp_resources_window = tk.Toplevel(root)
+        display_camp_resources_window.title("Camp Resources")
+        display_camp_resources_frame = DisplayCampResourcesFrame(display_camp_resources_window, volunteer_camp_id)
+        display_camp_resources_frame.pack(expand=True, fill='both')
+
+    display_resources_button = Button(main_window, text="Display Camp Resources",
+                                      command=open_display_camp_resources_frame,
+                                      font=("Calibri", 12),
+                                      width=16,
+                                      height=0,
+                                      bg="#FFFFFF",
+                                      fg="black",
+                                      cursor="hand2",
+                                      activebackground="#B8B8B8",
+                                      activeforeground="black", )
+    display_resources_button.pack(pady=10, side='top', anchor='center')
 
     edit_camp_button = Button(main_window, text="Edit Camp", command=edit_camp,
         font=("Calibri", 12),
