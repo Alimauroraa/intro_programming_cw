@@ -11,7 +11,7 @@ camps_df = pd.read_csv(camp_csv)
 
 
 
-
+bg_color = '#021631'
 class MainMenuWindow:
     def __init__(self, master):
         self.master = master
@@ -22,35 +22,73 @@ class MainMenuWindow:
         screen_height = master.winfo_screenheight()
 
         # Calculate the x and y coordinates for the main window to be centered
-        x = (screen_width - 550) // 2  # Adjust 500 based on the width of your window
-        y = (screen_height - 600) // 2  # Adjust 300 based on the height of your window
+        x = (screen_width - 700) // 2  # Adjust 500 based on the width of your window
+        y = (screen_height - 800) // 2  # Adjust 300 based on the height of your window
 
         # Set the geometry of the main window
-        master.geometry(f"600x600+{x}+{y}")
+        master.geometry(f"700x800+{x}+{y}")
+        master['bg'] = bg_color
 
-        self.label = tk.Label(master, text="Hello and welcome to the refugee portal!")
-        self.label.pack()
+        self.label = tk.Label(master, text="Hello and welcome to the refugee portal!", bg=bg_color,
+        fg="white",
+        font=("Calibri", 14))
+        self.label.pack(pady=(150, 10))
 
         # Buttons for menu options
-        self.add_button = tk.Button(master, text="Add a new refugee", command=self.add_refugee)
-        self.add_button.pack()
+        self.add_button = tk.Button(master, text="Add a new refugee", command=self.add_refugee, font=("Calibri", 12),
+        width=16,
+        height=0,
+        bg="#FFFFFF",
+        fg="black",
+        cursor="hand2",
+        activebackground="#B8B8B8",
+        activeforeground="black")
+        self.add_button.pack(pady=10)
 
-        self.edit_button = tk.Button(master, text="Edit an existing refugee", command=self.edit_refugee)
-        self.edit_button.pack()
+        self.edit_button = tk.Button(master, text="Edit an existing refugee", command=self.edit_refugee, font=("Calibri", 12),
+        width=16,
+        height=0,
+        bg="#FFFFFF",
+        fg="black",
+        cursor="hand2",
+        activebackground="#B8B8B8",
+        activeforeground="black")
+        self.edit_button.pack(pady=10)
 
-        self.view_button = tk.Button(master, text="View the database", command=self.view_database)
-        self.view_button.pack()
+        self.view_button = tk.Button(master, text="View the database", command=self.view_database, font=("Calibri", 12),
+        width=16,
+        height=0,
+        bg="#FFFFFF",
+        fg="black",
+        cursor="hand2",
+        activebackground="#B8B8B8",
+        activeforeground="black")
+        self.view_button.pack(pady=10)
 
-        self.delete_button = tk.Button(master, text="Delete a refugee", command=self.delete_refugee)
-        self.delete_button.pack()
+        self.delete_button = tk.Button(master, text="Delete a refugee", command=self.delete_refugee, font=("Calibri", 12),
+        width=16,
+        height=0,
+        bg="#FFFFFF",
+        fg="black",
+        cursor="hand2",
+        activebackground="#B8B8B8",
+        activeforeground="black")
+        self.delete_button.pack(pady=10)
 
         self.show_database = True
 
         # self.view_details_button = tk.Button(master, text="View refugee's details", command=self.view_refugee_details)
         # self.view_details_button.pack()
 
-        self.exit_button = tk.Button(master, text="Go back", command=self.exit_application)
-        self.exit_button.pack()
+        self.exit_button = tk.Button(master, text="Go back", command=self.exit_application, font=("Calibri", 12),
+        width=16,
+        height=0,
+        bg="#FFFFFF",
+        fg="black",
+        cursor="hand2",
+        activebackground="#B8B8B8",
+        activeforeground="black")
+        self.exit_button.pack(pady=10)
 
     def exit_application(self):
         # Implement the functionality for quitting the application here
@@ -61,6 +99,28 @@ class MainMenuWindow:
         # Create a new window for input
         input_window = tk.Toplevel(self.master)
         input_window.title("Add New Refugee")
+        input_window['bg'] = bg_color
+        input_window.geometry('700x800')
+
+        # Center the window on the screen
+        screen_width = input_window.winfo_screenwidth()
+        screen_height = input_window.winfo_screenheight()
+
+        x_position = (screen_width - 700) // 2
+        y_position = (screen_height - 800) // 2
+
+        input_window.geometry(f'+{x_position}+{y_position}')
+
+        while True:
+            if camps_df.empty:
+                messagebox.showerror("Empty Camps File",
+                                     "The camps file is empty. Please add camps before adding refugees.")
+                input_window.quit()
+                input_window.destroy()
+                self.master.deiconify()
+                return
+            else:
+                break
 
         while True:
             random_refugee_id = random.randint(1, 9999)
@@ -77,8 +137,16 @@ class MainMenuWindow:
                 profile_ID_var = tk.StringVar(value=str(random_profile_id))
                 break
 
-        available_camp_ids = camps_df['CampID'].tolist()
+         # Filter out camps with zero availability
+        available_camps_with_availability = camps_df[camps_df['current_availability'] > 0]
+        available_camp_ids = available_camps_with_availability['camp_id'].tolist()
 
+        if not available_camp_ids:
+            messagebox.showerror("No Available Camps",
+                                 "There are no camps with available space. Please add more camps.")
+            input_window.destroy()
+            self.master.deiconify()
+            return
 
         camp_ID_var = tk.StringVar()
         camp_ID_var.set(available_camp_ids[0])  # Set the default value
@@ -190,9 +258,21 @@ class MainMenuWindow:
             except pd.errors.EmptyDataError:
                 updated_data = new_data
 
+
+            # Update the camps_df DataFrame with the new refugee information
+            selected_camp_id = str(camp_ID_var.get())
+            selected_camp_row = camps_df[camps_df['camp_id'].astype(str) == selected_camp_id]
+            # Increment refugees_number and decrement max_capacity
+            camps_df.loc[camps_df['camp_id'].astype(str) == selected_camp_id, 'refugees_number'] += 1
+            camps_df.loc[camps_df['camp_id'].astype(str) == selected_camp_id, 'current_availability'] -= 1
+            camps_df.to_csv(camp_csv, index=False)
+
             updated_data.to_csv(csv_filename, index=False)
             messagebox.showinfo("Adding Refugee",
                                 f"New refugee information appended to {csv_filename}. Please reopen application to view changes")
+
+
+
             input_window.destroy()
             self.master.deiconify()
 
@@ -213,38 +293,115 @@ class MainMenuWindow:
         # tk.Label(input_window, text="Camp ID:").grid(row=1, column=0)
         # tk.Entry(input_window, textvariable=camp_ID_var).grid(row=1, column=1)
 
-        tk.Label(input_window, text="Camp ID:").grid(row=1, column=0)
+        label_x = 150  # Adjust the x-coordinate for labels
+        entry_x = 350  # Adjust the x-coordinate for entries
+        label_y = 150  # Adjust the initial y-coordinate
+        y_increment = 40  # Adjust the y-increment for the next label and entry
 
-        camp_dropdown = ttk.Combobox(input_window, textvariable=camp_ID_var, values=available_camp_ids, state="readonly")
-        camp_dropdown.grid(row=1, column=1)
+        tk.Label(input_window, text="Camp ID:", bg=bg_color, fg="white", font=("Calibri", 14)).place(x=label_x,
+                                                                                                     y=label_y)
 
-        tk.Label(input_window, text="First Name:").grid(row=2, column=0)
-        tk.Entry(input_window, textvariable=first_name_var).grid(row=2, column=1)
+        camp_ID_var = tk.StringVar()
+        camp_dropdown = ttk.Combobox(input_window, textvariable=camp_ID_var, values=available_camp_ids, state='readonly')
+        camp_dropdown.config(width=18)  # Adjust the width as needed
+        camp_dropdown.place(x=entry_x, y=label_y)
+        # Increment y-coordinate for the next label and entry
+        label_y += y_increment
 
-        tk.Label(input_window, text="Last Name:").grid(row=3, column=0)
-        tk.Entry(input_window, textvariable=last_name_var).grid(row=3, column=1)
+        tk.Label(input_window, text="First Name:", bg=bg_color, fg="white", font=("Calibri", 14)).place(x=label_x,
+                                                                                                        y=label_y)
+        tk.Entry(input_window, textvariable=first_name_var).place(x=entry_x, y=label_y)
+        label_y += y_increment
 
-        tk.Label(input_window, text="Gender:").grid(row=4, column=0)
-        tk.Entry(input_window, textvariable=gender_var).grid(row=4, column=1)
+        tk.Label(input_window, text="Last Name:", bg=bg_color, fg="white", font=("Calibri", 14)).place(x=label_x,
+                                                                                                       y=label_y)
+        tk.Entry(input_window, textvariable=last_name_var).place(x=entry_x, y=label_y)
+        label_y += y_increment
 
-        tk.Label(input_window, text="Volunteer ID:").grid(row=5, column=0)
-        tk.Entry(input_window, textvariable=volunteer_ID_var).grid(row=5, column=1)
+        tk.Label(input_window, text="Gender:", bg=bg_color, fg="white", font=("Calibri", 14)).place(x=label_x,
+                                                                                                    y=label_y)
+        tk.Entry(input_window, textvariable=gender_var).place(x=entry_x, y=label_y)
+        label_y += y_increment
 
-        tk.Label(input_window, text="Medical Condition:").grid(row=7, column=0)
-        tk.Entry(input_window, textvariable=medical_condition_var).grid(row=7, column=1)
+        tk.Label(input_window, text="Volunteer ID:", bg=bg_color, fg="white", font=("Calibri", 14)).place(x=label_x,
+                                                                                                          y=label_y)
+        tk.Entry(input_window, textvariable=volunteer_ID_var).place(x=entry_x, y=label_y)
+        label_y += y_increment
 
-        tk.Label(input_window, text="Lead Family Member:").grid(row=8, column=0)
-        tk.Entry(input_window, textvariable=lead_family_member_var).grid(row=8, column=1)
+        tk.Label(input_window, text="Medical Condition:", bg=bg_color, fg="white", font=("Calibri", 14)).place(
+            x=label_x,
+            y=label_y)
+        tk.Entry(input_window, textvariable=medical_condition_var).place(x=entry_x, y=label_y)
+        label_y += y_increment
 
-        tk.Label(input_window, text="Lead Phone Number:").grid(row=9, column=0)
-        tk.Entry(input_window, textvariable=lead_phone_number_var).grid(row=9, column=1)
+        tk.Label(input_window, text="Lead Family Member:", bg=bg_color, fg="white", font=("Calibri", 14)).place(
+            x=label_x,
+            y=label_y)
+        tk.Entry(input_window, textvariable=lead_family_member_var).place(x=entry_x, y=label_y)
+        label_y += y_increment
 
-        tk.Label(input_window, text="Number of Relatives:").grid(row=10, column=0)
-        tk.Entry(input_window, textvariable=number_of_relatives_var).grid(row=10, column=1)
+        tk.Label(input_window, text="Lead Phone Number:", bg=bg_color, fg="white", font=("Calibri", 14)).place(
+            x=label_x,
+            y=label_y)
+        tk.Entry(input_window, textvariable=lead_phone_number_var).place(x=entry_x, y=label_y)
+        label_y += y_increment
 
-        # Button to submit the data
-        tk.Button(input_window, text="Submit", command=process_input).grid(row=11, column=1, columnspan=1)
-        tk.Button(input_window, text="Go Back", command=lambda: back(input_window)).grid(row=11, column=0, columnspan=1)
+        tk.Label(input_window, text="Number of Relatives:", bg=bg_color, fg="white", font=("Calibri", 14)).place(
+            x=label_x,
+            y=label_y)
+        tk.Entry(input_window, textvariable=number_of_relatives_var).place(x=entry_x, y=label_y)
+
+        tk.Button(input_window, text="Submit", command=process_input,
+                  font=("Calibri", 12),
+                  width=16,
+                  height=1,
+                  bg="#FFFFFF",
+                  fg="black",
+                  cursor="hand2",
+                  activebackground="#B8B8B8",
+                  activeforeground="black").place(x=entry_x, y=label_y + 2 * y_increment)
+
+        tk.Button(input_window, text="Go Back", command=lambda: back(input_window),
+                  font=("Calibri", 12),
+                  width=16,
+                  height=1,
+                  bg="#FFFFFF",
+                  fg="black",
+                  cursor="hand2",
+                  activebackground="#B8B8B8",
+                  activeforeground="black").place(x=label_x, y=label_y + 2 * y_increment)
+        # tk.Label(input_window, text="Camp ID:").grid(row=1, column=0)
+        #
+        # camp_dropdown = ttk.Combobox(input_window, textvariable=camp_ID_var, values=available_camp_ids, state="readonly")
+        # camp_dropdown.grid(row=1, column=1)
+        #
+        # tk.Label(input_window, text="First Name:").grid(row=2, column=0)
+        # tk.Entry(input_window, textvariable=first_name_var).grid(row=2, column=1)
+        #
+        # tk.Label(input_window, text="Last Name:").grid(row=3, column=0)
+        # tk.Entry(input_window, textvariable=last_name_var).grid(row=3, column=1)
+        #
+        # tk.Label(input_window, text="Gender:").grid(row=4, column=0)
+        # tk.Entry(input_window, textvariable=gender_var).grid(row=4, column=1)
+        #
+        # tk.Label(input_window, text="Volunteer ID:").grid(row=5, column=0)
+        # tk.Entry(input_window, textvariable=volunteer_ID_var).grid(row=5, column=1)
+        #
+        # tk.Label(input_window, text="Medical Condition:").grid(row=7, column=0)
+        # tk.Entry(input_window, textvariable=medical_condition_var).grid(row=7, column=1)
+        #
+        # tk.Label(input_window, text="Lead Family Member:").grid(row=8, column=0)
+        # tk.Entry(input_window, textvariable=lead_family_member_var).grid(row=8, column=1)
+        #
+        # tk.Label(input_window, text="Lead Phone Number:").grid(row=9, column=0)
+        # tk.Entry(input_window, textvariable=lead_phone_number_var).grid(row=9, column=1)
+        #
+        # tk.Label(input_window, text="Number of Relatives:").grid(row=10, column=0)
+        # tk.Entry(input_window, textvariable=number_of_relatives_var).grid(row=10, column=1)
+        #
+        # # Button to submit the data
+        # tk.Button(input_window, text="Submit", command=process_input).grid(row=11, column=1, columnspan=1)
+        # tk.Button(input_window, text="Go Back", command=lambda: back(input_window)).grid(row=11, column=0, columnspan=1)
 
     def get_valid_input(self, title, prompt, validator, error_message):
         while True:
@@ -322,6 +479,8 @@ class MainMenuWindow:
             else:
                 break
 
+        original_camp_id = refugee_df.loc[refugee_df['Refugee_ID'] == int(refugee_id_to_edit), 'Camp_ID'].values[0]
+
         fields = [
             'Camp ID', 'First name', 'Last name', 'Gender', 'Volunteer ID', 'Profile ID',
             'Medical Condition', 'Lead Family Member', 'Lead Phone Number', 'Number of Relatives'
@@ -329,18 +488,19 @@ class MainMenuWindow:
 
         field_window = tk.Toplevel(self.master)
         field_window.title("Select Field to Edit")
-
-
+        window_width = 700
+        window_height = 800
+        field_window['bg'] = bg_color
         # Get screen width and height
         screen_width = field_window.winfo_screenwidth()
         screen_height = field_window.winfo_screenheight()
 
         # Calculate the x and y coordinates for the main window to be centered
-        x = (screen_width - 550) // 2  # Adjust 500 based on the width of your window
-        y = (screen_height - 550) // 2  # Adjust 300 based on the height of your window
+        x = (screen_width - window_width) // 2  # Adjust 500 based on the width of your window
+        y = (screen_height - window_height) // 2  # Adjust 300 based on the height of your window
 
         # Set the geometry of the main window
-        field_window.geometry(f"500x300+{x}+{y}")
+        field_window.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
         field_var = tk.StringVar()
         field_var.set(fields[0])  # Set the default value
@@ -351,8 +511,15 @@ class MainMenuWindow:
         field_dropdown = ttk.Combobox(field_window, textvariable=field_var, values=fields, state="readonly")
         field_dropdown.pack()
 
-        ok_button = tk.Button(field_window, text="OK", command=field_window.destroy)
-        ok_button.pack()
+        ok_button = tk.Button(field_window, text="OK", command=field_window.destroy, font=("Calibri", 12),
+        width=16,
+        height=0,
+        bg="#FFFFFF",
+        fg="black",
+        cursor="hand2",
+        activebackground="#B8B8B8",
+        activeforeground="black")
+        ok_button.pack(pady=10)
 
         field_window.wait_window()  # Wait for the window to be closed
 
@@ -368,6 +535,9 @@ class MainMenuWindow:
                 refugee_df['Refugee_ID'] == int(refugee_id_to_edit), selected_field.replace(" ", "_")] = new_value
             refugee_df.to_csv(csv_filename, index=False)
 
+            new_camp_id = new_value if selected_field == 'Camp ID' else original_camp_id
+            self.update_camp_info(original_camp_id, new_camp_id)
+
         field_window.update()
         field_window.destroy()
         
@@ -375,7 +545,19 @@ class MainMenuWindow:
         messagebox.showinfo("Edit Refugee",
                             f"Refugee information updated for Refugee ID {refugee_id_to_edit}. Please reopen the application to view the changes.")
 
+    def update_camp_info(self, original_camp_id, new_camp_id):
+        original_camp_id = str(original_camp_id).strip()
+        new_camp_id = str(new_camp_id).strip()
+        if original_camp_id != new_camp_id:
+            # Increment refugees_number and decrement current_availability for the original camp ID
+            camps_df.loc[camps_df['camp_id'].astype(str) == original_camp_id, 'refugees_number'] -= 1
+            camps_df.loc[camps_df['camp_id'].astype(str) == original_camp_id, 'current_availability'] += 1
 
+            # Increment refugees_number and decrement current_availability for the new camp ID
+            camps_df.loc[camps_df['camp_id'].astype(str) == new_camp_id, 'refugees_number'] += 1
+            camps_df.loc[camps_df['camp_id'].astype(str) == new_camp_id, 'current_availability'] -= 1
+
+            camps_df.to_csv(camp_csv, index=False)
 
     def edit_field(self, field_name):
         root = tk.Tk()
@@ -393,9 +575,15 @@ class MainMenuWindow:
             label = tk.Label(camp_window, text="Choose the camp you'd like to assign the refugee:")
             label.pack(pady=10)
 
+            available_camps_with_availability = camps_df[camps_df['current_availability'] > 0]
+            available_camp_ids = available_camps_with_availability['camp_id'].tolist()
 
-
-            available_camp_ids = camps_df['CampID'].tolist()
+            if not available_camp_ids:
+                messagebox.showerror("No Available Camps",
+                                     "There are no camps with available space. Please add more camps.")
+                camp_window.destroy()
+                self.master.deiconify()
+                return
 
             camp_ID_var_edit = tk.StringVar()
             camp_ID_var_edit.set(available_camp_ids[0])  # Set the default value
@@ -556,6 +744,14 @@ class MainMenuWindow:
             else:
                 confirm_delete = messagebox.askokcancel("Delete Refugee", "Are you sure you want to delete this refugee?")
                 if confirm_delete:
+                    # Retrieve the camp ID of the refugee to be deleted
+                    camp_id_to_update = refugee_df.loc[refugee_df['Refugee_ID'] == refugee_id_to_delete, 'Camp_ID'].values[0]
+                    camp_id_to_update = str(camp_id_to_update).strip()
+                    # Decrement refugees_number and increment current_availability for the respective camp
+                    camps_df.loc[camps_df['camp_id'].astype(str) == camp_id_to_update, 'refugees_number'] -= 1
+                    camps_df.loc[camps_df['camp_id'].astype(str) == camp_id_to_update, 'current_availability'] += 1
+                    camps_df.to_csv(camp_csv, index=False)
+
                     refugee_df.drop(refugee_df[refugee_df['Refugee_ID'] == refugee_id_to_delete].index, inplace=True)
                     refugee_df.to_csv(csv_filename, index=False)
                     messagebox.showinfo("Delete Refugee", f"Refugee ID {refugee_id_to_delete} deleted successfully.")
