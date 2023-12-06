@@ -3,7 +3,8 @@ import tkinter as tk
 from admin_login_gui import Admin
 from create_plan import HumanitarianPlan
 
-def admin_login_page():
+def admin_login_page(root):
+    root.withdraw()
     admin_login_frame=Admin("","","")
     admin_login_frame.create_login_frame()
 
@@ -71,7 +72,7 @@ def home_page():
         cursor="hand2",
         activebackground="#B8B8B8",
         activeforeground="black",
-        command=admin_login_page).pack(padx=20,pady=15)  #this will open admin login page when clicked
+        command=lambda: admin_login_page(root)).pack(padx=20,pady=15)  #this will open admin login page when clicked
 
     tk.Button(
         home,
@@ -92,4 +93,4 @@ if __name__=='__main__':
     home_page()
     # Create an instance of HumanitarianPlan and call the method
     humanitarian_plan_instance = HumanitarianPlan(None, None, None, None, None, None)
-    humanitarian_plan_instance.generate_missing_camps_from_plans()
+###
