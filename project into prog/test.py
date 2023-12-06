@@ -57,7 +57,7 @@ class AllocateVolunteersFrame(tk.Frame):
 
     def allocate_selected_volunteer(self):
         selected_camp_id = self.camp_var.get()
-        #print(f"Selected camp ID: '{selected_camp_id}'") 
+        print(f"Selected camp ID: '{selected_camp_id}'")  # Debugging line
 
         if not selected_camp_id.strip():
             messagebox.showerror("Error", "Please select a camp.")
@@ -69,8 +69,9 @@ class AllocateVolunteersFrame(tk.Frame):
             return
 
         selected_volunteer_id = self.volunteers_tree.item(selected_item[0])['values'][0]
+        print(f"Selected Volunteer ID: {selected_volunteer_id}")  # Debugging line
 
-        # Handle 'Not assigning camps for now' option
+    # Handle 'Not assigning camps for now' option
         if selected_camp_id == 'Not assigning camps for now':
             selected_camp_id_int = None  # Set to None to make the field empty
         else:
@@ -80,24 +81,22 @@ class AllocateVolunteersFrame(tk.Frame):
                 messagebox.showerror("Error", "Camp ID must be an integer.")
                 return
 
-        # Update the selected volunteer's camp_id with the integer value
+    # Update the selected volunteer's camp_id with the integer value
         self.volunteers_df.loc[self.volunteers_df['user_id'] == selected_volunteer_id, 'camp_id'] = selected_camp_id_int
         self.volunteers_df.to_csv("volunteers_file.csv", index=False)
 
-        # Update Treeview
-        for item in self.volunteers_tree.get_children():
-            self.volunteers_tree.delete(item)
-        self.populate_volunteers_table()
+    # Count volunteers in each camp
         self.update_camp_volunteer_numbers()
 
-        messagebox.showinfo("Success", f"Volunteer {selected_volunteer_id} allocated to Camp {selected_camp_id_int}.")
-
     def update_camp_volunteer_numbers(self):
+        print("Volunteers DataFrame:\n", self.volunteers_df)
 
         volunteer_counts = self.volunteers_df['camp_id'].value_counts()
+        print("Volunteer Counts:\n", volunteer_counts)
 
         for camp_id, count in volunteer_counts.items():
             self.camps_df.loc[self.camps_df['camp_id'] == camp_id, 'volunteers_number'] = count
+            print(f"Updated camp {camp_id} with count {count}")
 
     # Ensure camps without volunteers are updated
         all_camp_ids = set(self.camps_df['camp_id'])
@@ -105,10 +104,16 @@ class AllocateVolunteersFrame(tk.Frame):
         camps_without_volunteers = all_camp_ids - counted_camp_ids
         for camp_id in camps_without_volunteers:
             self.camps_df.loc[self.camps_df['camp_id'] == camp_id, 'volunteers_number'] = 0
+            print(f"Updated camp {camp_id} with count 0")
+
+    # Debug: Print camps DataFrame
+        print("Camps DataFrame:\n", self.camps_df)
 
     # Save the updated camps dataframe
         self.camps_df.to_csv("camps.csv", index=False)
-        
+        print("Camps DataFrame saved to camps.csv")  # Debugging line
+
+
     def on_camp_select(self, event=None):
         # This method is triggered when a camp is selected from the dropdown
         selected_camp = self.camp_dropdown.get()
