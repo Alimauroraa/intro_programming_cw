@@ -41,7 +41,7 @@ def open_manage_camps(root):
 
     # Add a 'Go Back' button
     go_back_button = tk.Button(root, text="Back", width=10, command=lambda: admin_home(root))
-    go_back_button.place(x=370,y=600)
+    go_back_button.place(x=370,y=650)
 
 def allocate_resources_frame(root):
     allocatesrourcesnew.create_gui(root).grid(row=0, column=0)
