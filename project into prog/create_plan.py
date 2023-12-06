@@ -69,19 +69,39 @@ class HumanitarianPlan:
         return self.camp_id.split(',')
 
     def generate_camp_ids(self):
-        camp_id = ''
+        existing_camp_ids = self.get_existing_camp_ids()
+        camp_ids = []
         last_camp_no = self.get_last_camp_no()
-        for j in range(1, int(self.number_camps) + 1):
-            camp_id += str(last_camp_no + j) + ','
-        return camp_id.strip(',')
+
+        for _ in range(int(self.number_camps)):
+            last_camp_no += 1
+            while last_camp_no in existing_camp_ids:
+                last_camp_no += 1
+            camp_ids.append(str(last_camp_no))
+
+        return ','.join(camp_ids)
+
+    def get_existing_camp_ids(self):
+        try:
+            existing_camps_df = pd.read_csv('camps.csv')
+            existing_ids = set(existing_camps_df['camp_id'].astype(str))
+        except (FileNotFoundError, pd.errors.EmptyDataError):
+            existing_ids = set()
+        return existing_ids
 
     def get_last_camp_no(self):
-        if not self.plan_df.empty and 'camp_id' in self.plan_df.columns:
-            last_camp_id_str = str(self.plan_df['camp_id'].dropna().iloc[-1])
-            if ',' in last_camp_id_str:
-                return int(last_camp_id_str.split(',')[-1])
-            return int(last_camp_id_str)
-        return 0
+        try:
+            existing_camps_df = pd.read_csv('camps.csv')
+            if not existing_camps_df.empty:
+                # Extract the last camp number from the camp IDs
+                last_camp_ids = existing_camps_df['camp_id'].astype(str).str.split(',')
+                # Flatten the list of lists and convert to integers
+                last_camp_ids = [int(cid) for sublist in last_camp_ids for cid in sublist if cid.isdigit()]
+                return max(last_camp_ids) if last_camp_ids else 0
+            else:
+                return 0
+        except (FileNotFoundError, pd.errors.EmptyDataError):
+            return 0
 
     def create_initial_camp_entries(self):
         return pd.DataFrame([{'camp_id': cid, 'location': self.geographical_area, 'volunteers_number': '',

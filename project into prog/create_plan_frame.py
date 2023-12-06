@@ -86,11 +86,20 @@ def validate_input( plan_name, description,geographical_area, start_date,number_
 
     # validate number of camps
     if len(number_camps) == 0:
-        messagebox.showerror("Error", "Required. Please select of camps")
+        messagebox.showerror("Error", "Required. Please enter the number of camps")
         return False
-    messagebox.showinfo("Success","Plan is created")
+    else:
+        try:
+            num_camps = int(number_camps)
+            if num_camps <= 0:
+                messagebox.showerror("Error", "Number of camps must be a positive integer")
+                return False
+        except ValueError:
+            messagebox.showerror("Error", "Incorrect number of camps. Please enter a valid integer")
+            return False
+
     logging.info(f"Plan name: {plan_name}, is created")
-    return True                                             #if all checks are ok, it'll return True
+    return True
 
 def submit_plan():
     # Retrieve the entry
