@@ -5,17 +5,27 @@ from tkinter import messagebox
 import numpy as np
 
 class EntryPopup(Entry):
-    def __init__(self, parent, iid, column, text, **kw):
+    def __init__(self, parent, iid, column, text, is_integer=False, **kw):
         super().__init__(parent, **kw)
         self.parent = parent
         self.iid = iid
         self.column = column
+        self.is_integer = is_integer
         self.insert(0, text)
         self['exportselection'] = False
+
+        if self.is_integer:
+            self.config(validate="key", validatecommand=(self.register(self.is_valid_integer), '%P'))
 
         self.focus_force()
         self.bind("<Return>", self.on_return)
         self.bind("<Escape>", self.on_escape)
+
+    def is_valid_integer(self, P):
+        if P.isdigit() or P == "":
+            return True
+        messagebox.showerror("Error", "Only integer values are allowed")
+        return False
 
     def on_return(self, event):
         current_values = list(self.parent.item(self.iid, 'values'))
@@ -85,7 +95,7 @@ class ManageCampsFrame:
 
     def save_changes(self):
         camps_data = [{col: self.tree.set(child_id, col) for col in self.tree['columns']}
-                       for child_id in self.tree.get_children()]
+                      for child_id in self.tree.get_children()]
         df = pd.DataFrame(camps_data)
         df.to_csv('camps.csv', index=False)
         messagebox.showinfo("Success", "Changes saved to camps.csv")
@@ -101,7 +111,12 @@ class ManageCampsFrame:
         row = self.tree.identify_row(event.y)
         x, y, width, height = self.tree.bbox(row, column)
         text = self.tree.item(row)['values'][int(column[1:]) - 1]
-        popup = EntryPopup(self.tree, row, column, text)
+        # Check if the column is 'max_capacity'
+        if column == '#7':  # Adjust the column number as needed
+            popup = EntryPopup(self.tree, row, column, text, is_integer=True)
+        else:
+            popup = EntryPopup(self.tree, row, column, text)
+
         popup.place(x=x, y=y, anchor='w', width=width, height=height)
 
     def sort_camps_df(self, camps_df):
@@ -109,7 +124,14 @@ class ManageCampsFrame:
 
     def display_camps(self):
         try:
-            camps_df = pd.read_csv('camps.csv')
+            dtype_spec = {
+                'current_availability': 'Int64',  # Using 'Int64' to handle NaN values as well
+                'max_capacity': 'Int64',
+                'volunteers_number': 'Int64',
+                'refugees_number': 'Int64'
+            }
+            camps_df = pd.read_csv('camps.csv', dtype=dtype_spec)
+
             if camps_df.empty:
                 messagebox.showinfo("Info", "No camps data available.")
                 return
