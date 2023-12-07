@@ -88,15 +88,21 @@ def display_plan(close_plan_frame):
 
     tree.pack(expand=True, fill='both')
 
-
 def submit_date():
-    #retrieve entry
+    global plan_df
     plan_id= plan_id_entry.get()
     closing_date = end_entry.get()
-    if validate_date(plan_id,closing_date):
-        plan_df.loc[plan_df['PlanID']==int(plan_id), 'closingDate']=closing_date
-        plan_df.to_csv('plan.csv', index=False)
-        messagebox.showinfo("Success", f"Closing date updated for Plan ID {plan_id}")
+    if validate_date(plan_id, closing_date):
+        try:
+            plan_df = pd.read_csv('plan.csv')  # Read the latest plan data
+            if int(plan_id) in plan_df['PlanID'].values:
+                plan_df.loc[plan_df['PlanID'] == int(plan_id), 'closingDate'] = closing_date
+                plan_df.to_csv('plan.csv', index=False)
+                messagebox.showinfo("Success", f"Closing date updated for Plan ID {plan_id}")
+            else:
+                messagebox.showerror("Error", f"No plan found with ID {plan_id}")
+        except Exception as e:
+            messagebox.showerror("Error", f"An error occurred: {e}")
 
 def close_plan_frame(parent):
     # initializing
