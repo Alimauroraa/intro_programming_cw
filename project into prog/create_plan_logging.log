@@ -4038,3 +4038,12 @@
 07-Dec-23 18:09:57 - INFO - Plan name: dfs, is created
 07-Dec-23 18:09:57 - ERROR - start_date is not a string: 2030-03-12
 07-Dec-23 18:09:57 - INFO - Plan created with ID: 5 and Camp IDs: 9,10
+07-Dec-23 18:32:25 - INFO - Plan name: oooo, is created
+07-Dec-23 18:32:25 - ERROR - start_date is not a string: 2024-03-30
+07-Dec-23 18:32:25 - INFO - Plan created with ID: 6 and Camp IDs: 11,12
+07-Dec-23 18:42:38 - INFO - Plan name: bbb, is created
+07-Dec-23 18:42:38 - ERROR - start_date is not a string: 2030-03-30
+07-Dec-23 18:42:38 - INFO - Plan created with ID: 7 and Camp IDs: 13,14
+07-Dec-23 18:54:34 - INFO - Plan name: dfsa, is created
+07-Dec-23 18:54:34 - ERROR - start_date is not a string: 2030-03-30
+07-Dec-23 18:54:34 - INFO - Plan created with ID: 8 and Camp IDs: 15,16
