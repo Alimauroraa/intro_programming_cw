@@ -9,19 +9,15 @@ camp_csv = 'camps.csv'
 refugee_df = pd.read_csv(csv_filename)
 camps_df = pd.read_csv(camp_csv)
 
-
-
 bg_color = '#021631'
 class MainMenuWindow:
     def __init__(self, master):
         self.master = master
         master.title("Refugee Portal")
 
-        # Get screen width and height
         screen_width = master.winfo_screenwidth()
         screen_height = master.winfo_screenheight()
 
-        # Calculate the x and y coordinates for the main window to be centered
         x = (screen_width - 700) // 2  # Adjust 500 based on the width of your window
         y = (screen_height - 800) // 2  # Adjust 300 based on the height of your window
 
@@ -77,9 +73,6 @@ class MainMenuWindow:
 
         self.show_database = True
 
-        # self.view_details_button = tk.Button(master, text="View refugee's details", command=self.view_refugee_details)
-        # self.view_details_button.pack()
-
         self.exit_button = tk.Button(master, text="Go back", command=self.exit_application, font=("Calibri", 12),
         width=20,
         height=0,
@@ -91,18 +84,18 @@ class MainMenuWindow:
         self.exit_button.pack(pady=10)
 
     def exit_application(self):
-        # Implement the functionality for quitting the application here
         self.master.destroy()
 
     def add_refugee(self):
-        self.master.iconify()
-        # Create a new window for input
+        #self.master.iconify()
         input_window = tk.Toplevel(self.master)
         input_window.title("Add New Refugee")
         input_window['bg'] = bg_color
         input_window.geometry('700x800')
 
-        # Center the window on the screen
+        camps_df = pd.read_csv(camp_csv) 
+        available_camps = camps_df[camps_df['current_availability'] > 0]
+
         screen_width = input_window.winfo_screenwidth()
         screen_height = input_window.winfo_screenheight()
 
@@ -111,13 +104,18 @@ class MainMenuWindow:
 
         input_window.geometry(f'+{x_position}+{y_position}')
 
+        if available_camps.empty:
+            messagebox.showerror("No Camps Available", "No Camps available to create a refugee.")
+            input_window.destroy()
+            return
+
         while True:
             if camps_df.empty:
                 messagebox.showerror("Empty Camps File",
                                      "The camps file is empty. Please add camps before adding refugees.")
                 input_window.quit()
                 input_window.destroy()
-                self.master.deiconify()
+                #self.master.deiconify()
                 return
             else:
                 break
@@ -145,7 +143,7 @@ class MainMenuWindow:
             messagebox.showerror("No Available Camps",
                                  "There are no camps with available space. Please add more camps.")
             input_window.destroy()
-            self.master.deiconify()
+            #self.master.deiconify()
             return
 
         camp_ID_var = tk.StringVar()
@@ -153,11 +151,9 @@ class MainMenuWindow:
 
         def back(input_window):
             input_window.destroy()
-            self.master.deiconify()
+            #self.master.deiconify()
 
-        # Function to validate and process the entered data
         def process_input():
-            # Your input validation logic goes here
             # For simplicity, I'm only checking if the fields are not empty
             while True:
                 if not first_name_var.get() or not last_name_var.get() \
@@ -271,8 +267,6 @@ class MainMenuWindow:
             messagebox.showinfo("Adding Refugee",
                                 f"New refugee information appended to {csv_filename}. Please reopen application to view changes")
 
-
-
             input_window.destroy()
             self.master.deiconify()
 
@@ -289,12 +283,8 @@ class MainMenuWindow:
         lead_phone_number_var = tk.StringVar()
         number_of_relatives_var = tk.StringVar()
 
-
-        # tk.Label(input_window, text="Camp ID:").grid(row=1, column=0)
-        # tk.Entry(input_window, textvariable=camp_ID_var).grid(row=1, column=1)
-
-        label_x = 150  # Adjust the x-coordinate for labels
-        entry_x = 350  # Adjust the x-coordinate for entries
+        label_x = 150  
+        entry_x = 350  
         label_y = 150  # Adjust the initial y-coordinate
         y_increment = 40  # Adjust the y-increment for the next label and entry
 
@@ -370,38 +360,6 @@ class MainMenuWindow:
                   cursor="hand2",
                   activebackground="#B8B8B8",
                   activeforeground="black").place(x=label_x, y=label_y + 2 * y_increment)
-        # tk.Label(input_window, text="Camp ID:").grid(row=1, column=0)
-        #
-        # camp_dropdown = ttk.Combobox(input_window, textvariable=camp_ID_var, values=available_camp_ids, state="readonly")
-        # camp_dropdown.grid(row=1, column=1)
-        #
-        # tk.Label(input_window, text="First Name:").grid(row=2, column=0)
-        # tk.Entry(input_window, textvariable=first_name_var).grid(row=2, column=1)
-        #
-        # tk.Label(input_window, text="Last Name:").grid(row=3, column=0)
-        # tk.Entry(input_window, textvariable=last_name_var).grid(row=3, column=1)
-        #
-        # tk.Label(input_window, text="Gender:").grid(row=4, column=0)
-        # tk.Entry(input_window, textvariable=gender_var).grid(row=4, column=1)
-        #
-        # tk.Label(input_window, text="Volunteer ID:").grid(row=5, column=0)
-        # tk.Entry(input_window, textvariable=volunteer_ID_var).grid(row=5, column=1)
-        #
-        # tk.Label(input_window, text="Medical Condition:").grid(row=7, column=0)
-        # tk.Entry(input_window, textvariable=medical_condition_var).grid(row=7, column=1)
-        #
-        # tk.Label(input_window, text="Lead Family Member:").grid(row=8, column=0)
-        # tk.Entry(input_window, textvariable=lead_family_member_var).grid(row=8, column=1)
-        #
-        # tk.Label(input_window, text="Lead Phone Number:").grid(row=9, column=0)
-        # tk.Entry(input_window, textvariable=lead_phone_number_var).grid(row=9, column=1)
-        #
-        # tk.Label(input_window, text="Number of Relatives:").grid(row=10, column=0)
-        # tk.Entry(input_window, textvariable=number_of_relatives_var).grid(row=10, column=1)
-        #
-        # # Button to submit the data
-        # tk.Button(input_window, text="Submit", command=process_input).grid(row=11, column=1, columnspan=1)
-        # tk.Button(input_window, text="Go Back", command=lambda: back(input_window)).grid(row=11, column=0, columnspan=1)
 
     def get_valid_input(self, title, prompt, validator, error_message):
         while True:
@@ -449,8 +407,6 @@ class MainMenuWindow:
                 # Run the Tkinter event loop until the error dialog is closed
                 self.master.wait_window(error_dialog)
 
-
-
                 answer = simpledialog.askstring("Edit Refugee", "Would you like to still edit another refugee? ")
                 if answer.lower() == 'yes':
                     while True:
@@ -464,9 +420,6 @@ class MainMenuWindow:
 
                         else:
                             messagebox.showerror("Refugee still does not exist, please try again")
-
-
-
 
                 elif answer.lower() == 'no':
                     confirm_cancel = messagebox.askokcancel("Edit refugee", "Are you sure you want to cancel?")
@@ -562,7 +515,7 @@ class MainMenuWindow:
 
     def edit_field(self, field_name):
         root = tk.Tk()
-        root.withdraw()  # Hide the main window
+        root.withdraw()  
 
         new_value = None
 
@@ -597,13 +550,11 @@ class MainMenuWindow:
                 new_value = camp_ID_var_edit.get()
                 camp_window.destroy()
 
-            # Function to handle the Cancel button click
             def cancel():
                 nonlocal new_value
                 new_value = None
                 camp_window.destroy()
 
-            # Add Submit and Cancel buttons
             submit_button = tk.Button(camp_window, text="Submit", command=submit)
             submit_button.pack(side=tk.LEFT, padx=10)
 
@@ -706,12 +657,6 @@ class MainMenuWindow:
         root.destroy() # Destroy the hidden root window
         return new_value
 
-
-
-
-
-
-
     def view_database(self):
         if not self.show_database:
             return
@@ -763,345 +708,3 @@ root = tk.Toplevel()
 
 main_menu_window = MainMenuWindow(root)
 root.mainloop()
-
-
-# # Path to the CSV file
-# csv_filename = 'Refugee_DataFrame.csv'
-#
-# # Read the CSV file into a DataFrame
-# refugee_df = pd.read_csv(csv_filename)
-#
-# # Greeting function
-# def greeting():
-#     print("Hello and welcome to the refugee portal! Please type in what you'd like to do based on the following options: \n1. Add a new refugee \n2. Edit an existing refugee \n3. View the database \n4. View refugee's details \n5. Exit the program")
-# # Display the DataFrame
-# def display_csv():
-#     print(refugee_df.to_string())
-#
-# def view_refugee_by_id():
-#     while True:
-#         refugee_id_number = input("Enter Refugee ID number of whom you want to see the associated details of, or press enter to cancel: ")
-#         if refugee_id_number == '':
-#             print("Returning to menu")
-#             return
-#         elif refugee_id_number.isdigit():
-#             refugee_id_number = int(refugee_id_number)
-#             break
-#         else:
-#             print("Invalid ID, ensure it only has numbers: ")
-#
-#     if refugee_id_number in refugee_df["Refugee_ID"].values:
-#         print(refugee_df[refugee_df['Refugee_ID'] == refugee_id_number].to_string(index=False))
-#     else:
-#         print("Refugee not found.")
-#
-#
-# def main_menu():
-#     while True:
-#         greeting()
-#         choice = input("Enter your choice (1, 2, 3, 4, 5): ")
-#
-#         if choice == '1':
-#             append_to_csv(csv_filename)
-#         elif choice == '2':
-#             edit_refugee()
-#         elif choice == '3':
-#             display_csv()
-#         elif choice == '4':
-#             view_refugee_by_id()
-#         elif choice == '5':
-#             print("Have a good day!")
-#             break
-#         else:
-#             print("Invalid choice. Please enter 1, 2, 3, 4 or 5.")
-#
-# def append_to_csv(file_name):
-#     # Prompt user for new refugee information
-#     while True: # Enables a consistent loop
-#         answer = input("Would you like to add a new refugee? ").lower() # Takes input from user, automatically converts to lowercase to make the if loops easier
-#         if answer == "yes":
-#             while True:
-#                 refugee_ID = input("Enter the new Refugee's ID: ")
-#                 if refugee_ID.isdigit():
-#                     break
-#                 else:
-#                     print("Invalid Refugee ID number, ensure it only consists of numbers: ")
-#
-#             while True:
-#                 camp_ID = input("Enter the new Camp's ID: ")
-#                 if camp_ID.isdigit():
-#                     break
-#                 else:
-#                     print("Invalid camp ID number, ensure it is only numbers: ")
-#
-#             while True:
-#                 first_name = input("Enter the new Refugee's First Name: ")
-#                 if first_name.isalpha():
-#                     break
-#                 else:
-#                     print("Invalid first name. Ensure it has no special characters and numbers: ")
-#
-#             while True:
-#                 last_name = input("Enter the new Refugee's Last Name: ")
-#                 if last_name.isalpha():
-#                     break
-#                 else:
-#                     print("Invalid last name. Ensure it has no special characters and numbers:")
-#
-#             while True:
-#                 gender = input("Enter the new Refugee's Gender: ")
-#                 if gender.isalpha():
-#                     break
-#                 else:
-#                     print("Invalid gender, ensure it has no numbers or special characters: ")
-#
-#             while True:
-#                 volunteer_ID = input("Enter the new Volunteer's ID: ")
-#                 if volunteer_ID.isdigit():
-#                     break
-#                 else:
-#                     print("Invalid volunteer ID. Ensure it only has numbers and no letters")
-#
-#             while True:
-#                 profile_ID = input("Enter the new Profile ID: ")
-#                 if profile_ID.isdigit():
-#                     break
-#                 else:
-#                     print("Invalid Profile ID. Ensure it has only numbers and no letters")
-#
-#             medical_condition = input("Enter the new Medical Condition: ")
-#
-#             while True:
-#                 lead_family_member = input("Enter the new Lead Family Member: ")
-#                 if lead_family_member.isalpha():
-#                     break
-#                 else:
-#                     print("Invalid name. Ensure it has no numbers or special characters: ")
-#
-#             while True:
-#                 lead_phone_number = input("Enter the new Lead Phone Number: ")
-#                 if lead_phone_number.isdigit():
-#                     break
-#                 else:
-#                     print("Invalid phone number, ensure it only consists of numbers: ")
-#
-#             while True:
-#                 number_of_relatives = input("Enter the new Number of Relatives: ")
-#                 if number_of_relatives.isdigit():
-#                     break
-#                 else:
-#                     print("Invalid number of relatives, ensure it only consists of numbers: ")
-#
-#             # Create a new DataFrame with the user's input
-#             new_data = pd.DataFrame({
-#                 'Refugee_ID': [refugee_ID],
-#                 'Camp_ID': [camp_ID],
-#                 'First_name': [first_name],
-#                 'Last_name': [last_name],
-#                 'Gender': [gender],
-#                 'Volunteer_ID': [volunteer_ID],
-#                 'Profile_ID': [profile_ID],
-#                 'Medical_Condition': [medical_condition],
-#                 'Lead_Family_Member': [lead_family_member],
-#                 'Lead_Phone_Number': [lead_phone_number],
-#                 'Number_of_Relatives': [number_of_relatives]
-#             })
-#
-#             # Read the existing data and append the new data
-#             try:
-#                 existing_data = pd.read_csv(file_name)
-#                 updated_data = pd.concat([existing_data, new_data], ignore_index=True)
-#             except pd.errors.EmptyDataError:
-#                 updated_data = new_data
-#
-#             # Write the updated DataFrame back to the CSV
-#             updated_data.to_csv(file_name, index=False)
-#             print(f"New refugee information appended to {file_name}.")
-#             break
-#         # If user decides no, this code below will skip this function
-#         elif answer == "no":
-#             print("Have a nice day!")
-#             break
-#         # If invalid response, the while loop will allow the user to reinput the info
-#         else:
-#             print("Invalid response. Please enter 'yes' or 'no'.")
-#
-# def edit_refugee():
-#     display_csv()
-#
-#     while True:
-#         refugee_id_to_edit = input("Enter the Refugee ID you want to edit (or 'cancel' to exit): ")
-#         if refugee_id_to_edit.lower() == 'cancel':
-#             print("Edit canceled.")
-#             return
-#         elif refugee_id_to_edit.isdigit():
-#             break
-#         else:
-#             print("Invalid Refugee ID. Please enter a valid number.")
-#
-#     while True:
-#         if int(refugee_id_to_edit) not in refugee_df["Refugee_ID"].values:
-#             print("Refugee does not exist")
-#
-#             answer = input("Would you like to still edit another refugee? ")
-#             if answer.lower() == 'yes':
-#                 edit_refugee()
-#                 return
-#
-#
-#             elif answer.lower() == 'no':
-#                 print("Have a good day!")
-#                 return
-#
-#             else:
-#                 print("Invalid response, either say yes or no")
-#
-#         else:
-#             break
-#
-#
-#     print(refugee_df[refugee_df['Refugee_ID'] == int(refugee_id_to_edit)].to_string(index=False))
-#
-#     while True:
-#         answer = input("Which field do you wish to edit: \nCamp ID \nFirst name \nLast name \nGender \nVolunteer ID \nProfile ID \nMedical Condition \nLead Family Member \nLead Phone Number \nNumber of Relatives \nShould you wish to exit and save any changes, type 'Done'. ").lower().replace(" ", "_")
-#         if answer == 'done':
-#             break
-#
-#         elif answer == 'first_name':
-#             while True:
-#                 new_first_name = input("Enter the new First Name (or press Enter to keep the current value): ")
-#                 if new_first_name == '':
-#                     break
-#                 elif new_first_name.isalpha():
-#                     new_first_name = new_first_name.capitalize()
-#                     break
-#                 else:
-#                     print("Invalid first name. Ensure it has no special characters and numbers: ")
-#
-#             if new_first_name != '':
-#                 refugee_df.loc[refugee_df['Refugee_ID'] == int(refugee_id_to_edit), 'First_name'] = new_first_name
-#
-#         elif answer == 'camp_id':
-#             while True:
-#                 new_camp_id = input("Enter the new Camp ID (or press Enter to keep the current value): ")
-#                 if new_camp_id == '':
-#                     break
-#                 elif new_camp_id.isdigit():
-#                     break
-#                 else:
-#                     print("Invalid Camp ID. Ensure it has only numbers: ")
-#
-#             if new_camp_id != '':
-#                 refugee_df.loc[refugee_df['Refugee_ID'] == int(refugee_id_to_edit), 'Camp_ID'] = int(new_camp_id)
-#
-#         elif answer == 'last_name':
-#             while True:
-#                 new_last_name = input("Enter the new Last Name (or press Enter to keep the current value): ")
-#                 if new_last_name == '':
-#                     break
-#                 elif new_last_name.isalpha():
-#                     new_last_name = new_last_name.capitalize()
-#                     break
-#                 else:
-#                     print("Invalid last name. Ensure it has no special characters and numbers: ")
-#
-#             if new_last_name != '':
-#                 refugee_df.loc[refugee_df['Refugee_ID'] == int(refugee_id_to_edit), 'Last_name'] = new_last_name
-#
-#         elif answer == 'gender':
-#             while True:
-#                 new_gender = input("Enter new gender, or press Enter to keep current value: ").capitalize()
-#                 if new_gender == '':
-#                     break
-#                 elif new_gender.isalpha() and new_gender in ['Male', 'Female', 'Undisclosed']:
-#                     break
-#                 else:
-#                     print("Invalid gender. Ensure it has no special characters and numbers and that it is either male, female or undisclosed: ")
-#
-#             if new_gender != '':
-#                 refugee_df.loc[refugee_df['Refugee_ID'] == int(refugee_id_to_edit), 'Gender'] = new_gender
-#
-#         elif answer == 'volunteer_id':
-#             while True:
-#                 new_volunteer_id = input("Enter the new Volunteer ID, or press Enter to keep current value: ")
-#                 if new_volunteer_id == '':
-#                     break
-#                 elif new_volunteer_id.isdigit():
-#                     break
-#                 else:
-#                     print("Invalid volunteer ID. Ensure it only has numbers: ")
-#
-#             if new_volunteer_id != '':
-#                 refugee_df.loc[refugee_df['Refugee_ID'] == int(refugee_id_to_edit), 'Volunteer_ID'] = new_volunteer_id
-#
-#         elif answer == "profile_id":
-#             while True:
-#                 new_profile_id = input("Enter the new Profile ID, or press Enter to keep current value: ")
-#                 if new_profile_id == '':
-#                     break
-#                 elif new_profile_id.isdigit():
-#                     break
-#                 else:
-#                     print("Invalid profile ID. Ensure it only has numbers: ")
-#
-#             if new_profile_id != '':
-#                 refugee_df.loc[refugee_df['Refugee_ID'] == int(refugee_id_to_edit), 'Profile_ID'] = new_profile_id
-#
-#         elif answer == 'medical_condition':
-#             new_medical_condition = input("Enter new medical condition, or press Enter to keep current condition(s): ")
-#             new_medical_condition = new_medical_condition.capitalize()
-#             if new_medical_condition != '':
-#                 refugee_df.loc[refugee_df['Refugee_ID'] == int(refugee_id_to_edit), 'Medical_Condition'] = new_medical_condition
-#
-#         elif answer == 'lead_family_member':
-#             while True:
-#                 new_lead_family_member = input("Enter new lead family member, or press Enter to keep current lead: ")
-#                 if new_lead_family_member == '':
-#                     break
-#                 elif new_lead_family_member.isalpha():
-#                     new_lead_family_member = new_lead_family_member.capitalize()
-#                     break
-#                 else:
-#                     print("Invalid name, please ensure it has no numbers or special characters: ")
-#             if new_lead_family_member != '':
-#                 refugee_df.loc[refugee_df['Refugee_ID'] == int(refugee_id_to_edit), 'Lead_Family_Member'] = new_lead_family_member
-#
-#         elif answer == 'lead_phone_number':
-#             while True:
-#                 new_lead_phone_number = input("Enter new lead phone number, or press Enter to keep current number: ")
-#                 if new_lead_phone_number == '':
-#                     break
-#                 elif new_lead_phone_number.isdigit():
-#                     break
-#                 else:
-#                     print("Invalid phone number, ensure it consists of only numbers: ")
-#
-#             if new_lead_phone_number != '':
-#                 refugee_df.loc[refugee_df['Refugee_ID'] == int(refugee_id_to_edit), 'Lead_Phone_Number'] = new_lead_phone_number
-#
-#         elif answer == 'number_of_relatives':
-#             while True:
-#                 new_number_of_relatives = input("Enter new number of relatives, or press Enter to keep current number: ")
-#                 if new_number_of_relatives == '':
-#                     break
-#                 elif new_number_of_relatives.isdigit():
-#                     break
-#                 else:
-#                     print("Invalid number, please ensure there are no letters or special characters: ")
-#
-#             if new_number_of_relatives != '':
-#                 refugee_df.loc[refugee_df['Refugee_ID'] == int(refugee_id_to_edit), 'Number_of_Relatives'] = new_number_of_relatives
-#
-#     refugee_df.to_csv(csv_filename, index=False)
-#     print(f"Refugee information updated for Refugee ID {refugee_id_to_edit}.")
-#
-# if __name__ == "__main__":
-#     main_menu()
-
-
-
-
-
-
-
-
