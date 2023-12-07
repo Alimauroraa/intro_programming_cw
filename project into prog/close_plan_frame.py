@@ -62,8 +62,8 @@ def display_plan(close_plan_frame):
     df = pd.read_csv('plan.csv', parse_dates=['startDate', 'closingDate'], date_parser=date_parser)
 
     # Convert the dates to the desired format
-    df['startDate'] = df['startDate'].dt.strftime('%m/%d/%Y')
-    df['closingDate'] = df['closingDate'].dt.strftime('%m/%d/%Y')
+    df['startDate'] = df['startDate'].dt.strftime('%Y/%m/%d')
+    df['closingDate'] = df['closingDate'].dt.strftime('%Y/%m/%d')
 
     new_window=tk.Toplevel(close_plan_frame)
     new_window.title('Plans Table')
