@@ -4047,3 +4047,6 @@
 07-Dec-23 18:54:34 - INFO - Plan name: dfsa, is created
 07-Dec-23 18:54:34 - ERROR - start_date is not a string: 2030-03-30
 07-Dec-23 18:54:34 - INFO - Plan created with ID: 8 and Camp IDs: 15,16
+07-Dec-23 19:01:43 - INFO - Plan name: safd, is created
+07-Dec-23 19:01:43 - ERROR - start_date is not a string: 2030-03-30
+07-Dec-23 19:01:43 - INFO - Plan created with ID: 9 and Camp IDs: 17,18
