@@ -100,8 +100,15 @@ class ManageCampsFrame:
     #     self.tree.xview(*args)
 
     def save_changes(self):
-        camps_data = [{col: self.tree.set(child_id, col) for col in self.tree['columns']}
-                      for child_id in self.tree.get_children()]
+        camps_data = []
+        for child_id in self.tree.get_children():
+            row_data = {col: self.tree.set(child_id, col) for col in self.tree['columns']}
+            # Calculate the new current availability based on max capacity and refugees number
+            max_capacity = int(row_data['max_capacity']) if row_data['max_capacity'].isdigit() else 0
+            refugees_number = int(row_data['refugees_number']) if row_data['refugees_number'].isdigit() else 0
+            row_data['current_availability'] = max_capacity - refugees_number
+            camps_data.append(row_data)
+
         df = pd.DataFrame(camps_data)
         df.to_csv('camps.csv', index=False)
         messagebox.showinfo("Success", "Changes saved to camps.csv")
