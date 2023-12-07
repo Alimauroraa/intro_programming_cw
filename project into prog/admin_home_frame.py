@@ -99,19 +99,6 @@ def admin_home(root):
 
     tk.Button(
         home_frame,
-        text="Terminate plan",
-        font=("Calibri", 12),
-        width=16,
-        height=0,
-        bg="#FFFFFF",
-        fg="black",
-        cursor="hand2",
-        activebackground="#B8B8B8",
-        activeforeground="black",
-        command=lambda:terminate_plan(root)).place(x=286, y=300)  # this will open admin login page when clicked
-
-    tk.Button(
-        home_frame,
         text="View plan summary",
         font=("Calibri", 12),
         width=16,
@@ -121,7 +108,20 @@ def admin_home(root):
         cursor="hand2",
         activebackground="#B8B8B8",
         activeforeground="black",
-        command=lambda:plan_summary_frame(root)).place(x=286,y=350)  # this will open admin login page when clicked
+        command=lambda:plan_summary_frame(root)).place(x=286,y=300)  # this will open admin login page when clicked
+
+    tk.Button(
+        home_frame,
+        text="Terminate plan",
+        font=("Calibri", 12),
+        width=16,
+        height=0,
+        bg="#FFFFFF",
+        fg="black",
+        cursor="hand2",
+        activebackground="#B8B8B8",
+        activeforeground="black",
+        command=lambda: terminate_plan(root)).place(x=286, y=350)  # this will open admin login page when clicked
 
     tk.Button(
         home_frame,
@@ -147,7 +147,7 @@ def admin_home(root):
         cursor="hand2",
         activebackground="#B8B8B8",
         activeforeground="black",
-        command=lambda: open_allocate_volunteers_frame(root)).place(x=286, y=550)
+        command=lambda: open_allocate_volunteers_frame(root)).place(x=286, y=450)
 
     tk.Button(
         home_frame,
@@ -189,7 +189,7 @@ def admin_home(root):
         activeforeground="black",
         command=lambda: open_manage_camps(root)  # This button will call the open_manage_camps function
     )
-    manage_camps_button.place(x=286, y=450)  # Adjust the position as needed
+    manage_camps_button.place(x=286, y=550)  # Adjust the position as needed
 
     root.deiconify()
 

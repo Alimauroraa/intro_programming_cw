@@ -104,9 +104,17 @@ class HumanitarianPlan:
             return 0
 
     def create_initial_camp_entries(self):
-        return pd.DataFrame([{'camp_id': cid, 'location': self.geographical_area, 'volunteers_number': '',
-                              'refugees_number': '', 'plan_name': self.plan_name, 'current_availability': '',
-                              'max_capacity': '', 'specific_needs': '', 'allocated_resources': ''}
+        # Assuming max_capacity is set to 50 and initial refugees_number is 0
+        max_capacity = 50
+        refugees_number = 0
+
+        # Calculate current_availability
+        current_availability = max_capacity - refugees_number
+
+        return pd.DataFrame([{'camp_id': cid, 'location': self.geographical_area,
+                              'volunteers_number': '', 'refugees_number': refugees_number,
+                              'plan_name': self.plan_name, 'current_availability': current_availability,
+                              'max_capacity': max_capacity, 'specific_needs': '', 'allocated_resources': ''}
                              for cid in self.camp_id.split(',')])
 
     def read_existing_camps(self):
