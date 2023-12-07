@@ -4026,3 +4026,6 @@
 07-Dec-23 16:01:01 - INFO - Plan name: afsddaf	2, is created
 07-Dec-23 16:01:01 - ERROR - start_date is not a string: 2023-12-07
 07-Dec-23 16:01:01 - INFO - Plan created with ID: 3 and Camp IDs: 5,6
+07-Dec-23 17:23:40 - INFO - Plan name: Hao, is created
+07-Dec-23 17:23:40 - ERROR - start_date is not a string: 2030-03-30
+07-Dec-23 17:23:40 - INFO - Plan created with ID: 2 and Camp IDs: 3,4
