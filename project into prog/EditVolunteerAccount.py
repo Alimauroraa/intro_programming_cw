@@ -151,50 +151,66 @@ def reactivate_volunteer():
         messagebox.showerror("Error", "No volunteer selected.")
 
 def deactivate_volunteer():
-    # Get the selected volunteer
     selected_index = volunteers_listbox.curselection()
-    if selected_index:  # Check if a volunteer is selected
-        selected_index = selected_index[0]
-        # Deactivate the selected volunteer
-        volunteers[selected_index].active = 'False'
-        # Set camp_id to empty
-        volunteers[selected_index].camp_id = ''
-        # Save the updated volunteers list to the CSV file
-        save_volunteers_to_csv('volunteers_file.csv', volunteers)
-        # Show a success message
-        messagebox.showinfo("Success", "Volunteer deactivated successfully.")
-    else:
-        # Show an error message if no volunteer is selected
-        messagebox.showerror("Error", "No volunteer selected.")
-
-def delete_volunteer():
-    # Get the selected volunteer
-    selected_index = volunteers_listbox.curselection()
-    if selected_index:  # Check if a volunteer is selected
+    if selected_index:
         selected_index = selected_index[0]
         selected_volunteer = volunteers[selected_index]
 
         # Load camps data
         camps_df = pd.read_csv("camps.csv")
 
-        # Update the volunteer count in the associated camp
-        if selected_volunteer.camp_id in camps_df['camp_id'].values:
-            camp_row_index = camps_df.index[camps_df['camp_id'] == selected_volunteer.camp_id][0]
-            camps_df.at[camp_row_index, 'volunteers_number'] = max(0, camps_df.at[camp_row_index, 'volunteers_number'] - 1)
+        # Convert camp_id to integer for comparison
+        volunteer_camp_id = int(selected_volunteer.camp_id)
+        camps_df['camp_id'] = camps_df['camp_id'].astype(int)
+
+        if volunteer_camp_id in camps_df['camp_id'].values:
+            camp_row_index = camps_df.index[camps_df['camp_id'] == volunteer_camp_id].tolist()
+            if camp_row_index:
+                camp_row_index = camp_row_index[0]
+                camps_df.at[camp_row_index, 'volunteers_number'] = max(0, camps_df.at[camp_row_index, 'volunteers_number'] - 1)
+
+        # Deactivate the selected volunteer
+        selected_volunteer.active = 'False'
+        selected_volunteer.camp_id = ''
+
+        # Save changes
+        save_volunteers_to_csv('volunteers_file.csv', volunteers)
+        camps_df.to_csv("camps.csv", index=False)
+
+        messagebox.showinfo("Success", "Volunteer deactivated successfully.")
+    else:
+        messagebox.showerror("Error", "No volunteer selected.")
+
+def delete_volunteer():
+    selected_index = volunteers_listbox.curselection()
+    if selected_index:
+        selected_index = selected_index[0]
+        selected_volunteer = volunteers[selected_index]
+
+        # Load camps data
+        camps_df = pd.read_csv("camps.csv")
+
+        # Convert camp_id to integer for comparison, if it's numeric
+        volunteer_camp_id = int(selected_volunteer.camp_id) if selected_volunteer.camp_id.isdigit() else selected_volunteer.camp_id
+        camps_df['camp_id'] = camps_df['camp_id'].apply(lambda x: int(x) if str(x).isdigit() else x)
+
+        # Check if the camp_id exists and update the volunteer count
+        if volunteer_camp_id in camps_df['camp_id'].values:
+            camp_row_index = camps_df.index[camps_df['camp_id'] == volunteer_camp_id].tolist()
+            if camp_row_index:
+                camp_row_index = camp_row_index[0]
+                camps_df.at[camp_row_index, 'volunteers_number'] = max(0, camps_df.at[camp_row_index, 'volunteers_number'] - 1)
 
         # Delete the selected volunteer
         del volunteers[selected_index]
 
-        # Save the updated volunteers list and camps data to the CSV files
+        # Save changes
         save_volunteers_to_csv('volunteers_file.csv', volunteers)
         camps_df.to_csv("camps.csv", index=False)
 
-        # Show a success message
         messagebox.showinfo("Success", "Volunteer deleted successfully.")
     else:
-        # Show an error message if no volunteer is selected
         messagebox.showerror("Error", "No volunteer selected.")
-
 
 def go_back(root):
     # Code to go back to the previous screen
