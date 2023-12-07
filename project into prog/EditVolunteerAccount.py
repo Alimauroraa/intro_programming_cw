@@ -2,6 +2,7 @@ import csv
 import tkinter as tk
 from tkinter import messagebox
 from data_model import Volunteer
+import pandas as pd
 
 # Function to load, volunteer accounts from a CSV file
 def load_volunteers_from_csv(volunteers_file):
@@ -171,15 +172,29 @@ def delete_volunteer():
     selected_index = volunteers_listbox.curselection()
     if selected_index:  # Check if a volunteer is selected
         selected_index = selected_index[0]
+        selected_volunteer = volunteers[selected_index]
+
+        # Load camps data
+        camps_df = pd.read_csv("camps.csv")
+
+        # Update the volunteer count in the associated camp
+        if selected_volunteer.camp_id in camps_df['camp_id'].values:
+            camp_row_index = camps_df.index[camps_df['camp_id'] == selected_volunteer.camp_id][0]
+            camps_df.at[camp_row_index, 'volunteers_number'] = max(0, camps_df.at[camp_row_index, 'volunteers_number'] - 1)
+
         # Delete the selected volunteer
         del volunteers[selected_index]
-        # Save the updated volunteers list to the CSV file
+
+        # Save the updated volunteers list and camps data to the CSV files
         save_volunteers_to_csv('volunteers_file.csv', volunteers)
+        camps_df.to_csv("camps.csv", index=False)
+
         # Show a success message
         messagebox.showinfo("Success", "Volunteer deleted successfully.")
     else:
         # Show an error message if no volunteer is selected
         messagebox.showerror("Error", "No volunteer selected.")
+
 
 def go_back(root):
     # Code to go back to the previous screen

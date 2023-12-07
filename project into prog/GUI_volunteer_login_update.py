@@ -238,54 +238,55 @@ def create_account_window():
     y_position = (screen_height - 850) // 2
 
     add_window.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
-    fields = ["Username", "Password", "First Name", "Last Name", "Birthday", "Phone", "Address1", "Address2", "City", "Email", "Gender", "Availability","Camp_id"]
+    fields = ["username", "user_password", "first_name", "last_name", "birthday", "phone", "address1", "address2",
+              "city", "email", "gender", "availability", "camp_id"]
+    entry_vars = {}
 
-    entry_vars = []
+    for field in fields:
+        label_text = field.replace('_', ' ').title()
+        Label(add_window, text=f"{label_text}: ", bg=bg_color, fg="white", font=("Calibri", 14)).place(x=220,
+                                                                                                       y=125 + fields.index(
+                                                                                                           field) * 30)
+        entry_var = StringVar(add_window)  # Associate StringVar with the add_window
+        entry = Entry(add_window, textvariable=entry_var)
+        entry.place(x=340, y=130 + fields.index(field) * 30)
+        entry_vars[field] = entry_var
 
-    for i, field in enumerate(fields):
-        Label(add_window, text=f"{field}: ",bg=bg_color,fg="white",font=("Calibri", 14)).place(x=220,y=125+i*30)
-        entry_var = StringVar()
-        Entry(add_window, textvariable=entry_var).place(x=340,y=130+i*30)
-        entry_vars.append(entry_var)
-    back_button = Button(add_window, text="Back", command=add_window.destroy,
-        font=("Calibri", 12),
-        width=16,
-        height=0,
-        bg="#FFFFFF",
-        fg="black",
-        cursor="hand2",
-        activebackground="#B8B8B8",
-        activeforeground="black",)
-    back_button.place(x=280,y=600)
-    submit_button = Button(add_window, text="Create Account", command=lambda: create_account(entry_vars, add_window),
-        font=("Calibri", 12),
-        width=16,
-        height=0,
-        bg="#FFFFFF",
-        fg="black",
-        cursor="hand2",
-        activebackground="#B8B8B8",
-        activeforeground="black",)
-        # submit_button.grid(row=len(fields), column=0, columnspan=2, pady=10)
-    submit_button.place(x=280,y=650)
+    back_button = Button(add_window, text="Back", command=add_window.destroy, font=("Calibri", 12), width=16, height=0, bg="#FFFFFF", fg="black", cursor="hand2", activebackground="#B8B8B8", activeforeground="black")
+    back_button.place(x=280, y=600)
+
+    submit_button = Button(add_window, text="Create Account", command=lambda: create_account(entry_vars, add_window), font=("Calibri", 12), width=16, height=0, bg="#FFFFFF", fg="black", cursor="hand2", activebackground="#B8B8B8", activeforeground="black")
+    submit_button.place(x=280, y=650)
+
 
 def create_account(entry_vars, add_window):
-    fields = ["username", "user_password", "first_name", "last_name", "birthday", "phone", "address1", "address2", "city",
-               "email", "gender",  "availability","camp_id"]
-    default_values = {"active": "True", "acc_type": "volunteer"}
+    fields = ["username", "user_password", "first_name", "last_name", "birthday", "phone", "address1", "address2", "city", "email", "gender", "availability", "camp_id"]
+    default_values = {"active": True, "acc_type": "volunteer"}
 
-    # Get the user-entered values
-    user_values = {fields[i]: entry_var.get() for i, entry_var in enumerate(entry_vars)}
+    # Get the user-entered values. Using the field names directly from the fields list
+    user_values = {field: entry_vars[field].get() for field in fields}
+
+    # Debugging: Print user_values to check inputs
+    print("User Values:", user_values)
+
+    # Validation check
+    for key, value in user_values.items():
+        if not value:
+            messagebox.showerror("Error", f"Field {key} cannot be empty.")
+            return
 
     # Update the dictionary with default values for missing keys
     new_volunteer_info = {**default_values, **user_values}
 
+    # Add the new volunteer
     add_volunteer(**new_volunteer_info)
-    user_df.to_csv('volunteers_file.csv', index=False)
 
-    success_label = Label(add_window,text=f"Volunteer {new_volunteer_info['first_name']} {new_volunteer_info['last_name']} added successfully.",fg="green",bg=bg_color,font=("Calibri", 12))
-    success_label.grid(row=len(fields) + 2, column=0, columnspan=2, pady=10)
-    add_window.after(3000, lambda: success_label.destroy())
+    # Display success message
+    messagebox.showinfo("Success", f"Volunteer {new_volunteer_info['first_name']} {new_volunteer_info['last_name']} added successfully.")
+
+    # Optionally, refresh or close the add_window if necessary
+
+
 
 def display_information():
     # Implement the functionality for displaying information here
@@ -455,28 +456,40 @@ def open_display_allocated_resources_frame():
 def live_update():
     from liveupdatevolunteer import submit_update
     submit_update()
-def add_volunteer(username, user_password, first_name, last_name,birthday, phone, address1, address2, city,acc_type,email,gender,active,availability,camp_id):
+def add_volunteer(username, user_password, first_name, last_name, birthday, phone, address1, address2, city, acc_type, email, gender, active, availability, camp_id):
     global user_df
+    # Ensure user_df is loaded
+    user_df = pd.read_csv('volunteers_file.csv')
+
+    # Generate a new user ID
     new_user_id = user_df['user_id'].max() + 1
+
+    # Create the new volunteer DataFrame
     new_volunteer = pd.DataFrame({
         "user_id": [new_user_id],
         "username": [username],
         "user_password": [user_password],
         "first_name": [first_name],
         "last_name": [last_name],
-        'dob':[birthday],
-        "contact_number": [int(phone)],  # Convert phone number to integer
+        'dob': [birthday],
+        "contact_number": [phone],
         "address1": [address1],
         "address2": [address2],
         "city": [city],
-        "acc_type":[acc_type],
+        "acc_type": [acc_type],
         "user_email": [email],
-        'gender':[gender],
-        'active':[active],
-        'availability':[availability],
-        'camp_id': [int(camp_id)],
+        'gender': [gender],
+        'active': [active],
+        'availability': [availability],
+        'camp_id': [camp_id],
     })
+
+    # Concatenate the new volunteer data to the existing DataFrame
     user_df = pd.concat([user_df, new_volunteer], ignore_index=True)
+
+    # Save the updated DataFrame back to CSV
+    user_df.to_csv('volunteers_file.csv', index=False)
+
 
 
 def display_user_row(user_index, user_df):
