@@ -1,7 +1,13 @@
 camp_id,location,volunteers_number,refugees_number,plan_name,current_availability,max_capacity,specific_needs,allocated_resources
-1,Zambia,1,0,"Response to Flood in Zambia
-",0,100,,
-2,Zambia,1,0,"Response to Flood in Zambia
-",0,100,,
-3,Chile,1,0,Hao,0,100,,
-4,Chile,1,0,Hao,0,100,,
+1,Zambia,1.0,0.0,"Response to Flood in Zambia
+",0.0,100.0,,
+10,fds,,0.0,dfs,50.0,50.0,,
+2,Zambia,1.0,0.0,"Response to Flood in Zambia
+",0.0,100.0,,
+3,Chile,1.0,0.0,Hao,0.0,100.0,,
+4,Chile,1.0,0.0,Hao,0.0,100.0,,
+5,fdas,,,fads,,,,
+6,fdas,,,fads,,,,
+7,Afghanistan,,,fsd,,50.0,,
+8,Afghanistan,,,fsd,,50.0,,
+9,fds,,0.0,dfs,50.0,50.0,,

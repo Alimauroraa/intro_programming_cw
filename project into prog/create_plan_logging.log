@@ -4029,3 +4029,12 @@
 07-Dec-23 17:23:40 - INFO - Plan name: Hao, is created
 07-Dec-23 17:23:40 - ERROR - start_date is not a string: 2030-03-30
 07-Dec-23 17:23:40 - INFO - Plan created with ID: 2 and Camp IDs: 3,4
+07-Dec-23 17:34:10 - INFO - Plan name: fads, is created
+07-Dec-23 17:34:10 - ERROR - start_date is not a string: 2030-03-31
+07-Dec-23 17:34:10 - INFO - Plan created with ID: 3 and Camp IDs: 5,6
+07-Dec-23 18:07:47 - INFO - Plan name: fsd, is created
+07-Dec-23 18:07:47 - ERROR - start_date is not a string: 2030-03-22
+07-Dec-23 18:07:47 - INFO - Plan created with ID: 4 and Camp IDs: 7,8
+07-Dec-23 18:09:57 - INFO - Plan name: dfs, is created
+07-Dec-23 18:09:57 - ERROR - start_date is not a string: 2030-03-12
+07-Dec-23 18:09:57 - INFO - Plan created with ID: 5 and Camp IDs: 9,10
