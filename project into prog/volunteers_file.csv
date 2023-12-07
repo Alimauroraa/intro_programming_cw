@@ -1,6 +1,6 @@
 user_id,username,user_password,first_name,last_name,dob,user_email,contact_number,address1,address2,city,acc_type,availability,gender,active,camp_id,emergency_profiles
 8,volunteer8,111,Daniel,Anderson,1990/09/14,daniel@gmail.com,8889999,Cherry Avenue,Apartment 505,Orchard City,volunteer,Yes,male,False,,[]
-9,volunteer9,111,Olivia,Taylor,1996/01/30,olivia@gmail.com,9990000,Poplar Road,Suite 6,Groveburg,volunteer,Yes,female,True,1,[]
+9,volunteer9,111,Olivia,Taylor,1996/01/30,olivia@gmail.com,9990000,Poplar Road,Suite 6,Groveburg,volunteer,Yes,female,False,1,[]
 10,volunteer10,111,William,Wilson,1994/07/12,william@gmail.com,10101010,Pine Lane,Unit 606,Forestville,volunteer,Yes,male,True,2,[]
 11,volunteer11,111,Ava,Jones,1991/11/27,ava@gmail.com,11112222,Hickory Street,Suite 8,Villageton,volunteer,Yes,female,True,3,[]
 12,volunteer12,111,Liam,Evans,1999/02/08,liam@gmail.com,12123333,Magnolia Avenue,Apartment 707,Blossomtown,volunteer,Yes,male,True,4,[]
