@@ -36,13 +36,15 @@ def login():
                 main_application()  # Call the main application window
         else:
             user_index = user.index[0]
-            if pd.isnull(user['camp_id'].iloc[0]):
+            if user['active'].iloc[0] == False:
+                messagebox.showinfo("Warning", "Hey! Your account is not active. Please contact the administrator.")
+            elif pd.isnull(user['camp_id'].iloc[0]):
                 messagebox.showinfo("Warning", "Hey! Please choose a camp firstly!")
                 updating()
             else:
-                messagebox.showinfo("", "The password you have entered is wrong!")
+                messagebox.showinfo("Warning", "The password you have entered is wrong!")
     else:
-        messagebox.showinfo("", "The user account does not exist!")
+        messagebox.showinfo("Warning", "The user account does not exist!")
         user_index = None
 
 
@@ -71,7 +73,7 @@ def update_camp_volunteer_numbers():
 
 def updating():
     global user_df, user_index
-    valid_fields = ["contact_number", "address1", "address2", "city", "user_email", "camp_id"]
+    valid_fields = ["first_name","last_name","dob","gender","contact_number", "address1", "address2", "city", "user_email", "camp_id"]
     def update_info():
         field_to_update = field_var.get()
         new_value = entry_value.get()
