@@ -15,6 +15,10 @@ def clear():
     end_entry.delete(0,tk.END)
 
 def validate_date(plan_id, closing_date):
+    global plan_df
+    # Reload plan_df to get the latest data
+    plan_df = pd.read_csv('plan.csv')
+
     # validate end date
     if len(closing_date) == 0:
         messagebox.showerror("Error", "Required. Please enter a closing date")
@@ -39,8 +43,9 @@ def validate_date(plan_id, closing_date):
             return False
     return True
 
+
 def date_parser(x):
-    formats = ['%Y-%m-%d', '%m-%d-%Y', '%m/%d/%Y', '%Y/%m/%d' ]  # Add more formats as needed
+    formats = ['%Y-%m-%d', '%m-%d-%Y', '%m/%d/%Y', '%Y/%m/%d']  # Add more formats as needed
     for fmt in formats:
         try:
             return pd.to_datetime(x, format=fmt)
@@ -50,18 +55,19 @@ def date_parser(x):
 
 def update_active_flag():
     today_date = dt.now().date()
-    df = pd.read_csv('plan.csv', parse_dates=['startDate', 'closingDate'], date_parser=date_parser)
+    df = pd.read_csv('plan.csv', dtype={'startDate': 'object', 'closingDate': 'object'})
+    df['startDate'] = df['startDate'].apply(date_parser)
+    df['closingDate'] = df['closingDate'].apply(date_parser)
 
-    # Check if the 'startDate' matches the current date and update 'active' column accordingly
     df.loc[df['closingDate'].dt.date >= today_date, 'active'] = 0
 
-    # Save the updated dataframe back to the CSV file
     df.to_csv('plan.csv', index=False)
 
 def display_plan(close_plan_frame):
-    df = pd.read_csv('plan.csv', parse_dates=['startDate', 'closingDate'], date_parser=date_parser)
+    df = pd.read_csv('plan.csv', dtype={'startDate': 'object', 'closingDate': 'object'})
+    df['startDate'] = df['startDate'].apply(date_parser)
+    df['closingDate'] = df['closingDate'].apply(date_parser)
 
-    # Convert the dates to the desired format
     df['startDate'] = df['startDate'].dt.strftime('%Y/%m/%d')
     df['closingDate'] = df['closingDate'].dt.strftime('%Y/%m/%d')
 
@@ -90,12 +96,18 @@ def display_plan(close_plan_frame):
 
 def submit_date():
     global plan_df
-    plan_id= plan_id_entry.get()
+    plan_id = plan_id_entry.get()
     closing_date = end_entry.get()
+
     if validate_date(plan_id, closing_date):
         try:
-            plan_df = pd.read_csv('plan.csv')  # Read the latest plan data
+            # Reload plan_df to get the latest data
+            plan_df = pd.read_csv('plan.csv', dtype={'startDate': 'object', 'closingDate': 'object'})
+            plan_df['startDate'] = plan_df['startDate'].apply(date_parser)
+            plan_df['closingDate'] = plan_df['closingDate'].apply(date_parser)
+
             if int(plan_id) in plan_df['PlanID'].values:
+                # Use .loc to avoid SettingWithCopyWarning
                 plan_df.loc[plan_df['PlanID'] == int(plan_id), 'closingDate'] = closing_date
                 plan_df.to_csv('plan.csv', index=False)
                 messagebox.showinfo("Success", f"Closing date updated for Plan ID {plan_id}")
@@ -103,6 +115,10 @@ def submit_date():
                 messagebox.showerror("Error", f"No plan found with ID {plan_id}")
         except Exception as e:
             messagebox.showerror("Error", f"An error occurred: {e}")
+
+        # Reload plan_df to reflect changes
+        plan_df = pd.read_csv('plan.csv')
+
 
 def close_plan_frame(parent):
     # initializing

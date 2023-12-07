@@ -63,6 +63,8 @@ class HumanitarianPlan:
         # Add new plan to plan.csv
         self.add_plan_to_csv()
 
+        self.plan_df = pd.read_csv("plan.csv")
+
         # Log the creation
         logging.info(f"Plan created with ID: {self.plan_id} and Camp IDs: {self.camp_id}")
 
