@@ -26,65 +26,50 @@ def clear():
     start_entry.delete(0,tk.END)
     camps_entry.set('')
 
-def validate_input( plan_name, description,geographical_area, start_date,number_camps):
-    #validate admin id
-    # if len(admin_id)==0:
-    #     messagebox.showerror("Error", "Required. Please select the admin id")
-    #     return False        #by returning False, this will prevent us from adding it to csv
-
-    #validate plan name
-    if len(plan_name)==1:
+def validate_input(plan_name, description, geographical_area, start_date, number_camps):
+    # Validate plan name
+    if len(plan_name) < 1:
         messagebox.showerror("Error", "Required. Please enter the plan name")
         return False
-    elif not all(char.isalpha() or char.isspace() for char in plan_name):
-        messagebox.showerror("Error", "Please enter a valid plan name, alphabetical character only")
+    elif not all(char.isalnum() or char.isspace() for char in plan_name):
+        messagebox.showerror("Error", "Please enter a valid plan name, alphanumeric characters only")
         return False
-    elif not 1 < len(plan_name) < 200:
-        messagebox.showerror("Error","Maximum 200 characters are allowed for plan name")
+    elif len(plan_name) > 200:
+        messagebox.showerror("Error", "Maximum 200 characters are allowed for plan name")
         return False
-    # else:
-    #     logging.info(f"Plan name: {plan_name}")
 
-    #validate description
-    if len(description)==1:
+    # Validate description
+    if len(description) < 1:
         messagebox.showerror("Error", "Required. Please enter the description")
         return False
-
-    elif not all(char==',' or char=='.' or char.isalpha() or char.isspace() or char.isdigit() for char in description):
+    elif not all(char in [',', '.'] or char.isalpha() or char.isspace() or char.isdigit() for char in description):
         messagebox.showerror("Error", "Please enter a valid description")
         return False
-
-    elif not 1 < len(description) < 500:
-        messagebox.showerror("Error","Maximum 500 characters are allowed for description")
+    elif len(description) > 500:
+        messagebox.showerror("Error", "Maximum 500 characters are allowed for description")
         return False
 
-    #validate country
-    if len(geographical_area)==0:
+    # Validate geographical area
+    if len(geographical_area) == 0:
         messagebox.showerror("Error", "Required. Please select the country")
-        return False        #by returning False, this will prevent us from adding it to csv
-
-    #validate start date
-    if len(start_date)==0:
-        messagebox.showerror("Error", "Required. Please enter a start date")
         return False
+
+    # Validate start date
+    start = None  # Initialize start to None
+    if len(start_date) == 0:
+        messagebox.showerror("Error", "Required. Please enter a start date")
+        return False, None
     else:
         try:
-            print(start_date)
-            global start
-            # start_date=start_date.replace('-','/')
-            start = d.fromisoformat(start_date)
-            # start=dt.strptime(start_date,'%Y-%m-%d')
-            print(type(start))
-            if start > dt.now().date():  # .date()
-                print(start)
-            else:
-                messagebox.showerror("Error", "Start date should be later than current date")
-                return False
-        except ValueError as e:
+            start = dt.fromisoformat(start_date).date()
+            if start < dt.now().date():  # Changed to allow today's date
+                messagebox.showerror("Error", "Start date should be today or later")
+                return False, None
+        except ValueError:
             messagebox.showerror("Error", "Required. Please enter a start date in YYYY-MM-DD format")
-            return False
+            return False, None
 
-    # validate number of camps
+    # Validate number of camps
     if len(number_camps) == 0:
         messagebox.showerror("Error", "Required. Please enter the number of camps")
         return False
@@ -99,25 +84,29 @@ def validate_input( plan_name, description,geographical_area, start_date,number_
             return False
 
     logging.info(f"Plan name: {plan_name}, is created")
-    return True
+    return True, start
+
 
 def submit_plan():
     # Retrieve the entry
     admin_id = admin_entry.get()
-    plan_name = name_entry.get(1.0, tk.END)
-    description = desc_entry.get(1.0, tk.END)
+    plan_name = name_entry.get(1.0, tk.END).strip()  # Added strip() to remove trailing newlines
+    description = desc_entry.get(1.0, tk.END).strip()  # Added strip() to remove trailing newlines
     geographical_area = geo_entry.get()
     start_date = start_entry.get()
     number_camps = camps_entry.get()
 
+    # Validate input and capture the start date
+    validation_result, start = validate_input(plan_name, description, geographical_area, start_date, number_camps)
 
-    if validate_input( plan_name, description, geographical_area, start_date, number_camps):
-        # Create the plan
+    if validation_result:
+        # Use the captured start date
         new_plan = HumanitarianPlan(admin_id, plan_name, description, geographical_area, start, number_camps)
         camp_ids = new_plan.create_plan()  # This method now handles plan and camp creation
 
         # Inform the user that the plan and camps have been created
         messagebox.showinfo("Success", "Plan and associated camps created successfully.")
+
 
 def plan_creator_frame(parent):
     # initializing

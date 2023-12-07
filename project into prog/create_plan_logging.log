@@ -4018,3 +4018,11 @@
 , is created
 06-Dec-23 17:44:28 - ERROR - start_date is not a string: 2023-12-07
 06-Dec-23 17:44:28 - INFO - Plan created with ID: 1 and Camp IDs: 1,2
+07-Dec-23 15:43:03 - INFO - Plan name: 500fdsaf sadfsd
+, is created
+07-Dec-23 15:51:49 - INFO - Plan name: dsafdsar31fsa, is created
+07-Dec-23 15:51:49 - ERROR - start_date is not a string: 2023-12-07
+07-Dec-23 15:51:49 - INFO - Plan created with ID: 2 and Camp IDs: 3,4
+07-Dec-23 16:01:01 - INFO - Plan name: afsddaf	2, is created
+07-Dec-23 16:01:01 - ERROR - start_date is not a string: 2023-12-07
+07-Dec-23 16:01:01 - INFO - Plan created with ID: 3 and Camp IDs: 5,6
