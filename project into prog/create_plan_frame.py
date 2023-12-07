@@ -50,8 +50,8 @@ def validate_input(plan_name, description, geographical_area, start_date, number
         return False
 
     # Validate geographical area
-    if len(geographical_area) == 0:
-        messagebox.showerror("Error", "Required. Please select the country")
+    if geographical_area not in country:
+        messagebox.showerror("Error", "Invalid country selected. Please select a valid country.")
         return False
 
     # Validate start date

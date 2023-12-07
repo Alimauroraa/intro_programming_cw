@@ -156,6 +156,8 @@ def deactivate_volunteer():
         selected_index = selected_index[0]
         # Deactivate the selected volunteer
         volunteers[selected_index].active = 'False'
+        # Set camp_id to empty
+        volunteers[selected_index].camp_id = ''
         # Save the updated volunteers list to the CSV file
         save_volunteers_to_csv('volunteers_file.csv', volunteers)
         # Show a success message
