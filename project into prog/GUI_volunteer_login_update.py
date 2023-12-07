@@ -12,40 +12,35 @@ refugee_df = pd.read_csv(csv_filename)
 bg_color = '#021631'
 
 def login():
-    global user_index,user
+    global user_index, user
     username = enrey1.get()
-    password = enrey2.get()
-
-    try:
-        password = int(password)
-    except ValueError:
-        messagebox.showinfo("", "Invalid password.")
-        return None
+    password = enrey2.get()  # Keep password as a string
 
     user_df = pd.read_csv('volunteers_file.csv')
     user = user_df[user_df['username'] == username]
 
     if not user.empty:
-        if not pd.isnull(user['camp_id'].iloc[0]) and (user['user_password'].iloc[0] == password):
+        # Check if password matches (as string comparison)
+        if str(user['user_password'].iloc[0]) == password:
             user_index = user.index[0]
-            if user['active'].iloc[0] == False:
+            # Check if account is active
+            if not user['active'].iloc[0]:
                 messagebox.showinfo("Warning", "Hey! Your account is not active. Please contact the administrator.")
             else:
-                messagebox.showinfo("", f"Access granted, {username}!")
-                root.withdraw()  # Hide the login window
-                main_application()  # Call the main application window
+                # Check if camp_id is assigned
+                if pd.isnull(user['camp_id'].iloc[0]):
+                    messagebox.showinfo("Warning", "Hey! Please choose a camp firstly!")
+                    updating()
+                else:
+                    messagebox.showinfo("", f"Access granted, {username}!")
+                    root.withdraw()  # Hide the login window
+                    main_application()  # Call the main application window
         else:
-            user_index = user.index[0]
-            if user['active'].iloc[0] == False:
-                messagebox.showinfo("Warning", "Hey! Your account is not active. Please contact the administrator.")
-            elif pd.isnull(user['camp_id'].iloc[0]):
-                messagebox.showinfo("Warning", "Hey! Please choose a camp firstly!")
-                updating()
-            else:
-                messagebox.showinfo("Warning", "The password you have entered is wrong!")
+            messagebox.showinfo("Warning", "The password you have entered is wrong!")
     else:
         messagebox.showinfo("Warning", "The user account does not exist!")
         user_index = None
+
 
 
 import pandas as pd
