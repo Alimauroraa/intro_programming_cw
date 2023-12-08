@@ -61,7 +61,7 @@ root.configure(bg='#021631')
 frame = tk.Frame(root, bg='#021631')
 frame.place(relx=0.5, rely=0.5, anchor='center')
 
-camp_label = tk.Label(frame, text="Select a Camp:", background="#021631", foreground="white")
+camp_label = tk.Label(frame, text="Select Your Camp to Send a Message!", background="#021631", foreground="white")
 camp_label.pack()
 
 df=pd.read_csv('volunteers_file.csv')
