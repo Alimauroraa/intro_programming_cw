@@ -12,36 +12,45 @@ refugee_df = pd.read_csv(csv_filename)
 bg_color = '#021631'
 
 def login():
-    global user_index, user
+    global user_index,user
     username = enrey1.get()
-    password = enrey2.get()  # Keep password as a string
+    password = enrey2.get()
+
+    try:
+        password = int(password)
+    except ValueError:
+        messagebox.showinfo("", "Invalid password.")
+        return None
 
     user_df = pd.read_csv('volunteers_file.csv')
     user = user_df[user_df['username'] == username]
 
     if not user.empty:
-        # Check if password matches (as string comparison)
-        if str(user['user_password'].iloc[0]) == password:
+        if not pd.isnull(user['camp_id'].iloc[0]) and (user['user_password'].iloc[0] == password):
             user_index = user.index[0]
-            # Check if account is active
-            if not user['active'].iloc[0]:
+            if user['active'].iloc[0] == False:
                 messagebox.showinfo("Warning", "Hey! Your account is not active. Please contact the administrator.")
             else:
-                # Check if camp_id is assigned
-                if pd.isnull(user['camp_id'].iloc[0]):
+                messagebox.showinfo("", f"Access granted, {username}!")
+                root.withdraw()  # Hide the login window
+                main_application()  # Call the main application window
+        else:
+            if user['user_password'].iloc[0] == password:
+                user_index = user.index[0]
+                if user['active'].iloc[0] == False:
+                    messagebox.showinfo("Warning", "Hey! Your account is not active. Please contact the administrator.")
+                elif pd.isnull(user['camp_id'].iloc[0]):
                     messagebox.showinfo("Warning", "Hey! Please choose a camp firstly!")
                     updating()
-                else:
-                    messagebox.showinfo("", f"Access granted, {username}!")
-                    root.withdraw()  # Hide the login window
-                    main_application()  # Call the main application window
-        else:
-            messagebox.showinfo("Warning", "The password you have entered is wrong!")
+                # else:
+                #     messagebox.showinfo("Warning", "The password you have entered is wrong!")
+            else:
+                messagebox.showinfo("Warning", "The password you have entered is wrong!")
     else:
         messagebox.showinfo("Warning", "The user account does not exist!")
         user_index = None
-
-
+    print(type(user['user_password'].iloc[0]))
+    print(type(password))
 
 import pandas as pd
 
@@ -68,7 +77,11 @@ def update_camp_volunteer_numbers():
 
 def updating():
     global user_df, user_index
-    valid_fields = ["first_name","last_name","dob","gender","contact_number", "address1", "address2", "city", "user_email", "camp_id"]
+    if pd.isnull(user['camp_id'].iloc[0]):
+        valid_fields = ["camp_id"]
+    else:
+        valid_fields = ["first_name","last_name","dob","gender","contact_number", "address1", "address2", "city", "user_email", "camp_id"]
+    had_no_camp_id = pd.isnull(user['camp_id'].iloc[0])
     def update_info():
         field_to_update = field_var.get()
         new_value = entry_value.get()
@@ -91,16 +104,28 @@ def updating():
             user_df.loc[user_index, field_to_update] = new_value
             result_label.config(text=f"{field_to_update} updated successfully.", fg="green",font=("Calibri", 12))
             user_df.to_csv('volunteers_file.csv', index=False)
+
+            if field_to_update == "camp_id":
+                update_camp_volunteer_numbers()
+
+            # If the update is successful, and the volunteer had no camp_id before, show the 'Redirect to Main' button
+            if had_no_camp_id:
+                redirect_button.pack(pady=10)
         else:
             result_label.config(text=f"Invalid field to update. Valid fields are:\n {valid_fields}", fg="red",font=("Calibri", 12))
-        
-        if field_to_update == "camp_id":
-            update_camp_volunteer_numbers()
+            redirect_button.pack_forget()
+
 
     def back_to_main():
         update_window.destroy()
 
     def redirect_to_main():
+        global user, valid_fields
+
+        # Set the value of pd.isnull(user['camp_id'].iloc[0]) to False
+        user['camp_id'].iloc[0] = 'some_non_null_value'
+
+
         update_window.destroy()
         main_application()
     global update_window
@@ -148,6 +173,7 @@ def updating():
     update_button.pack(pady=10)
 
     if pd.isnull(user['camp_id'].iloc[0]):
+
         # Add the redirect_button only when the condition is true
         redirect_button = Button(update_window, text="Redirect to Main", command=redirect_to_main,
                                  font=("Calibri", 10),
@@ -158,7 +184,7 @@ def updating():
                                  cursor="hand2",
                                  activebackground="#B8B8B8",
                                  activeforeground="black", )
-        redirect_button.pack(pady=10)
+
 
         display_camp_button = Button(update_window, text="Display all camps", command=lambda:display_all_camps(update_window),
                                      font=("Calibri", 10),
@@ -239,7 +265,7 @@ def create_account_window():
 
     for field in fields:
         label_text = field.replace('_', ' ').title()
-        Label(add_window, text=f"{label_text}: ", bg=bg_color, fg="white", font=("Calibri", 14)).place(x=220,
+        Label(add_window, text=f"{label_text}: ", bg=bg_color, fg="white", font=("Calibri", 14)).place(x=200,
                                                                                                        y=125 + fields.index(
                                                                                                            field) * 30)
         entry_var = StringVar(add_window)  # Associate StringVar with the add_window
@@ -263,12 +289,37 @@ def create_account(entry_vars, add_window):
 
     # Debugging: Print user_values to check inputs
     print("User Values:", user_values)
-
+    import re
     # Validation check
     for key, value in user_values.items():
         if not value:
             messagebox.showerror("Error", f"Field {key} cannot be empty.")
             return
+        elif key in ["first_name", "last_name"]:
+            if not value.isalpha():
+                messagebox.showerror("Error", f"{key.replace('_', ' ').title()} must only contain letters.")
+                return
+        elif key == "user_password":
+            try:
+                int(value)  # Check if the password is an integer
+            except ValueError:
+                messagebox.showerror("Error", "User password must be an integer.")
+                return
+        elif key == "birthday":
+            try:
+                pd.to_datetime(value)  # Check if the birthday is in a valid date format
+            except ValueError:
+                messagebox.showerror("Error", "Invalid birthday format. Please use YYYY-MM-DD format.")
+                return
+        elif key == "gender" and value.lower() not in ["male", "female", "other"]:
+            messagebox.showerror("Error", "Gender must be 'male', 'female', or 'other'.")
+            return
+        elif key == "phone":
+            try:
+                int(value)  # Check if the phone number is an integer
+            except ValueError:
+                messagebox.showerror("Error", "Phone must be a number.")
+                return
 
     # Update the dictionary with default values for missing keys
     new_volunteer_info = {**default_values, **user_values}
@@ -280,8 +331,6 @@ def create_account(entry_vars, add_window):
     messagebox.showinfo("Success", f"Volunteer {new_volunteer_info['first_name']} {new_volunteer_info['last_name']} added successfully.")
 
     # Optionally, refresh or close the add_window if necessary
-
-
 
 def display_information():
     # Implement the functionality for displaying information here
@@ -484,8 +533,6 @@ def add_volunteer(username, user_password, first_name, last_name, birthday, phon
 
     # Save the updated DataFrame back to CSV
     user_df.to_csv('volunteers_file.csv', index=False)
-
-
 
 def display_user_row(user_index, user_df):
 
