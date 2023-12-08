@@ -64,10 +64,22 @@ class ManageCampsFrame:
                                 'specific_needs', 'allocated_resources')
         self.tree['show'] = 'headings'
 
-        # Setting the column headings and widths
+        # Setting the column headings and individual widths
+        column_widths = {
+            'camp_id': 50,
+            'location': 130,
+            'volunteers_number': 110,
+            'refugees_number': 100,
+            'plan_name': 150,
+            'current_availability': 110,
+            'max_capacity': 80,
+            'specific_needs': 200,
+            'allocated_resources': 300
+        }
+
         for col in self.tree['columns']:
             self.tree.heading(col, text=col.replace("_", " ").title())  # Replace underscores with spaces and title-case
-            self.tree.column(col, width=120, stretch=tk.YES)  # Adjust the width as needed
+            self.tree.column(col, width=column_widths.get(col, 120), stretch=tk.YES)  # Set individual widths
 
         self.tree.config(height=20)
 
