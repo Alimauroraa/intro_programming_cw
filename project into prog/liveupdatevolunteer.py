@@ -44,7 +44,15 @@ def submit_update():
 
 def toggle_category(category):
     category_states[category] = not category_states[category]
+def send_camp_id_update(username, old_camp_id, new_camp_id):
+    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    update_message = f"User '{username}' changed camp from {old_camp_id} to {new_camp_id}."
 
+    with open("liveupdates.csv", mode='a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow([timestamp, new_camp_id, update_message])
+
+    messagebox.showinfo("Camp Update Submitted", f"Camp update submitted on {timestamp}: {update_message}")
 def go_back():
     root.destroy()
 
