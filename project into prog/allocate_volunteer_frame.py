@@ -25,8 +25,8 @@ class AllocateVolunteersFrame(tk.Frame):
         tk.Label(main_frame, text="Select Camp:").pack()
         self.camp_var = tk.StringVar()
         self.camp_dropdown = ttk.Combobox(main_frame, textvariable=self.camp_var, state="readonly")
-        self.camp_dropdown['values'] = self.camps_df['camp_id'].tolist()
-        self.camp_dropdown['values'] = ['Not assigning camps for now'] + self.camps_df['camp_id'].tolist()
+        sorted_camp_ids = sorted(self.camps_df['camp_id'].tolist())
+        self.camp_dropdown['values'] = ['Not assigning camps for now'] + sorted_camp_ids
         self.camp_dropdown.pack()
         self.camp_dropdown.bind('<<ComboboxSelected>>', self.on_camp_select)
 

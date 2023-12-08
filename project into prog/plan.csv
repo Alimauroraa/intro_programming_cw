@@ -9,4 +9,5 @@ PlanID,planName,startDate,closingDate,geographicalArea,planDesc,adminID,active,N
 6,oooo,2024-03-30,2024-03-31,United States,sadfdf.,1,1,2,"11,12"
 7,bbb,2030-03-30,2030-03-31,United Kingdom,asf,1,1,2,"13,14"
 8,dfsa,2030-03-30,2030-03-31,fads,dfs,1,1,2,"15,16"
-9,safd,2030-03-30,,Taiwan,dfs,1,1,2,"17,18"
+9,safd,2030-03-30,2050-03-30,Taiwan,dfs,1,1,2,"17,18"
+10,adsf,2030-03-30,,Chile,afsd,1,1,2,"19,20"

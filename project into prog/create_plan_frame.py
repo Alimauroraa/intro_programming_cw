@@ -96,6 +96,11 @@ def submit_plan():
     start_date = start_entry.get()
     number_camps = camps_entry.get()
 
+    # Check if plan name is unique
+    if plan_name in plan_df['planName'].values:
+        messagebox.showerror("Error", "Plan name already exists. Please enter a unique plan name.")
+        return
+
     # Validate input and capture the start date
     validation_result, start = validate_input(plan_name, description, geographical_area, start_date, number_camps)
 

@@ -4077,3 +4077,15 @@
 08-Dec-23 01:54:30 - INFO - Plan 1 has been closed and is inactive
 08-Dec-23 01:55:02 - INFO - Plan 1 has been closed and is inactive
 08-Dec-23 01:58:29 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 17:50:24 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 17:52:12 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 17:52:45 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 17:53:33 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 17:58:48 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 17:58:52 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 18:02:38 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 18:05:41 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 18:05:54 - INFO - Plan name: adsf, is created
+08-Dec-23 18:05:54 - ERROR - start_date is not a string: 2030-03-30
+08-Dec-23 18:05:54 - INFO - Plan created with ID: 10 and Camp IDs: 19,20
+08-Dec-23 18:13:46 - INFO - Plan 1 has been closed and is inactive
