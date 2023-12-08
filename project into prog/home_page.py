@@ -5,14 +5,15 @@ from create_plan import HumanitarianPlan
 
 def admin_login_page(root):
 
-    # root.withdraw()
+    root.withdraw()
 
     
 
     admin_login_frame=Admin("","","")
     admin_login_frame.create_login_frame()
 
-def open_volunteer_login():
+def open_volunteer_login(root):
+    root.withdraw()
     from GUI_volunteer_login_update import login
     login()
 
@@ -89,7 +90,7 @@ def home_page():
         cursor="hand2",
         activebackground="#B8B8B8",
         activeforeground="black",
-        command=lambda: open_volunteer_login()).pack()     #this will open page volunteer login when clicked
+        command=lambda: open_volunteer_login(root)).pack()     #this will open page volunteer login when clicked
 
     root.mainloop()
 
