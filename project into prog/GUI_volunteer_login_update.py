@@ -29,6 +29,9 @@ def login(display_messages=True):
         # Check if password matches (as string comparison)
         if str(user['user_password'].iloc[0]) == password:
             user_index = user.index[0]
+            volunteer_camp_id = user_df.loc[user_index, 'camp_id']
+            print("user_index:", user_index)
+            print(volunteer_camp_id)
             # Check if account is active
             if user['active'].iloc[0] == False:
                 if display_messages:
@@ -459,18 +462,32 @@ def main_application():
         activeforeground="black",)
     quit_button.pack(pady=10, side='top', anchor='center')
 def open_refugee_portal():
-    import create_refugee
-    from create_refugee import MainMenuWindow, main_menu_window
+    # global user_index, user_df, user
+    # import refugee_portal_volunteer
+    from Refugee_portal_volunteer_test import RefugeePortalVolunteerApp
     # Check if the main_menu_window already exists
-    if main_menu_window is not None:
-        try:
-            main_menu_window.master.destroy()  # Attempt to destroy the existing window
-        except AttributeError:
-            pass  # Handle the case where destroy method doesn't exist
+    # if main_menu_window is not None:
+    #     try:
+    #         main_menu_window.master.destroy()  # Attempt to destroy the existing window
+    #     except AttributeError:
+    #         pass  # Handle the case where destroy method doesn't exist
 
+    volunteer_camp_id = user_df.loc[user_index, 'camp_id']
+    volunteer_volunteer_id = user_df.loc[user_index, 'user_id']
+    # portal_window = tk.Toplevel(root)
+    # portal_window.geometry("1400x700")
+    # main_menu_window = MainMenuWindow(portal_window)
+    # main_menu_window.set_camp_id(volunteer_camp_id)
     # Create a new instance of Tk for the main application window
-    root = tk.Toplevel()
-    main_menu_window = MainMenuWindow(root)
+    # root = tk.Toplevel()
+    # # Create a new Toplevel window
+    portal_window = tk.Toplevel(root)
+    #
+    # Set the desired window size
+    portal_window.geometry("1400x700")  # Adjust the size as needed
+    #
+    main_menu_window = RefugeePortalVolunteerApp(portal_window, camp_id=volunteer_camp_id, volunteer_id=volunteer_volunteer_id)
+
 
     # def open_refugee_portal():
     # # Create an instance of MainMenuWindow when the button is clicked
