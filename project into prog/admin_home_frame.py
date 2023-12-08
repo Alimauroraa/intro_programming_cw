@@ -42,6 +42,20 @@ def open_manage_camps(root):
 def allocate_resources_frame(root):
     allocatesrourcesnew.create_gui(root).grid(row=0, column=0)
 
+def open_refugee_portal(root):
+    import create_refugee
+    from create_refugee import MainMenuWindow, main_menu_window
+    # Check if the main_menu_window already exists
+    if main_menu_window is not None:
+        try:
+            main_menu_window.master.destroy()  # Attempt to destroy the existing window
+        except AttributeError:
+            pass  # Handle the case where destroy method doesn't exist
+
+    # Create a new instance of Tk for the main application window
+    root = tk.Toplevel()
+    main_menu_window = MainMenuWindow(root)
+
 def open_allocate_volunteers_frame(root):
     # Clear existing widgets in root
     for widget in root.winfo_children():
@@ -134,7 +148,20 @@ def admin_home(root):
         cursor="hand2",
         activebackground="#B8B8B8",
         activeforeground="black",
-        command=lambda:edit_volunteer_frame(root)).place(x=286,y=400)  # this will open admin login page when clicked
+        command=lambda:edit_volunteer_frame(root)).place(x=286,y=400) # this will open admin login page when clicked
+
+    tk.Button(
+        home_frame,
+        text="Refugee Portal",
+        font=("Calibri", 12),
+        width=16,
+        height=0,
+        bg="#FFFFFF",
+        fg="black",
+        cursor="hand2",
+        activebackground="#B8B8B8",
+        activeforeground="black",
+        command=lambda: open_refugee_portal(root)).place(x=286, y=400)
 
     tk.Button(
         home_frame,
