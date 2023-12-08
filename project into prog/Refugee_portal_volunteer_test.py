@@ -12,6 +12,7 @@ class RefugeePortalVolunteerApp:
         self.camp_id = camp_id
         self.volunteer_id = volunteer_id
         self.show_database = True
+        self.filtered_refugee_df = self.refugee_df[self.refugee_df['Camp_ID'] == self.camp_id]
         self.setup_ui()
 
     def setup_ui(self):
@@ -407,7 +408,7 @@ class RefugeePortalVolunteerApp:
                 break
 
         while True:
-            if int(refugee_id_to_edit) not in self.refugee_df["Refugee_ID"].values:
+            if int(refugee_id_to_edit) not in self.filtered_refugee_df["Refugee_ID"].values:
                 # Create a custom error dialog
                 error_dialog = tk.Toplevel(self.root)
                 error_dialog.title("Error")
@@ -480,7 +481,7 @@ class RefugeePortalVolunteerApp:
         field_window.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
         field_var = tk.StringVar()
-        field_var.set(fields[0])  # Set the default value
+        # field_var.set(fields[0])  # Set the default value
 
         field_label = tk.Label(field_window, text="Select Field to Edit:", bg=bg_color, fg="white",
                                font=("Calibri", 14))
@@ -498,6 +499,20 @@ class RefugeePortalVolunteerApp:
                               activebackground="#B8B8B8",
                               activeforeground="black")
         ok_button.pack(pady=10)
+
+        def back():
+            field_window.destroy()
+            messagebox.showinfo("Edit Refugee", "Command cancelled")
+
+        back_button = tk.Button(field_window, text="Back", command=back, font=("Calibri", 12),
+                              width=16,
+                              height=0,
+                              bg="#FFFFFF",
+                              fg="black",
+                              cursor="hand2",
+                              activebackground="#B8B8B8",
+                              activeforeground="black")
+        back_button.pack(pady=10)
 
         field_window.wait_window()  # Wait for the window to be closed
 
@@ -518,9 +533,9 @@ class RefugeePortalVolunteerApp:
 
         field_window.update()
         field_window.destroy()
-
-        messagebox.showinfo("Edit Refugee",
-                            f"Refugee information updated for Refugee ID {refugee_id_to_edit}. Please reopen the application to view the changes.")
+        if new_value is not None:
+            messagebox.showinfo("Edit Refugee",
+                                f"Refugee information updated for Refugee ID {refugee_id_to_edit}. Please reopen the application to view the changes.")
 
     def update_camp_info(self, original_camp_id, new_camp_id):
         original_camp_id = str(original_camp_id).strip()
@@ -551,6 +566,7 @@ class RefugeePortalVolunteerApp:
 
             label = tk.Label(camp_window, text="Choose the camp you'd like to assign the refugee:")
             label.pack(pady=10)
+
 
             available_camps_with_availability = self.camps_df[self.camps_df['current_availability'] > 0]
             available_camp_ids = available_camps_with_availability['camp_id'].tolist()
@@ -692,7 +708,7 @@ class RefugeePortalVolunteerApp:
             if refugee_id_to_delete is None:
                 return  # User clicked Cancel
 
-            if refugee_id_to_delete not in self.refugee_df["Refugee_ID"].values:
+            if refugee_id_to_delete not in self.filtered_refugee_df["Refugee_ID"].values:
                 messagebox.showerror("Delete Refugee", "Refugee does not exist")
 
             else:
