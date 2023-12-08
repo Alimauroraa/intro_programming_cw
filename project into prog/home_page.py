@@ -4,17 +4,30 @@ from admin_login_gui import Admin
 from create_plan import HumanitarianPlan
 
 def admin_login_page(root):
+    root.withdraw()
 
-    # root.withdraw()
+    # Create a Toplevel window for the admin login
+    admin_login_window = tk.Toplevel(root)
+    admin_login_window.title("Admin Login")
+    admin_login_window.geometry('400x350+0+0')
+    admin_login_window['bg'] = '#021631'
 
-    
+    admin_login_frame = Admin("","","")
+    admin_login_frame.create_login_frame(admin_login_window, root)  # Pass both the new window and root
 
-    admin_login_frame=Admin("","","")
-    admin_login_frame.create_login_frame()
 
-def open_volunteer_login():
+def open_volunteer_login(root):
+    root.withdraw()
+
+    # Create a Toplevel window for the volunteer login
+    volunteer_login_window = tk.Toplevel(root)
+    volunteer_login_window.title("Volunteer Login")
+    volunteer_login_window.geometry('400x350+0+0')
+    volunteer_login_window['bg'] = '#021631'
+
+    # Call the volunteer login function with the new window and root
     from GUI_volunteer_login_update import login
-    login()
+    login(volunteer_login_window, root)
 
 def home_page():
     bg_color = '#021631'
@@ -89,7 +102,7 @@ def home_page():
         cursor="hand2",
         activebackground="#B8B8B8",
         activeforeground="black",
-        command=lambda: open_volunteer_login()).pack()     #this will open page volunteer login when clicked
+        command=lambda: open_volunteer_login(root)).pack()     #this will open page volunteer login when clicked
 
     root.mainloop()
 

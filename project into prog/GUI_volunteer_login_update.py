@@ -11,16 +11,22 @@ csv_filename = 'Refugee_DataFrame.csv'
 refugee_df = pd.read_csv(csv_filename)
 bg_color = '#021631'
 
-def login(display_messages=True):
-    global user_index, user
+def login(volunteer_login_window, root, display_messages=True):
+    global user_index, user, enrey1, enrey2
+
+    def back_to_main():
+        volunteer_login_window.destroy()
+        root.deiconify()
+
     username = enrey1.get()
-    password = enrey2.get()  # Keep password as a string
+    password = enrey2.get() # Keep password as a string
 
     # try:
     #     password = int(password)
     # except ValueError:
     #     messagebox.showinfo("", "Invalid password.")
     #     return None
+
 
     user_df = pd.read_csv('volunteers_file.csv')
     user = user_df[user_df['username'] == username]
@@ -130,8 +136,7 @@ def updating():
             redirect_button.pack_forget()
 
 
-    def back_to_main():
-        update_window.destroy()
+
 
     def redirect_to_main():
         global user, valid_fields
@@ -617,9 +622,6 @@ def display_user_row(user_index, user_df):
                           activeforeground="black", )
     close_button.pack(pady=10)
 
-def back_to_main():
-    root.destroy()
-
 
 root = tk.Toplevel()
 root.title('Volunteer Login')
@@ -644,13 +646,14 @@ root.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
 Label(root, text="Username: ",bg=bg_color,fg="white",font=("Calibri", 14)).place(x=20, y=20)
 Label(root, text="Password: ",bg=bg_color,fg="white",font=("Calibri", 14)).place(x=20, y=70)
 
-global enrey1
-global enrey2
+global enrey1, enrey2
 
-enrey1 = Entry(root, bd=5)
+# Entry for username
+enrey1 = tk.Entry(root, bd=5)
 enrey1.place(x=140, y=20)
 
-enrey2 = Entry(root, bd=5, show='*')
+# Entry for password
+enrey2 = tk.Entry(root, bd=5, show='*')
 enrey2.place(x=140, y=70)
 
 

@@ -4077,3 +4077,26 @@
 08-Dec-23 01:54:30 - INFO - Plan 1 has been closed and is inactive
 08-Dec-23 01:55:02 - INFO - Plan 1 has been closed and is inactive
 08-Dec-23 01:58:29 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 16:31:00 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 16:32:54 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 16:36:10 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 16:36:21 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 16:36:27 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 16:40:02 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 16:43:46 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 16:44:46 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 16:56:38 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 16:56:47 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 17:20:30 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 17:20:39 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 17:26:41 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 17:26:47 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 17:37:49 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 17:41:23 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 17:43:22 - INFO - Plan 1 has been closed and is inactive
+08-Dec-23 17:44:01 - INFO - Plan name: t, is created
+08-Dec-23 17:44:01 - ERROR - start_date is not a string: 2023-12-09
+08-Dec-23 17:44:01 - INFO - Plan created with ID: 10 and Camp IDs: 19,20
+08-Dec-23 17:44:21 - INFO - Plan name: t, is created
+08-Dec-23 17:44:21 - ERROR - start_date is not a string: 2023-12-09
+08-Dec-23 17:44:21 - INFO - Plan created with ID: 11 and Camp IDs: 21,22
