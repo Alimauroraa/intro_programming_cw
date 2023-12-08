@@ -1,7 +1,7 @@
 PlanID,planName,startDate,closingDate,geographicalArea,planDesc,adminID,active,NumberOfCamps,camp_id
 1,"Response to Flood in Zambia
 ",2023-12-07,2023-12-08,Zambia,"50 people affected
-",1,1,2,"1,2"
+",1,0,2,"1,2"
 2,Hao,2030-03-30,2030-03-31,Chile,test,1,1,2,"3,4"
 3,fads,2030-03-31,2030-03-30,fdas,fads,1,1,2,"5,6"
 4,fsd,2030-03-22,,Afghanistan,fds,1,1,2,"7,8"

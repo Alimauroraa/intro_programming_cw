@@ -11,7 +11,7 @@ csv_filename = 'Refugee_DataFrame.csv'
 refugee_df = pd.read_csv(csv_filename)
 bg_color = '#021631'
 
-def login():
+def login(display_messages=True):
     global user_index, user
     username = enrey1.get()
     password = enrey2.get()  # Keep password as a string
@@ -25,22 +25,28 @@ def login():
             user_index = user.index[0]
             # Check if account is active
             if not user['active'].iloc[0]:
-                messagebox.showinfo("Warning", "Hey! Your account is not active. Please contact the administrator.")
+                if display_messages:
+                    messagebox.showinfo("Warning", "Hey! Your account is not active. Please contact the administrator.")
+                return False, None
             else:
                 # Check if camp_id is assigned
                 if pd.isnull(user['camp_id'].iloc[0]):
-                    messagebox.showinfo("Warning", "Hey! Please choose a camp firstly!")
-                    updating()
+                    if display_messages:
+                        messagebox.showinfo("Warning", "Hey! Please choose a camp firstly!")
+                        updating()
+                    return False, None
                 else:
-                    messagebox.showinfo("", f"Access granted, {username}!")
-                    root.withdraw()  # Hide the login window
-                    main_application()  # Call the main application window
+                    if display_messages:
+                        messagebox.showinfo("", f"Access granted, {username}!")
+                        root.withdraw()  # Hide the login window
+                        main_application()  # Call the main application window
+                    return True, username
+
         else:
             messagebox.showinfo("Warning", "The password you have entered is wrong!")
     else:
         messagebox.showinfo("Warning", "The user account does not exist!")
         user_index = None
-
 
 
 import pandas as pd
