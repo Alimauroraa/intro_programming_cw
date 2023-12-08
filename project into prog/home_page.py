@@ -3,14 +3,13 @@ import tkinter as tk
 from admin_login_gui import Admin
 from create_plan import HumanitarianPlan
 
+root = None
 def admin_login_page(root):
-
     root.withdraw()
-
-    
-
-    admin_login_frame=Admin("","","")
+    admin_login_frame = Admin("", "", "", home_page, root)
     admin_login_frame.create_login_frame()
+
+
 
 def open_volunteer_login(root):
     root.withdraw()
@@ -20,32 +19,19 @@ def open_volunteer_login(root):
 def home_page():
     bg_color = '#021631'
 
-    #main frame initialisation
+    # Main frame initialization
     root = tk.Tk()
-    root.title("The Hope Trust: A Humanitarian Management System")  # --Can change this later, only for demo
-    #root.eval("tk::PlaceWindow . center")  # --Placing the window on the centre of the screen
-
-    #screen_width=root.winfo_screenwidth()
-    #screen_height = root.winfo_screenheight()
-
-    #x= (screen_width-600)//2
-    #y=(screen_height-750)//2
-    #root.geometry("600x600")
-    #root.geometry(f"700x700+{x}+{y}")
+    root.title("The Hope Trust: A Humanitarian Management System")
     root.geometry('400x350+0+0')
-    root['bg'] = '#021631'
+    root['bg'] = bg_color
 
-    # creating frame
+    # Creating frame
     home = tk.Frame(root, width=600, height=600, bg=bg_color)
-    # admin = tk.Frame(root, bg=bg_color)
-    # volunteer = tk.Frame(root, bg=bg_color)
-    # for frame in (home, admin, volunteer):
-    #home.grid(row=0, column=0, sticky="nsew")
-
     home.pack_propagate(False)
     home.pack()
 
-    # home page components
+    # Home page components
+    # Load the image each time the function is called
     logo_image = tk.PhotoImage(file="images/logo2.gif")
     logo_widget = tk.Label(
         home,
@@ -54,8 +40,8 @@ def home_page():
         height=150,
         bg=bg_color
     )
-    logo_widget.image = logo_image
-    logo_widget.pack(expand=False, fill='none', padx=10,pady=20)
+    logo_widget.image = logo_image  # Keep a reference to the image
+    logo_widget.pack(expand=False, fill='none', padx=10, pady=20)
 
     tk.Label(
         home,
@@ -91,7 +77,6 @@ def home_page():
         activebackground="#B8B8B8",
         activeforeground="black",
         command=lambda: open_volunteer_login(root)).pack()     #this will open page volunteer login when clicked
-
     root.mainloop()
 
 if __name__=='__main__':
