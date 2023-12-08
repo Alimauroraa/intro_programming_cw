@@ -4,7 +4,7 @@ from admin_login_gui import Admin
 from create_plan import HumanitarianPlan
 
 def admin_login_page(root):
-    root.withdraw()
+    #root.withdraw()
     admin_login_frame=Admin("","","")
     admin_login_frame.create_login_frame()
 
