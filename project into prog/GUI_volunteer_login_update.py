@@ -454,6 +454,7 @@ def quit_application():
     root.destroy()
 
 def main_application():
+    global main_window
     main_window = Toplevel(root)
     main_window.title('Volunteer Management System')
     # Set the window size
@@ -538,7 +539,7 @@ def main_application():
         activeforeground="black",)
     edit_camp_button.pack(pady=10, side='top', anchor='center')
 
-    live_update_button = Button(main_window, text="Send Live Updates", command=lambda: live_update(),
+    live_update_button = Button(main_window, text="Send Live Updates", command=open_live_updates,
                               font=("Calibri", 11),
                               width=22,
                               height=0,
@@ -624,9 +625,15 @@ def open_display_allocated_resources_frame():
     display_resources_frame.pack(expand=True, fill='both')
 
 
-def live_update():
-    from liveupdatevolunteer import submit_update
-    submit_update()
+def open_live_updates():
+    # from liveupdatevolunteer import submit_update
+    # submit_update()
+    # main_window.destroy()
+    # import liveupdatevolunteer
+    main_window.destroy()
+    from liveupdatevolunteer import main_live_updates
+    main_live_updates()
+
 def add_volunteer(username, user_password, first_name, last_name, birthday, phone, address1, address2, country, acc_type, email, gender, active,):
     global user_df
     # Ensure user_df is loaded

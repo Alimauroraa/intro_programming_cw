@@ -55,63 +55,67 @@ def send_camp_id_update(username, old_camp_id, new_camp_id):
     messagebox.showinfo("Camp Update Submitted", f"Camp update submitted on {timestamp}: {update_message}")
 def go_back():
     root.destroy()
+    from GUI_volunteer_login_update import main_application
+    main_application()
 
-# Read camp IDs from "camps.csv"
-with open("camps.csv", mode='r') as file:
-    reader = csv.reader(file)
-    next(reader)  # Skip header
-    camp_ids = ["Select a Camp"] + [row[0] for row in reader]
+def main_live_updates():
+    # Read camp IDs from "camps.csv"
+    with open("camps.csv", mode='r') as file:
+        reader = csv.reader(file)
+        next(reader)  # Skip header
+        camp_ids = ["Select a Camp"] + [row[0] for row in reader]
 
-root = tk.Tk()
-root.title("Live Updates")
-root.configure(bg='#021631')
+    global root
+    root = tk.Tk()
+    root.title("Live Updates")
+    root.configure(bg='#021631')
 
-frame = tk.Frame(root, bg='#021631')
-frame.place(relx=0.5, rely=0.5, anchor='center')
+    frame = tk.Frame(root, bg='#021631')
+    frame.place(relx=0.5, rely=0.5, anchor='center')
 
-camp_label = tk.Label(frame, text="Select Your Camp to Send a Message!", background="#021631", foreground="white")
-camp_label.pack()
+    camp_label = tk.Label(frame, text="Select Your Camp to Send a Message!", background="#021631", foreground="white")
+    camp_label.pack()
 
-df=pd.read_csv('volunteers_file.csv')
-username_entered=login(display_messages=False)
-filtered_df=df[df['username']==username_entered[1]]
-camp_id=filtered_df['camp_id'].astype(int).tolist()
+    df=pd.read_csv('volunteers_file.csv')
+    username_entered=login(display_messages=False)
+    filtered_df=df[df['username']==username_entered[1]]
+    camp_id=filtered_df['camp_id'].astype(int).tolist()
 
-camp_dropdown = ttk.Combobox(frame, values=camp_id, state="readonly")
-camp_dropdown.set("Select a Camp")
-camp_dropdown.pack()
+    camp_dropdown = ttk.Combobox(frame, values=camp_id, state="readonly")
+    camp_dropdown.set("Select a Camp")
+    camp_dropdown.pack()
 
-update_label = tk.Label(frame, text="Enter your live update:", background="#021631", foreground="white")
-update_label.pack()
-update_entry = ttk.Entry(frame)
-update_entry.pack()
+    update_label = tk.Label(frame, text="Enter your live update:", background="#021631", foreground="white")
+    update_label.pack()
+    update_entry = ttk.Entry(frame)
+    update_entry.pack()
 
-message_label = tk.Label(frame, text="What is your live update message about? Check all the boxes that apply.", background="#021631", foreground="white")
-message_label.pack()
+    message_label = tk.Label(frame, text="What is your live update message about? Check all the boxes that apply.", background="#021631", foreground="white")
+    message_label.pack()
 
-category_labels = ["Resources", "Weather", "Emergency", "Refugees"]
-category_states = {category_label: False for category_label in category_labels}
+    category_labels = ["Resources", "Weather", "Emergency", "Refugees"]
+    category_states = {category_label: False for category_label in category_labels}
 
-for category_label in category_labels:
-    checkbox = tk.Checkbutton(frame, text=category_label, command=lambda label=category_label: toggle_category(label), bg="#021631", fg="white", selectcolor="#021631", activebackground="#021631", activeforeground="white")
-    checkbox.pack()
+    for category_label in category_labels:
+        checkbox = tk.Checkbutton(frame, text=category_label, command=lambda label=category_label: toggle_category(label), bg="#021631", fg="white", selectcolor="#021631", activebackground="#021631", activeforeground="white")
+        checkbox.pack()
 
-submit_button = ttk.Button(frame, text="Submit Update", command=submit_update,width=14)
-submit_button.pack(pady=10)
+    submit_button = ttk.Button(frame, text="Submit Update", command=submit_update,width=14)
+    submit_button.pack(pady=10)
 
-go_back_button = ttk.Button(frame, text="Go Back", command=go_back,width=14)
-go_back_button.pack(pady=10)
+    go_back_button = ttk.Button(frame, text="Go Back", command=go_back,width=14)
+    go_back_button.pack(pady=10)
 
-main_window_width = 700
-main_window_height = 800
-screen_width = root.winfo_screenwidth()
-screen_height = root.winfo_screenheight()
-x_position = (screen_width - main_window_width) // 2
-y_position = (screen_height - main_window_height) // 2
-root.geometry(f"{main_window_width}x{main_window_height}+{x_position}+{y_position}")
+    main_window_width = 700
+    main_window_height = 800
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+    x_position = (screen_width - main_window_width) // 2
+    y_position = (screen_height - main_window_height) // 2
+    root.geometry(f"{main_window_width}x{main_window_height}+{x_position}+{y_position}")
 
-root.mainloop()
+    root.mainloop()
 
 
 
-login()
+# login()
