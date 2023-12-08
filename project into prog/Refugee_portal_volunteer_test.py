@@ -287,7 +287,7 @@ class RefugeePortalVolunteerApp:
             # Increment refugees_number and decrement max_capacity
             self.camps_df.loc[self.camps_df['camp_id'].astype(str) == selected_camp_id, 'refugees_number'] += 1
             self.camps_df.loc[self.camps_df['camp_id'].astype(str) == selected_camp_id, 'current_availability'] -= 1
-            self.camps_df.to_csv("camps_csv", index=False)
+            self.camps_df.to_csv("camps.csv", index=False)
 
             updated_data.to_csv("Refugee_DataFrame.csv", index=False)
             messagebox.showinfo("Adding Refugee",
@@ -480,7 +480,7 @@ class RefugeePortalVolunteerApp:
         field_window.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
         field_var = tk.StringVar()
-        field_var.set(fields[0])  # Set the default value
+        # field_var.set(fields[0])  # Set the default value
 
         field_label = tk.Label(field_window, text="Select Field to Edit:", bg=bg_color, fg="white",
                                font=("Calibri", 14))
@@ -488,6 +488,9 @@ class RefugeePortalVolunteerApp:
 
         field_dropdown = ttk.Combobox(field_window, textvariable=field_var, values=fields, state="readonly")
         field_dropdown.pack(pady=10)
+        def back():
+            field_window.destroy()
+            messagebox.showinfo("Edit Refugee", "Command cancelled")
 
         ok_button = tk.Button(field_window, text="OK", command=field_window.destroy, font=("Calibri", 12),
                               width=16,
@@ -498,6 +501,16 @@ class RefugeePortalVolunteerApp:
                               activebackground="#B8B8B8",
                               activeforeground="black")
         ok_button.pack(pady=10)
+
+        back_button = tk.Button(field_window, text="Back", command=back, font=("Calibri", 12),
+                              width=16,
+                              height=0,
+                              bg="#FFFFFF",
+                              fg="black",
+                              cursor="hand2",
+                              activebackground="#B8B8B8",
+                              activeforeground="black")
+        back_button.pack(pady=10)
 
         field_window.wait_window()  # Wait for the window to be closed
 
@@ -518,9 +531,9 @@ class RefugeePortalVolunteerApp:
 
         field_window.update()
         field_window.destroy()
-
-        messagebox.showinfo("Edit Refugee",
-                            f"Refugee information updated for Refugee ID {refugee_id_to_edit}. Please reopen the application to view the changes.")
+        if new_value is not None:
+            messagebox.showinfo("Edit Refugee",
+                                f"Refugee information updated for Refugee ID {refugee_id_to_edit}. Please reopen the application to view the changes.")
 
     def update_camp_info(self, original_camp_id, new_camp_id):
         original_camp_id = str(original_camp_id).strip()
