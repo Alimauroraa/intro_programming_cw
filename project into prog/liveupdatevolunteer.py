@@ -3,20 +3,23 @@ from tkinter import ttk, messagebox
 import csv
 from datetime import datetime
 
+import pandas as pd
+from GUI_volunteer_login_update import login
+
 def submit_update():
     selected_camp = camp_dropdown.get()
     update_message = update_entry.get()
 
-    # Check if a camp is selected, a message is provided, and at least one category is selected
-    if selected_camp == "Select a Camp" or selected_camp == "":
-        messagebox.showerror("Error", "Please select a camp.")
-        return
-    if not update_message.strip():
-        messagebox.showerror("Error", "Please provide an update message.")
-        return
-    if not any(category_states.values()):
-        messagebox.showerror("Error", "Please select at least one category.")
-        return
+    # # Check if a camp is selected, a message is provided, and at least one category is selected
+    # if selected_camp == "Select a Camp" or selected_camp == "":
+    #     messagebox.showerror("Error", "Please select a camp.")
+    #     return
+    # if not update_message.strip():
+    #     messagebox.showerror("Error", "Please provide an update message.")
+    #     return
+    # if not any(category_states.values()):
+    #     messagebox.showerror("Error", "Please select at least one category.")
+    #     return
 
     selected_categories = [int(state) for state in category_states.values()]
 
@@ -61,7 +64,12 @@ frame.place(relx=0.5, rely=0.5, anchor='center')
 camp_label = tk.Label(frame, text="Select a Camp:", background="#021631", foreground="white")
 camp_label.pack()
 
-camp_dropdown = ttk.Combobox(frame, values=camp_ids, state="readonly")
+df=pd.read_csv('volunteers_file.csv')
+username_entered=login(display_messages=False)
+filtered_df=df[df['username']==username_entered[1]]
+camp_id=filtered_df['camp_id'].astype(int).tolist()
+
+camp_dropdown = ttk.Combobox(frame, values=camp_id, state="readonly")
 camp_dropdown.set("Select a Camp")
 camp_dropdown.pack()
 
@@ -95,3 +103,7 @@ y_position = (screen_height - main_window_height) // 2
 root.geometry(f"{main_window_width}x{main_window_height}+{x_position}+{y_position}")
 
 root.mainloop()
+
+
+
+login()
