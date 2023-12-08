@@ -27,7 +27,7 @@ def login(display_messages=True):
 
     if not user.empty:
         # Check if password matches (as string comparison)
-        if str(user['user_password'].iloc[0]) == password:
+        if str(user['user_password'].iloc[0]) == password and not pd.isnull(user['camp_id'].iloc[0]):
             user_index = user.index[0]
             volunteer_camp_id = user_df.loc[user_index, 'camp_id']
             print("user_index:", user_index)
@@ -44,7 +44,7 @@ def login(display_messages=True):
                     main_application()  # Call the main application window
                 return True, username
         else:
-            if user['user_password'].iloc[0] == password:
+            if str(user['user_password'].iloc[0]) == password:
                 user_index = user.index[0]
                 if user['active'].iloc[0] == False:
                     if display_messages:
