@@ -4088,3 +4088,4 @@
 08-Dec-23 18:05:54 - INFO - Plan name: adsf, is created
 08-Dec-23 18:05:54 - ERROR - start_date is not a string: 2030-03-30
 08-Dec-23 18:05:54 - INFO - Plan created with ID: 10 and Camp IDs: 19,20
+08-Dec-23 18:13:46 - INFO - Plan 1 has been closed and is inactive
