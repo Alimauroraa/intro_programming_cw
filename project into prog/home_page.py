@@ -4,13 +4,16 @@ from admin_login_gui import Admin
 from create_plan import HumanitarianPlan
 
 def admin_login_page(root):
+    root.withdraw()
 
-    # root.withdraw()
+    # Create a Toplevel window for the admin login
+    admin_login_window = tk.Toplevel(root)
+    admin_login_window.title("Admin Login")
+    admin_login_window.geometry('400x350+0+0')
+    admin_login_window['bg'] = '#021631'
 
-    
-
-    admin_login_frame=Admin("","","")
-    admin_login_frame.create_login_frame()
+    admin_login_frame = Admin("","","")
+    admin_login_frame.create_login_frame(admin_login_window, root)  # Pass both the new window and root
 
 def open_volunteer_login():
     from GUI_volunteer_login_update import login
