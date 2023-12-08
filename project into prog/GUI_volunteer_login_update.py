@@ -4,12 +4,56 @@ from tkinter import messagebox
 import pandas as pd
 from tkinter import ttk
 from display_camp_resources_frame import DisplayAllocatedResourcesFrame
-
+import re
 
 user_df = pd.read_csv('volunteers_file.csv')
 csv_filename = 'Refugee_DataFrame.csv'
 refugee_df = pd.read_csv(csv_filename)
 bg_color = '#021631'
+
+country_list = ["Afghanistan", "Albania", "Algeria", "Andorra", "Angola",
+                "Antigua and Barbuda", "Argentina", "Armenia", "Australia",
+                "Austria", "Azerbaijan", "Bahamas", "Bahrain", "Bangladesh",
+                "Barbados", "Belarus", "Belgium", "Belize", "Benin",
+                "Bhutan", "Bolivia", "Bosnia and Herzegovina", "Botswana",
+                "Brazil", "Brunei", "Bulgaria", "Burkina Faso", "Burundi",
+                "Cabo Verde", "Cambodia", "Cameroon", "Canada",
+                "Central African Republic", "Chad", "Chile", "China",
+                "Colombia", "Comoros", "Congo, Democratic Republic of the",
+                "Congo, Republic of the", "Costa Rica", "Cote d'Ivoire",
+                "Croatia", "Cuba", "Cyprus", "Czechia", "Denmark", "Djibouti",
+                "Dominica", "Dominican Republic", "Ecuador", "Egypt",
+                "El Salvador", "Equatorial Guinea", "Eritrea", "Estonia",
+                "Eswatini", "Ethiopia", "Fiji", "Finland", "France",
+                "Gabon", "Gambia", "Georgia", "Germany", "Ghana", "Greece",
+                "Grenada", "Guatemala", "Guinea", "Guinea-Bissau", "Guyana",
+                "Haiti", "Honduras", "Hungary", "Iceland", "India",
+                "Indonesia", "Iran", "Iraq", "Ireland", "Israel", "Italy",
+                "Jamaica", "Japan", "Jordan", "Kazakhstan", "Kenya",
+                "Kiribati", "Korea, North", "Korea, South", "Kosovo",
+                "Kuwait", "Kyrgyzstan", "Laos", "Latvia", "Lebanon",
+                "Lesotho", "Liberia", "Libya", "Liechtenstein", "Lithuania",
+                "Luxembourg", "Madagascar", "Malawi", "Malaysia", "Maldives",
+                "Mali", "Malta", "Marshall Islands", "Mauritania", "Mauritius",
+                "Mexico", "Micronesia", "Moldova", "Monaco", "Mongolia",
+                "Montenegro", "Morocco", "Mozambique", "Myanmar", "Namibia",
+                "Nauru", "Nepal", "Netherlands", "New Zealand", "Nicaragua",
+                "Niger", "Nigeria", "North Macedonia", "Norway", "Oman",
+                "Pakistan", "Palau", "Palestine State", "Panama",
+                "Papua New Guinea", "Paraguay", "Peru", "Philippines",
+                "Poland", "Portugal", "Qatar", "Romania", "Russia", "Rwanda",
+                "Saint Kitts and Nevis", "Saint Lucia", "Saint Vincent and the Grenadines",
+                "Samoa", "San Marino", "Sao Tome and Principe", "Saudi Arabia",
+                "Senegal", "Serbia", "Seychelles", "Sierra Leone", "Singapore",
+                "Slovakia", "Slovenia", "Solomon Islands", "Somalia",
+                "South Africa", "South Sudan", "Spain", "Sri Lanka", "Sudan",
+                "Suriname", "Sweden", "Switzerland", "Syria", "Taiwan",
+                "Tajikistan", "Tanzania", "Thailand", "Timor-Leste", "Togo",
+                "Tonga", "Trinidad and Tobago", "Tunisia", "Turkey", "Turkmenistan",
+                "Tuvalu", "Uganda", "Ukraine", "United Arab Emirates",
+                "United Kingdom", "United States", "Uruguay", "Uzbekistan",
+                "Vanuatu", "Vatican City", "Venezuela", "Vietnam",
+                "Yemen", "Zambia", "Zimbabwe"]
 
 def login(display_messages=True):
     global user_index, user
@@ -94,7 +138,7 @@ def updating():
     if pd.isnull(user['camp_id'].iloc[0]):
         valid_fields = ["camp_id"]
     else:
-        valid_fields = ["first_name","last_name","dob","gender","contact_number", "address1", "address2", "city", "user_email", "camp_id"]
+        valid_fields = ["first_name","last_name","dob","gender","contact_number", "address1", "address2", "country", "user_email", "camp_id"]
     had_no_camp_id = pd.isnull(user['camp_id'].iloc[0])
     def update_info():
         field_to_update = field_var.get()
@@ -102,17 +146,45 @@ def updating():
 
         if field_to_update in valid_fields:
             try:
+                if not new_value:
+                    raise ValueError(f"Field {field_to_update} cannot be empty.")
+
                 if field_to_update == "contact_number":
-                    new_value = int(new_value)
+                    try:
+                        new_value = int(new_value)
+                    except ValueError:
+                        raise ValueError("Invalid contact number. Please enter a numeric value.")
+                # if not str(new_value).isdigit():
+                #     raise ValueError("Invalid contact number. Please enter a numeric value.")
+
+                elif field_to_update == "dob":
+                    try:
+                        pd.to_datetime(new_value)  # Check if the birthday is in a valid date format
+                    except ValueError:
+                        raise ValueError("Invalid birthday format. Please use YYYY-MM-DD format.")
+
+                elif field_to_update == "user_email":
+                    if not re.fullmatch(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', new_value):
+                        raise ValueError("Invalid email address. Please enter a valid email.")
+
                 elif field_to_update == "camp_id":
                     new_value = int(new_value)
                     camp_ids = set(pd.read_csv('camps.csv')['camp_id'])
                     if new_value not in camp_ids:
-                        result_label.config(text="Error: The entered camp_id does not exist.", fg="red",
-                                            font=("Calibri", 12))
-                        return
-            except ValueError:
-                result_label.config(text="Invalid input. Please enter a valid value.", fg="red",font=("Calibri", 12))
+                        raise ValueError("Error: The entered camp_id does not exist.")
+
+                elif field_to_update in ["first_name", "last_name"]:
+                    if not new_value.isalpha():
+                        raise ValueError(f"{field_to_update.replace('_', ' ').title()} must only contain letters.")
+
+                elif field_to_update == "gender" and new_value.lower() not in ["male", "female", "other"]:
+                    raise ValueError("Gender must be 'male', 'female', or 'other'.")
+                elif field_to_update == "country":
+                    valid_countries = set(country_list)  # Replace with your actual list of valid countries
+                    if new_value.capitalize() not in valid_countries:
+                        raise ValueError("Invalid country. Please select a valid country.")
+            except ValueError as e:
+                result_label.config(text=str(e), fg="red", font=("Calibri", 12))
                 return
 
             user_df.loc[user_index, field_to_update] = new_value
@@ -185,7 +257,17 @@ def updating():
                            activebackground="#B8B8B8",
                            activeforeground="black", )
     update_button.pack(pady=10)
-
+    display_camp_button = Button(update_window, text="Display all camps",
+                                 command=lambda: display_all_camps(update_window),
+                                 font=("Calibri", 10),
+                                 width=15,
+                                 height=0,
+                                 bg="#FFFFFF",
+                                 fg="black",
+                                 cursor="hand2",
+                                 activebackground="#B8B8B8",
+                                 activeforeground="black", )
+    display_camp_button.pack(pady=10)
     if pd.isnull(user['camp_id'].iloc[0]):
 
         # Add the redirect_button only when the condition is true
@@ -200,17 +282,9 @@ def updating():
                                  activeforeground="black", )
 
 
-        display_camp_button = Button(update_window, text="Display all camps", command=lambda:display_all_camps(update_window),
-                                     font=("Calibri", 10),
-                                     width=15,
-                                     height=0,
-                                     bg="#FFFFFF",
-                                     fg="black",
-                                     cursor="hand2",
-                                     activebackground="#B8B8B8",
-                                     activeforeground="black", )
-        display_camp_button.place(x=40, y=70)
     else:
+
+
         # Add the back_button when the condition is false
         back_button = Button(update_window, text="Back", command=back_to_main,
                              font=("Calibri", 10),
@@ -222,6 +296,8 @@ def updating():
                              activebackground="#B8B8B8",
                              activeforeground="black", )
         back_button.pack(pady=10)
+
+
     # redirect_button = Button(update_window, text="Redirect to Main", command=redirect_to_main)
     # redirect_button.pack(pady=10)
 
@@ -260,6 +336,7 @@ def display_all_camps(update_window):
     tree.pack(expand=True, fill='both')
 
 def create_account_window():
+
     add_window = Toplevel(root)
     add_window.title('Create Account')
     window_width = 700
@@ -274,18 +351,24 @@ def create_account_window():
 
     add_window.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
     fields = ["username", "user_password", "first_name", "last_name", "birthday", "phone", "address1", "address2",
-              "city", "email", "gender", "availability", "camp_id"]
+              "country", "email", "gender"]
     entry_vars = {}
 
-    for field in fields:
+
+    for i, field in enumerate(fields):
         label_text = field.replace('_', ' ').title()
         Label(add_window, text=f"{label_text}: ", bg=bg_color, fg="white", font=("Calibri", 14)).place(x=200,
-                                                                                                       y=125 + fields.index(
-                                                                                                           field) * 30)
-        entry_var = StringVar(add_window)  # Associate StringVar with the add_window
-        entry = Entry(add_window, textvariable=entry_var)
-        entry.place(x=340, y=130 + fields.index(field) * 30)
-        entry_vars[field] = entry_var
+                                                                                                       y=125 + i * 30)
+
+        if field == "country":
+            country_var = StringVar(add_window)
+            country_dropdown = ttk.Combobox(add_window, textvariable=country_var, values=country_list,width=17,)
+            country_dropdown.place(x=340, y=130 + i * 30)
+            entry_vars[field] = country_var
+        else:
+            entry_var = StringVar(add_window)
+            Entry(add_window, textvariable=entry_var).place(x=340, y=130 + i * 30)
+            entry_vars[field] = entry_var
 
     back_button = Button(add_window, text="Back", command=add_window.destroy, font=("Calibri", 12), width=16, height=0, bg="#FFFFFF", fg="black", cursor="hand2", activebackground="#B8B8B8", activeforeground="black")
     back_button.place(x=280, y=600)
@@ -295,23 +378,25 @@ def create_account_window():
 
 
 def create_account(entry_vars, add_window):
-    fields = ["username", "user_password", "first_name", "last_name", "birthday", "phone", "address1", "address2", "city", "email", "gender", "availability", "camp_id"]
+    fields = ["username", "user_password", "first_name", "last_name", "birthday", "phone", "address1", "address2", "country", "email", "gender",]
     default_values = {"active": True, "acc_type": "volunteer"}
-
+    existing_usernames = pd.read_csv('volunteers_file.csv')['username'].tolist()
     # Get the user-entered values. Using the field names directly from the fields list
     user_values = {field: entry_vars[field].get() for field in fields}
-
+    regex = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
     # Debugging: Print user_values to check inputs
     print("User Values:", user_values)
-    import re
     # Validation check
     for key, value in user_values.items():
         if not value:
             messagebox.showerror("Error", f"Field {key} cannot be empty.")
             return
-        elif key in ["first_name", "last_name"]:
-            if not value.isalpha():
-                messagebox.showerror("Error", f"{key.replace('_', ' ').title()} must only contain letters.")
+        elif key == "username":
+            if not value.startswith("volunteer") or not value[len("volunteer"):].isdigit():
+                messagebox.showerror("Error", "Username must start with 'volunteer' followed by a number.")
+                return
+            if value in existing_usernames:
+                messagebox.showerror("Error", "This username already exists. Please choose a different username.")
                 return
         elif key == "user_password":
             try:
@@ -319,21 +404,30 @@ def create_account(entry_vars, add_window):
             except ValueError:
                 messagebox.showerror("Error", "User password must be an integer.")
                 return
+        elif key in ["first_name", "last_name"]:
+            if not value.isalpha():
+                messagebox.showerror("Error", f"{key.replace('_', ' ').title()} must only contain letters.")
+                return
+
         elif key == "birthday":
             try:
                 pd.to_datetime(value)  # Check if the birthday is in a valid date format
             except ValueError:
                 messagebox.showerror("Error", "Invalid birthday format. Please use YYYY-MM-DD format.")
                 return
-        elif key == "gender" and value.lower() not in ["male", "female", "other"]:
-            messagebox.showerror("Error", "Gender must be 'male', 'female', or 'other'.")
-            return
+
         elif key == "phone":
             try:
                 int(value)  # Check if the phone number is an integer
             except ValueError:
                 messagebox.showerror("Error", "Phone must be a number.")
                 return
+        elif key == "email" and not re.fullmatch(regex, value):
+            messagebox.showerror("Error", "Invalid email format.")
+            return
+        elif key == "gender" and value.lower() not in ["male", "female", "other"]:
+            messagebox.showerror("Error", "Gender must be 'male', 'female', or 'other'.")
+            return
 
     # Update the dictionary with default values for missing keys
     new_volunteer_info = {**default_values, **user_values}
@@ -528,7 +622,7 @@ def open_display_allocated_resources_frame():
 def live_update():
     from liveupdatevolunteer import submit_update
     submit_update()
-def add_volunteer(username, user_password, first_name, last_name, birthday, phone, address1, address2, city, acc_type, email, gender, active, availability, camp_id):
+def add_volunteer(username, user_password, first_name, last_name, birthday, phone, address1, address2, country, acc_type, email, gender, active,):
     global user_df
     # Ensure user_df is loaded
     user_df = pd.read_csv('volunteers_file.csv')
@@ -547,13 +641,13 @@ def add_volunteer(username, user_password, first_name, last_name, birthday, phon
         "contact_number": [phone],
         "address1": [address1],
         "address2": [address2],
-        "city": [city],
+        "country": [country],
         "acc_type": [acc_type],
         "user_email": [email],
         'gender': [gender],
         'active': [active],
-        'availability': [availability],
-        'camp_id': [camp_id],
+
+
     })
 
     # Concatenate the new volunteer data to the existing DataFrame
