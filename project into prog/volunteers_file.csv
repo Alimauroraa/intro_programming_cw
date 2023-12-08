@@ -1,6 +1,6 @@
 user_id,username,user_password,first_name,last_name,dob,user_email,contact_number,address1,address2,city,acc_type,gender,active,availability,camp_id
 1,volunteer1,111,Mike,Ray,1998/11/9,mike1@gmail.com,3333333,wood street,dd,London,volunteer,male,True,Yes,1
-2,volunteer2,111,John,Conley,1988/9/16,jjohn890@gmail.com,7562332145,11th avenue,xx,NewYork,volunteer,female,False,No,2,
+2,volunteer2,111,John,Conley,1988/9/16,jjohn890@gmail.com,7562332145,11th avenue,xx,NewYork,volunteer,female,False,No,2
 3,volunteer3,111,Diaz,James,1990/8/26,james567@outlook.com,7877569743,rain street,ee,Toronto,volunteer,male,True,No,3
 4,volunteer4,111,Chris,Johnson,1992/04/10,chris@gmail.com,4444444,Cedar Avenue,Suite 5,Villagetown,volunteer,male,True,Yes,4
 5,volunteer5,111,Emily,White,1993/12/18,emily@gmail.com,5556666,Elm Road,Apartment 303,Countryside,volunteer,female,True,Yes,5
