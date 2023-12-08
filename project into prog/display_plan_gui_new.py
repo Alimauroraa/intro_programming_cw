@@ -90,7 +90,7 @@ def show_info(dataframe):
             message = "Plan is currently active" if active_value != 0 else "Plan is inactive"
             messagebox.showinfo("Plan Status", message)
         if col=='closingDate':
-            dataframe['closingDate']=pd.to_datetime(dataframe[col], errors='coerce').dt.strftime('%Y/%m/%d')
+            dataframe['closingDate']=pd.to_datetime(dataframe[col], errors='coerce').dt.strftime('%Y-%m-%d')
         label = tk.Label(frame, text=col, bg='#021631',
                          fg="white", font=("Calibri", 10))
         label.grid(row=idx, column=0, padx=5, pady=5, sticky="w")
@@ -139,8 +139,8 @@ def display_all_plan(root):
     df = pd.read_csv('plan.csv', parse_dates=['startDate', 'closingDate'], date_parser=date_parser)
 
     # Convert the dates to the desired format
-    df['startDate'] = df['startDate'].dt.strftime('%Y/%m/%d')
-    df['closingDate'] = df['closingDate'].dt.strftime('%Y/%m/%d')
+    df['startDate'] = df['startDate'].dt.strftime('%Y-%m-%d')
+    df['closingDate'] = df['closingDate'].dt.strftime('%Y-%m-%d')
 
     new_window=tk.Toplevel(root)
     new_window.title('Plans Table')
