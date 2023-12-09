@@ -1,9 +1,9 @@
 camp_id,location,volunteers_number,refugees_number,plan_name,current_availability,max_capacity,specific_needs,allocated_resources
-1,Zambia,2,0,"Response to Flood in Zambia
+1,Zambia,0,0,"Response to Flood in Zambia
 ",50,50,,{}
 2,Zambia,0,0,"Response to Flood in Zambia
 ",50,50,,{}
-3,Chile,0,0,Hao,50,50,,{}
+3,Chile,1,0,Hao,50,50,,{}
 4,Chile,0,0,Hao,50,50,,{}
 5,fdas,0,0,fads,50,50,,{}
 6,fdas,0,0,fads,50,50,,{}
@@ -38,4 +38,4 @@ camp_id,location,volunteers_number,refugees_number,plan_name,current_availabilit
 35,Afghanistan,0,0,lll,50,50,X volunteers required (update via manage camp),
 36,Afghanistan,1,0,lll,50,50,X volunteers required (update via manage camp),
 37,China,0,0,qqq,50,50,X volunteers required (update via manage camp),
-38,China,0,0,qqq,50,50,X volunteers required (update via manage camp),
+38,China,1,0,qqq,50,50,X volunteers required (update via manage camp),

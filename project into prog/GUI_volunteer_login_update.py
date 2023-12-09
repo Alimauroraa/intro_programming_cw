@@ -115,7 +115,7 @@ import pandas as pd
 def update_camp_volunteer_numbers():
     global user_df
     try:
-        user_df = pd.read_csv('volunteers_file.csv', dtype={'camp_id': 'Int64'})
+        user_df = pd.read_csv('volunteers_file.csv')
         camps_df = pd.read_csv("camps.csv")
 
         volunteer_counts = user_df['camp_id'].value_counts()
