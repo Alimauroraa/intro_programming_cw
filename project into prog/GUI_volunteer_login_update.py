@@ -74,6 +74,7 @@ def login(display_messages=True):
         if str(user['user_password'].iloc[0]) == password and not pd.isnull(user['camp_id'].iloc[0]):
             user_index = user.index[0]
             volunteer_camp_id = user_df.loc[user_index, 'camp_id']
+            volunteer_camp_id = int(volunteer_camp_id)
             print("user_index:", user_index)
             print(volunteer_camp_id)
             # Check if account is active
@@ -611,7 +612,9 @@ def open_refugee_portal():
     #         pass  # Handle the case where destroy method doesn't exist
 
     volunteer_camp_id = user_df.loc[user_index, 'camp_id']
+    volunteer_camp_id = int(volunteer_camp_id)
     volunteer_volunteer_id = user_df.loc[user_index, 'user_id']
+    volunteer_volunteer_id = int(volunteer_volunteer_id)
     # portal_window = tk.Toplevel(root)
     # portal_window.geometry("1400x700")
     # main_menu_window = MainMenuWindow(portal_window)

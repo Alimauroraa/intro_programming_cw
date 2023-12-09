@@ -172,7 +172,7 @@ class RefugeePortalVolunteerApp:
             return
 
         camp_ID_var = tk.StringVar(value=str(self.camp_id))
-        camp_ID_var.set(available_camp_ids[0])  # Set the default value
+        # camp_ID_var.set(available_camp_ids[0])  # Set the default value
         volunteer_ID_var = tk.StringVar(value=str(self.volunteer_id))
 
         def back(input_window):
@@ -193,13 +193,13 @@ class RefugeePortalVolunteerApp:
                     break
 
             # Additional validation can be added here (e.g., checking gender, ensuring numbers are valid, etc.)
-            while True:
-                camp_id_value = camp_ID_var.get()
-                if not camp_id_value.isdigit():
-                    messagebox.showerror("Invalid Input", "Ensure Camp ID is a number")
-                    return
-                else:
-                    break
+            # while True:
+            #     camp_id_value = camp_ID_var.get()
+            #     if not camp_id_value.isdigit():
+            #         messagebox.showerror("Invalid Input", "Ensure Camp ID is a number")
+            #         return
+            #     else:
+            #         break
 
             while True:
                 first_name_value = first_name_var.get().capitalize()
