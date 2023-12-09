@@ -258,8 +258,9 @@ def updating():
 
     # Set the window geometry
     update_window.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
-
-    Label(update_window, text="Select field to update: ",bg=bg_color,fg="white",font=("Calibri", 14)).pack(pady=(200,10))
+    Label(update_window, text="When you switch a camp by updating your camp_id, a live update will be sent to admin",
+          bg=bg_color, fg="white", font=("Calibri", 12)).pack(pady=(180,10))
+    Label(update_window, text="Select field to update: ",bg=bg_color,fg="white",font=("Calibri", 14)).pack(pady=(10,10))
     field_var = ttk.Combobox(update_window, values=valid_fields)
     field_var.pack(pady=10)
     field_var.set("Choose a field")
