@@ -170,10 +170,12 @@ def updating():
                 elif field_to_update == "camp_id":
                     old_camp_id = int(user_df.loc[user_index, 'camp_id'])
                     new_camp_id = int(new_value)
-                    username = user_df.loc[user_index, 'username']
+                    user_id = user_df.loc[user_index, 'user_id']
+                    first_namee = user_df.loc[user_index, 'first_name']
+                    last_namee = user_df.loc[user_index, 'last_name']
                     from liveupdatevolunteer import send_camp_id_update
                     # Call the new method
-                    send_camp_id_update(username, old_camp_id, new_camp_id)
+                    send_camp_id_update(user_id, first_namee, last_namee, old_camp_id, new_camp_id)
                     camp_ids = set(pd.read_csv('camps.csv')['camp_id'])
                     if new_camp_id not in camp_ids:
                         raise ValueError("Error: The entered camp_id does not exist.")

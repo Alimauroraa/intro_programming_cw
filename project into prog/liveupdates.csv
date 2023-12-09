@@ -10,3 +10,7 @@
 2023-12-09 12:13:47,2,no more resources,"""1, 0, 0, 0, 0"""
 2023-12-09 12:27:21,5,User 'volunteer8' changed camp from 2 to 5.,"0, 0, 0, 0, 1"
 2023-12-09 12:27:37,5,i just changed my camp lol,"""0, 0, 0, 0, 1"""
+2023-12-09 12:35:36,1,User '8' 'qqq' 'qqq' changed camp from 5 to 1.,"0, 0, 0, 0, 1"
+2023-12-09 12:38:07,2,User_id '8' First name: 'qqq' Last name: 'qqq' changed camp from 1 to 2.,"0, 0, 0, 0, 1"
+2023-12-09 12:38:16,3,User_id '8' First name: 'qqq' Last name: 'qqq' changed camp from 2 to 3.,"0, 0, 0, 0, 1"
+2023-12-09 12:41:40,13,User_id '8' First name: 'qqq' Last name: 'qqq' changed camp from 3 to 13.,"0, 0, 0, 0, 1"
