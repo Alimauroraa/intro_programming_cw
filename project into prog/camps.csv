@@ -15,8 +15,8 @@ camp_id,location,volunteers_number,refugees_number,plan_name,current_availabilit
 ",50,50,,{}
 20,Chile,0,0,adsf,50,50,10 volunteers required,
 3,Chile,0,0,Hao,50,50,,{}
-4,Chile,1,0,Hao,50,50,,{}
-5,fdas,0,0,fads,50,50,,{}
+4,Chile,0,0,Hao,50,50,,{}
+5,fdas,1,0,fads,50,50,,{}
 6,fdas,0,0,fads,50,50,,{}
 7,Afghanistan,0,0,fsd,50,50,,{}
 8,Afghanistan,0,0,fsd,50,50,,{}

@@ -32,6 +32,9 @@ def filter_and_display_updates(selected_option, live_feed_text):
                 elif selected_option == 'Refugees' and '1' in categories[3]:
                     formatted_update = f"{timestamp} - Camp {camp}: {update_message}\n"
                     live_feed_text.insert(tk.END, formatted_update)
+                elif selected_option == 'Camp change' and '1' in categories[4]:
+                    formatted_update = f"{timestamp} - Camp {camp}: {update_message}\n"
+                    live_feed_text.insert(tk.END, formatted_update)
 def back(frame):
     frame.grid_forget()
 def on_option_selected(event):
@@ -44,7 +47,7 @@ def livefeed_frame(parent):
     frame.grid_columnconfigure(0, weight=1)
 
     # Dropdown menu for filtering options
-    options = ["All", "Resources", "Weather", "Emergency", "Refugees"]
+    options = ["All", "Resources", "Weather", "Emergency", "Refugees", "Camp change"]
     selected_option = tk.StringVar(frame)
     selected_option.set(options[0])
 
