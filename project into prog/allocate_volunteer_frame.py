@@ -11,7 +11,7 @@ class AllocateVolunteersFrame(tk.Frame):
 
         # Read volunteers_file.csv and camps.csv
         self.volunteers_df = pd.read_csv("volunteers_file.csv", dtype={'camp_id': 'Int64'})
-        self.camps_df = pd.read_csv("camps.csv")
+        self.camps_df = pd.read_csv("camps.csv", dtype={'volunteers_number': 'Int64'})
 
         # Create and configure GUI components
         self.create_gui()
@@ -96,22 +96,25 @@ class AllocateVolunteersFrame(tk.Frame):
         messagebox.showinfo("Success", f"Volunteer {selected_volunteer_id} allocated to Camp {selected_camp_id_int}.")
 
     def update_camp_volunteer_numbers(self):
-
         volunteer_counts = self.volunteers_df['camp_id'].value_counts()
 
+        # Update volunteer counts
         for camp_id, count in volunteer_counts.items():
             self.camps_df.loc[self.camps_df['camp_id'] == camp_id, 'volunteers_number'] = count
 
-    # Ensure camps without volunteers are updated
+        # Ensure camps without volunteers are updated
         all_camp_ids = set(self.camps_df['camp_id'])
         counted_camp_ids = set(volunteer_counts.index)
         camps_without_volunteers = all_camp_ids - counted_camp_ids
         for camp_id in camps_without_volunteers:
             self.camps_df.loc[self.camps_df['camp_id'] == camp_id, 'volunteers_number'] = 0
 
-    # Save the updated camps dataframe
+        # Convert the volunteers_number column to nullable integer type
+        self.camps_df['volunteers_number'] = self.camps_df['volunteers_number'].astype('Int64')
+
+        # Save the updated camps dataframe
         self.camps_df.to_csv("camps.csv", index=False)
-        
+
     def on_camp_select(self, event=None):
         # This method is triggered when a camp is selected from the dropdown
         selected_camp = self.camp_dropdown.get()
