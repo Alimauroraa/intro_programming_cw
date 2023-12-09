@@ -115,7 +115,7 @@ import pandas as pd
 def update_camp_volunteer_numbers():
     global user_df
     try:
-        user_df = pd.read_csv('volunteers_file.csv')
+        user_df = pd.read_csv('volunteers_file.csv', dtype={'camp_id': 'Int64'})
         camps_df = pd.read_csv("camps.csv")
 
         volunteer_counts = user_df['camp_id'].value_counts()
@@ -671,8 +671,8 @@ def add_volunteer(username, user_password, first_name, last_name, birthday, phon
     user_df.to_csv('volunteers_file.csv', index=False)
 
 def display_user_row(user_index, user_df):
-
     user_row = user_df.loc[[user_index]]
+    user_row = user_row.fillna('')  # Replace NaNs with empty strings for display
     # print("\nUser Information:")
     # print(user_row.to_string(index=False))
     display_window = Toplevel(root)
@@ -696,9 +696,17 @@ def display_user_row(user_index, user_df):
     # Create a Treeview widget
     tree = ttk.Treeview(display_window, columns=("Property", "Value"))
 
-    # Insert data into the treeview
+    # Convert camp_id to an integer for display, handling NaN values
     for col, value in user_row.items():
-        tree.insert("", "end", values=(col, value.values[0]))
+        if col == 'camp_id':
+            if pd.isna(value.iloc[0]):
+                display_value = ''  # or some placeholder like 'N/A'
+            else:
+                display_value = str(int(value.iloc[0]))  # Convert to integer and then to string for display
+        else:
+            display_value = str(value.iloc[0])
+
+        tree.insert("", "end", values=(col, display_value))
 
     # Format columns
     tree.column("#0", width=0, stretch="no")  # Hidden column
