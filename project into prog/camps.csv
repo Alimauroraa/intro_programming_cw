@@ -1,6 +1,15 @@
 camp_id,location,volunteers_number,refugees_number,plan_name,current_availability,max_capacity,specific_needs,allocated_resources
 1,Zambia,0.0,0,"Response to Flood in Zambia
 ",50,50,,{}
+2,Zambia,1.0,0,"Response to Flood in Zambia
+",50,50,,{}
+3,Chile,0.0,0,Hao,50,50,,{}
+4,Chile,0.0,0,Hao,50,50,,{}
+5,fdas,0.0,0,fads,50,50,,{}
+6,fdas,0.0,0,fads,50,50,,{}
+7,Afghanistan,0.0,0,fsd,50,50,,{}
+8,Afghanistan,0.0,0,fsd,50,50,,{}
+9,fds,0.0,0,dfs,50,50,,{}
 10,fds,0.0,0,dfs,50,50,,{}
 11,United States,1.0,0,oooo,50,50,,{}
 12,United States,0.0,0,oooo,50,50,,{}
@@ -11,8 +20,6 @@ camp_id,location,volunteers_number,refugees_number,plan_name,current_availabilit
 17,Taiwan,0.0,0,safd,50,50,,{}
 18,Taiwan,0.0,0,safd,50,50,,{}
 19,Chile,0.0,0,adsf,50,50,10 volunteers required,
-2,Zambia,1.0,0,"Response to Flood in Zambia
-",50,50,,{}
 20,Chile,0.0,0,adsf,50,50,10 volunteers required,
 21,China,0.0,0,asdf,50,50,X(update via manage camp) volunteers required,
 22,China,0.0,0,asdf,50,50,X(update via manage camp) volunteers required,
@@ -23,15 +30,10 @@ camp_id,location,volunteers_number,refugees_number,plan_name,current_availabilit
 27,Chile,0.0,0,test,50,50,X volunteers required (update via manage camp),
 28,Chile,0.0,0,test,50,50,X volunteers required (update via manage camp),
 29,Chile,0.0,0,test,50,50,X volunteers required (update via manage camp),
-3,Chile,0.0,0,Hao,50,50,,{}
 30,Chile,0.0,0,test,50,50,X volunteers required (update via manage camp),
 31,China,0.0,0,test2,50,50,X volunteers required (update via manage camp),
 32,China,0.0,0,test2,50,50,X volunteers required (update via manage camp),
 33,China,0.0,0,testhao,50,50,X volunteers required (update via manage camp),
 34,China,0.0,0,testhao,50,50,X volunteers required (update via manage camp),
-4,Chile,0.0,0,Hao,50,50,,{}
-5,fdas,0.0,0,fads,50,50,,{}
-6,fdas,0.0,0,fads,50,50,,{}
-7,Afghanistan,0.0,0,fsd,50,50,,{}
-8,Afghanistan,0.0,0,fsd,50,50,,{}
-9,fds,0.0,0,dfs,50,50,,{}
+35,Afghanistan,,0,lll,50,50,X volunteers required (update via manage camp),
+36,Afghanistan,,0,lll,50,50,X volunteers required (update via manage camp),

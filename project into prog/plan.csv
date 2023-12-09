@@ -18,3 +18,4 @@ PlanID,planName,startDate,closingDate,geographicalArea,planDesc,adminID,active,N
 15,test,2030-03-30,,Chile,fgsad,1,1,2,"29,30"
 16,test2,2030-03-30,,China,sdfg,1,1,2,"31,32"
 17,testhao,2030-03-30,,China,sdfg,1,1,2,"33,34"
+18,lll,2030-03-30,,Afghanistan,adfs,1,1,2,"35,36"

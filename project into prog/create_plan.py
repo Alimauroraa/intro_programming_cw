@@ -57,7 +57,17 @@ class HumanitarianPlan:
 
         # Append new camp data to existing data
         combined_camps_df = pd.concat([existing_camps_df, new_camps], ignore_index=True)
+
+        # Convert 'camp_id' to integer for sorting
+        combined_camps_df['camp_id'] = combined_camps_df['camp_id'].astype(int)
+
+        # Sort by 'camp_id'
         combined_camps_df.sort_values(by='camp_id', inplace=True)
+
+        # Convert 'camp_id' back to string if needed
+        combined_camps_df['camp_id'] = combined_camps_df['camp_id'].astype(str)
+
+        # Save to CSV
         combined_camps_df.to_csv('camps.csv', index=False)
 
         # Add new plan to plan.csv
