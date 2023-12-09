@@ -4,15 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28ad44ea-d0a3-45c2-a27c-9e867bd827fa" name="Changes" comment="1">
-      <change afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/GUI_volunteer_login_update.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/GUI_volunteer_login_update.py" afterDir="false" />
+    <list default="true" id="28ad44ea-d0a3-45c2-a27c-9e867bd827fa" name="Changes" comment="2">
       <change beforePath="$PROJECT_DIR$/project into prog/camps.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/camps.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/create_plan.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/create_plan.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project into prog/create_plan_logging.log" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/create_plan_logging.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/liveupdates.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/liveupdates.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/liveupdatevolunteer.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/liveupdatevolunteer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/volunteers_file.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/volunteers_file.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/manage_camps_frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/manage_camps_frame.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/plan.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/plan.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -129,7 +126,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702124958613</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="2">
+      <option name="closed" value="true" />
+      <created>1702125767014</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1702125767014</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -153,6 +158,7 @@
     <MESSAGE value="test stella" />
     <MESSAGE value="ignore" />
     <MESSAGE value="1" />
-    <option name="LAST_COMMIT_MESSAGE" value="1" />
+    <MESSAGE value="2" />
+    <option name="LAST_COMMIT_MESSAGE" value="2" />
   </component>
 </project>

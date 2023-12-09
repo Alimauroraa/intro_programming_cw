@@ -17,6 +17,13 @@
             </Attribute>
           </value>
         </entry>
+        <entry key="/project into prog/plan.csv">
+          <value>
+            <Attribute>
+              <option name="separator" value="," />
+            </Attribute>
+          </value>
+        </entry>
         <entry key="/project into prog/volunteers_file.csv">
           <value>
             <Attribute>

@@ -4102,3 +4102,11 @@
 09-Dec-23 12:37:52 - INFO - Plan 1 has been closed and is inactive
 09-Dec-23 12:41:22 - INFO - Plan 1 has been closed and is inactive
 09-Dec-23 12:42:13 - INFO - Plan 1 has been closed and is inactive
+09-Dec-23 12:44:08 - INFO - Plan 1 has been closed and is inactive
+09-Dec-23 12:44:43 - INFO - Plan name: asdf, is created
+09-Dec-23 12:44:43 - ERROR - start_date is not a string: 2030-03-30
+09-Dec-23 12:44:43 - INFO - Plan created with ID: 11 and Camp IDs: 21,22
+09-Dec-23 12:45:53 - INFO - Plan 1 has been closed and is inactive
+09-Dec-23 12:46:06 - INFO - Plan name: afsd, is created
+09-Dec-23 12:46:06 - ERROR - start_date is not a string: 2030-03-30
+09-Dec-23 12:46:06 - INFO - Plan created with ID: 12 and Camp IDs: 23,24

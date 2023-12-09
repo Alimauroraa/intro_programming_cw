@@ -112,7 +112,7 @@ class HumanitarianPlan:
 
         # Calculate current_availability
         current_availability = max_capacity - refugees_number
-        specific_needs = "10 volunteers required"
+        specific_needs = "X volunteers required (update via manage camp)"
         return pd.DataFrame([{'camp_id': cid, 'location': self.geographical_area,
                               'volunteers_number': '', 'refugees_number': refugees_number,
                               'plan_name': self.plan_name, 'current_availability': current_availability,

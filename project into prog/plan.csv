@@ -11,3 +11,5 @@ PlanID,planName,startDate,closingDate,geographicalArea,planDesc,adminID,active,N
 8,dfsa,2030-03-30,2030-03-31,fads,dfs,1,1,2,"15,16"
 9,safd,2030-03-30,2050-03-30,Taiwan,dfs,1,1,2,"17,18"
 10,adsf,2030-03-30,,Chile,afsd,1,1,2,"19,20"
+11,asdf,2030-03-30,,China,fads,1,1,2,"21,22"
+12,afsd,2030-03-30,,China,sadf,1,1,2,"23,24"
