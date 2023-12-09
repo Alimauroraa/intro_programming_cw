@@ -57,7 +57,17 @@ class HumanitarianPlan:
 
         # Append new camp data to existing data
         combined_camps_df = pd.concat([existing_camps_df, new_camps], ignore_index=True)
+
+        # Convert 'camp_id' to integer for sorting
+        combined_camps_df['camp_id'] = combined_camps_df['camp_id'].astype(int)
+
+        # Sort by 'camp_id'
         combined_camps_df.sort_values(by='camp_id', inplace=True)
+
+        # Convert 'camp_id' back to string if needed
+        combined_camps_df['camp_id'] = combined_camps_df['camp_id'].astype(str)
+
+        # Save to CSV
         combined_camps_df.to_csv('camps.csv', index=False)
 
         # Add new plan to plan.csv
@@ -112,7 +122,7 @@ class HumanitarianPlan:
 
         # Calculate current_availability
         current_availability = max_capacity - refugees_number
-        specific_needs = "10 volunteers required"
+        specific_needs = "X volunteers required (update via manage camp)"
         return pd.DataFrame([{'camp_id': cid, 'location': self.geographical_area,
                               'volunteers_number': '', 'refugees_number': refugees_number,
                               'plan_name': self.plan_name, 'current_availability': current_availability,

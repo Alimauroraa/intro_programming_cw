@@ -73,7 +73,7 @@ class ManageCampsFrame:
             'plan_name': 150,
             'current_availability': 110,
             'max_capacity': 80,
-            'specific_needs': 200,
+            'specific_needs': 300,
             'allocated_resources': 300
         }
 

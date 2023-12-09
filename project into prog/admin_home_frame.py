@@ -148,7 +148,7 @@ def admin_home(root):
         cursor="hand2",
         activebackground="#B8B8B8",
         activeforeground="black",
-        command=lambda:edit_volunteer_frame(root)).place(x=286,y=400) # this will open admin login page when clicked
+        command=lambda:edit_volunteer_frame(root)).place(x=286,y=600) # this will open admin login page when clicked
 
     tk.Button(
         home_frame,
@@ -174,7 +174,7 @@ def admin_home(root):
         cursor="hand2",
         activebackground="#B8B8B8",
         activeforeground="black",
-        command=lambda: open_allocate_volunteers_frame(root)).place(x=286, y=450)
+        command=lambda: open_allocate_volunteers_frame(root)).place(x=286, y=550)
 
     tk.Button(
         home_frame,
@@ -200,7 +200,7 @@ def admin_home(root):
         cursor="hand2",
         activebackground="#B8B8B8",
         activeforeground="black",
-        command=lambda:live_feed_frame(root)).place(x=286, y=600)
+        command=lambda:live_feed_frame(root)).place(x=286, y=650)
 
 
     manage_camps_button = tk.Button(
@@ -216,7 +216,7 @@ def admin_home(root):
         activeforeground="black",
         command=lambda: open_manage_camps(root)  # This button will call the open_manage_camps function
     )
-    manage_camps_button.place(x=286, y=550)  # Adjust the position as needed
+    manage_camps_button.place(x=286, y=450)  # Adjust the position as needed
 
     root.deiconify()
 

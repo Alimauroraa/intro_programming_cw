@@ -68,15 +68,28 @@ class Camp:
         self.specific_needs = specific_needs
         self.allocated_resources = allocated_resources
 
-class Volunteer(Users):
+class Volunteer:
     def __init__(self, user_id, username, user_password, first_name, last_name,
-                 dob, user_email, contact_number, address1, address2, city, acc_type,
-                 availability, gender, active,camp_id):
-        super().__init__(user_id, username, user_password, first_name, last_name,
-                 dob, user_email, contact_number, address1, address2, city, acc_type,
-                 availability, gender, active)
+                 dob, user_email, contact_number, address1, address2, country,
+                 acc_type, gender, active, camp_id):
+        self.user_id = user_id
+        self.username = username
+        self.user_password = user_password
+        self.first_name = first_name
+        self.last_name = last_name
+        self.dob = dob
+        self.user_email = user_email
+        self.contact_number = contact_number
+        self.address1 = address1
+        self.address2 = address2
+        self.country = country
+        self.acc_type = acc_type
+        self.gender = gender
+        self.active = active
         self.camp_id = camp_id
-        self.emergency_profiles = []  # List of EmergencyProfiles created by this volunteer
+
+    # Add any additional methods required for Volunteer operations
+
 
 class EmergencyProfile:
     def __init__(self, volunteer_id, profile_id, refugee_id, medical_condition,

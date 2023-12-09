@@ -39,15 +39,17 @@ def toggle_category(category):
     global category_states
     category_states[category] = not category_states[category]
 
-def send_camp_id_update(username, old_camp_id, new_camp_id):
+def send_camp_id_update(user_id, first_namee, last_namee, old_camp_id, new_camp_id):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    update_message = f"User '{username}' changed camp from {old_camp_id} to {new_camp_id}."
+    update_message = f"User_id '{user_id}' First name: '{first_namee}' Last name: '{last_namee}' changed camp from {old_camp_id} to {new_camp_id}."
+    # Set the last value '1' for 'Camp Change' category
+    category_string = "0, 0, 0, 0, 1"  # Update as per your category order
 
     with open("liveupdates.csv", mode='a', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow([timestamp, new_camp_id, update_message])
+        writer.writerow([timestamp, new_camp_id, update_message, category_string])
 
-    messagebox.showinfo("Camp Update Submitted", f"Camp update submitted on {timestamp}: {update_message}")
+    messagebox.showinfo("Camp Update Submitted", f"You have changed camp from {old_camp_id} to {new_camp_id}")
 def go_back():
     root.destroy()
     from GUI_volunteer_login_update import main_application
@@ -91,7 +93,7 @@ def main_live_updates():
     message_label = tk.Label(frame, text="What is your live update message about? Check all the boxes that apply.", background="#021631", foreground="white")
     message_label.pack()
 
-    category_labels = ["Resources", "Weather", "Emergency", "Refugees"]
+    category_labels = ["Resources", "Weather", "Emergency", "Refugees", "Camp change"]
 
     category_states = {category_label: False for category_label in category_labels}
 

@@ -88,6 +88,7 @@ def validate_input(plan_name, description, geographical_area, start_date, number
 
 
 def submit_plan():
+    global plan_df  # Declare plan_df as global here
     # Retrieve the entry
     admin_id = admin_entry.get()
     plan_name = name_entry.get(1.0, tk.END).strip()  # Added strip() to remove trailing newlines
@@ -108,7 +109,8 @@ def submit_plan():
         # Use the captured start date
         new_plan = HumanitarianPlan(admin_id, plan_name, description, geographical_area, start, number_camps)
         camp_ids = new_plan.create_plan()  # This method now handles plan and camp creation
-
+        # Reload the plan DataFrame to include the new plan
+        plan_df = pd.read_csv('plan.csv')
         # Inform the user that the plan and camps have been created
         messagebox.showinfo("Success", "Plan and associated camps created successfully.")
 

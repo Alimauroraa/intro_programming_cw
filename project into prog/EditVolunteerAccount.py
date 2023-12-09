@@ -19,17 +19,13 @@ def load_volunteers_from_csv(volunteers_file):
 # Function to save updated volunteer data to the CSV file
 def save_volunteers_to_csv(volunteers_file, volunteers):
     with open(volunteers_file, mode='w', newline='') as csvfile:
-        writer = csv.writer(csvfile)
-        writer.writerow(['user_id', 'username', 'user_password', 'first_name', 'last_name', 'dob', 'user_email', 'contact_number', 'address1', 'address2', 'city', 'acc_type', 'availability', 'gender', 'active', 'camp_id', 'emergency_profiles'])
+        fieldnames = ['user_id', 'username', 'user_password', 'first_name', 'last_name', 'dob', 'user_email',
+                      'contact_number', 'address1', 'address2', 'country', 'acc_type',
+                      'gender', 'active', 'camp_id']  # Add 'country' here
+        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
+        writer.writeheader()
         for volunteer in volunteers:
-            writer.writerow([volunteer.user_id, volunteer.username, volunteer.user_password, volunteer.first_name, volunteer.last_name, volunteer.dob, volunteer.user_email, volunteer.contact_number, volunteer.address1, volunteer.address2, volunteer.city, volunteer.acc_type, volunteer.availability, volunteer.gender, volunteer.active, volunteer.camp_id, volunteer.emergency_profiles])
-        # fieldnames = ['user_id', 'username', 'user_password', 'first_name', 'last_name', 'dob', 'user_email',
-        #       'contact_number', 'address1', 'address2', 'city', 'acc_type', 'availability', 'gender', 'active',
-        #       'camp_id', 'emergency_profiles']
-        # writer = csv.DictWriter(cvsfile, fieldnames=fieldnames)
-        # writer.writeheader()
-        # for volunteer in volunteers:
-        #     writer.writerow(vars(volunteer))
+            writer.writerow(vars(volunteer))
 
 # # Create the main window
 # root = tk.Tk()
@@ -160,7 +156,7 @@ def deactivate_volunteer():
         camps_df = pd.read_csv("camps.csv")
 
         # Convert camp_id to integer for comparison
-        volunteer_camp_id = int(selected_volunteer.camp_id)
+        volunteer_camp_id = int(float(selected_volunteer.camp_id))
         camps_df['camp_id'] = camps_df['camp_id'].astype(int)
 
         if volunteer_camp_id in camps_df['camp_id'].values:
@@ -246,14 +242,13 @@ def edit_volunteer_frame(parent):
         'contact_number': 'Contact Number',
         'address1': 'Address 1',
         'address2': 'Address 2',
-        'city': 'City',
-        'availability': 'Availability',
+        'country': 'Country',  # New field added
         'gender': 'Gender',
         'active': 'Active',
         'camp_id': 'Camp ID',
     }
 
-#'emergency_profiles': 'Emergency Profiles'
+    #'emergency_profiles': 'Emergency Profiles'
 #'user_password': 'User Password',
 #'acc_type': 'Account Type',
     global entries
