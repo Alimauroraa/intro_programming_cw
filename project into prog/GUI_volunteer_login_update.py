@@ -5,7 +5,7 @@ import pandas as pd
 from tkinter import ttk
 from display_camp_resources_frame import DisplayAllocatedResourcesFrame
 import re
-
+from datetime import datetime
 user_df = pd.read_csv('volunteers_file.csv')
 csv_filename = 'Refugee_DataFrame.csv'
 refugee_df = pd.read_csv(csv_filename)
@@ -159,9 +159,12 @@ def updating():
 
                 elif field_to_update == "dob":
                     try:
-                        pd.to_datetime(new_value)  # Check if the birthday is in a valid date format
-                    except ValueError:
-                        raise ValueError("Invalid birthday format. Please use YYYY-MM-DD format.")
+                        new_value = pd.to_datetime(new_value, format='%Y-%m-%d', errors='raise')
+                    except ValueError as e:
+                        raise ValueError("Invalid birthday format. Please use YYYY-MM-DD format.") from e
+                    # Check if the birthday is later than the current date
+                    if new_value > pd.to_datetime(datetime.now().strftime('%Y-%m-%d')):
+                        raise ValueError("Invalid birthday. Birthdate cannot be in the future.")
 
                 elif field_to_update == "user_email":
                     if not re.fullmatch(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', new_value):
@@ -447,9 +450,13 @@ def create_account(entry_vars, add_window):
 
         elif key == "birthday":
             try:
-                pd.to_datetime(value)  # Check if the birthday is in a valid date format
+                value = pd.to_datetime(value, format='%Y-%m-%d', errors='raise')
             except ValueError:
                 messagebox.showerror("Error", "Invalid birthday format. Please use YYYY-MM-DD format.")
+                return
+            # Check if the birthday is later than the current date
+            if value > pd.to_datetime(datetime.now().strftime('%Y-%m-%d')):
+                messagebox.showerror("Error", "Invalid birthday. Birthdate cannot be in the future")
                 return
 
         elif key == "phone":
