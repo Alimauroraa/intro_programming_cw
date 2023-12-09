@@ -7,32 +7,24 @@ import pandas as pd
 from GUI_volunteer_login_update import login
 
 def submit_update():
-    selected_camp = camp_dropdown.get()
+    global camp_entry, update_entry, category_states
+
+    camp_entry.config(state=tk.NORMAL)  # Temporarily enable the widget to get its text
+    selected_camp = camp_entry.get()
+    camp_entry.config(state="readonly")
+
     update_message = update_entry.get()
 
-    # # Check if a camp is selected, a message is provided, and at least one category is selected
-    # if selected_camp == "Select a Camp" or selected_camp == "":
-    #     messagebox.showerror("Error", "Please select a camp.")
-    #     return
-    # if not update_message.strip():
-    #     messagebox.showerror("Error", "Please provide an update message.")
-    #     return
-    # if not any(category_states.values()):
-    #     messagebox.showerror("Error", "Please select at least one category.")
-    #     return
+    selected_categories_str = ", ".join(str(int(state)) for state in category_states.values())
+    formatted_categories = f'"{selected_categories_str}"'
 
-    selected_categories = [int(state) for state in category_states.values()]
-
-    # # Debug print statements
-    # print(f"Selected camp: {selected_camp}")
-    # print(f"Update message: {update_message}")
-    # print(f"Selected categories: {selected_categories}")
-
-    # Proceed with the update
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    # with open("liveupdates.csv", mode='a', newline='') as file:
+    #     writer = csv.writer(file)
+    #     writer.writerow([timestamp, selected_camp, update_message, *selected_categories])
     with open("liveupdates.csv", mode='a', newline='') as file:
         writer = csv.writer(file)
-        writer.writerow([timestamp, selected_camp, update_message, *selected_categories])
+        writer.writerow([timestamp, selected_camp, update_message, formatted_categories])
 
     messagebox.showinfo("Update Submitted", f"Live update has been successfully submitted on {timestamp}.")
 
@@ -40,10 +32,12 @@ def submit_update():
     update_entry.delete(0, tk.END)
     for category in category_states:
         category_states[category] = False
-    camp_dropdown.set("Select a Camp")
+
 
 def toggle_category(category):
+    global category_states
     category_states[category] = not category_states[category]
+
 def send_camp_id_update(username, old_camp_id, new_camp_id):
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     update_message = f"User '{username}' changed camp from {old_camp_id} to {new_camp_id}."
@@ -59,7 +53,7 @@ def go_back():
     main_application()
 
 def main_live_updates():
-    # Read camp IDs from "camps.csv"
+    global camp_entry, update_entry, category_states
     with open("camps.csv", mode='r') as file:
         reader = csv.reader(file)
         next(reader)  # Skip header
@@ -73,17 +67,20 @@ def main_live_updates():
     frame = tk.Frame(root, bg='#021631')
     frame.place(relx=0.5, rely=0.5, anchor='center')
 
-    camp_label = tk.Label(frame, text="Select Your Camp to Send a Message!", background="#021631", foreground="white")
+    camp_label = tk.Label(frame, text="Send a message from your camp!", background="#021631", foreground="white")
     camp_label.pack()
 
     df=pd.read_csv('volunteers_file.csv')
     username_entered=login(display_messages=False)
     filtered_df=df[df['username']==username_entered[1]]
-    camp_id=filtered_df['camp_id'].astype(int).tolist()
 
-    camp_dropdown = ttk.Combobox(frame, values=camp_id, state="readonly")
-    camp_dropdown.set("Select a Camp")
-    camp_dropdown.pack()
+    camp_entry = ttk.Entry(frame, state="readonly")
+    camp_id = filtered_df['camp_id'].astype(int).tolist()[0] if filtered_df['camp_id'].astype(
+        int).tolist() else "No Camp ID"
+    camp_entry.config(state=tk.NORMAL)
+    camp_entry.insert(0, camp_id)
+    camp_entry.config(state="readonly")  # Set it back to readonly
+    camp_entry.pack()
 
     update_label = tk.Label(frame, text="Enter your live update:", background="#021631", foreground="white")
     update_label.pack()
@@ -94,10 +91,14 @@ def main_live_updates():
     message_label.pack()
 
     category_labels = ["Resources", "Weather", "Emergency", "Refugees"]
+
     category_states = {category_label: False for category_label in category_labels}
 
     for category_label in category_labels:
-        checkbox = tk.Checkbutton(frame, text=category_label, command=lambda label=category_label: toggle_category(label), bg="#021631", fg="white", selectcolor="#021631", activebackground="#021631", activeforeground="white")
+        checkbox = tk.Checkbutton(frame, text=category_label,
+                                  command=lambda label=category_label: toggle_category(label),
+                                  bg="#021631", fg="white", selectcolor="#021631", activebackground="#021631",
+                                  activeforeground="white")
         checkbox.pack()
 
     submit_button = ttk.Button(frame, text="Submit Update", command=submit_update,width=14)
