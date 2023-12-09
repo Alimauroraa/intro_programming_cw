@@ -4114,3 +4114,28 @@
 09-Dec-23 12:50:33 - INFO - Plan 1 has been closed and is inactive
 09-Dec-23 12:51:19 - INFO - Plan 1 has been closed and is inactive
 09-Dec-23 12:51:29 - INFO - Plan 1 has been closed and is inactive
+09-Dec-23 12:52:18 - INFO - Plan 1 has been closed and is inactive
+09-Dec-23 12:55:57 - INFO - Plan 1 has been closed and is inactive
+09-Dec-23 13:01:19 - INFO - Plan 1 has been closed and is inactive
+09-Dec-23 13:04:55 - INFO - Plan 1 has been closed and is inactive
+09-Dec-23 13:09:28 - INFO - Plan 1 has been closed and is inactive
+09-Dec-23 13:11:13 - INFO - Plan 1 has been closed and is inactive
+09-Dec-23 13:13:09 - INFO - Plan 1 has been closed and is inactive
+09-Dec-23 13:19:43 - INFO - Plan 1 has been closed and is inactive
+09-Dec-23 13:20:55 - INFO - Plan 1 has been closed and is inactive
+09-Dec-23 13:21:22 - INFO - Plan name: test, is created
+09-Dec-23 13:21:22 - ERROR - start_date is not a string: 2030-03-30
+09-Dec-23 13:21:22 - INFO - Plan created with ID: 13 and Camp IDs: 25,26
+09-Dec-23 13:21:40 - INFO - Plan name: test, is created
+09-Dec-23 13:21:40 - ERROR - start_date is not a string: 2030-03-30
+09-Dec-23 13:21:40 - INFO - Plan created with ID: 14 and Camp IDs: 27,28
+09-Dec-23 13:21:43 - INFO - Plan name: test, is created
+09-Dec-23 13:21:43 - ERROR - start_date is not a string: 2030-03-30
+09-Dec-23 13:21:43 - INFO - Plan created with ID: 15 and Camp IDs: 29,30
+09-Dec-23 13:33:04 - INFO - Plan 1 has been closed and is inactive
+09-Dec-23 13:33:27 - INFO - Plan name: test2, is created
+09-Dec-23 13:33:27 - ERROR - start_date is not a string: 2030-03-30
+09-Dec-23 13:33:27 - INFO - Plan created with ID: 16 and Camp IDs: 31,32
+09-Dec-23 13:33:39 - INFO - Plan name: testhao, is created
+09-Dec-23 13:33:39 - ERROR - start_date is not a string: 2030-03-30
+09-Dec-23 13:33:39 - INFO - Plan created with ID: 17 and Camp IDs: 33,34
