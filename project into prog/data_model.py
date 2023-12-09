@@ -28,22 +28,6 @@ class Admin(Users):
 
         self.created_plans = []  # List of HumanitarianPlans created by this admin
 
-    def AdminLogIn(self):
-        while True:
-            user = admin_df[(admin_df['username'] == self.username) & (admin_df['user_password'] == self.password)]
-            if not user.empty:
-                print("Access granted", self.username, "!")
-                break
-            else:
-                print("The username or password you have entered is wrong.")
-                self.username = input("Please re-enter your username: ")
-                self.password = int(input("Please re-enter your password: "))
-
-    def DisplayVolunteers(csv):
-        """This is a function which takes a csv and displays it - for the purpose of displaying the Volunteer credentials csv file """
-        for index, row in csv.iterrows():
-            print(row)
-
 class HumanitarianPlan:
     def __init__(self, plan_id, admin_id, plan_name,description, geographical_area, active, start_date, closing_date=None):
         self.plan_id = plan_id
@@ -72,19 +56,22 @@ class Refugee:
         self.refugee_gender=refugee_gender
 
 class Camp:
-    def __init__(self, camp_id, volunteer_id, location, capacity, specific_needs):
+    def __init__(self, camp_id, location, volunteers_number, refugees_number, plan_name, current_availability,
+                 max_capacity, specific_needs, allocated_resources):
         self.camp_id = camp_id
-        self.volunteer_id=volunteer_id
         self.location = location
-        self.capacity = capacity
-        self.specific_needs=specific_needs
-        self.volunteers = []  # List of Volunteers in this camp
-        self.refugees = []    # List of Refugees in this camp
+        self.volunteers_number = volunteers_number
+        self.refugees_number = refugees_number
+        self.plan_name = plan_name
+        self.current_availability = current_availability
+        self.max_capacity = max_capacity
+        self.specific_needs = specific_needs
+        self.allocated_resources = allocated_resources
 
 class Volunteer(Users):
     def __init__(self, user_id, username, user_password, first_name, last_name,
                  dob, user_email, contact_number, address1, address2, city, acc_type,
-                 availability, gender, active):
+                 availability, gender, active,camp_id):
         super().__init__(user_id, username, user_password, first_name, last_name,
                  dob, user_email, contact_number, address1, address2, city, acc_type,
                  availability, gender, active)

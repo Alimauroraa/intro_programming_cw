@@ -89,22 +89,15 @@ def show_info(dataframe):
             active_value = dataframe.iloc[0][col]
             message = "Plan is currently active" if active_value != 0 else "Plan is inactive"
             messagebox.showinfo("Plan Status", message)
-        else:
-            label = tk.Label(frame, text=col, bg='#021631',
-                             fg="white", font=("Calibri", 10))
-            label.grid(row=idx, column=0, padx=5, pady=5, sticky="w")
-            if col=='closingDate':
-                closing_date=pd.to_datetime(dataframe.iloc[0][col]).strftime('%m/%d/%Y')
-                entry= ttk.Entry(frame,width=100)
-                entry.insert(tk.END, closing_date)
-                entry.grid(row=idx, column=1, padx=20, pady=10, sticky="w")
-                entry.config(state=tk.DISABLED)  # Make the entry non-editable
-
-            else:
-                entry = ttk.Entry(frame, width=100)
-                entry.insert(tk.END, str(dataframe.iloc[0][col]))
-                entry.grid(row=idx, column=1, padx=20, pady=10, sticky="w")
-                entry.config(state=tk.DISABLED)  # Make the entry non-editable
+        if col=='closingDate':
+            dataframe['closingDate']=pd.to_datetime(dataframe[col], errors='coerce').dt.strftime('%Y-%m-%d')
+        label = tk.Label(frame, text=col, bg='#021631',
+                         fg="white", font=("Calibri", 10))
+        label.grid(row=idx, column=0, padx=5, pady=5, sticky="w")
+        entry = ttk.Entry(frame, width=100)
+        entry.insert(tk.END, str(dataframe.iloc[0][col]))
+        entry.grid(row=idx, column=1, padx=20, pady=10, sticky="w")
+        entry.config(state=tk.DISABLED)  # Make the entry non-editable
 
     # Add the 'Display Volunteers for Plan' button at the bottom
     volunteers_button = tk.Button(frame, text="Display Volunteers for Plan",bg="#FFFFFF", fg="black",command=lambda: display_volunteers(top, dataframe))
@@ -122,11 +115,32 @@ def display_error(message):
 def back(root):
     root.grid_forget()
 
-def display_all_plan(root):
-    df=pd.read_csv('plan.csv')
+def date_parser(x):
+    formats = ['%Y-%m-%d', '%m-%d-%Y', '%m/%d/%Y', '%Y/%m/%d' ]  # Add more formats as needed
+    for fmt in formats:
+        try:
+            return pd.to_datetime(x, format=fmt)
+        except ValueError:
+            pass
+    return pd.NaT
 
-    df['startDate'] = pd.to_datetime(df['startDate'], errors='coerce').dt.strftime('%m/%d/%Y')
-    df['closingDate']=pd.to_datetime(df['closingDate']).dt.strftime('%m/%d/%Y')
+def update_active_flag():
+    today_date = datetime.now().date()
+    df = pd.read_csv('plan.csv', parse_dates=['startDate', 'closingDate'], date_parser=date_parser)
+
+    # Check if the 'startDate' matches the current date and update 'active' column accordingly
+    df.loc[df['closingDate'].dt.date >= today_date, 'active'] = 0
+
+    # Save the updated dataframe back to the CSV file
+    df.to_csv('plan.csv', index=False)
+
+    df.close()
+def display_all_plan(root):
+    df = pd.read_csv('plan.csv', parse_dates=['startDate', 'closingDate'], date_parser=date_parser)
+
+    # Convert the dates to the desired format
+    df['startDate'] = df['startDate'].dt.strftime('%Y-%m-%d')
+    df['closingDate'] = df['closingDate'].dt.strftime('%Y-%m-%d')
 
     new_window=tk.Toplevel(root)
     new_window.title('Plans Table')
@@ -151,6 +165,7 @@ def display_all_plan(root):
 
     tree.pack(expand=True, fill='both')
 
+
 def display_plan_frame(parent):
     global root
     # Create tkinter window
@@ -163,7 +178,7 @@ def display_plan_frame(parent):
 
     global combo
     plan_ids = load_plan_ids()
-    combo = ttk.Combobox(root, values=plan_ids)
+    combo = ttk.Combobox(root, values=plan_ids, state='readonly')
     combo.place(x=230, y=270)
     #entry = tk.Entry(root,width=20, bd=2, font="calibri 10")
     #entry.place(x=230, y=270)
