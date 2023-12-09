@@ -168,17 +168,33 @@ def updating():
                         raise ValueError("Invalid email address. Please enter a valid email.")
 
                 elif field_to_update == "camp_id":
-                    old_camp_id = int(user_df.loc[user_index, 'camp_id'])
+
                     new_camp_id = int(new_value)
-                    user_id = user_df.loc[user_index, 'user_id']
-                    first_namee = user_df.loc[user_index, 'first_name']
-                    last_namee = user_df.loc[user_index, 'last_name']
-                    from liveupdatevolunteer import send_camp_id_update
-                    # Call the new method
-                    send_camp_id_update(user_id, first_namee, last_namee, old_camp_id, new_camp_id)
+
                     camp_ids = set(pd.read_csv('camps.csv')['camp_id'])
-                    if new_camp_id not in camp_ids:
+
+                    # Check if the new camp_id exists
+
+                    if new_camp_id in camp_ids:
+
+                        old_camp_id = int(user_df.loc[user_index, 'camp_id'])
+
+                        user_id = user_df.loc[user_index, 'user_id']
+
+                        first_namee = user_df.loc[user_index, 'first_name']
+
+                        last_namee = user_df.loc[user_index, 'last_name']
+
+                        # Call the method to send camp id update
+
+                        from liveupdatevolunteer import send_camp_id_update
+
+                        send_camp_id_update(user_id, first_namee, last_namee, old_camp_id, new_camp_id)
+
+                    else:
+
                         raise ValueError("Error: The entered camp_id does not exist.")
+
 
                 elif field_to_update in ["first_name", "last_name"]:
                     if not new_value.isalpha():

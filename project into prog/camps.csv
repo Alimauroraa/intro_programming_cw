@@ -1,5 +1,5 @@
 camp_id,location,volunteers_number,refugees_number,plan_name,current_availability,max_capacity,specific_needs,allocated_resources
-1,Zambia,0,0,"Response to Flood in Zambia
+1,Zambia,1,0,"Response to Flood in Zambia
 ",50,50,,{}
 2,Zambia,0,0,"Response to Flood in Zambia
 ",50,50,,{}
@@ -12,7 +12,7 @@ camp_id,location,volunteers_number,refugees_number,plan_name,current_availabilit
 9,fds,0,0,dfs,50,50,,{}
 10,fds,0,0,dfs,50,50,,{}
 11,United States,1,0,oooo,50,50,,{}
-12,United States,1,0,oooo,50,50,,{}
+12,United States,0,0,oooo,50,50,,{}
 13,United Kingdom,0,0,bbb,50,50,,{}
 14,United Kingdom,0,0,bbb,50,50,,{}
 15,fads,0,0,dfsa,50,50,,{}
