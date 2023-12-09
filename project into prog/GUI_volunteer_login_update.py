@@ -456,7 +456,7 @@ def create_account(entry_vars, add_window):
                 return
             # Check if the birthday is later than the current date
             if value > pd.to_datetime(datetime.now().strftime('%Y-%m-%d')):
-                messagebox.showerror("Error", "Invalid birthday. Birthdate cannot be in the future")
+                messagebox.showerror("Error", "Invalid birthday. Birthdate cannot be in the future.")
                 return
 
         elif key == "phone":
