@@ -167,33 +167,45 @@ def updating():
                     if not re.fullmatch(r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b', new_value):
                         raise ValueError("Invalid email address. Please enter a valid email.")
 
+
                 elif field_to_update == "camp_id":
 
-                    new_camp_id = int(new_value)
+                    try:
 
-                    camp_ids = set(pd.read_csv('camps.csv')['camp_id'])
+                        new_camp_id = int(new_value)
 
-                    # Check if the new camp_id exists
+                        camp_ids = set(pd.read_csv('camps.csv')['camp_id'])
 
-                    if new_camp_id in camp_ids:
+                        # Check if the new camp_id exists
 
-                        old_camp_id = int(user_df.loc[user_index, 'camp_id'])
+                        if new_camp_id in camp_ids:
 
-                        user_id = user_df.loc[user_index, 'user_id']
+                            old_camp_id = int(user_df.loc[user_index, 'camp_id']) if pd.notna(
+                                user_df.loc[user_index, 'camp_id']) else None
 
-                        first_namee = user_df.loc[user_index, 'first_name']
+                            user_id = user_df.loc[user_index, 'user_id']
 
-                        last_namee = user_df.loc[user_index, 'last_name']
+                            first_namee = user_df.loc[user_index, 'first_name']
 
-                        # Call the method to send camp id update
+                            last_namee = user_df.loc[user_index, 'last_name']
 
-                        from liveupdatevolunteer import send_camp_id_update
+                            # Call the method to send camp id update
 
-                        send_camp_id_update(user_id, first_namee, last_namee, old_camp_id, new_camp_id)
+                            from liveupdatevolunteer import send_camp_id_update
 
-                    else:
+                            send_camp_id_update(user_id, first_namee, last_namee, old_camp_id, new_camp_id)
 
-                        raise ValueError("Error: The entered camp_id does not exist.")
+                        else:
+
+                            raise ValueError("Error: The entered camp_id does not exist.")
+
+
+                    except ValueError:
+
+                        result_label.config(text="Invalid camp_id. Please enter a valid integer.", fg="red")
+
+                        return
+
 
 
                 elif field_to_update in ["first_name", "last_name"]:
