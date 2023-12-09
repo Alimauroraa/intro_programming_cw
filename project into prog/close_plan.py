@@ -29,7 +29,7 @@ class ClosePlan:
             if i=='':
                 pass
             elif (i<self.now):
-                #updating the values in active column, set it to 0 if closingDate has passed
+                # updating the values in active column, set it to 0 if closingDate has passed
                 self.plan_df.loc[self.plan_df['closingDate'] <= self.now, 'active'] = 0
 
         inactive_plan = self.plan_df[self.plan_df['active'] == 0]['PlanID']  # find associated planID with active=0

@@ -19,21 +19,15 @@ def submit_update():
     formatted_categories = f'"{selected_categories_str}"'
 
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    # with open("liveupdates.csv", mode='a', newline='') as file:
-    #     writer = csv.writer(file)
-    #     writer.writerow([timestamp, selected_camp, update_message, *selected_categories])
     with open("liveupdates.csv", mode='a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow([timestamp, selected_camp, update_message, formatted_categories])
 
     messagebox.showinfo("Update Submitted", f"Live update has been successfully submitted on {timestamp}.")
-
     # Clear inputs
     update_entry.delete(0, tk.END)
     for category in category_states:
         category_states[category] = False
-
-
 
 def toggle_category(category):
     global category_states
@@ -43,7 +37,7 @@ def send_camp_id_update(user_id, first_namee, last_namee, old_camp_id, new_camp_
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     update_message = f"User_id '{user_id}' First name: '{first_namee}' Last name: '{last_namee}' changed camp from {old_camp_id} to {new_camp_id}."
     # Set the last value '1' for 'Camp Change' category
-    category_string = "0, 0, 0, 0, 1"  # Update as per your category order
+    category_string = "0, 0, 0, 0, 1"
 
     with open("liveupdates.csv", mode='a', newline='') as file:
         writer = csv.writer(file)
@@ -59,7 +53,7 @@ def main_live_updates():
     global camp_entry, update_entry, category_states
     with open("camps.csv", mode='r') as file:
         reader = csv.reader(file)
-        next(reader)  # Skip header
+        next(reader)
         camp_ids = ["Select a Camp"] + [row[0] for row in reader]
 
     global root
@@ -119,7 +113,3 @@ def main_live_updates():
     root.geometry(f"{main_window_width}x{main_window_height}+{x_position}+{y_position}")
 
     root.mainloop()
-
-
-
-# login()

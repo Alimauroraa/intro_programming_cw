@@ -68,10 +68,8 @@ def livefeed_frame(parent):
 
     global live_feed_text
     live_feed_text = tk.Text(text_frame, wrap=tk.WORD, height=20, width=60)
-    live_feed_text.pack(padx=20, pady=80, anchor='w')
+    live_feed_text.pack(padx=20, pady=110, anchor='w')
 
     filter_and_display_updates(selected_option,live_feed_text)
 
     return frame
-
-    # root.mainloop()

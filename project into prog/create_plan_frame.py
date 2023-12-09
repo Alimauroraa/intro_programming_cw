@@ -7,8 +7,6 @@ import logging
 from create_plan import HumanitarianPlan
 import admin_login_gui
 
-# from admin_home_frame import admin_home
-
 logging.basicConfig(level=logging.INFO,filename='create_plan_logging.log',
                     format="%(asctime)s - %(levelname)s - %(message)s", datefmt='%d-%b-%y %H:%M:%S')
 
@@ -128,7 +126,6 @@ def plan_creator_frame(parent):
     tk.Label(create_plan_frame, text="Description", font="calibri 12", bg="#021631",fg="#fff").place(x=60,y=250)
     tk.Label(create_plan_frame, text="Country", font="calibri 12", bg="#021631",fg="#fff").place(x=60,y=350)
     tk.Label(create_plan_frame, text="Start date (YYYY-MM-DD)", font="calibri 12", bg="#021631",fg="#fff").place(x=60,y=400)
-    #tk.Label(create_plan_frame, text="Closing date (YYYY-MM-DD)", font="calibri 12", bg="#021631",fg="#fff").place(x=45,y=400)
     tk.Label(create_plan_frame, text="Number of camps", font="calibri 12", bg="#021631",fg="#fff").place(x=60,y=450)
 
     #Entry
@@ -136,10 +133,6 @@ def plan_creator_frame(parent):
     global geo
     global start
     global end
-    # name=tk.StringVar()
-    # geo=tk.StringVar()
-    # start=tk.StringVar()
-    # end=tk.StringVar()
 
     #defining the entries as global variable
     global admin_entry
@@ -147,17 +140,7 @@ def plan_creator_frame(parent):
     global desc_entry
     global geo_entry
     global start_entry
-    #global end_entry
     global camps_entry
-
-    # admin_entry=ttk.Combobox(create_plan_frame, values= [i for i in map(str,admin_df['user_id'].tolist())], width=48)
-    # name_entry=tk.Text(create_plan_frame, width=43, bd=2, font="calibri 10")
-    # desc_entry=tk.Text(create_plan_frame, font="calibri 10",width=43,height=4, bd=4)
-    # geo_entry=tk.Text(create_plan_frame, width=43, bd=2, font="calibri 10")
-    # start_entry=tk.Text(create_plan_frame, width=43, bd=2, font="calibri 10")
-    # end_entry=tk.Text(create_plan_frame, width=43, bd=2, font="calibri 10")
-    # camps_entry= ttk.Combobox(create_plan_frame, values=[i for i in range(1,21)], width=48)
-
     global country
     country = ['United States',
                'Afghanistan',
@@ -391,19 +374,13 @@ def plan_creator_frame(parent):
                'Zambia',
                'Zimbabwe']
 
-    #admin_entry = ttk.Combobox(create_plan_frame, values=[i for i in map(str, admin_df['user_id'].tolist())], width=50)
     admin_entry=tk.Entry(create_plan_frame,width=45, bd=2, font="calibri 10")
     admin_entry.insert(0,'1')
     admin_entry.config(state='readonly')
-    # admin_id= admin_df.loc[admin_df['username']==entered_username, 'user_id'].tolist()
-    # admin_entry= ttk.Combobox(create_plan_frame, values= admin_id, width=50)
     name_entry = tk.Text(create_plan_frame, width=45, height=1, bd=2, font="calibri 10")
     desc_entry = tk.Text(create_plan_frame, font="calibri 10", width=45, height=4, bd=4)
-    # geo_entry = tk.Text(create_plan_frame, width=43, height=1, bd=2, font="calibri 10")
     geo_entry = ttk.Combobox(create_plan_frame, values=[i for i in country], width=50)
-    #start_entry = tk.Text(create_plan_frame, width=43, height=1, bd=2, font="calibri 10")
     start_entry = tk.Entry(create_plan_frame, width=45, bd=2, font="calibri 10")
-    #end_entry = tk.Text(create_plan_frame, width=43, height=1,  bd=2, font="calibri 10")
     camps_entry = ttk.Combobox(create_plan_frame, values=[i for i in range(1, 21)], width=50)
 
     admin_entry.place(x=300,y=150)

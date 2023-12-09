@@ -19,23 +19,23 @@ camp_id,location,volunteers_number,refugees_number,plan_name,current_availabilit
 16,fads,0,0,dfsa,50,50,,{}
 17,Taiwan,0,0,safd,50,50,,{}
 18,Taiwan,0,0,safd,50,50,,{}
-19,Chile,0,0,adsf,50,50,10 volunteers required,
-20,Chile,0,0,adsf,50,50,10 volunteers required,
-21,China,0,0,asdf,50,50,X(update via manage camp) volunteers required,
-22,China,0,0,asdf,50,50,X(update via manage camp) volunteers required,
-23,China,0,0,afsd,50,50,X volunteers required (update via manage camp),
-24,China,0,0,afsd,50,50,X volunteers required (update via manage camp),
-25,Chile,0,0,test,50,50,X volunteers required (update via manage camp),
-26,Chile,0,0,test,50,50,X volunteers required (update via manage camp),
-27,Chile,0,0,test,50,50,X volunteers required (update via manage camp),
-28,Chile,0,0,test,50,50,X volunteers required (update via manage camp),
-29,Chile,0,0,test,50,50,X volunteers required (update via manage camp),
-30,Chile,0,0,test,50,50,X volunteers required (update via manage camp),
-31,China,0,0,test2,50,50,X volunteers required (update via manage camp),
-32,China,0,0,test2,50,50,X volunteers required (update via manage camp),
-33,China,0,0,testhao,50,50,X volunteers required (update via manage camp),
-34,China,0,0,testhao,50,50,X volunteers required (update via manage camp),
-35,Afghanistan,0,0,lll,50,50,X volunteers required (update via manage camp),
-36,Afghanistan,1,0,lll,50,50,X volunteers required (update via manage camp),
-37,China,0,0,qqq,50,50,X volunteers required (update via manage camp),
-38,China,1,0,qqq,50,50,X volunteers required (update via manage camp),
+19,Chile,0,0,adsf,50,50,10 volunteers required,{}
+20,Chile,0,0,adsf,50,50,10 volunteers required,{}
+21,China,0,0,asdf,50,50,X(update via manage camp) volunteers required,{}
+22,China,0,0,asdf,50,50,X(update via manage camp) volunteers required,{}
+23,China,0,0,afsd,50,50,X volunteers required (update via manage camp),{}
+24,China,0,0,afsd,50,50,X volunteers required (update via manage camp),{}
+25,Chile,0,0,test,50,50,X volunteers required (update via manage camp),{}
+26,Chile,0,0,test,50,50,X volunteers required (update via manage camp),{}
+27,Chile,0,0,test,50,50,X volunteers required (update via manage camp),{}
+28,Chile,0,0,test,50,50,X volunteers required (update via manage camp),{}
+29,Chile,0,0,test,50,50,X volunteers required (update via manage camp),{}
+30,Chile,0,0,test,50,50,X volunteers required (update via manage camp),{}
+31,China,0,0,test2,50,50,X volunteers required (update via manage camp),{}
+32,China,0,0,test2,50,50,X volunteers required (update via manage camp),{}
+33,China,0,0,testhao,50,50,X volunteers required (update via manage camp),{}
+34,China,0,0,testhao,50,50,X volunteers required (update via manage camp),{}
+35,Afghanistan,0,0,lll,50,50,X volunteers required (update via manage camp),{}
+36,Afghanistan,1,0,lll,50,50,X volunteers required (update via manage camp),{}
+37,China,0,0,qqq,50,50,X volunteers required (update via manage camp),{}
+38,China,1,0,qqq,50,50,X volunteers required (update via manage camp),{}

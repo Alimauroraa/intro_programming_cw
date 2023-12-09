@@ -52,7 +52,6 @@ class Admin:
 
         login_button = tk.Button(frame, text="Login", command=check_credentials)
         login_button.grid(row=2, columnspan=2,pady=10)
-
         back_button = tk.Button(frame, text ="Back", command=back_to_main)
         back_button.grid(row=3, columnspan=2, pady=10)
 

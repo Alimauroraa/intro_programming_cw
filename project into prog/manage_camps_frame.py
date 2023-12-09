@@ -106,11 +106,6 @@ class ManageCampsFrame:
         # Initially display camps
         self.display_camps()
 
-    # def on_xscroll(self, *args):
-    #     """Handle horizontal scrolling"""
-    #     self.xscrollbar.set(*args)
-    #     self.tree.xview(*args)
-
     def save_changes(self):
         camps_data = []
         for child_id in self.tree.get_children():
@@ -137,7 +132,7 @@ class ManageCampsFrame:
         x, y, width, height = self.tree.bbox(row, column)
         text = self.tree.item(row)['values'][int(column[1:]) - 1]
         # Check if the column is 'max_capacity'
-        if column == '#7':  # Adjust the column number as needed
+        if column == '#7':
             popup = EntryPopup(self.tree, row, column, text, is_integer=True)
         else:
             popup = EntryPopup(self.tree, row, column, text)
@@ -198,8 +193,8 @@ def main():
 
     # Define a callback function for the 'Back' button
     def on_back():
-        print("Back button clicked")  # Replace with desired action
-        root.destroy()  # For example, this line will close the window
+        print("Back button clicked")
+        root.destroy()
 
     app = ManageCampsFrame(root, on_back=on_back)
     root.mainloop()

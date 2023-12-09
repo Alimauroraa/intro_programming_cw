@@ -124,7 +124,7 @@ def create_gui(parent):
                 if camp.camp_id == selected_camp_id:
                     for item in inventory_data:
                         if item.inventory_name == selected_inventory_name:
-                            if not camp.allocated_resources:        #check if the camp.allocated resources is empty string or not
+                            if not camp.allocated_resources:        #check if the camp.allocated resources is empty or not
                                 aresources = {}
                             else:
                                 aresources = ast.literal_eval(camp.allocated_resources)
@@ -187,11 +187,6 @@ def create_gui(parent):
     choose_inventory_label = tk.Label(frame, text=" RESOURCES \n \n Choose resource to allocate to each camp. \n If you need multiple resources, \n please allocate them one at a time",font="calibri 10", bg="#021631",fg="#fff")
     choose_inventory_label.grid(row=6, column=1, padx=10, pady=10)
 
-    # info_label = tk.Label(frame, text="Allocate Resources to Camps")
-    # info_label.grid(row=0, column=1, padx=10, pady=10)
-
     return frame
-
-    # root.mainloop()
 
 

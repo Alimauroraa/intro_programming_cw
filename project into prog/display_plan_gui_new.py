@@ -116,7 +116,7 @@ def back(root):
     root.grid_forget()
 
 def date_parser(x):
-    formats = ['%Y-%m-%d', '%m-%d-%Y', '%m/%d/%Y', '%Y/%m/%d' ]  # Add more formats as needed
+    formats = ['%Y-%m-%d', '%m-%d-%Y', '%m/%d/%Y', '%Y/%m/%d' ]
     for fmt in formats:
         try:
             return pd.to_datetime(x, format=fmt)
@@ -155,7 +155,6 @@ def display_all_plan(root):
         tree.heading(col, text=col, anchor='center')
 
     for i, row in df.iterrows():
-        #formatted_row=[str(val).replace('-','/') if isinstance(val,pd.Timestamp) else val for val in row]
         tree.insert('','end', values=list(row))
 
     #adding scrollbar
@@ -171,7 +170,6 @@ def display_plan_frame(parent):
     # Create tkinter window
     root = tk.Frame(parent,width=600, height=600, bg='#021631')
     root.grid_propagate(False)
-    #root.title("Display Plan")
 
     # Create label and entry for Plan ID
     tk.Label(root, text="Select Plan ID",font="calibri 16",bg="#021631", fg="#fff").place(x=240,y=200)
@@ -180,8 +178,6 @@ def display_plan_frame(parent):
     plan_ids = load_plan_ids()
     combo = ttk.Combobox(root, values=plan_ids, state='readonly')
     combo.place(x=230, y=270)
-    #entry = tk.Entry(root,width=20, bd=2, font="calibri 10")
-    #entry.place(x=230, y=270)
 
     # Create 'Display Plan' button
     button = tk.Button(root, text="Display Plan", bg="#FFFFFF", command=display_plan)
@@ -192,17 +188,13 @@ def display_plan_frame(parent):
 
     back_button=tk.Button(root, text="Back", width=10, bg="#FFFFFF", command=lambda:back(root))
     back_button.place(x=270, y=500)
-    # error_label = ttk.Label(root, text="", foreground="red")
-    # error_label.pack()
 
     return root
-    # Run the tkinter main loop
-    #root.mainloop()
 
 if __name__=='__main__':
     root = tk.Tk()
     root.title("Admin home page")
-    root.eval("tk::PlaceWindow . center")  # --Placing the window on the centre of the screen
+    root.eval("tk::PlaceWindow . center")
     root.geometry("600x600")
     root['bg'] = '#021631'
     display_plan_frame(root)
