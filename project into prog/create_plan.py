@@ -193,10 +193,6 @@ class HumanitarianPlan:
         # Log the termination
         logging.info(f"Plan with ID {plan_id} terminated on {closing_date}")
 
-# Example Usage
-# new_plan = HumanitarianPlan(admin_id, plan_name, description, geographical_area, start_date, number_camps)
-# new_plan.create_plan()
-
 
 
 

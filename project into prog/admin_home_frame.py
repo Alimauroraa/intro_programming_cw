@@ -13,9 +13,6 @@ from allocate_volunteer_frame import AllocateVolunteersFrame
 
 bg_color = '#021631'
 
-# def switch_frame(frame):
-#     frame.tkraise()
-
 def plan_creator_frame(root):
     create_plan_frame.plan_creator_frame(root)
 def allocate_volunteer():
@@ -77,7 +74,7 @@ def admin_home(root):
     for widget in root.winfo_children():
         widget.destroy()
     root.title("Admin home page")
-    root.eval("tk::PlaceWindow . center")  # --Placing the window on the centre of the screen
+    root.eval("tk::PlaceWindow . center")
     screen_width = root.winfo_screenwidth()
     screen_height = root.winfo_screenheight()
     x = (screen_width - 600) // 2
@@ -109,7 +106,7 @@ def admin_home(root):
         cursor="hand2",
         activebackground="#B8B8B8",
         activeforeground="black",
-        command=lambda:plan_creator_frame(root)).place(x=286,y=250)  # this will open admin login page when clicked
+        command=lambda:plan_creator_frame(root)).place(x=286,y=250)
 
     tk.Button(
         home_frame,
@@ -122,7 +119,7 @@ def admin_home(root):
         cursor="hand2",
         activebackground="#B8B8B8",
         activeforeground="black",
-        command=lambda:plan_summary_frame(root)).place(x=286,y=300)  # this will open admin login page when clicked
+        command=lambda:plan_summary_frame(root)).place(x=286,y=300)
 
     tk.Button(
         home_frame,
@@ -135,7 +132,7 @@ def admin_home(root):
         cursor="hand2",
         activebackground="#B8B8B8",
         activeforeground="black",
-        command=lambda: terminate_plan(root)).place(x=286, y=350)  # this will open admin login page when clicked
+        command=lambda: terminate_plan(root)).place(x=286, y=350)
 
     tk.Button(
         home_frame,
@@ -148,7 +145,7 @@ def admin_home(root):
         cursor="hand2",
         activebackground="#B8B8B8",
         activeforeground="black",
-        command=lambda:edit_volunteer_frame(root)).place(x=286,y=600) # this will open admin login page when clicked
+        command=lambda:edit_volunteer_frame(root)).place(x=286,y=600)
 
     tk.Button(
         home_frame,
@@ -187,7 +184,7 @@ def admin_home(root):
         cursor="hand2",
         activebackground="#B8B8B8",
         activeforeground="black",
-        command=lambda:allocate_resources_frame(root)).pack(padx=50,pady=170) # this will open admin login page when clicked
+        command=lambda:allocate_resources_frame(root)).pack(padx=50,pady=170)
 
     tk.Button(
         home_frame,
@@ -214,9 +211,9 @@ def admin_home(root):
         cursor="hand2",
         activebackground="#B8B8B8",
         activeforeground="black",
-        command=lambda: open_manage_camps(root)  # This button will call the open_manage_camps function
+        command=lambda: open_manage_camps(root)
     )
-    manage_camps_button.place(x=286, y=450)  # Adjust the position as needed
+    manage_camps_button.place(x=286, y=450)
 
     root.deiconify()
 
@@ -231,7 +228,6 @@ if __name__=='__main__':
     # frames
     home_frame = tk.Frame(root, width=800, height=600, bg=bg_color)
     home_frame.grid(row=0, column=0, sticky="nsew")
-    # create_plan=tk.Frame(home_frame)
 
     admin_home(root)
 

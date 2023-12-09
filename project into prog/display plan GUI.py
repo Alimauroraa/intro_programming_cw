@@ -1,13 +1,3 @@
-# import pandas as pd
-# import tkinter as tk
-# plan_id = int(input("please enter the plan ID you would like to display: "))
-# def DisplayPlan(csv,plan_id):
-#     df = pd.read_csv(csv)
-#     plan_info = df[df.PlanID == plan_id]
-#     print(plan_info)
-#
-# DisplayPlan("plan.csv",1)
-#
 import tkinter as tk
 from tkinter import ttk
 import pandas as pd

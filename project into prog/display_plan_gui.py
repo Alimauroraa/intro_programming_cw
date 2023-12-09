@@ -1,13 +1,3 @@
-# import pandas as pd
-# import tkinter as tk
-# plan_id = int(input("please enter the plan ID you would like to display: "))
-# def DisplayPlan(csv,plan_id):
-#     df = pd.read_csv(csv)
-#     plan_info = df[df.PlanID == plan_id]
-#     print(plan_info)
-#
-# DisplayPlan("plan.csv",1)
-#
 import tkinter as tk
 from tkinter import ttk
 import pandas as pd
@@ -63,7 +53,6 @@ def display_plan_frame(parent):
     # Create tkinter window
     root = tk.Frame(parent,width=600, height=600, bg='#021631')
     root.grid_propagate(False)
-    #root.title("Display Plan")
 
     # Create label and entry for Plan ID
     tk.Label(root, text="Enter Plan ID",font="calibri 16",bg="#021631", fg="#fff").place(x=240,y=200)
@@ -79,21 +68,12 @@ def display_plan_frame(parent):
     back_button=tk.Button(root, text="Back", width=10, bg="#FFFFFF", command=lambda:back(root))
     back_button.place(x=270, y=500)
 
-
-    # #Create text widget to display the result
-    # global result_text
-    # result_text = tk.Text(root, height=10, width=50)
-    # result_text.pack()
-    # result_text.config(state=tk.DISABLED)
-
     return root
-    # Run the tkinter main loop
-    #root.mainloop()
 
 if __name__=='__main__':
     root = tk.Tk()
     root.title("Admin home page")
-    root.eval("tk::PlaceWindow . center")  # --Placing the window on the centre of the screen
+    root.eval("tk::PlaceWindow . center")
     root.geometry("600x600")
     root['bg'] = '#021631'
     display_plan_frame(root)

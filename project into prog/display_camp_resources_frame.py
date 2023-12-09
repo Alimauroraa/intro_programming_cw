@@ -62,7 +62,6 @@ class DisplayAllocatedResourcesFrame(tk.Frame):
                 self.tree.insert('', 'end', values=(resource, quantity))
         except Exception as e:
             print("Error loading data:", e)
-            # Handle the error as needed
 
 
 def main():
@@ -70,7 +69,7 @@ def main():
     root.title("Display Allocated Resources")
     root.geometry("400x300")
 
-    volunteer_id = 1  # Replace with the actual volunteer ID you want to display
+    volunteer_id = 1
     app = DisplayAllocatedResourcesFrame(root, volunteer_id=volunteer_id)
     app.pack(expand=True, fill='both')
 

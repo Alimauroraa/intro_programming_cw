@@ -45,7 +45,7 @@ def validate_date(plan_id, closing_date):
 
 
 def date_parser(x):
-    formats = ['%Y-%m-%d', '%m-%d-%Y', '%m/%d/%Y', '%Y/%m/%d']  # Add more formats as needed
+    formats = ['%Y-%m-%d', '%m-%d-%Y', '%m/%d/%Y', '%Y/%m/%d']
     for fmt in formats:
         try:
             return pd.to_datetime(x, format=fmt)
@@ -84,10 +84,9 @@ def display_plan(close_plan_frame):
         tree.heading(col, text=col, anchor='center')
 
     for i, row in df.iterrows():
-        #formatted_row=[str(val).replace('-','/') if isinstance(val,pd.Timestamp) else val for val in row]
         tree.insert('','end', values=list(row))
 
-    #adding scrollbar
+    # adding scrollbar
     scrollbar= ttk.Scrollbar(new_window, orient='vertical', command=tree.yview)
     tree.configure(yscrollcommand=scrollbar.set)
     scrollbar.pack(side='right', fill='y')
@@ -144,7 +143,7 @@ def close_plan_frame(parent):
     plan_id_entry.place(x=239, y=280)
     end_entry.place(x=239, y=380)
 
-    # button
+    # buttons
     tk.Button(close_plan_frame,text="Display all plans",bg="#FFFFFF", fg="black", width=15, height=1,
               command=lambda:display_plan(close_plan_frame)).place(x=70, y=170)
     tk.Button(close_plan_frame, text="Back", bg="#FFFFFF", fg="black", width=10, height=1,
@@ -154,12 +153,12 @@ def close_plan_frame(parent):
     tk.Button(close_plan_frame, text="Submit", bg="#FFFFFF", fg="black", width=10, height=1,
               command=submit_date).place(x=420, y=670)
 
-    close_plan_frame.grid(row=0, column=0, sticky="nsew")
+    close_plan_frame.grid(row=2, column=1, sticky="nsew")
     return close_plan_frame
 
 
 if __name__ == '__main__':
-    close_plan_frame(tk.Tk())  # will only execute in this file, for testing purposes only
+    close_plan_frame(tk.Tk())
     root.mainloop()
 
 

@@ -60,7 +60,6 @@ class AllocateVolunteersFrame(tk.Frame):
 
     def allocate_selected_volunteer(self):
         selected_camp_id = self.camp_var.get()
-        #print(f"Selected camp ID: '{selected_camp_id}'") 
 
         if not selected_camp_id.strip():
             messagebox.showerror("Error", "Please select a camp.")

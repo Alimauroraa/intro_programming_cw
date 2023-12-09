@@ -135,10 +135,8 @@ combo.pack()
 button = ttk.Button(root, text="Display Plan", command=display_plan)
 button.pack()
 
-
 # Display error message
 error_label = ttk.Label(root, text="", foreground="red")
 error_label.pack()
 
-# Run the tkinter main loop
 root.mainloop()

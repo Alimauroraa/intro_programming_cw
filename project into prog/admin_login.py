@@ -1,20 +1,3 @@
-
-# Read the CSV file into a DataFrame
-
-# class InvalidLogin(Exception):
-#     """This is an exception handling class that rejects incorrect usernames. Made by stella 06/11/23"""
-#     pass
-# try:
-#     matching_credentials = admin_df[(admin_df['username'] == username) & (admin_df['password'] == password)]
-#     if not matching_credentials.empty:
-#         pass
-#     else:
-#         raise InvalidLogin
-# except:
-#     print("Exception occurred: the username or password you have entered is wrong.")
-
-
-
 import pandas as pd
 
 admin_df = pd.read_csv('admin_credentials.csv')
