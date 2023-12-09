@@ -34,6 +34,7 @@ def submit_update():
         category_states[category] = False
 
 
+
 def toggle_category(category):
     global category_states
     category_states[category] = not category_states[category]
