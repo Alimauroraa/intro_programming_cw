@@ -157,7 +157,7 @@ class MainMenuWindow:
             # For simplicity, I'm only checking if the fields are not empty
             while True:
                 if not first_name_var.get() or not last_name_var.get() \
-                        or not gender_var.get() or not volunteer_ID_var.get() or not medical_condition_var.get() \
+                        or not gender_var.get() or not medical_condition_var.get() \
                         or not lead_family_member_var.get() or not lead_phone_number_var.get() or not number_of_relatives_var.get():
                     messagebox.showerror("Invalid Input", "All fields must be filled")
                     return
@@ -197,13 +197,7 @@ class MainMenuWindow:
                     messagebox.showerror("Invalid Input", "Ensure gender is either Male, Female, or Other")
                     return
 
-            while True:
-                volunteer_ID_value = volunteer_ID_var.get()
-                if not volunteer_ID_value.isdigit():
-                    messagebox.showerror("Invalid Input", "Ensure volunteer ID is number")
-                    return
-                else:
-                    break
+
 
             medical_condition_value = medical_condition_var.get().capitalize()
 
@@ -218,7 +212,7 @@ class MainMenuWindow:
             while True:
                 lead_phone_number_value = lead_phone_number_var.get()
                 if not lead_phone_number_value.isdigit():
-                    messagebox.showerror("Invalid Input", "Ensure there are no letters, only numbers")
+                    messagebox.showerror("Invalid Input", "Ensure there are no letters, only numbers of phone numbers")
                     return
                 else:
                     break
@@ -239,7 +233,7 @@ class MainMenuWindow:
                 'First_name': [first_name_value],
                 'Last_name': [last_name_value],
                 'Gender': [gender_value],
-                'Volunteer_ID': [volunteer_ID_value],
+
                 'Profile_ID': [int(profile_ID_var.get())],
                 'Medical_Condition': [medical_condition_value],
                 'Lead_Family_Member': [lead_family_member_value],
@@ -276,7 +270,7 @@ class MainMenuWindow:
         first_name_var = tk.StringVar()
         last_name_var = tk.StringVar()
         gender_var = tk.StringVar()
-        volunteer_ID_var = tk.StringVar()
+
         profile_ID_var = tk.StringVar(value=str(random_profile_id))
         medical_condition_var = tk.StringVar()
         lead_family_member_var = tk.StringVar()
@@ -315,8 +309,7 @@ class MainMenuWindow:
 
         tk.Label(input_window, text="Volunteer ID:", bg=bg_color, fg="white", font=("Calibri", 14)).place(x=label_x,
                                                                                                           y=label_y)
-        tk.Entry(input_window, textvariable=volunteer_ID_var).place(x=entry_x, y=label_y)
-        label_y += y_increment
+
 
         tk.Label(input_window, text="Medical Condition:", bg=bg_color, fg="white", font=("Calibri", 14)).place(
             x=label_x,
@@ -660,7 +653,8 @@ class MainMenuWindow:
     def view_database(self):
         if not self.show_database:
             return
-
+        global refugee_df
+        refugee_df = pd.read_csv(csv_filename)
         database_window = tk.Toplevel(self.master)
         database_window.title("View Database")
 
