@@ -730,6 +730,12 @@ class RefugeePortalVolunteerApp:
     def view_database(self):
         if not self.show_database:
             return
+        try:
+            # Reload the refugee_df DataFrame from the file before displaying it
+            self.refugee_df = pd.read_csv("Refugee_DataFrame.csv")
+        except pd.errors.EmptyDataError:
+            # Handle the case when the file is empty
+            self.refugee_df = pd.DataFrame(columns=REFUGEE_COLUMNS)
 
         if self.camp_id is None:
             print("It's none")
