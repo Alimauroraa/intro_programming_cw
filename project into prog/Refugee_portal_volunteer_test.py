@@ -153,12 +153,12 @@ class RefugeePortalVolunteerApp:
                 refugee_ID_var = tk.StringVar(value=str(random_refugee_id))
                 break
 
-        while True:
-            random_profile_id = random.randint(1, 999)
-
-            if random_profile_id not in self.refugee_df["Profile_ID"].values:
-                profile_ID_var = tk.StringVar(value=str(random_profile_id))
-                break
+        # while True:
+        #     random_profile_id = random.randint(1, 999)
+        # 
+        #     if random_profile_id not in self.refugee_df["Profile_ID"].values:
+        #         profile_ID_var = tk.StringVar(value=str(random_profile_id))
+        #         break
 
         # Filter out camps with zero availability
         available_camps_with_availability = self.camps_df[self.camps_df['current_availability'] > 0]
@@ -268,7 +268,7 @@ class RefugeePortalVolunteerApp:
                 'Last_name': [last_name_value],
                 'Gender': [gender_value],
                 'Volunteer_ID': [int(volunteer_ID_var.get())],
-                'Profile_ID': [int(profile_ID_var.get())],
+                # 'Profile_ID': [int(profile_ID_var.get())],
                 'Medical_Condition': [medical_condition_value],
                 'Lead_Family_Member': [lead_family_member_value],
                 'Lead_Phone_Number': [lead_phone_number_value],
@@ -277,7 +277,7 @@ class RefugeePortalVolunteerApp:
 
             try:
                 existing_data = pd.read_csv("Refugee_DataFrame.csv")
-                existing_data['Profile_ID'] = existing_data['Profile_ID'].astype(int)
+                # existing_data['Profile_ID'] = existing_data['Profile_ID'].astype(int)
                 updated_data = pd.concat([existing_data, new_data], ignore_index=True)
             except pd.errors.EmptyDataError:
                 updated_data = new_data
@@ -304,7 +304,7 @@ class RefugeePortalVolunteerApp:
         last_name_var = tk.StringVar()
         gender_var = tk.StringVar()
         # volunteer_ID_var = tk.StringVar()
-        profile_ID_var = tk.StringVar(value=str(random_profile_id))
+        # profile_ID_var = tk.StringVar(value=str(random_profile_id))
         medical_condition_var = tk.StringVar()
         lead_family_member_var = tk.StringVar()
         lead_phone_number_var = tk.StringVar()
