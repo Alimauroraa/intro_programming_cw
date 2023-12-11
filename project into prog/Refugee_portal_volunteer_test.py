@@ -286,8 +286,8 @@ class RefugeePortalVolunteerApp:
             selected_camp_id = str(camp_ID_var.get())
             selected_camp_row = self.camps_df[self.camps_df['camp_id'].astype(str) == selected_camp_id]
             # Increment refugees_number and decrement max_capacity
-            self.camps_df.loc[self.camps_df['camp_id'].astype(str) == selected_camp_id, 'refugees_number'] += 1
-            self.camps_df.loc[self.camps_df['camp_id'].astype(str) == selected_camp_id, 'current_availability'] -= 1
+            self.camps_df.loc[self.camps_df['camp_id'].astype(str) == selected_camp_id, 'refugees_number'] += (1 + int(number_of_relatives_value))
+            self.camps_df.loc[self.camps_df['camp_id'].astype(str) == selected_camp_id, 'current_availability'] -= (1 + int(number_of_relatives_value))
             self.camps_df.to_csv("camps.csv", index=False)
 
             updated_data.to_csv("Refugee_DataFrame.csv", index=False)
@@ -528,7 +528,7 @@ class RefugeePortalVolunteerApp:
             self.refugee_df.to_csv("Refugee_DataFrame.csv", index=False)
 
             new_camp_id = new_value if selected_field == 'Camp ID' else original_camp_id
-            self.update_camp_info(original_camp_id, new_camp_id)
+            self.update_camp_info(original_camp_id, new_camp_id, int(refugee_id_to_edit))
 
         field_window.update()
         field_window.destroy()
@@ -536,17 +536,22 @@ class RefugeePortalVolunteerApp:
             messagebox.showinfo("Edit Refugee",
                                 f"Refugee information updated for Refugee ID {refugee_id_to_edit}. Please reopen the application to view the changes.")
 
-    def update_camp_info(self, original_camp_id, new_camp_id):
+    def update_camp_info(self, original_camp_id, new_camp_id, refugee_id):
         original_camp_id = str(original_camp_id).strip()
         new_camp_id = str(new_camp_id).strip()
+
+        number_of_relatives = int(
+            self.refugee_df.loc[self.refugee_df['Refugee_ID'] == refugee_id, 'Number_of_Relatives'].iloc[0])
+        total_family_size = 1 + number_of_relatives  # Including the refugee themselves
+
         if original_camp_id != new_camp_id:
             # Increment refugees_number and decrement current_availability for the original camp ID
-            self.camps_df.loc[self.camps_df['camp_id'].astype(str) == original_camp_id, 'refugees_number'] -= 1
-            self.camps_df.loc[self.camps_df['camp_id'].astype(str) == original_camp_id, 'current_availability'] += 1
+            self.camps_df.loc[self.camps_df['camp_id'].astype(str) == original_camp_id, 'refugees_number'] -= total_family_size
+            self.camps_df.loc[self.camps_df['camp_id'].astype(str) == original_camp_id, 'current_availability'] += total_family_size
 
             # Increment refugees_number and decrement current_availability for the new camp ID
-            self.camps_df.loc[self.camps_df['camp_id'].astype(str) == new_camp_id, 'refugees_number'] += 1
-            self.camps_df.loc[self.camps_df['camp_id'].astype(str) == new_camp_id, 'current_availability'] -= 1
+            self.camps_df.loc[self.camps_df['camp_id'].astype(str) == new_camp_id, 'refugees_number'] += total_family_size
+            self.camps_df.loc[self.camps_df['camp_id'].astype(str) == new_camp_id, 'current_availability'] -= total_family_size
 
             self.camps_df.to_csv("camps.csv", index=False)
 
