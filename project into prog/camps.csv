@@ -1,41 +1,17 @@
 camp_id,location,volunteers_number,refugees_number,plan_name,current_availability,max_capacity,specific_needs,allocated_resources
-1,Zambia,0,0,"Response to Flood in Zambia
-",50,50,,{}
-2,Zambia,0,0,"Response to Flood in Zambia
-",50,50,,{}
-3,Chile,1,0,Hao,50,50,,{}
-4,Chile,0,0,Hao,50,50,,{}
-5,fdas,0,0,fads,50,50,,{}
-6,fdas,0,0,fads,50,50,,{}
-7,Afghanistan,0,0,fsd,50,50,,{}
-8,Afghanistan,0,0,fsd,50,50,,{}
-9,fds,0,0,dfs,50,50,,{}
-10,fds,0,0,dfs,50,50,,{}
-11,United States,1,0,oooo,50,50,,{}
-12,United States,0,0,oooo,50,50,,{}
-13,United Kingdom,0,0,bbb,50,50,,{}
-14,United Kingdom,0,0,bbb,50,50,,{}
-15,fads,0,0,dfsa,50,50,,{}
-16,fads,0,0,dfsa,50,50,,{}
-17,Taiwan,0,0,safd,50,50,,{}
-18,Taiwan,0,0,safd,50,50,,{}
-19,Chile,0,0,adsf,50,50,10 volunteers required,{}
-20,Chile,0,0,adsf,50,50,10 volunteers required,{}
-21,China,0,0,asdf,50,50,X(update via manage camp) volunteers required,{}
-22,China,0,0,asdf,50,50,X(update via manage camp) volunteers required,{}
-23,China,0,0,afsd,50,50,X volunteers required (update via manage camp),{}
-24,China,0,0,afsd,50,50,X volunteers required (update via manage camp),{}
-25,Chile,0,0,test,50,50,X volunteers required (update via manage camp),{}
-26,Chile,0,0,test,50,50,X volunteers required (update via manage camp),{}
-27,Chile,0,0,test,50,50,X volunteers required (update via manage camp),{}
-28,Chile,0,0,test,50,50,X volunteers required (update via manage camp),{}
-29,Chile,0,0,test,50,50,X volunteers required (update via manage camp),{}
-30,Chile,0,0,test,50,50,X volunteers required (update via manage camp),{}
-31,China,0,0,test2,50,50,X volunteers required (update via manage camp),{}
-32,China,0,0,test2,50,50,X volunteers required (update via manage camp),{}
-33,China,0,0,testhao,50,50,X volunteers required (update via manage camp),{}
-34,China,0,0,testhao,50,50,X volunteers required (update via manage camp),{}
-35,Afghanistan,0,0,lll,50,50,X volunteers required (update via manage camp),{}
-36,Afghanistan,1,0,lll,50,50,X volunteers required (update via manage camp),{}
-37,China,0,0,qqq,50,50,X volunteers required (update via manage camp),{}
-38,China,1,0,qqq,50,50,X volunteers required (update via manage camp),{}
+1,United States,2,3,Flood Relief Effort,47,50,2 volunteers required,"{'Food Packets': 10, 'Medical Supplies': 10}"
+2,United States,3,0,Flood Relief Effort,50,50,3 volunteers required,"{'Blankets': 10, 'Clothing': 10, 'Tents': 10, 'Hygiene Supplies': 10}"
+3,Japan,2,0,Earthquake Response,50,50,2 volunteers required,"{'Food Packets': 10, 'Tents': 10, 'Hygiene Supplies': 10}"
+4,Japan,3,0,Earthquake Response,50,50,3 volunteers required,"{'Medical Supplies': 10, 'Blankets': 10, 'Hygiene Supplies': 10}"
+5,Japan,5,0,Earthquake Response,50,50,5 volunteers required,"{'Clothing': 10, 'Tents': 10, 'Hygiene Supplies': 10}"
+6,Mexico,2,0,Hurricane Relief Plan,50,50,2 volunteers required,"{'Food Packets': 10, 'Medical Supplies': 10}"
+7,Mexico,3,0,Hurricane Relief Plan,50,50,3 volunteers required,"{'Blankets': 10, 'Clothing': 10, 'Tents': 10, 'Hygiene Supplies': 10}"
+8,Kenya,2,0,Drought Assistance Program,50,50,2 volunteers required,"{'Food Packets': 10, 'Tents': 10, 'Hygiene Supplies': 10}"
+9,Kenya,3,0,Drought Assistance Program,50,50,3 volunteers required,"{'Medical Supplies': 10, 'Blankets': 10, 'Hygiene Supplies': 10}"
+10,Kenya,5,0,Drought Assistance Program,50,50,5 volunteers required,"{'Clothing': 10, 'Tents': 10, 'Hygiene Supplies': 10}"
+11,Kenya,2,0,Drought Assistance Program,50,50,2 volunteers required,"{'Food Packets': 10, 'Medical Supplies': 10}"
+12,Australia,3,0,Wildfire Aid Mission,50,50,3 volunteers required,"{'Blankets': 10, 'Clothing': 10, 'Tents': 10, 'Hygiene Supplies': 10}"
+13,Australia,2,0,Wildfire Aid Mission,50,50,2 volunteers required,"{'Food Packets': 10, 'Tents': 10, 'Hygiene Supplies': 10}"
+14,Australia,3,0,Wildfire Aid Mission,50,50,3 volunteers required,"{'Medical Supplies': 10, 'Blankets': 10, 'Hygiene Supplies': 10}"
+15,Ethiopia,5,0,Famine Relief Effort,50,50,5 volunteers required,"{'Clothing': 10, 'Tents': 10, 'Hygiene Supplies': 10}"
+16,Ethiopia,2,0,Famine Relief Effort,50,50,2 volunteers required,"{'Food Packets': 10, 'Medical Supplies': 10}"

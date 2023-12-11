@@ -5,13 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="28ad44ea-d0a3-45c2-a27c-9e867bd827fa" name="Changes" comment="Debugged refugee portal and the camp ID issue">
+      <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/intro_programming_cw.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/intro_programming_cw.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project into prog/Refugee_DataFrame.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/Refugee_DataFrame.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/Refugee_portal_volunteer_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/Refugee_portal_volunteer_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project into prog/camps.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/camps.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project into prog/create_plan_logging.log" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/create_plan_logging.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/create_refugee.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/create_refugee.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/inventory.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/inventory.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/liveupdates.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/liveupdates.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/manage_camps_frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/manage_camps_frame.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/plan.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/plan.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project into prog/volunteers_file.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/volunteers_file.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -72,17 +75,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;debugging-refugee-portal&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Hp/OneDrive/Desktop/Uni/Term 1/intro_programming_cw&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "Hao__final__final",
+    "last_opened_file_path": "C:/Users/Hp/OneDrive/Desktop/Uni/Term 1/intro_programming_cw",
+    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
-}</component>
-  <component name="RunManager" selected="Python.home_page">
+}]]></component>
+  <component name="RunManager">
     <configuration name="admin_login" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="intro_programming_cw" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -104,7 +107,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="home_page" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="home_page" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="intro_programming_cw" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -112,8 +115,9 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
+      <option name="SDK_NAME" value="Python 3.11 (pythonProject)" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/project into prog" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/project into prog/home_page.py" />
