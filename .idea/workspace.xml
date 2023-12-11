@@ -4,18 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28ad44ea-d0a3-45c2-a27c-9e867bd827fa" name="Changes" comment="Debugged refugee portal and the camp ID issue">
-      <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/intro_programming_cw.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/intro_programming_cw.iml" afterDir="false" />
+    <list default="true" id="28ad44ea-d0a3-45c2-a27c-9e867bd827fa" name="Changes" comment="populate csv">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project into prog/Refugee_DataFrame.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/Refugee_DataFrame.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/camps.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/camps.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/create_plan_logging.log" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/create_plan_logging.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/inventory.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/inventory.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/liveupdates.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/liveupdates.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/manage_camps_frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/manage_camps_frame.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/plan.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/plan.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/volunteers_file.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/volunteers_file.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -224,7 +215,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702162813389</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="populate csv">
+      <option name="closed" value="true" />
+      <created>1702328402938</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1702328402938</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -254,6 +253,7 @@
     <MESSAGE value="6" />
     <MESSAGE value="1" />
     <MESSAGE value="Debugged refugee portal and the camp ID issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="Debugged refugee portal and the camp ID issue" />
+    <MESSAGE value="populate csv" />
+    <option name="LAST_COMMIT_MESSAGE" value="populate csv" />
   </component>
 </project>
