@@ -4176,3 +4176,7 @@
 09-Dec-23 22:38:51 - INFO - Plan 1 has been closed and is inactive
 09-Dec-23 22:39:28 - INFO - Plan 1 has been closed and is inactive
 09-Dec-23 22:40:13 - INFO - Plan 1 has been closed and is inactive
+11-Dec-23 19:23:31 - INFO - Plan 1 has been closed and is inactive
+11-Dec-23 19:24:18 - INFO - Plan name: test, is created
+11-Dec-23 19:24:18 - ERROR - start_date is not a string: 2030-03-30
+11-Dec-23 19:24:18 - INFO - Plan created with ID: 2 and Camp IDs: 1,2
