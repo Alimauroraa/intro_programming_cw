@@ -772,8 +772,6 @@ def display_user_row(user_index, user_df):
                           activeforeground="black", )
     close_button.pack(pady=10)
 
-def back_to_main():
-    root.destroy()
 
 root = tk.Toplevel()
 root.title('Volunteer Login')
@@ -831,15 +829,6 @@ add_button = Button(root, text="Create Account", command=create_account_window,f
 
 add_button.place(x=130, y=170)
 
-back_button = Button(root, text="Back", command=back_to_main,font=("Calibri", 12),
-        width=16,
-        height=0,
-        bg="#FFFFFF",
-        fg="black",
-        cursor="hand2",
-        activebackground="#B8B8B8",
-        activeforeground="black")
 
-back_button.place(x=130, y=220)
 
 root.mainloop()
