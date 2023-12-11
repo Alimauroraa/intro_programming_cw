@@ -121,6 +121,9 @@ def submit_date():
 
                 # Reload volunteers data to reflect the updates
                 reload_volunteers_data()
+                # Call delete_associated_camps method
+                close_plan_instance.delete_associated_camps([int(plan_id)])
+                reload_camps_data()
                 messagebox.showinfo("Success", f"Closing date updated for Plan ID {plan_id}")
             else:
                 messagebox.showerror("Error", f"No plan found with ID {plan_id}")
@@ -130,7 +133,9 @@ def submit_date():
 def reload_volunteers_data():
     global volunteers_df
     volunteers_df = pd.read_csv("volunteers_file.csv")
-
+def reload_camps_data():
+    global camps_df
+    camps_df = pd.read_csv("camps.csv")
 
 def close_plan_frame(parent):
     # initializing
