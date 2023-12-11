@@ -15,4 +15,3 @@ camp_id,location,volunteers_number,refugees_number,plan_name,current_availabilit
 14,Australia,3,0,Wildfire Aid Mission,50,50,3 volunteers required,"{'Medical Supplies': 10, 'Blankets': 10, 'Hygiene Supplies': 10}"
 15,Ethiopia,5,0,Famine Relief Effort,50,50,5 volunteers required,"{'Clothing': 10, 'Tents': 10, 'Hygiene Supplies': 10}"
 16,Ethiopia,2,0,Famine Relief Effort,50,50,2 volunteers required,"{'Food Packets': 10, 'Medical Supplies': 10}"
-17,China,1,0,test,50,50,X volunteers required (update via manage camp),

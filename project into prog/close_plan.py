@@ -60,6 +60,21 @@ class ClosePlan:
         # Save the updated volunteers DataFrame
         volunteers_df.to_csv("volunteers_file.csv", index=False)
 
+    def delete_associated_camps(self, closed_plan_ids):
+        # Load camps DataFrame
+        camps_df = pd.read_csv("camps.csv")
+
+        for plan_id in closed_plan_ids:
+            # Get the camp_ids related to this plan
+            camp_ids = self.plan_df[self.plan_df['PlanID'] == plan_id]['camp_id'].iloc[0]
+            camp_ids_list = str(camp_ids).split(',')
+
+            # Delete camps whose camp_id matches any of the camp_ids in the list
+            camps_df = camps_df[~camps_df['camp_id'].isin([int(camp_id) for camp_id in camp_ids_list])]
+
+        # Save the updated camps DataFrame
+        camps_df.to_csv("camps.csv", index=False)
+
 #calling class and method
 plan=ClosePlan(plan_df)
 plan.close_plan()
