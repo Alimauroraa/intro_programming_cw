@@ -4,30 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28ad44ea-d0a3-45c2-a27c-9e867bd827fa" name="Changes" comment="2">
+    <list default="true" id="28ad44ea-d0a3-45c2-a27c-9e867bd827fa" name="Changes" comment="Debugged refugee portal and the camp ID issue">
       <change beforePath="$PROJECT_DIR$/.idea/intro_programming_cw.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/intro_programming_cw.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/EditVolunteerAccount.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/EditVolunteerAccount.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/admin login gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/admin login gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/admin_home_frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/admin_home_frame.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/admin_login.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/admin_login.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/admin_login_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/admin_login_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/allocate_volunteer_frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/allocate_volunteer_frame.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/allocatesrourcesnew.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/allocatesrourcesnew.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/Refugee_DataFrame.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/Refugee_DataFrame.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/Refugee_portal_volunteer_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/Refugee_portal_volunteer_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project into prog/camps.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/camps.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/close_plan.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/close_plan.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/close_plan_frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/close_plan_frame.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/create_plan.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/create_plan.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/create_plan_frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/create_plan_frame.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project into prog/create_plan_logging.log" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/create_plan_logging.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/display plan GUI.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/display plan GUI.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/display_camp_resources_frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/display_camp_resources_frame.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/display_plan_GUI_2.0.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/display_plan_GUI_2.0.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/display_plan_gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/display_plan_gui.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/display_plan_gui_new.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/display_plan_gui_new.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/livefeed.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/livefeed.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/liveupdatevolunteer.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/liveupdatevolunteer.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/manage_camps_frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/manage_camps_frame.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/create_refugee.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/create_refugee.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/volunteers_file.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/volunteers_file.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,16 +72,16 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "aurora__new13",
-    "last_opened_file_path": "C:/Users/Hp/OneDrive/Desktop/Uni/Term 1/intro_programming_cw",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;debugging-refugee-portal&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Hp/OneDrive/Desktop/Uni/Term 1/intro_programming_cw&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Python.home_page">
     <configuration name="admin_login" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
       <module name="intro_programming_cw" />
@@ -227,7 +212,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702143608072</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="Debugged refugee portal and the camp ID issue">
+      <option name="closed" value="true" />
+      <created>1702162813389</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1702162813389</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -256,6 +249,7 @@
     <MESSAGE value="5" />
     <MESSAGE value="6" />
     <MESSAGE value="1" />
-    <option name="LAST_COMMIT_MESSAGE" value="1" />
+    <MESSAGE value="Debugged refugee portal and the camp ID issue" />
+    <option name="LAST_COMMIT_MESSAGE" value="Debugged refugee portal and the camp ID issue" />
   </component>
 </project>
