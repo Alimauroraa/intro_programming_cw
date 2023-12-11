@@ -4,8 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28ad44ea-d0a3-45c2-a27c-9e867bd827fa" name="Changes" comment="populate csv">
-      <change beforePath="$PROJECT_DIR$/project into prog/Refugee_DataFrame.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/Refugee_DataFrame.csv" afterDir="false" />
+    <list default="true" id="28ad44ea-d0a3-45c2-a27c-9e867bd827fa" name="Changes" comment="ignore">
+      <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/create_plan_logging.log" beforeDir="false" afterPath="$PROJECT_DIR$/create_plan_logging.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/close_plan.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/close_plan.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/close_plan_frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/close_plan_frame.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/create_plan_logging.log" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/create_plan_logging.log" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/volunteers_file.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/volunteers_file.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +76,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Hao__final__final",
+    "git-widget-placeholder": "Hao__videoo",
     "last_opened_file_path": "C:/Users/Hp/OneDrive/Desktop/Uni/Term 1/intro_programming_cw",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
@@ -97,7 +103,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="home_page" type="PythonConfigurationType" factoryName="Python" nameIsGenerated="true">
+    <configuration name="home_page" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="intro_programming_cw" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -105,9 +111,8 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="SDK_NAME" value="Python 3.11 (pythonProject)" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/project into prog" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/project into prog/home_page.py" />
@@ -214,23 +219,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702162813389</updated>
     </task>
-    <task id="LOCAL-00011" summary="populate csv">
+    <task id="LOCAL-00011" summary="ignore">
       <option name="closed" value="true" />
-      <created>1702328402938</created>
+      <created>1702329578776</created>
       <option name="number" value="00011" />
       <option name="presentableId" value="LOCAL-00011" />
       <option name="project" value="LOCAL" />
-      <updated>1702328402938</updated>
+      <updated>1702329578776</updated>
     </task>
-    <task id="LOCAL-00012" summary="populate csv">
-      <option name="closed" value="true" />
-      <created>1702329101563</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1702329101563</updated>
-    </task>
-    <option name="localTasksCounter" value="13" />
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -252,7 +249,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="test stella" />
-    <MESSAGE value="ignore" />
     <MESSAGE value="2" />
     <MESSAGE value="3" />
     <MESSAGE value="4" />
@@ -260,7 +256,7 @@
     <MESSAGE value="6" />
     <MESSAGE value="1" />
     <MESSAGE value="Debugged refugee portal and the camp ID issue" />
-    <MESSAGE value="populate csv" />
-    <option name="LAST_COMMIT_MESSAGE" value="populate csv" />
+    <MESSAGE value="ignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="ignore" />
   </component>
 </project>

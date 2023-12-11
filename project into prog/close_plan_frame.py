@@ -3,6 +3,8 @@ from tkinter import ttk
 from tkinter import messagebox
 import pandas as pd
 from datetime import date as d, datetime as dt
+from close_plan import ClosePlan
+
 import logging
 import create_plan_frame
 
@@ -100,23 +102,34 @@ def submit_date():
 
     if validate_date(plan_id, closing_date):
         try:
-            # Reload plan_df to get the latest data
             plan_df = pd.read_csv('plan.csv', dtype={'startDate': 'object', 'closingDate': 'object'})
             plan_df['startDate'] = plan_df['startDate'].apply(date_parser)
             plan_df['closingDate'] = plan_df['closingDate'].apply(date_parser)
 
             if int(plan_id) in plan_df['PlanID'].values:
-                # Use .loc to avoid SettingWithCopyWarning
                 plan_df.loc[plan_df['PlanID'] == int(plan_id), 'closingDate'] = closing_date
                 plan_df.to_csv('plan.csv', index=False)
+
+                # Update the active flag based on the new closing date
+                update_active_flag()
+
+                # Reload the DataFrame to reflect the changes
+                plan_df = pd.read_csv('plan.csv', dtype={'startDate': 'object', 'closingDate': 'object'})
+                # Call close_plan method from ClosePlan class
+                close_plan_instance = ClosePlan(plan_df)
+                close_plan_instance.close_plan()
+
+                # Reload volunteers data to reflect the updates
+                reload_volunteers_data()
                 messagebox.showinfo("Success", f"Closing date updated for Plan ID {plan_id}")
             else:
                 messagebox.showerror("Error", f"No plan found with ID {plan_id}")
         except Exception as e:
             messagebox.showerror("Error", f"An error occurred: {e}")
 
-        # Reload plan_df to reflect changes
-        plan_df = pd.read_csv('plan.csv')
+def reload_volunteers_data():
+    global volunteers_df
+    volunteers_df = pd.read_csv("volunteers_file.csv")
 
 
 def close_plan_frame(parent):
@@ -158,6 +171,7 @@ def close_plan_frame(parent):
 
 
 if __name__ == '__main__':
+    update_active_flag()
     close_plan_frame(tk.Tk())
     root.mainloop()
 
