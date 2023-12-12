@@ -110,25 +110,27 @@ def submit_date():
                 plan_df.loc[plan_df['PlanID'] == int(plan_id), 'closingDate'] = closing_date
                 plan_df.to_csv('plan.csv', index=False)
 
-                # Update the active flag based on the new closing date
+                # Update the active flag and call close_plan method
                 update_active_flag()
-
-                # Reload the DataFrame to reflect the changes
-                plan_df = pd.read_csv('plan.csv', dtype={'startDate': 'object', 'closingDate': 'object'})
-                # Call close_plan method from ClosePlan class
                 close_plan_instance = ClosePlan(plan_df)
                 close_plan_instance.close_plan()
 
-                # Reload volunteers data to reflect the updates
+                # Check if the plan's active status is now 0, then call delete_associated_camps
+                if plan_df[plan_df['PlanID'] == int(plan_id)]['active'].iloc[0] == 0:
+                    close_plan_instance.delete_associated_camps([int(plan_id)])
+
+                # Reload volunteers and camps data to reflect the updates
                 reload_volunteers_data()
-                # Call delete_associated_camps method
-                close_plan_instance.delete_associated_camps([int(plan_id)])
                 reload_camps_data()
+
                 messagebox.showinfo("Success", f"Closing date updated for Plan ID {plan_id}")
             else:
                 messagebox.showerror("Error", f"No plan found with ID {plan_id}")
         except Exception as e:
             messagebox.showerror("Error", f"An error occurred: {e}")
+
+
+
 
 def reload_volunteers_data():
     global volunteers_df

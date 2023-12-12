@@ -152,8 +152,6 @@ class HumanitarianPlan:
                 logging.error(f"Error converting start date: {e}")
                 formatted_start_date = self.start_date  # Use the original string in case of exception
         else:
-            # If start_date is not a string, use the original value
-            logging.error(f"start_date is not a string: {self.start_date}")
             formatted_start_date = str(self.start_date)
 
         new_data = [[self.plan_id, self.plan_name, formatted_start_date, self.geographical_area,
