@@ -380,6 +380,7 @@ def plan_creator_frame(parent):
     name_entry = tk.Text(create_plan_frame, width=45, height=1, bd=2, font="calibri 10")
     desc_entry = tk.Text(create_plan_frame, font="calibri 10", width=45, height=4, bd=4)
     geo_entry = ttk.Combobox(create_plan_frame, values=[i for i in country], width=50)
+    geo_entry.config(state='readonly')
     start_entry = tk.Entry(create_plan_frame, width=45, bd=2, font="calibri 10")
     camps_entry = ttk.Combobox(create_plan_frame, values=[i for i in range(1, 21)], width=50)
 
