@@ -25,7 +25,7 @@ def save_volunteers_to_csv(volunteers_file, volunteers):
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writeheader()
         for volunteer in volunteers:
-            writer.writerow(vars(volunteer))
+            writer.writerow({field: getattr(volunteer, field) for field in fieldnames})
 
 def update_form(Event):
     # Update the form fields with the selected volunteer's data
