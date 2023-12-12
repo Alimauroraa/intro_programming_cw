@@ -393,26 +393,40 @@ def display_all_plan(root):
     df['startDate'] = df['startDate'].dt.strftime('%Y-%m-%d')
     df['closingDate'] = df['closingDate'].dt.strftime('%Y-%m-%d')
 
-    new_window=tk.Toplevel(root)
+    new_window = tk.Toplevel(root)
     new_window.title('Plans Table')
 
-    #create treeview to display table
-    tree=ttk.Treeview(new_window, show='headings')
-    tree['columns']=list(df.columns)
+    # Create treeview to display table
+    tree = ttk.Treeview(new_window, show='headings')
+    tree['columns'] = list(df.columns)
 
-    #display columns
+    # Display columns
     for col in df.columns:
         tree.column(col, anchor='center')
         tree.heading(col, text=col, anchor='center')
 
     for i, row in df.iterrows():
-        tree.insert('','end', values=list(row))
+        tree.insert('', 'end', values=list(row))
 
-    #adding scrollbar
-    scrollbar= ttk.Scrollbar(new_window, orient='vertical', command=tree.yview)
+    # Set specific width for planid, adminid, and active columns
+    tree.column('PlanID', width=40)  # Set the width you desire
+    tree.column('adminID', width=30)  # Set the width you desire
+    tree.column('camp_id', width=50)
+    tree.column('active', width=30)    # Set the width you desire
+    tree.column('planName', width=200)
+    tree.column('startDate', width=90)
+    tree.column('closingDate', width=90)
+    tree.column('geographicalArea', width=160)
+    tree.column('planDesc', width=300)
+    tree.column('NumberOfCamps', width=100)
+    # Adjust column widths dynamically for other columns
+
+
+    # Adding scrollbar
+    scrollbar = ttk.Scrollbar(new_window, orient='vertical', command=tree.yview)
     tree.configure(yscrollcommand=scrollbar.set)
     scrollbar.pack(side='right', fill='y')
-
+    new_window.geometry("1600x400")
     tree.pack(expand=True, fill='both')
 
 
