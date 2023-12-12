@@ -1,3 +1,4 @@
+user_id,username,first_name,last_name,dob,user_email,contact_number,address1,address2,country,acc_type,gender,active,camp_id
 user_id,username,user_password,first_name,last_name,dob,user_email,contact_number,address1,address2,country,acc_type,gender,active,camp_id
 1,volunteer1,111,Clara,Redwood,01/01/2000,clara@example.com,7389204921,1457 Maple Grove Lane,"Springfield, ST 12345",Afghanistan,volunteer,female,True,1.0
 2,volunteer2,111,Ethan,Knightley,01/01/2000,ethan@example.com,9378938473,9821 Cedar Ridge Drive,"Rivertown, RT 67890",Mexico,volunteer,male,True,1.0
@@ -46,6 +47,3 @@ user_id,username,user_password,first_name,last_name,dob,user_email,contact_numbe
 45,volunteer45,111,Isabella,Highland,31/12/1994,isabella@example.com,8473928473,321 Pine Drive,"Valleyview, VV 94837",Ireland,volunteer,female,True,15.0
 46,volunteer46,111,Alexander,Ridgeway,14/02/1987,alexander@example.com,9384729384,234 Oak Street,"Hilltop, HT 38294",Belgium,volunteer,male,True,16.0
 47,volunteer47,111,Emily,Sunrise,20/06/1993,emily@example.com,8472938473,789 Elm Circle,"Sunsetview, SV 94830",Netherlands,volunteer,female,True,16.0
-48,volunteer48,111,Oliver,Cliffside,04/10/1989,oliver@example.com,9837492837,456 Birch Lane,"Oceanridge, OR 73849",Austria,volunteer,male,True,
-49,volunteer49,111,Charlotte,Havenwood,18/03/1992,charlotte@example.com,8473928473,321 Spruce Path,"Groveview, GV 94837",Poland,volunteer,female,True,
-50,volunteer50,111,James,Easton,05/08/1990,james@example.com,9384729384,234 Willow Drive,"Rivercrest, RC 38294",Spain,volunteer,male,True,18
