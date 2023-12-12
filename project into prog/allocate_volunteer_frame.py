@@ -82,7 +82,6 @@ class AllocateVolunteersFrame(tk.Frame):
                 messagebox.showerror("Error", "Camp ID must be an integer.")
                 return
 
-        # Update the selected volunteer's camp_id with the integer value
         self.volunteers_df.loc[self.volunteers_df['user_id'] == selected_volunteer_id, 'camp_id'] = selected_camp_id_int
         self.volunteers_df.to_csv("volunteers_file.csv", index=False)
 
@@ -115,7 +114,6 @@ class AllocateVolunteersFrame(tk.Frame):
         self.camps_df.to_csv("camps.csv", index=False)
 
     def on_camp_select(self, event=None):
-        # This method is triggered when a camp is selected from the dropdown
         selected_camp = self.camp_dropdown.get()
         print("Selected camp:", selected_camp)
 

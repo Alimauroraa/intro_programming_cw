@@ -18,10 +18,9 @@ class MainMenuWindow:
         screen_width = master.winfo_screenwidth()
         screen_height = master.winfo_screenheight()
 
-        x = (screen_width - 700) // 2  # Adjust 500 based on the width of your window
-        y = (screen_height - 800) // 2  # Adjust 300 based on the height of your window
+        x = (screen_width - 700) // 2  
+        y = (screen_height - 800) // 2  
 
-        # Set the geometry of the main window
         master.geometry(f"700x800+{x}+{y}")
         master['bg'] = bg_color
 
@@ -30,7 +29,6 @@ class MainMenuWindow:
         font=("Calibri", 14))
         self.label.pack(pady=(150, 10))
 
-        # Buttons for menu options
         self.add_button = tk.Button(master, text="Add a new refugee", command=self.add_refugee, font=("Calibri", 12),
         width=20,
         height=0,
@@ -93,7 +91,6 @@ class MainMenuWindow:
             return refugee_df["Refugee_ID"].max() + 1
 
     def add_refugee(self):
-        #self.master.iconify()
         input_window = tk.Toplevel(self.master)
         input_window.title("Add New Refugee")
         input_window['bg'] = bg_color
@@ -121,20 +118,11 @@ class MainMenuWindow:
                                      "The camps file is empty. Please add camps before adding refugees.")
                 input_window.quit()
                 input_window.destroy()
-                #self.master.deiconify()
                 return
             else:
                 break
 
         refugee_ID_var = tk.StringVar(value=str(self.generate_refugee_id()))
-
-
-        # while True:
-        #     random_profile_id = random.randint(1, 999)
-        #
-        #     if random_profile_id not in refugee_df["Profile_ID"].values:
-        #         profile_ID_var = tk.StringVar(value=str(random_profile_id))
-        #         break
 
          # Filter out camps with zero availability
         available_camps_with_availability = camps_df[camps_df['current_availability'] > 0]
@@ -144,7 +132,6 @@ class MainMenuWindow:
             messagebox.showerror("No Available Camps",
                                  "There are no camps with available space. Please add more camps.")
             input_window.destroy()
-            #self.master.deiconify()
             return
 
         camp_ID_var = tk.StringVar()
@@ -155,7 +142,6 @@ class MainMenuWindow:
             #self.master.deiconify()
 
         def process_input():
-            # For simplicity, I'm only checking if the fields are not empty
             while True:
                 if not first_name_var.get() or not last_name_var.get() \
                         or not gender_var.get() or not medical_condition_var.get() \
@@ -165,7 +151,6 @@ class MainMenuWindow:
                 else:
                     break
 
-            # Additional validation can be added here (e.g., checking gender, ensuring numbers are valid, etc.)
             while True:
                 camp_id_value = camp_ID_var.get()
                 if not camp_id_value.isdigit():
@@ -197,8 +182,6 @@ class MainMenuWindow:
                 else:
                     messagebox.showerror("Invalid Input", "Ensure gender is either Male, Female, or Other")
                     return
-
-
 
             medical_condition_value = medical_condition_var.get().capitalize()
 
@@ -253,11 +236,9 @@ class MainMenuWindow:
 
             try:
                 existing_data = pd.read_csv(csv_filename)
-                # existing_data['Profile_ID'] = existing_data['Profile_ID'].astype(int)
                 updated_data = pd.concat([existing_data, new_data], ignore_index=True)
             except pd.errors.EmptyDataError:
                 updated_data = new_data
-
 
             # Update the camps_df DataFrame with the new refugee information
             selected_camp_id = str(camp_ID_var.get())
@@ -274,14 +255,10 @@ class MainMenuWindow:
             input_window.destroy()
             self.master.deiconify()
 
-        # Create StringVar for each entry
-        # refugee_ID_var = tk.StringVar(value=str(random_refugee_id))
-        # camp_ID_var = tk.StringVar()
         first_name_var = tk.StringVar()
         last_name_var = tk.StringVar()
         gender_var = tk.StringVar()
 
-        # profile_ID_var = tk.StringVar(value=str(random_profile_id))
         medical_condition_var = tk.StringVar()
         lead_family_member_var = tk.StringVar()
         lead_phone_number_var = tk.StringVar()
@@ -289,16 +266,17 @@ class MainMenuWindow:
 
         label_x = 150  
         entry_x = 350  
-        label_y = 150  # Adjust the initial y-coordinate
-        y_increment = 40  # Adjust the y-increment for the next label and entry
+        label_y = 150  
+        y_increment = 40  
 
         tk.Label(input_window, text="Camp ID:", bg=bg_color, fg="white", font=("Calibri", 14)).place(x=label_x,
                                                                                                      y=label_y)
 
         camp_ID_var = tk.StringVar()
         camp_dropdown = ttk.Combobox(input_window, textvariable=camp_ID_var, values=available_camp_ids, state='readonly')
-        camp_dropdown.config(width=18)  # Adjust the width as needed
+        camp_dropdown.config(width=18)  
         camp_dropdown.place(x=entry_x, y=label_y)
+
         # Increment y-coordinate for the next label and entry
         label_y += y_increment
 
@@ -368,7 +346,6 @@ class MainMenuWindow:
         while True:
             user_input = simpledialog.askstring(title, prompt)
             if user_input is None:
-                # User clicked Cancel
                 return None
 
             if validator(user_input):
@@ -377,7 +354,7 @@ class MainMenuWindow:
                 messagebox.showerror("Invalid Input", error_message)
 
     def edit_refugee(self):
-        self.view_database()  # Display the DataFrame
+        self.view_database()  
         while True:
             refugee_id_to_edit = simpledialog.askinteger("Edit Refugee",
                                                          "Enter the Refugee ID you want to edit (or 'cancel' to exit):")
@@ -447,19 +424,18 @@ class MainMenuWindow:
         window_width = 700
         window_height = 800
         field_window['bg'] = bg_color
-        # Get screen width and height
+        
         screen_width = field_window.winfo_screenwidth()
         screen_height = field_window.winfo_screenheight()
 
-        # Calculate the x and y coordinates for the main window to be centered
-        x = (screen_width - window_width) // 2  # Adjust 500 based on the width of your window
-        y = (screen_height - window_height) // 2  # Adjust 300 based on the height of your window
+        x = (screen_width - window_width) // 2  
+        y = (screen_height - window_height) // 2  
 
-        # Set the geometry of the main window
+        
         field_window.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
         field_var = tk.StringVar()
-        field_var.set(fields[0])  # Set the default value
+        field_var.set(fields[0])  
 
         field_label = tk.Label(field_window, text="Select Field to Edit:", bg=bg_color, fg="white",
                                font=("Calibri", 14))
@@ -573,10 +549,7 @@ class MainMenuWindow:
 
             camp_window.wait_window()
 
-            # new_value = camp_ID_var_edit.get()
             camp_window.destroy()
-            # new_value = simpledialog.askinteger("Edit Camp ID",
-            #                                         f"Enter the new {field_name} (or 'cancel' to keep current value):")
             if new_value is not None:
                 new_value = new_value
 
@@ -622,10 +595,6 @@ class MainMenuWindow:
                                                 f"Enter your {field_name} (or press cancel to keep the current value):")
             if new_value is not None:
                 new_value = new_value
-        #
-        # elif field_name == 'Profile ID':
-        #     new_value = simpledialog.askinteger("Edit Profile ID",
-        #                                         f"Enter your {field_name} (or press cancel to keep the current value):")
 
             if new_value is not None:
                 new_value = new_value
@@ -657,12 +626,6 @@ class MainMenuWindow:
             if new_value is not None:
                 new_value = new_value
 
-
-
-
-
-
-
         elif field_name == 'Number of Relatives':
 
             new_number_of_relatives = simpledialog.askinteger("Edit Number of Relatives",
@@ -687,10 +650,9 @@ class MainMenuWindow:
 
             return new_number_of_relatives
 
-        root.destroy() # Destroy the hidden root window
+        root.destroy() 
         return new_value
 
-    # When updating the Number of Relatives
     def update_number_of_relatives(self, refugee_id, new_number_of_relatives):
         global refugee_df
         global camps_df
@@ -699,7 +661,6 @@ class MainMenuWindow:
         refugee_df = pd.read_csv("Refugee_DataFrame.csv")
         camps_df = pd.read_csv("camps.csv")
 
-        # Continue with the rest of the logic
         current_number_of_relatives = \
         refugee_df.loc[refugee_df['Refugee_ID'] == refugee_id, 'Number_of_Relatives'].iloc[0]
         original_family_size = 1 + current_number_of_relatives
@@ -745,7 +706,7 @@ class MainMenuWindow:
             refugee_id_to_delete = simpledialog.askinteger("Delete Refugee",
                                                            "Enter the Refugee ID you want to delete (or 'cancel' to exit):")
             if refugee_id_to_delete is None:
-                return  # User clicked Cancel
+                return  
 
             if refugee_id_to_delete not in refugee_df["Refugee_ID"].values:
                 messagebox.showerror("Delete Refugee", "Refugee does not exist")

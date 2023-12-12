@@ -15,8 +15,6 @@ bg_color = '#021631'
 
 def plan_creator_frame(root):
     create_plan_frame.plan_creator_frame(root)
-def allocate_volunteer():
-    pass
 
 def plan_summary_frame(root):
     display_plan_gui_new.display_plan_frame(root).grid(row=0, column=0)
@@ -62,7 +60,6 @@ def open_allocate_volunteers_frame(root):
     allocate_volunteers_frame = AllocateVolunteersFrame(root)
     allocate_volunteers_frame.pack()
 
-    # Back button
     back_button = tk.Button(root, text="Back", width=10, command=lambda: admin_home(root))
     back_button.place(x=370,y=600)
 
@@ -79,7 +76,6 @@ def admin_home(root):
     screen_height = root.winfo_screenheight()
     x = (screen_width - 600) // 2
     y = (screen_height - 850) // 2
-    # root.geometry("600x600")
     root.geometry(f"700x800+{x}+{y}")
     root['bg'] = '#021631'
 
@@ -221,7 +217,7 @@ if __name__=='__main__':
     # initializing
     root = tk.Tk()
     root.title("Admin")
-    root.eval("tk::PlaceWindow . center")  # --Placing the window on the centre of the screen
+    root.eval("tk::PlaceWindow . center") 
     root.geometry("700x800")
     root['bg'] = '#021631'
 
