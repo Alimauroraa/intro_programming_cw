@@ -4,16 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28ad44ea-d0a3-45c2-a27c-9e867bd827fa" name="Changes" comment="ignore">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/create_plan_logging.log" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/camps.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/camps.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/close_plan_frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/close_plan_frame.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/create_plan.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/create_plan.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/plan.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/plan.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/plan.txt" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/project into prog.code-workspace" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/volunteers_file.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/volunteers_file.csv" afterDir="false" />
+    <list default="true" id="28ad44ea-d0a3-45c2-a27c-9e867bd827fa" name="Changes" comment="user_password_removed">
+      <change beforePath="$PROJECT_DIR$/project into prog/admin_home_frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/admin_home_frame.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +70,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Hao__video",
+    "git-widget-placeholder": "Hao__checkk",
     "last_opened_file_path": "C:/Users/Hp/OneDrive/Desktop/Uni/Term 1/intro_programming_cw",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
@@ -262,7 +254,23 @@
       <option name="project" value="LOCAL" />
       <updated>1702342291348</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="bug fix">
+      <option name="closed" value="true" />
+      <created>1702348979064</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1702348979064</updated>
+    </task>
+    <task id="LOCAL-00017" summary="user_password_removed">
+      <option name="closed" value="true" />
+      <created>1702349837787</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1702349837787</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -295,6 +303,8 @@
     <MESSAGE value="changed auto generate refugee_id to auto-increment" />
     <MESSAGE value="not allowing texting for country dropdown" />
     <MESSAGE value="ignore" />
-    <option name="LAST_COMMIT_MESSAGE" value="ignore" />
+    <MESSAGE value="bug fix" />
+    <MESSAGE value="user_password_removed" />
+    <option name="LAST_COMMIT_MESSAGE" value="user_password_removed" />
   </component>
 </project>
