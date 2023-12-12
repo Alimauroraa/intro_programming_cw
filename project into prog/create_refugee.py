@@ -225,6 +225,15 @@ class MainMenuWindow:
                 else:
                     break
 
+            total_family_size = 1 + int(number_of_relatives_value)
+            selected_camp_id = str(camp_ID_var.get())
+
+            camp_availability = camps_df.loc[camps_df['camp_id'].astype(str) == selected_camp_id, 'current_availability'].iloc[0]
+            if total_family_size > camp_availability:
+                messagebox.showerror("Exceeded Capacity",
+                                     "Adding this refugee and their relatives will exceed the camp's capacity. Please reduce the number of relatives or cancel.")
+                return
+
 
             # Create a new DataFrame with the user's input, and append it to the existing data
             new_data = pd.DataFrame({
@@ -475,7 +484,7 @@ class MainMenuWindow:
         if selected_field.lower() == 'done':
             return
 
-        new_value = self.edit_field(selected_field)
+        new_value = self.edit_field(selected_field, refugee_id_to_edit)
 
         if new_value is not None:
             refugee_df.loc[
@@ -508,27 +517,9 @@ class MainMenuWindow:
             camps_df.loc[camps_df['camp_id'].astype(str) == new_camp_id, 'current_availability'] -= total_family_size
 
             camps_df.to_csv(camp_csv, index=False)
-    #
-    # def update_camp_info(self, original_camp_id, new_camp_id, refugee_id):
-    #     original_camp_id = str(original_camp_id).strip()
-    #     new_camp_id = str(new_camp_id).strip()
-    #
-    #     number_of_relatives = int(
-    #         self.refugee_df.loc[self.refugee_df['Refugee_ID'] == refugee_id, 'Number_of_Relatives'].iloc[0])
-    #     total_family_size = 1 + number_of_relatives  # Including the refugee themselves
-    #
-    #     if original_camp_id != new_camp_id:
-    #         # Increment refugees_number and decrement current_availability for the original camp ID
-    #         self.camps_df.loc[self.camps_df['camp_id'].astype(str) == original_camp_id, 'refugees_number'] -= total_family_size
-    #         self.camps_df.loc[self.camps_df['camp_id'].astype(str) == original_camp_id, 'current_availability'] += total_family_size
-    #
-    #         # Increment refugees_number and decrement current_availability for the new camp ID
-    #         self.camps_df.loc[self.camps_df['camp_id'].astype(str) == new_camp_id, 'refugees_number'] += total_family_size
-    #         self.camps_df.loc[self.camps_df['camp_id'].astype(str) == new_camp_id, 'current_availability'] -= total_family_size
-    #
-    #         self.camps_df.to_csv("camps.csv", index=False)
 
-    def edit_field(self, field_name):
+
+    def edit_field(self, field_name, refugee_id):
         root = tk.Tk()
         root.withdraw()  
 
@@ -544,7 +535,10 @@ class MainMenuWindow:
             label = tk.Label(camp_window, text="Choose the camp you'd like to assign the refugee:")
             label.pack(pady=10)
 
-            available_camps_with_availability = camps_df[camps_df['current_availability'] > 0]
+            number_of_relatives = int(refugee_df.loc[refugee_df['Refugee_ID'] == refugee_id, 'Number_of_Relatives'].iloc[0])
+            total_family_size = 1 + number_of_relatives
+
+            available_camps_with_availability = camps_df[camps_df['current_availability'] > total_family_size]
             available_camp_ids = available_camps_with_availability['camp_id'].tolist()
 
             if not available_camp_ids:
@@ -663,11 +657,28 @@ class MainMenuWindow:
                 new_value = new_value
 
         elif field_name == 'Number of Relatives':
-            new_value = simpledialog.askinteger("Edit Number of Relatives",
-                                                f"Enter your {field_name} (or press cancel to keep the current Number):")
+            while True:
+                new_value = simpledialog.askinteger("Edit Number of Relatives",
+                                                    f"Enter your {field_name} (or press cancel to keep the current Number):")
 
-            if new_value is not None:
-                new_value = new_value
+                if new_value is None:
+                    return None
+
+                total_family_size = 1 + int(new_value)
+                refugee_camp_id = refugee_df.loc[refugee_df['Refugee_ID'] == refugee_id, 'Camp_ID'].iloc[0]
+                current_family_size = 1 + refugee_df.loc[refugee_df['Refugee_ID'] == refugee_id, 'Number_of_Relatives'].iloc[0]
+                available_camp = camps_df.loc[camps_df['camp_id'] == refugee_camp_id, 'current_availability'].iloc[0]
+
+                if total_family_size > current_family_size + available_camp:
+                    messagebox.showerror("Edit Number of Relatives",
+                                         "Capacity will be exceed. Please reduce number of refugees or move to a more available camp.")
+                    continue
+                else:
+                    change_in_family_size = total_family_size - current_family_size
+                    camps_df.loc[camps_df['camp_id'] == refugee_camp_id, 'current_availability'] -= change_in_family_size
+                    camps_df.loc[camps_df['camp_id'] == refugee_camp_id, 'refugees_number'] += change_in_family_size
+                    camps_df.to_csv("camps.csv", index=False)
+                    return new_value
 
         root.destroy() # Destroy the hidden root window
         return new_value
@@ -709,9 +720,13 @@ class MainMenuWindow:
                     # Retrieve the camp ID of the refugee to be deleted
                     camp_id_to_update = refugee_df.loc[refugee_df['Refugee_ID'] == refugee_id_to_delete, 'Camp_ID'].values[0]
                     camp_id_to_update = str(camp_id_to_update).strip()
+
+                    number_of_relatives = self.refugee_df.loc[self.refugee_df['Refugee_ID'] == refugee_id_to_delete, 'Number_of_Relatives'].values[0]
+                    total_family_size = 1 + int(number_of_relatives)
+
                     # Decrement refugees_number and increment current_availability for the respective camp
-                    camps_df.loc[camps_df['camp_id'].astype(str) == camp_id_to_update, 'refugees_number'] -= 1
-                    camps_df.loc[camps_df['camp_id'].astype(str) == camp_id_to_update, 'current_availability'] += 1
+                    camps_df.loc[camps_df['camp_id'].astype(str) == camp_id_to_update, 'refugees_number'] -= total_family_size
+                    camps_df.loc[camps_df['camp_id'].astype(str) == camp_id_to_update, 'current_availability'] += total_family_size
                     camps_df.to_csv(camp_csv, index=False)
 
                     refugee_df.drop(refugee_df[refugee_df['Refugee_ID'] == refugee_id_to_delete].index, inplace=True)
