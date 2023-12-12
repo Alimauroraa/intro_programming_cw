@@ -50,9 +50,10 @@ class ManageCampsFrame:
         tk.Label(self.root, text="Manage camps", font="calibri 16", bg="#021631", fg="#fff").place(x=25, y=30)
         # Display a message above the table
         info_label = tk.Label(self.root, text="Location (initially inherited from country of plan), Max Capacity"
-                                              "initial default at 50) & Specific Needs fields can be\n clicked & edited."
+                                              " initial default at 50) & Specific Needs fields can be\n clicked & edited."
                                               "Double click the field, make changes, "
-                                              "press Enter and click Save Changes.",
+                                              "press Enter and click Save Changes.\n Allocated resources can be updated"
+                                              "upon consumption",
                               font="calibri 12")
         info_label.place(x=10, y=60)
         # Create the Treeview
@@ -123,7 +124,7 @@ class ManageCampsFrame:
 
     def edit_cell(self, event):
         column = self.tree.identify_column(event.x)
-        editable_columns = ['#2', '#7', '#8']  # Columns that should be editable
+        editable_columns = ['#2', '#7', '#8', '#9']  # Columns that should be editable
 
         # Check if the column is in the list of editable columns
         if column not in editable_columns:
