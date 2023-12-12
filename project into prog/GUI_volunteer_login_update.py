@@ -162,6 +162,7 @@ def updating():
                         raise ValueError("Invalid email address. Please enter a valid email.")
 
 
+
                 elif field_to_update == "camp_id":
 
                     try:
@@ -172,31 +173,29 @@ def updating():
 
                         # Check if the new camp_id exists
 
-                        if new_camp_id in camp_ids:
-
-                            old_camp_id = int(user_df.loc[user_index, 'camp_id']) if pd.notna(
-                                user_df.loc[user_index, 'camp_id']) else None
-
-                            user_id = user_df.loc[user_index, 'user_id']
-
-                            first_namee = user_df.loc[user_index, 'first_name']
-
-                            last_namee = user_df.loc[user_index, 'last_name']
-
-                            # Call the method to send camp id update
-
-                            from liveupdatevolunteer import send_camp_id_update
-
-                            send_camp_id_update(user_id, first_namee, last_namee, old_camp_id, new_camp_id)
-
-                        else:
-
+                        if new_camp_id not in camp_ids:
                             raise ValueError("Error: The entered camp_id does not exist.")
 
+                        old_camp_id = int(user_df.loc[user_index, 'camp_id']) if pd.notna(
 
-                    except ValueError:
+                            user_df.loc[user_index, 'camp_id']) else None
 
-                        result_label.config(text="Invalid camp_id. Please enter a valid integer.", fg="red")
+                        user_id = user_df.loc[user_index, 'user_id']
+
+                        first_namee = user_df.loc[user_index, 'first_name']
+
+                        last_namee = user_df.loc[user_index, 'last_name']
+
+                        # Call the method to send camp id update
+
+                        from liveupdatevolunteer import send_camp_id_update
+
+                        send_camp_id_update(user_id, first_namee, last_namee, old_camp_id, new_camp_id)
+
+
+                    except ValueError as e:
+
+                        result_label.config(text=str(e), fg="red")
 
                         return
 
@@ -461,9 +460,6 @@ def create_account(entry_vars, add_window):
 def display_information():
     display_user_row(user_index, user_df)
 
-def quit_application():
-    root.destroy()
-
 def main_application():
     global main_window
     main_window = Toplevel(root)
@@ -561,17 +557,17 @@ def main_application():
                               activeforeground="black", )
     live_update_button.pack(pady=10, side='top', anchor='center')
 
-
-    quit_button = Button(main_window, text="Quit", command=quit_application,
-        font=("Calibri", 11),
-        width=22,
-        height=0,
-        bg="#FFFFFF",
-        fg="black",
-        cursor="hand2",
-        activebackground="#B8B8B8",
-        activeforeground="black",)
-    quit_button.pack(pady=10, side='top', anchor='center')
+    #
+    # quit_button = Button(main_window, text="Quit", command=quit_application,
+    #     font=("Calibri", 11),
+    #     width=22,
+    #     height=0,
+    #     bg="#FFFFFF",
+    #     fg="black",
+    #     cursor="hand2",
+    #     activebackground="#B8B8B8",
+    #     activeforeground="black",)
+    # quit_button.pack(pady=10, side='top', anchor='center')
 def open_refugee_portal():
     from Refugee_portal_volunteer_test import RefugeePortalVolunteerApp
 
@@ -704,6 +700,17 @@ def display_user_row(user_index, user_df):
     close_button.pack(pady=10)
 
 
+def hide_login_window():
+    root.withdraw()
+
+def show_login_window():
+    root.deiconify()
+
+def on_closing():
+    hide_login_window()
+
+
+
 root = tk.Toplevel()
 root.title('Volunteer Login')
 root['bg'] = '#021631'
@@ -752,6 +759,9 @@ add_button = Button(root, text="Create Account", command=create_account_window,f
         activeforeground="black")
 
 add_button.place(x=130, y=170)
+
+
+root.protocol("WM_DELETE_WINDOW", on_closing)
 
 
 
