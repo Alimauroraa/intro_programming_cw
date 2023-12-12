@@ -8,13 +8,13 @@ user_id,username,user_password,first_name,last_name,dob,user_email,contact_numbe
 7,volunteer7,111,Sophia,Hartford,1996-10-05,sophia@example.com,8293748294,345 Maple Circle,"Fairview, FV 67891",Germany,volunteer,female,True,
 8,volunteer8,111,Jackson,Fairchild,2011-11-11,jackson@example.com,7382947294,678 Cedar Lane,"Cliffside, CS 56432",France,volunteer,male,True,2.0
 9,volunteer9,111,Ava,ww,2000-11-01,ava@example.com,2938472938,901 Willow Path,"Sunnydale, SD 83920",Italy,volunteer,female,True,2.0
-10,volunteer10,111,Liam,Westwood,1997-08-19,liam@example.com,7483928394,456 Birch Avenue,"Riverdale, RD 10384",Spain,volunteer,male,True,
-11,volunteer11,111,Emily,Hawthorne,1991-06-09,emily@example.com,3829384729,789 Oak Road,"Mountainview, MV 45237",Japan,volunteer,female,True,
-12,volunteer12,111,Noah,Eastwood,1986-09-23,noah@example.com,4928394837,123 Pine Street,"Lakeside, LS 87234",South Korea,volunteer,male,True,
-13,volunteer13,111,Grace,Wellington,1994-02-17,grace@example.com,2938473948,234 Cedar Court,"Riverside, RS 76895",India,volunteer,female,True,
-14,volunteer14,111,James,Fielding,1987-01-30,james@example.com,4839274839,567 Elm Drive,"Woodland, WL 23948",China,volunteer,male,True,
-15,volunteer15,111,Abigail,Fairfax,1999-11-08,abigail@example.com,3847293847,890 Maple Street,"Meadowbrook, MB 95837",Russia,volunteer,female,True,
-16,volunteer16,111,Benjamin,Gatewood,1983-03-05,benjamin@example.com,4729384729,321 Birch Lane,"Hilltop, HT 18239",United Kingdom,volunteer,male,True,
+10,volunteer10,111,Liam,Westwood,1997-08-19,liam@example.com,7483928394,456 Birch Avenue,"Riverdale, RD 10384",Spain,volunteer,male,True,3.0
+11,volunteer11,111,Emily,Hawthorne,1991-06-09,emily@example.com,3829384729,789 Oak Road,"Mountainview, MV 45237",Japan,volunteer,female,True,3
+12,volunteer12,111,Noah,Eastwood,1986-09-23,noah@example.com,4928394837,123 Pine Street,"Lakeside, LS 87234",South Korea,volunteer,male,True,3
+13,volunteer13,111,Grace,Wellington,1994-02-17,grace@example.com,2938473948,234 Cedar Court,"Riverside, RS 76895",India,volunteer,female,True,4
+14,volunteer14,111,James,Fielding,1987-01-30,james@example.com,4839274839,567 Elm Drive,"Woodland, WL 23948",China,volunteer,male,True,4
+15,volunteer15,111,Abigail,Fairfax,1999-11-08,abigail@example.com,3847293847,890 Maple Street,"Meadowbrook, MB 95837",Russia,volunteer,female,True,5
+16,volunteer16,111,Benjamin,Gatewood,1983-03-05,benjamin@example.com,4729384729,321 Birch Lane,"Hilltop, HT 18239",United Kingdom,volunteer,male,True,5
 18,volunteer18,111,Henry,Brighton,1992-05-14,henry@example.com,2839472938,987 Cedar Road,"Forestville, FV 37892",New Zealand,volunteer,male,True,7.0
 19,volunteer19,111,Samantha,Crossing,1984-12-07,samantha@example.com,7482938472,210 Elm Street,"Lakeview, LV 47293",Nigeria,volunteer,female,True,7.0
 20,volunteer20,111,William,Hartley,1990-10-20,william@example.com,3928472938,529 Birch Circle,"Hillside, HS 29284",Egypt,volunteer,male,True,7.0
