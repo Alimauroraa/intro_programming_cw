@@ -4,6 +4,7 @@ from admin_login_gui import Admin
 from create_plan import HumanitarianPlan
 
 def admin_login_page(root):
+
     root.withdraw()
 
     # Create a Toplevel window for the admin login
@@ -23,11 +24,13 @@ def admin_login_page(root):
     admin_login_frame = Admin("","","")
     admin_login_frame.create_login_frame(admin_login_window, root)  # Pass both the new window and root
 
+# def open_volunteer_login():
+#     import GUI_volunteer_login_update
+#     from GUI_volunteer_login_update import login, show_login_window
+#     GUI_volunteer_login_update.show_login_window()
 def open_volunteer_login():
-    import GUI_volunteer_login_update
-    from GUI_volunteer_login_update import login, show_login_window
-    GUI_volunteer_login_update.show_login_window()
-
+    from GUI_volunteer_login_update import login
+    login()
 def home_page():
     bg_color = '#021631'
 
@@ -36,15 +39,10 @@ def home_page():
     root.title("The Hope Trust: A Humanitarian Management System")
 
     # Calculate the screen width and height
-    screen_width = root.winfo_screenwidth()
-    screen_height = root.winfo_screenheight()
-
-    # Calculate the x and y coordinates to center the window
-    x = (screen_width - 400) // 2  # Assuming you want the window width to be 400
-    y = (screen_height - 350) // 2  # Assuming you want the window height to be 350
+    root.geometry("400x350+80+90")
 
     # Set the geometry of the window to center it on the screen
-    root.geometry(f"400x350+{x}+{y}")
+
 
     root['bg'] = '#021631'
 
@@ -104,7 +102,7 @@ def home_page():
         activebackground="#B8B8B8",
         activeforeground="black",
         command=lambda: open_volunteer_login()).pack()     #this will open page volunteer login when clicked
-
+    root.lift()
     root.mainloop()
 
 if __name__=='__main__':
