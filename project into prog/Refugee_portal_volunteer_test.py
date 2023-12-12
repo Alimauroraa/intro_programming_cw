@@ -312,7 +312,7 @@ class RefugeePortalVolunteerApp:
 
             updated_data.to_csv("Refugee_DataFrame.csv", index=False)
             messagebox.showinfo("Adding Refugee",
-                                f"New refugee information appended to Refugee Dataframe. Please reopen application to view changes")
+                                f"New refugee information appended to Refugee Dataframe.")
 
             input_window.destroy()
             self.root.deiconify()
@@ -558,7 +558,7 @@ class RefugeePortalVolunteerApp:
         field_window.destroy()
         if new_value is not None:
             messagebox.showinfo("Edit Refugee",
-                                f"Refugee information updated for Refugee ID {refugee_id_to_edit}. Please reopen the application to view the changes.")
+                                f"Refugee information updated for Refugee ID {refugee_id_to_edit}.")
 
     def update_camp_info(self, original_camp_id, new_camp_id, refugee_id):
         original_camp_id = str(original_camp_id).strip()

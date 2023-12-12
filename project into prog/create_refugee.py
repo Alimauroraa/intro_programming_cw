@@ -269,7 +269,7 @@ class MainMenuWindow:
 
             updated_data.to_csv(csv_filename, index=False)
             messagebox.showinfo("Adding Refugee",
-                                f"New refugee information appended to {csv_filename}. Please reopen application to view changes")
+                                f"New refugee information appended to {csv_filename}.")
 
             input_window.destroy()
             self.master.deiconify()
@@ -500,7 +500,7 @@ class MainMenuWindow:
         
 
         messagebox.showinfo("Edit Refugee",
-                            f"Refugee information updated for Refugee ID {refugee_id_to_edit}. Please reopen the application to view the changes.")
+                            f"Refugee information updated for Refugee ID {refugee_id_to_edit}.")
 
     def update_camp_info(self, original_camp_id, new_camp_id, refugee_id):
         original_camp_id = str(original_camp_id).strip()

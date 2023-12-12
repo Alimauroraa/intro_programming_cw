@@ -333,6 +333,7 @@ def plan_creator_frame(parent):
                'Solomon Islands',
                'Somalia',
                'South Africa',
+               'South Sudan',
                'Spain',
                'Sri Lanka',
                'St. Helena',

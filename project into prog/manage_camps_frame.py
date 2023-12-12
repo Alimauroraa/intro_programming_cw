@@ -71,7 +71,7 @@ class ManageCampsFrame:
             'location': 130,
             'volunteers_number': 110,
             'refugees_number': 100,
-            'plan_name': 150,
+            'plan_name': 300,
             'current_availability': 110,
             'max_capacity': 80,
             'specific_needs': 300,
