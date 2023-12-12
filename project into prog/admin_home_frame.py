@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import ttk
 import create_plan_frame
 import display_plan_gui_new
+from PIL import Image, ImageTk
 
 import close_plan_frame
 

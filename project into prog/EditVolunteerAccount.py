@@ -19,7 +19,7 @@ def load_volunteers_from_csv(volunteers_file):
 # Function to save updated volunteer data to the CSV file
 def save_volunteers_to_csv(volunteers_file, volunteers):
     with open(volunteers_file, mode='w', newline='') as csvfile:
-        fieldnames = ['user_id', 'username', 'user_password', 'first_name', 'last_name', 'dob', 'user_email',
+        fieldnames = ['user_id', 'username', 'first_name', 'last_name', 'dob', 'user_email',
                       'contact_number', 'address1', 'address2', 'country', 'acc_type',
                       'gender', 'active', 'camp_id']  # Add 'country' here
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
