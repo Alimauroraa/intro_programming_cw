@@ -1,5 +1,5 @@
 user_id,username,user_password,first_name,last_name,dob,user_email,contact_number,address1,address2,country,acc_type,gender,active,camp_id
-1,volunteer1,111,Clara,Redwood,01/01/2000,clara@example.com,7389204921,1457 Maple Grove Lane,"Springfield, ST 12345",Afghanistan,volunteer,female,True,1.0
+1,volunteer1,111,Clara,Redwood,01/01/2000,clara@example.com,7389204921,1457 Maple Grove Lane,"Springfield, ST 12345",Afghanistan,volunteer,female,True,2
 2,volunteer2,111,Ethan,Knightley,01/01/2000,ethan@example.com,9378938473,9821 Cedar Ridge Drive,"Rivertown, RT 67890",Mexico,volunteer,male,True,1.0
 3,volunteer3,111,Isabella,Marlowe,12/05/1995,isabella@example.com,9473927482,45 Oak Street,"Greenwood, GW 56321",Canada,volunteer,female,True,2.0
 4,volunteer4,111,Leo,Carrington,30/11/1992,leo@example.com,8392748293,78 Pine Avenue,"Lakewood, LW 81234",United States,volunteer,male,True,2.0

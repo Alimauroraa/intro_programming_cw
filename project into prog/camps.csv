@@ -1,6 +1,6 @@
 camp_id,location,volunteers_number,refugees_number,plan_name,current_availability,max_capacity,specific_needs,allocated_resources
-1,United States,2,3,Flood Relief Effort,47,50,2 volunteers required,"{'Food Packets': 10, 'Medical Supplies': 10}"
-2,United States,3,0,Flood Relief Effort,50,50,3 volunteers required,"{'Blankets': 10, 'Clothing': 10, 'Tents': 10, 'Hygiene Supplies': 10}"
+1,United States,1,6,Flood Relief Effort,44,50,2 volunteers required,"{'Food Packets': 10, 'Medical Supplies': 10}"
+2,United States,4,3,Flood Relief Effort,47,50,3 volunteers required,"{'Blankets': 10, 'Clothing': 10, 'Tents': 10, 'Hygiene Supplies': 10}"
 3,Japan,2,0,Earthquake Response,50,50,2 volunteers required,"{'Food Packets': 10, 'Tents': 10, 'Hygiene Supplies': 10}"
 4,Japan,3,0,Earthquake Response,50,50,3 volunteers required,"{'Medical Supplies': 10, 'Blankets': 10, 'Hygiene Supplies': 10}"
 5,Japan,5,0,Earthquake Response,50,50,5 volunteers required,"{'Clothing': 10, 'Tents': 10, 'Hygiene Supplies': 10}"
@@ -15,3 +15,4 @@ camp_id,location,volunteers_number,refugees_number,plan_name,current_availabilit
 14,Australia,3,0,Wildfire Aid Mission,50,50,3 volunteers required,"{'Medical Supplies': 10, 'Blankets': 10, 'Hygiene Supplies': 10}"
 15,Ethiopia,5,0,Famine Relief Effort,50,50,5 volunteers required,"{'Clothing': 10, 'Tents': 10, 'Hygiene Supplies': 10}"
 16,Ethiopia,2,0,Famine Relief Effort,50,50,2 volunteers required,"{'Food Packets': 10, 'Medical Supplies': 10}"
+17,China,0,3,test,47,50,X volunteers required (update via manage camp),

@@ -15,6 +15,12 @@ class RefugeePortalVolunteerApp:
         self.show_database = True
         self.setup_ui()
 
+    def generate_refugee_id(self):
+        if self.refugee_df["Refugee_ID"].empty:
+            return 1  # Start from 1 if the DataFrame is empty
+        else:
+            return self.refugee_df["Refugee_ID"].max() + 1
+
     def setup_ui(self):
         self.root.title("Refugee Portal & Volunteer Management")
 
@@ -145,13 +151,7 @@ class RefugeePortalVolunteerApp:
             else:
                 break
 
-        while True:
-            random_refugee_id = random.randint(1, 9999)
-
-            # Check if the generated ID is not already in the DataFrame
-            if random_refugee_id not in self.refugee_df["Refugee_ID"].values:
-                refugee_ID_var = tk.StringVar(value=str(random_refugee_id))
-                break
+        refugee_ID_var = tk.StringVar(value=str(self.generate_refugee_id()))
 
         # while True:
         #     random_profile_id = random.randint(1, 999)
@@ -298,7 +298,7 @@ class RefugeePortalVolunteerApp:
             self.root.deiconify()
 
         # Create StringVar for each entry
-        refugee_ID_var = tk.StringVar(value=str(random_refugee_id))
+        # refugee_ID_var = tk.StringVar(value=str(random_refugee_id))
         # camp_ID_var = tk.StringVar()
         first_name_var = tk.StringVar()
         last_name_var = tk.StringVar()
