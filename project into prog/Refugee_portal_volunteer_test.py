@@ -24,15 +24,12 @@ class RefugeePortalVolunteerApp:
     def setup_ui(self):
         self.root.title("Refugee Portal & Volunteer Management")
 
-        # Get screen width and height
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
 
-        # Calculate the x and y coordinates
         x = (screen_width - 700) // 2  
         y = (screen_height - 800) // 2  
 
-        # Set the geometry of the main window
         self.root.geometry(f"700x800+{x}+{y}")
         self.root['bg'] = bg_color
 
@@ -106,7 +103,6 @@ class RefugeePortalVolunteerApp:
         input_window['bg'] = bg_color
         input_window.geometry('700x800')
 
-        # Center the window on the screen
         screen_width = input_window.winfo_screenwidth()
         screen_height = input_window.winfo_screenheight()
 
@@ -237,7 +233,6 @@ class RefugeePortalVolunteerApp:
                 'Last_name': [last_name_value],
                 'Gender': [gender_value],
                 'Volunteer_ID': [int(volunteer_ID_var.get())],
-                # 'Profile_ID': [int(profile_ID_var.get())],
                 'Medical_Condition': [medical_condition_value],
                 'Lead_Family_Member': [lead_family_member_value],
                 'Lead_Phone_Number': [lead_phone_number_value],
@@ -418,14 +413,13 @@ class RefugeePortalVolunteerApp:
         window_width = 700
         window_height = 800
         field_window['bg'] = bg_color
-        # Get screen width and height
+        
         screen_width = field_window.winfo_screenwidth()
         screen_height = field_window.winfo_screenheight()
 
         x = (screen_width - window_width) // 2  
         y = (screen_height - window_height) // 2  
 
-        # Set the geometry of the main window
         field_window.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
         field_var = tk.StringVar()
