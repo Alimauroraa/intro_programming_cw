@@ -42,18 +42,32 @@ class Admin:
         frame = tk.Frame(admin_login_window, bg='#021631')
         frame.pack(padx=50, pady=50)
 
-        tk.Label(frame, text="Username: ", bg = '#021631', fg = 'white').grid(row=0, column=0)
+        tk.Label(frame, text="Username: ", bg = '#021631', fg = 'white',font=("Calibri", 14)).grid(row=0, column=0)
         username_entry = tk.Entry(frame)
         username_entry.grid(row=0, column=1)
 
-        tk.Label(frame, text="Password: ", bg = '#021631', fg = 'white').grid(row=1, column=0)
+        tk.Label(frame, text="Password: ", bg = '#021631', fg = 'white',font=("Calibri", 14)).grid(row=1, column=0)
         password_entry = tk.Entry(frame, show="*")
         password_entry.grid(row=1, column=1)
 
-        login_button = tk.Button(frame, text="Login", command=check_credentials)
-        login_button.grid(row=2, columnspan=2,pady=10)
-        back_button = tk.Button(frame, text ="Back", command=back_to_main)
-        back_button.grid(row=3, columnspan=2, pady=10)
+        login_button = tk.Button(frame, text="Login", command=check_credentials,font=("Calibri", 12),
+        width=16,
+        height=0,
+        bg="#FFFFFF",
+        fg="black",
+        cursor="hand2",
+        activebackground="#B8B8B8",
+        activeforeground="black")
+        login_button.grid(row=2, columnspan=2,pady=20)
+        back_button = tk.Button(frame, text ="Back", command=back_to_main,font=("Calibri", 12),
+        width=16,
+        height=0,
+        bg="#FFFFFF",
+        fg="black",
+        cursor="hand2",
+        activebackground="#B8B8B8",
+        activeforeground="black")
+        back_button.grid(row=3, columnspan=2, pady=1)
 
         root.mainloop()
 

@@ -1,6 +1,7 @@
 import pandas as pd
 from datetime import datetime
 import logging
+import numpy as np
 
 logging.basicConfig(level=logging.INFO,filename='close_plan_logging.log',
                     format="%(asctime)s - %(levelname)s - %(message)s", datefmt='%d-%b-%y %H:%M:%S')
@@ -37,7 +38,42 @@ class ClosePlan:
         for i in inactive_plan_id:
             print(i)
             logging.info(f"Plan {i} has been closed and is inactive")
+            self.update_volunteers([i])
         self.plan_df.to_csv("plan.csv", index=False)
+        # Reload the DataFrame to reflect the changes
+        self.plan_df = pd.read_csv("plan.csv")
+
+    def update_volunteers(self, closed_plan_ids):
+        # Load volunteers DataFrame
+        volunteers_df = pd.read_csv("volunteers_file.csv")
+
+        # Iterate over each closed plan ID
+        for plan_id in closed_plan_ids:
+            # Get the camp_ids related to this plan
+            camp_ids = self.plan_df[self.plan_df['PlanID'] == plan_id]['camp_id'].iloc[0]
+            camp_ids_list = str(camp_ids).split(',')
+
+            # Update volunteers whose camp_id matches any of the camp_ids in the list
+            for camp_id in camp_ids_list:
+                volunteers_df.loc[volunteers_df['camp_id'] == int(camp_id), 'camp_id'] = np.nan
+
+        # Save the updated volunteers DataFrame
+        volunteers_df.to_csv("volunteers_file.csv", index=False)
+
+    def delete_associated_camps(self, closed_plan_ids):
+        # Load camps DataFrame
+        camps_df = pd.read_csv("camps.csv")
+
+        for plan_id in closed_plan_ids:
+            # Get the camp_ids related to this plan
+            camp_ids = self.plan_df[self.plan_df['PlanID'] == plan_id]['camp_id'].iloc[0]
+            camp_ids_list = str(camp_ids).split(',')
+
+            # Delete camps whose camp_id matches any of the camp_ids in the list
+            camps_df = camps_df[~camps_df['camp_id'].isin([int(camp_id) for camp_id in camp_ids_list])]
+
+        # Save the updated camps DataFrame
+        camps_df.to_csv("camps.csv", index=False)
 
 #calling class and method
 plan=ClosePlan(plan_df)

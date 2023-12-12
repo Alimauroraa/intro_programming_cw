@@ -86,6 +86,12 @@ class MainMenuWindow:
     def exit_application(self):
         self.master.destroy()
 
+    def generate_refugee_id(self):
+        if refugee_df["Refugee_ID"].empty:
+            return 1  # Start from 1 if the DataFrame is empty
+        else:
+            return refugee_df["Refugee_ID"].max() + 1
+
     def add_refugee(self):
         #self.master.iconify()
         input_window = tk.Toplevel(self.master)
@@ -120,20 +126,15 @@ class MainMenuWindow:
             else:
                 break
 
-        while True:
-            random_refugee_id = random.randint(1, 9999)
+        refugee_ID_var = tk.StringVar(value=str(self.generate_refugee_id()))
 
-            # Check if the generated ID is not already in the DataFrame
-            if random_refugee_id not in refugee_df["Refugee_ID"].values:
-                refugee_ID_var = tk.StringVar(value=str(random_refugee_id))
-                break
 
-        while True:
-            random_profile_id = random.randint(1, 999)
-
-            if random_profile_id not in refugee_df["Profile_ID"].values:
-                profile_ID_var = tk.StringVar(value=str(random_profile_id))
-                break
+        # while True:
+        #     random_profile_id = random.randint(1, 999)
+        #
+        #     if random_profile_id not in refugee_df["Profile_ID"].values:
+        #         profile_ID_var = tk.StringVar(value=str(random_profile_id))
+        #         break
 
          # Filter out camps with zero availability
         available_camps_with_availability = camps_df[camps_df['current_availability'] > 0]
@@ -243,7 +244,7 @@ class MainMenuWindow:
                 'Last_name': [last_name_value],
                 'Gender': [gender_value],
 
-                'Profile_ID': [int(profile_ID_var.get())],
+                # 'Profile_ID': [int(profile_ID_var.get())],
                 'Medical_Condition': [medical_condition_value],
                 'Lead_Family_Member': [lead_family_member_value],
                 'Lead_Phone_Number': [lead_phone_number_value],
@@ -252,7 +253,7 @@ class MainMenuWindow:
 
             try:
                 existing_data = pd.read_csv(csv_filename)
-                existing_data['Profile_ID'] = existing_data['Profile_ID'].astype(int)
+                # existing_data['Profile_ID'] = existing_data['Profile_ID'].astype(int)
                 updated_data = pd.concat([existing_data, new_data], ignore_index=True)
             except pd.errors.EmptyDataError:
                 updated_data = new_data
@@ -274,13 +275,13 @@ class MainMenuWindow:
             self.master.deiconify()
 
         # Create StringVar for each entry
-        refugee_ID_var = tk.StringVar(value=str(random_refugee_id))
+        # refugee_ID_var = tk.StringVar(value=str(random_refugee_id))
         # camp_ID_var = tk.StringVar()
         first_name_var = tk.StringVar()
         last_name_var = tk.StringVar()
         gender_var = tk.StringVar()
 
-        profile_ID_var = tk.StringVar(value=str(random_profile_id))
+        # profile_ID_var = tk.StringVar(value=str(random_profile_id))
         medical_condition_var = tk.StringVar()
         lead_family_member_var = tk.StringVar()
         lead_phone_number_var = tk.StringVar()
@@ -437,7 +438,7 @@ class MainMenuWindow:
         original_camp_id = refugee_df.loc[refugee_df['Refugee_ID'] == int(refugee_id_to_edit), 'Camp_ID'].values[0]
 
         fields = [
-            'Camp ID', 'First name', 'Last name', 'Gender', 'Volunteer ID', 'Profile ID',
+            'Camp ID', 'First name', 'Last name', 'Gender', 'Volunteer ID',
             'Medical Condition', 'Lead Family Member', 'Lead Phone Number', 'Number of Relatives'
         ]
 
@@ -621,10 +622,10 @@ class MainMenuWindow:
                                                 f"Enter your {field_name} (or press cancel to keep the current value):")
             if new_value is not None:
                 new_value = new_value
-
-        elif field_name == 'Profile ID':
-            new_value = simpledialog.askinteger("Edit Profile ID",
-                                                f"Enter your {field_name} (or press cancel to keep the current value):")
+        #
+        # elif field_name == 'Profile ID':
+        #     new_value = simpledialog.askinteger("Edit Profile ID",
+        #                                         f"Enter your {field_name} (or press cancel to keep the current value):")
 
             if new_value is not None:
                 new_value = new_value
@@ -654,7 +655,7 @@ class MainMenuWindow:
                                                 f"Enter your {field_name} (or press cancel to keep the current Number):")
 
             if new_value is not None:
-                new_value = new_value
+                new_value = new_valuepro
 
         elif field_name == 'Number of Relatives':
             while True:

@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="28ad44ea-d0a3-45c2-a27c-9e867bd827fa" name="Changes" comment="Debugged refugee portal and the camp ID issue">
-      <change beforePath="$PROJECT_DIR$/.idea/intro_programming_cw.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/intro_programming_cw.iml" afterDir="false" />
+    <list default="true" id="28ad44ea-d0a3-45c2-a27c-9e867bd827fa" name="Changes" comment="generated a test plan">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project into prog/Refugee_DataFrame.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/Refugee_DataFrame.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project into prog/Refugee_portal_volunteer_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/Refugee_portal_volunteer_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/admin_credentials.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/admin_credentials.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project into prog/camps.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/camps.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project into prog/create_plan_logging.log" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/create_plan_logging.log" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project into prog/create_refugee.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/create_refugee.py" afterDir="false" />
@@ -78,7 +78,11 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+
     "git-widget-placeholder": "further-debugging",
+=======
+    "git-widget-placeholder": "Hao__lalala",
+
     "last_opened_file_path": "C:/Users/Hp/OneDrive/Desktop/Uni/Term 1/intro_programming_cw",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
@@ -223,7 +227,23 @@
       <option name="project" value="LOCAL" />
       <updated>1702162813389</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="ignore">
+      <option name="closed" value="true" />
+      <created>1702329578776</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1702329578776</updated>
+    </task>
+    <task id="LOCAL-00012" summary="generated a test plan">
+      <option name="closed" value="true" />
+      <created>1702335172988</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1702335172988</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -245,7 +265,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="test stella" />
-    <MESSAGE value="ignore" />
     <MESSAGE value="2" />
     <MESSAGE value="3" />
     <MESSAGE value="4" />
@@ -253,6 +272,8 @@
     <MESSAGE value="6" />
     <MESSAGE value="1" />
     <MESSAGE value="Debugged refugee portal and the camp ID issue" />
-    <option name="LAST_COMMIT_MESSAGE" value="Debugged refugee portal and the camp ID issue" />
+    <MESSAGE value="ignore" />
+    <MESSAGE value="generated a test plan" />
+    <option name="LAST_COMMIT_MESSAGE" value="generated a test plan" />
   </component>
 </project>

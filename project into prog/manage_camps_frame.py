@@ -49,14 +49,15 @@ class ManageCampsFrame:
     def setup_ui(self):
         tk.Label(self.root, text="Manage camps", font="calibri 16", bg="#021631", fg="#fff").place(x=25, y=30)
         # Display a message above the table
-        info_label = tk.Label(self.root, text="Location, Max Capacity & Specific Needs fields can be clicked & edited."
-                                              "\n   Double click the field, make changes, "
+        info_label = tk.Label(self.root, text="Location (initially inherited from country of plan), Max Capacity"
+                                              "initial default at 50) & Specific Needs fields can be\n clicked & edited."
+                                              "Double click the field, make changes, "
                                               "press Enter and click Save Changes.",
                               font="calibri 12")
-        info_label.place(x=25, y=60)
+        info_label.place(x=10, y=60)
         # Create the Treeview
         self.tree = ttk.Treeview(self.root)
-        self.tree.grid(row=0, column=0, sticky="nsew", padx=25, pady=100)
+        self.tree.grid(row=0, column=0, sticky="nsew", padx=25, pady=120)
 
         # Define the columns for the treeview
         self.tree['columns'] = ('camp_id', 'location', 'volunteers_number', 'refugees_number',
@@ -74,7 +75,7 @@ class ManageCampsFrame:
             'current_availability': 110,
             'max_capacity': 80,
             'specific_needs': 300,
-            'allocated_resources': 300
+            'allocated_resources': 400
         }
 
         for col in self.tree['columns']:
