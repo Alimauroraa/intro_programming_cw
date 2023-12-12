@@ -60,12 +60,6 @@ def login(display_messages=True):
     username = enrey1.get()
     password = enrey2.get()  # Keep password as a string
 
-    # try:
-    #     password = int(password)
-    # except ValueError:
-    #     messagebox.showinfo("", "Invalid password.")
-    #     return None
-
     user_df = pd.read_csv('volunteers_file.csv')
     user = user_df[user_df['username'] == username]
 
@@ -101,8 +95,6 @@ def login(display_messages=True):
                         messagebox.showinfo("Warning", "Hey! Please choose a camp firstly!")
                         updating()
                     return False, None
-                    # else:
-                    #     messagebox.showinfo("Warning", "The password you have entered is wrong!")
             else:
                     messagebox.showinfo("Warning", "The password you have entered is wrong!")
     else:
@@ -155,8 +147,6 @@ def updating():
                         new_value = int(new_value)
                     except ValueError:
                         raise ValueError("Invalid contact number. Please enter a numeric value.")
-                # if not str(new_value).isdigit():
-                #     raise ValueError("Invalid contact number. Please enter a numeric value.")
 
                 elif field_to_update == "dob":
                     try:
@@ -210,8 +200,6 @@ def updating():
 
                         return
 
-
-
                 elif field_to_update in ["first_name", "last_name"]:
                     if not new_value.isalpha():
                         raise ValueError(f"{field_to_update.replace('_', ' ').title()} must only contain letters.")
@@ -219,7 +207,7 @@ def updating():
                 elif field_to_update == "gender" and new_value.lower() not in ["male", "female", "other"]:
                     raise ValueError("Gender must be 'male', 'female', or 'other'.")
                 elif field_to_update == "country":
-                    valid_countries = set(country_list)  # Replace with your actual list of valid countries
+                    valid_countries = set(country_list)  
                     if new_value.capitalize() not in valid_countries:
                         raise ValueError("Invalid country. Please select a valid country.")
             except ValueError as e:
@@ -247,9 +235,7 @@ def updating():
     def redirect_to_main():
         global user, valid_fields
 
-        # Set the value of pd.isnull(user['camp_id'].iloc[0]) to False
         user['camp_id'].iloc[0] = 'some_non_null_value'
-
 
         update_window.destroy()
         main_application()
@@ -262,17 +248,12 @@ def updating():
     window_width = 700
     window_height = 800
 
-
-
-    # Get screen width and height
     screen_width = update_window.winfo_screenwidth()
     screen_height = update_window.winfo_screenheight()
 
-    # Calculate the position to center the window
     x_position = (screen_width - window_width) // 2
     y_position = (screen_height - window_height) // 2
 
-    # Set the window geometry
     update_window.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
     Label(update_window, text="When you switch a camp by updating your camp_id, a live update will be sent to admin",
           bg=bg_color, fg="white", font=("Calibri", 12)).pack(pady=(180,10))
@@ -285,8 +266,6 @@ def updating():
     entry_value = Entry(update_window)
     entry_value.pack(pady=10)
 
-
-    # Button(update_window, text="Update", command=update_info).pack(pady=10)
     update_button = Button(update_window, text="Update", command=update_info,
                            font=("Calibri", 10),
                            width=15,
@@ -336,10 +315,6 @@ def updating():
                              activebackground="#B8B8B8",
                              activeforeground="black", )
         back_button.pack(pady=10)
-
-
-    # redirect_button = Button(update_window, text="Redirect to Main", command=redirect_to_main)
-    # redirect_button.pack(pady=10)
 
     result_label = Label(update_window,bg='#021631')
     result_label.pack(pady=10)
@@ -482,39 +457,36 @@ def create_account(entry_vars, add_window):
     # Display success message
     messagebox.showinfo("Success", f"Volunteer {new_volunteer_info['first_name']} {new_volunteer_info['last_name']} added successfully.")
 
-    # Optionally, refresh or close the add_window if necessary
 
 def display_information():
-    # Implement the functionality for displaying information here
     display_user_row(user_index, user_df)
 
 def quit_application():
-    # Implement the functionality for quitting the application here
     root.destroy()
 
 def main_application():
     global main_window
     main_window = Toplevel(root)
     main_window.title('Volunteer Management System')
-    # Set the window size
+    
     main_window_width = 700
     main_window_height = 800
     main_window['bg'] = '#021631'
-    # Get screen width and height
+    
     screen_width = main_window.winfo_screenwidth()
     screen_height = main_window.winfo_screenheight()
 
-    # Calculate the position to center the window
+    
     x_position = (screen_width - main_window_width) // 2
     y_position = (screen_height - main_window_height) // 2
-    # Set the window geometry
+    
     main_window.geometry(f"{main_window_width}x{main_window_height}+{x_position}+{y_position}")
     welcome_label = Label(main_window, text="Welcome volunteer! What do you want to do for today?",
                           bg=bg_color,
                           fg="white",
                           font=("Calibri", 14))
     welcome_label.pack(pady=(150, 10), side='top', anchor='center')
-    # Add widgets and functionality for the main application
+    
     display_button = Button(main_window, text="Account Information", command=display_information,
         font=("Calibri", 11),
         width=22,
@@ -601,60 +573,30 @@ def main_application():
         activeforeground="black",)
     quit_button.pack(pady=10, side='top', anchor='center')
 def open_refugee_portal():
-    # global user_index, user_df, user
-    # import refugee_portal_volunteer
     from Refugee_portal_volunteer_test import RefugeePortalVolunteerApp
-    # Check if the main_menu_window already exists
-    # if main_menu_window is not None:
-    #     try:
-    #         main_menu_window.master.destroy()  # Attempt to destroy the existing window
-    #     except AttributeError:
-    #         pass  # Handle the case where destroy method doesn't exist
 
     volunteer_camp_id = user_df.loc[user_index, 'camp_id']
     volunteer_camp_id = int(volunteer_camp_id)
     volunteer_volunteer_id = user_df.loc[user_index, 'user_id']
     volunteer_volunteer_id = int(volunteer_volunteer_id)
-    # portal_window = tk.Toplevel(root)
-    # portal_window.geometry("1400x700")
-    # main_menu_window = MainMenuWindow(portal_window)
-    # main_menu_window.set_camp_id(volunteer_camp_id)
-    # Create a new instance of Tk for the main application window
-    # root = tk.Toplevel()
-    # # Create a new Toplevel window
     portal_window = tk.Toplevel(root)
-    #
-    # Set the desired window size
     portal_window.geometry("1400x700")  # Adjust the size as needed
-    #
     main_menu_window = RefugeePortalVolunteerApp(portal_window, camp_id=volunteer_camp_id, volunteer_id=volunteer_volunteer_id)
-
-
-    # def open_refugee_portal():
-    # # Create an instance of MainMenuWindow when the button is clicked
-    # from create_refugee import MainMenuWindow
-    # refugee_portal_window = Toplevel(root)
-    # # refugee_portal_window.title("Refugee Portal")
-    # # Pass user_df to the MainMenuWindow constructor
-    # refugee_portal_window = MainMenuWindow(refugee_portal_window)
 
 def edit_camp():
     from manage_camps_frame import ManageCampsFrame
 
-    # Extract the camp_id of the logged-in volunteer
+    #Extract the camp_id of the logged-in volunteer
     volunteer_camp_id = user_df.loc[user_index, 'camp_id'] if user_index is not None else None
 
-    # Create a new Toplevel window
     manage_camp_window = tk.Toplevel(root)
 
-    # Set the desired window size
-    manage_camp_window.geometry("1400x700")  # Adjust the size as needed
+    manage_camp_window.geometry("1400x700")  
 
-    # Define the callback for the "Back" button
     def on_back():
         manage_camp_window.destroy()
 
-    # Pass the volunteer's camp_id to the ManageCampsFrame
+    #Pass the volunteer's camp_id to the ManageCampsFrame
     manage_camp_app = ManageCampsFrame(manage_camp_window, on_back=on_back, camp_id=volunteer_camp_id)
 def open_display_allocated_resources_frame():
     print("Opening Display Allocated Resources Frame")
@@ -667,10 +609,6 @@ def open_display_allocated_resources_frame():
 
 
 def open_live_updates():
-    # from liveupdatevolunteer import submit_update
-    # submit_update()
-    # main_window.destroy()
-    # import liveupdatevolunteer
     main_window.destroy()
     from liveupdatevolunteer import main_live_updates
     main_live_updates()
@@ -712,34 +650,28 @@ def add_volunteer(username, user_password, first_name, last_name, birthday, phon
 def display_user_row(user_index, user_df):
     user_row = user_df.loc[[user_index]]
     user_row = user_row.fillna('')  # Replace NaNs with empty strings for display
-    # print("\nUser Information:")
-    # print(user_row.to_string(index=False))
     display_window = Toplevel(root)
     display_window.title("User Information")
     display_window['bg'] = '#021631'
-    # Set window size
+   
     window_width = 700
     window_height = 800
 
-    # Get screen width and height
     screen_width = display_window.winfo_screenwidth()
     screen_height = display_window.winfo_screenheight()
 
-    # Calculate the position to center the window
     x_position = (screen_width - window_width) // 2
     y_position = (screen_height - window_height) // 2
 
-    # Set the window geometry
     display_window.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
 
-    # Create a Treeview widget
     tree = ttk.Treeview(display_window, columns=("Property", "Value"))
 
     # Convert camp_id to an integer for display, handling NaN values
     for col, value in user_row.items():
         if col == 'camp_id':
             if pd.isna(value.iloc[0]):
-                display_value = ''  # or some placeholder like 'N/A'
+                display_value = ''  
             else:
                 display_value = str(int(value.iloc[0]))  # Convert to integer and then to string for display
         else:
@@ -757,7 +689,6 @@ def display_user_row(user_index, user_df):
     tree.heading("Property", text="Property", anchor="w")
     tree.heading("Value", text="Value", anchor="w")
 
-    # Pack the Treeview with an increased height
     tree.pack(pady=10,expand=True, fill="y")
 
     # Add a close button to close the display window
@@ -776,22 +707,17 @@ def display_user_row(user_index, user_df):
 root = tk.Toplevel()
 root.title('Volunteer Login')
 root['bg'] = '#021631'
-# Set window size
+
 window_width = 400
 window_height = 350
 
-# Get screen width and height
 screen_width = root.winfo_screenwidth()
 screen_height = root.winfo_screenheight()
 
-# Calculate the position to center the window
 x_position = (screen_width - window_width) // 2
 y_position = (screen_height - window_height) // 2
 
-# Set the window geometryy
 root.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
-
-
 
 Label(root, text="Username: ",bg=bg_color,fg="white",font=("Calibri", 14)).place(x=70, y=20)
 Label(root, text="Password: ",bg=bg_color,fg="white",font=("Calibri", 14)).place(x=70, y=70)
@@ -806,8 +732,6 @@ enrey2 = Entry(root, bd=5, show='*')
 enrey2.place(x=180, y=70)
 
 
-
-# Button(root, text="Login", command=login, height=2, width=13, bd=6).place(x=100, y=120)
 log_button = Button(root, text="Login", command=login,font=("Calibri", 12),
         width=16,
         height=0,

@@ -70,7 +70,6 @@ def create_gui(parent):
         inventory_info_text.insert(tk.END, "Current Inventory:\n\n")
         for item in inventory_data:
             inventory_info_text.insert(tk.END, f"{item.inventory_name}\nQuantity: {item.quantity}\n\n")
-        # inventory_info_text.config(state=tk.DISABLED)
 
     def display_information():
         display_camp_information()
@@ -124,7 +123,7 @@ def create_gui(parent):
                 if camp.camp_id == selected_camp_id:
                     for item in inventory_data:
                         if item.inventory_name == selected_inventory_name:
-                            if not camp.allocated_resources:        #check if the camp.allocated resources is empty or not
+                            if not camp.allocated_resources:        # check if the camp.allocated resources is empty or not
                                 aresources = {}
                             else:
                                 aresources = ast.literal_eval(camp.allocated_resources)

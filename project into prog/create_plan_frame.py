@@ -389,7 +389,6 @@ def plan_creator_frame(parent):
     desc_entry.place(x=300,y=250)
     geo_entry.place(x=300,y=350)
     start_entry.place(x=300,y=400)
-    #end_entry.place(x=250,y=400)
     camps_entry.place(x=300, y=450)
 
     #button
@@ -401,7 +400,7 @@ def plan_creator_frame(parent):
     return create_plan_frame
 
 if __name__ == '__main__':
-    plan_creator_frame(tk.Tk())        #will only execute in this file, for testing purposes only
+    plan_creator_frame(tk.Tk())        
     root.mainloop()
 
 

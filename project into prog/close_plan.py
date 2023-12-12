@@ -16,7 +16,7 @@ class ClosePlan:
         # drop csv file to python
         self.plan_df = plan_df
 
-        #define plan id
+        # define plan id
         self.plan_id=self.plan_df['PlanID']
 
         # convert the closingDate column to datetime format

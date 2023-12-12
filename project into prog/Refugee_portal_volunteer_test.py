@@ -28,35 +28,14 @@ class RefugeePortalVolunteerApp:
         screen_width = self.root.winfo_screenwidth()
         screen_height = self.root.winfo_screenheight()
 
-        # Calculate the x and y coordinates for the main window to be centered
-        x = (screen_width - 700) // 2  # Adjust 500 based on the width of your window
-        y = (screen_height - 800) // 2  # Adjust 300 based on the height of your window
+        # Calculate the x and y coordinates
+        x = (screen_width - 700) // 2  
+        y = (screen_height - 800) // 2  
 
         # Set the geometry of the main window
         self.root.geometry(f"700x800+{x}+{y}")
         self.root['bg'] = bg_color
 
-        # # Create a menu bar
-        # menu_bar = tk.Menu(self.root)
-        # self.root.config(menu=menu_bar)
-        #
-        # # Create a File menu
-        # file_menu = tk.Menu(menu_bar, tearoff=0)
-        # menu_bar.add_cascade(label="File", menu=file_menu)
-        # file_menu.add_command(label="Exit", command=self.root.quit)
-        #
-        # # Create a Refugee menu
-        # refugee_menu = tk.Menu(menu_bar, tearoff=0)
-        # menu_bar.add_cascade(label="Refugee", menu=refugee_menu)
-        # refugee_menu.add_command(label="Add Refugee", command=self.add_refugee)
-        # refugee_menu.add_command(label="Edit Refugee", command=self.edit_refugee)
-        # refugee_menu.add_command(label="Delete Refugee", command=self.delete_refugee)
-        # refugee_menu.add_separator()
-        # refugee_menu.add_command(label="View Database", command=self.view_database)
-
-        # # Create a main content frame
-        # self.main_frame = tk.Frame(self.root)
-        # self.main_frame.pack(fill="both", expand=True)
         self.label = tk.Label(self.root, text="Hello and welcome to the refugee portal!", bg=bg_color,
                               fg="white",
                               font=("Calibri", 14))
@@ -107,9 +86,6 @@ class RefugeePortalVolunteerApp:
 
         self.show_database = True
 
-        # self.view_details_button = tk.Button(master, text="View refugee's details", command=self.view_refugee_details)
-        # self.view_details_button.pack()
-
         self.exit_button = tk.Button(self.root, text="Go back", command=self.exit_application, font=("Calibri", 12),
                                      width=20,
                                      height=0,
@@ -121,7 +97,6 @@ class RefugeePortalVolunteerApp:
         self.exit_button.pack(pady=10)
 
     def exit_application(self):
-        # Implement the functionality for quitting the application here
         self.root.destroy()
     def add_refugee(self):
         self.root.withdraw()
@@ -140,13 +115,6 @@ class RefugeePortalVolunteerApp:
 
         input_window.geometry(f'+{x_position}+{y_position}')
 
-        # if_camp_available = self.camps_df.loc[self.camps_df['camp_id'] == self.camp_id, 'current_availability'].iloc[0]
-        # if if_camp_available <=0:
-        #     messagebox.showerror("No availability", "Your assigned camp has no capacity. Please alert admin to add more space!")
-        #     input_window.destroy()
-        #     self.root.deiconify()
-        #     return
-
         def update_availability_label(label):
             current_availability = self.camps_df.loc[self.camps_df['camp_id'] == self.camp_id, 'current_availability'].iloc[0]
             label.config(text=f"Current Availability of Camp {self.camp_id}: {current_availability}")
@@ -164,13 +132,6 @@ class RefugeePortalVolunteerApp:
 
         refugee_ID_var = tk.StringVar(value=str(self.generate_refugee_id()))
 
-        # while True:
-        #     random_profile_id = random.randint(1, 999)
-        # 
-        #     if random_profile_id not in self.refugee_df["Profile_ID"].values:
-        #         profile_ID_var = tk.StringVar(value=str(random_profile_id))
-        #         break
-
         # Filter out camps with zero availability
         available_camps_with_availability = self.camps_df[self.camps_df['current_availability'] > 0]
         available_camp_ids = available_camps_with_availability['camp_id'].tolist()
@@ -183,7 +144,6 @@ class RefugeePortalVolunteerApp:
             return
 
         camp_ID_var = tk.StringVar(value=str(self.camp_id))
-        # camp_ID_var.set(available_camp_ids[0])  # Set the default value
         volunteer_ID_var = tk.StringVar(value=str(self.volunteer_id))
 
         def back(input_window):
@@ -192,8 +152,6 @@ class RefugeePortalVolunteerApp:
 
         # Function to validate and process the entered data
         def process_input():
-            # Your input validation logic goes here
-            # For simplicity, I'm only checking if the fields are not empty
             while True:
                 if not first_name_var.get() or not last_name_var.get() \
                         or not gender_var.get() or not volunteer_ID_var.get() or not medical_condition_var.get() \
@@ -202,15 +160,6 @@ class RefugeePortalVolunteerApp:
                     return
                 else:
                     break
-
-            # Additional validation can be added here (e.g., checking gender, ensuring numbers are valid, etc.)
-            # while True:
-            #     camp_id_value = camp_ID_var.get()
-            #     if not camp_id_value.isdigit():
-            #         messagebox.showerror("Invalid Input", "Ensure Camp ID is a number")
-            #         return
-            #     else:
-            #         break
 
             while True:
                 first_name_value = first_name_var.get().capitalize()
@@ -297,7 +246,6 @@ class RefugeePortalVolunteerApp:
 
             try:
                 existing_data = pd.read_csv("Refugee_DataFrame.csv")
-                # existing_data['Profile_ID'] = existing_data['Profile_ID'].astype(int)
                 updated_data = pd.concat([existing_data, new_data], ignore_index=True)
             except pd.errors.EmptyDataError:
                 updated_data = new_data
@@ -317,38 +265,18 @@ class RefugeePortalVolunteerApp:
             input_window.destroy()
             self.root.deiconify()
 
-        # Create StringVar for each entry
-        # refugee_ID_var = tk.StringVar(value=str(random_refugee_id))
-        # camp_ID_var = tk.StringVar()
         first_name_var = tk.StringVar()
         last_name_var = tk.StringVar()
         gender_var = tk.StringVar()
-        # volunteer_ID_var = tk.StringVar()
-        # profile_ID_var = tk.StringVar(value=str(random_profile_id))
         medical_condition_var = tk.StringVar()
         lead_family_member_var = tk.StringVar()
         lead_phone_number_var = tk.StringVar()
         number_of_relatives_var = tk.StringVar()
 
-        # tk.Label(input_window, text="Camp ID:").grid(row=1, column=0)
-        # tk.Entry(input_window, textvariable=camp_ID_var).grid(row=1, column=1)
-
         label_x = 150  # Adjust the x-coordinate for labels
         entry_x = 350  # Adjust the x-coordinate for entries
         label_y = 150  # Adjust the initial y-coordinate
         y_increment = 40  # Adjust the y-increment for the next label and entry
-
-        # tk.Label(input_window, text="Camp ID:", bg=bg_color, fg="white", font=("Calibri", 14)).place(x=label_x,
-        #                                                                                              y=label_y)
-        #
-        # camp_ID_var = tk.StringVar(value=str(self.camp_id))
-        # # camp_dropdown = ttk.Combobox(input_window, textvariable=camp_ID_var, values=available_camp_ids,
-        # #                              state='readonly')
-        # # camp_dropdown.config(width=18)  # Adjust the width as needed
-        # # camp_dropdown.place(x=entry_x, y=label_y)
-        # tk.Entry(input_window, textvariable=camp_ID_var).place(x=entry_x, y=label_y, state='readonly')
-        # # Increment y-coordinate for the next label and entry
-        # label_y += y_increment
 
         availability_label = tk.Label(input_window, text="Current Availability: ", bg=bg_color, fg="white",font=("Calibri", 14))
         availability_label.place(x=300, y= 50)
@@ -467,9 +395,6 @@ class RefugeePortalVolunteerApp:
                         else:
                             messagebox.showerror("Refugee still does not exist, please try again")
 
-
-
-
                 elif answer.lower() == 'no':
                     confirm_cancel = messagebox.askokcancel("Edit refugee", "Are you sure you want to cancel?")
                     if confirm_cancel:
@@ -497,15 +422,13 @@ class RefugeePortalVolunteerApp:
         screen_width = field_window.winfo_screenwidth()
         screen_height = field_window.winfo_screenheight()
 
-        # Calculate the x and y coordinates for the main window to be centered
-        x = (screen_width - window_width) // 2  # Adjust 500 based on the width of your window
-        y = (screen_height - window_height) // 2  # Adjust 300 based on the height of your window
+        x = (screen_width - window_width) // 2  
+        y = (screen_height - window_height) // 2  
 
         # Set the geometry of the main window
         field_window.geometry(f"{window_width}x{window_height}+{x}+{y}")
 
         field_var = tk.StringVar()
-        # field_var.set(fields[0])  # Set the default value
 
         field_label = tk.Label(field_window, text="Select Field to Edit:", bg=bg_color, fg="white",
                                font=("Calibri", 14))
@@ -635,10 +558,7 @@ class RefugeePortalVolunteerApp:
 
             camp_window.wait_window()
 
-            # new_value = camp_ID_var_edit.get()
             camp_window.destroy()
-            # new_value = simpledialog.askinteger("Edit Camp ID",
-            #                                         f"Enter the new {field_name} (or 'cancel' to keep current value):")
             if new_value is not None:
                 new_value = new_value
 
@@ -678,19 +598,6 @@ class RefugeePortalVolunteerApp:
                     break
                 else:
                     messagebox.showerror("Edit Gender", "Invalid input, ensure it's either Male, Female or Other")
-
-        # elif field_name == 'Volunteer ID':
-        #     new_value = simpledialog.askinteger("Edit Volunteer ID",
-        #                                         f"Enter your {field_name} (or press cancel to keep the current value):")
-        #     if new_value is not None:
-        #         new_value = new_value
-
-        # elif field_name == 'Profile ID':
-        #     new_value = simpledialog.askinteger("Edit Profile ID",
-        #                                         f"Enter your {field_name} (or press cancel to keep the current value):")
-        #
-        #     if new_value is not None:
-        #         new_value = new_value
 
         elif field_name == 'Medical Condition':
             new_value = simpledialog.askstring("Edit medical condition",
@@ -757,7 +664,6 @@ class RefugeePortalVolunteerApp:
         refugee_df = pd.read_csv("Refugee_DataFrame.csv")
         camps_df = pd.read_csv("camps.csv")
 
-        # Continue with the rest of the logic
         current_number_of_relatives = \
         refugee_df.loc[refugee_df['Refugee_ID'] == refugee_id, 'Number_of_Relatives'].iloc[0]
         original_family_size = 1 + current_number_of_relatives
@@ -824,7 +730,6 @@ class RefugeePortalVolunteerApp:
         if self.camp_id is not None:
             filtered_refugee_df = self.refugee_df[self.refugee_df['Camp_ID'] == self.camp_id]
         else:
-            # If volunteer_camp_id is not available, show the entire refugee_df
             filtered_refugee_df = self.refugee_df
 
         database_window = tk.Toplevel(self.root)

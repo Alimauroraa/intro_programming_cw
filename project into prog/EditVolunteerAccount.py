@@ -131,7 +131,7 @@ def delete_volunteer():
         messagebox.showerror("Error", "No volunteer selected.")
 
 def go_back(root):
-    # Code to go back to the previous screen
+    # Go back to the previous screen
     root.grid_forget()
 
 def edit_volunteer_frame(parent):
@@ -187,7 +187,7 @@ def edit_volunteer_frame(parent):
     # Load volunteers from the CSV file
     volunteers = load_volunteers_from_csv('volunteers_file.csv')
 
-    # Function to update form fields with selected volunteer's data
+    # Update form fields with selected volunteer's data
     def update_form(Event):
         selected_index = volunteers_listbox.curselection()
         if selected_index:  # Check if a volunteer is selected
