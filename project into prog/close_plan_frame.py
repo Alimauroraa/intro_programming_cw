@@ -157,7 +157,7 @@ def close_plan_frame(parent):
     global end_entry
     plan_df=pd.read_csv('plan.csv')
     active_plans=plan_df[plan_df['active']==1]['PlanID'].tolist()    #filter only active plans
-    plan_id_entry = ttk.Combobox(close_plan_frame, values=[str(i) for i in active_plans], width=31)
+    plan_id_entry = ttk.Combobox(close_plan_frame, values=[str(i) for i in active_plans], width=31, state="readonly")
     end_entry = tk.Entry(close_plan_frame, width=29, bd=2, font="calibri 10")
 
     plan_id_entry.place(x=239, y=280)
