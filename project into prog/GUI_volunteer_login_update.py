@@ -172,6 +172,7 @@ def updating():
                         raise ValueError("Invalid email address. Please enter a valid email.")
 
 
+
                 elif field_to_update == "camp_id":
 
                     try:
@@ -182,31 +183,29 @@ def updating():
 
                         # Check if the new camp_id exists
 
-                        if new_camp_id in camp_ids:
-
-                            old_camp_id = int(user_df.loc[user_index, 'camp_id']) if pd.notna(
-                                user_df.loc[user_index, 'camp_id']) else None
-
-                            user_id = user_df.loc[user_index, 'user_id']
-
-                            first_namee = user_df.loc[user_index, 'first_name']
-
-                            last_namee = user_df.loc[user_index, 'last_name']
-
-                            # Call the method to send camp id update
-
-                            from liveupdatevolunteer import send_camp_id_update
-
-                            send_camp_id_update(user_id, first_namee, last_namee, old_camp_id, new_camp_id)
-
-                        else:
-
+                        if new_camp_id not in camp_ids:
                             raise ValueError("Error: The entered camp_id does not exist.")
 
+                        old_camp_id = int(user_df.loc[user_index, 'camp_id']) if pd.notna(
 
-                    except ValueError:
+                            user_df.loc[user_index, 'camp_id']) else None
 
-                        result_label.config(text="Invalid camp_id. Please enter a valid integer.", fg="red")
+                        user_id = user_df.loc[user_index, 'user_id']
+
+                        first_namee = user_df.loc[user_index, 'first_name']
+
+                        last_namee = user_df.loc[user_index, 'last_name']
+
+                        # Call the method to send camp id update
+
+                        from liveupdatevolunteer import send_camp_id_update
+
+                        send_camp_id_update(user_id, first_namee, last_namee, old_camp_id, new_camp_id)
+
+
+                    except ValueError as e:
+
+                        result_label.config(text=str(e), fg="red")
 
                         return
 
