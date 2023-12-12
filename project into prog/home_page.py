@@ -24,13 +24,13 @@ def admin_login_page(root):
     admin_login_frame = Admin("","","")
     admin_login_frame.create_login_frame(admin_login_window, root)  # Pass both the new window and root
 
-# def open_volunteer_login():
-#     import GUI_volunteer_login_update
-#     from GUI_volunteer_login_update import login, show_login_window
-#     GUI_volunteer_login_update.show_login_window()
 def open_volunteer_login():
-    from GUI_volunteer_login_update import login
-    login()
+    import GUI_volunteer_login_update
+    from GUI_volunteer_login_update import login, show_login_window
+    GUI_volunteer_login_update.show_login_window()
+# def open_volunteer_login():
+#     from GUI_volunteer_login_update import login
+#     login()
 def home_page():
     bg_color = '#021631'
 
@@ -102,7 +102,7 @@ def home_page():
         activebackground="#B8B8B8",
         activeforeground="black",
         command=lambda: open_volunteer_login()).pack()     #this will open page volunteer login when clicked
-    root.lift()
+    # root.lift()
     root.mainloop()
 
 if __name__=='__main__':
