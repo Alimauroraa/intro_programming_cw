@@ -719,33 +719,63 @@ class RefugeePortalVolunteerApp:
             if new_value is not None:
                 new_value = new_value
 
+
         elif field_name == 'Number of Relatives':
-            while True:
-                new_value = simpledialog.askinteger("Edit Number of Relatives",
-                                                    f"Enter your {field_name} (or press cancel to keep the current Number):")
 
-                if new_value is None:
-                    return None
+            new_number_of_relatives = simpledialog.askinteger("Edit Number of Relatives",
 
-                total_family_size = 1 + int(new_value)
-                refugee_camp_id = self.refugee_df.loc[self.refugee_df['Refugee_ID'] == refugee_id, 'Camp_ID'].iloc[0]
-                current_family_size = 1 + self.refugee_df.loc[self.refugee_df['Refugee_ID'] == refugee_id, 'Number_of_Relatives'].iloc[0]
-                available_camp = self.camps_df.loc[self.camps_df['camp_id'] == refugee_camp_id, 'current_availability'].iloc[0]
+                                                              f"Enter the new {field_name} for Refugee ID {refugee_id} (or press cancel to keep the current number):")
 
-                if total_family_size > current_family_size + available_camp:
-                    messagebox.showerror("Edit Number of Relatives", "Capacity will be exceed. Please reduce number of refugees or move to a more available camp.")
-                    continue
-                else:
-                    change_in_family_size = total_family_size - current_family_size
-                    self.camps_df.loc[self.camps_df['camp_id'] == refugee_camp_id, 'current_availability'] -= change_in_family_size
-                    self.camps_df.loc[self.camps_df['camp_id'] == refugee_camp_id, 'refugees_number'] += change_in_family_size
-                    self.camps_df.to_csv("camps.csv", index=False)
-                    return new_value
+            if new_number_of_relatives is None:
+                return None
+
+            # Call the update_number_of_relatives function
+
+            new_family_size = self.update_number_of_relatives(refugee_id, new_number_of_relatives)
+
+            if new_family_size is None:
+                # Show an error message if the camp cannot accommodate the new family size
+
+                messagebox.showerror("Edit Number of Relatives",
+
+                                     "The camp cannot accommodate the new family size. Please reduce the number or change the camp.")
+
+                return None
+
+            return new_number_of_relatives
+
 
 
         root.destroy()  # Destroy the hidden root window
         return new_value
 
+    def update_number_of_relatives(self, refugee_id, new_number_of_relatives):
+        global refugee_df
+        global camps_df
+
+        # Reload the DataFrames to get the latest data
+        refugee_df = pd.read_csv("Refugee_DataFrame.csv")
+        camps_df = pd.read_csv("camps.csv")
+
+        # Continue with the rest of the logic
+        current_number_of_relatives = \
+        refugee_df.loc[refugee_df['Refugee_ID'] == refugee_id, 'Number_of_Relatives'].iloc[0]
+        original_family_size = 1 + current_number_of_relatives
+        new_family_size = 1 + new_number_of_relatives
+        difference_in_family_size = new_family_size - original_family_size
+
+        refugee_camp_id = refugee_df.loc[refugee_df['Refugee_ID'] == refugee_id, 'Camp_ID'].iloc[0]
+
+        # Update camps DataFrame and then write to CSV
+        camps_df.loc[camps_df['camp_id'] == refugee_camp_id, 'refugees_number'] += difference_in_family_size
+        camps_df.loc[camps_df['camp_id'] == refugee_camp_id, 'current_availability'] -= difference_in_family_size
+        camps_df.to_csv("camps.csv", index=False)
+
+        # Update refugee DataFrame and then write to CSV
+        refugee_df.loc[refugee_df['Refugee_ID'] == refugee_id, 'Number_of_Relatives'] = new_number_of_relatives
+        refugee_df.to_csv("Refugee_DataFrame.csv", index=False)
+
+        return new_family_size
 
     def delete_refugee(self):
         self.view_database()
