@@ -402,7 +402,7 @@ def create_account_window():
 
         if field == "country":
             country_var = StringVar(add_window)
-            country_dropdown = ttk.Combobox(add_window, textvariable=country_var, values=country_list,width=17,)
+            country_dropdown = ttk.Combobox(add_window, textvariable=country_var, values=country_list, width=17, state="readonly")
             country_dropdown.place(x=340, y=130 + i * 30)
             entry_vars[field] = country_var
         else:
