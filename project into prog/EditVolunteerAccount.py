@@ -138,7 +138,7 @@ def edit_volunteer_frame(parent):
     root = tk.Frame(parent, width=700, height=800, bg='#021631')
     tk.Label(root, text="Edit volunteer", font="calibri 16", bg="#021631",fg="#fff").place(x=30,y=30)
 
-    # Create buttons
+    
     load_button = tk.Button(root, text="Load Volunteers", command=load_volunteers, width=16)
     deactivate_button = tk.Button(root, text="Deactivate Volunteer", command=deactivate_volunteer)
     delete_button = tk.Button(root, text="Delete Volunteer", command=delete_volunteer)
@@ -199,7 +199,6 @@ def edit_volunteer_frame(parent):
                     entry.delete(0, tk.END)
                     entry.insert(0, getattr(volunteer_data, field))
                     entry.config(state='readonly')
-    # Bind the listbox callback function
     volunteers_listbox.bind('<<ListboxSelect>>', update_form)
 
     return root
