@@ -772,16 +772,13 @@ def display_user_row(user_index, user_df):
                           activeforeground="black", )
     close_button.pack(pady=10)
 
-def back_to_main():
-    root.destroy()
-
 
 root = tk.Toplevel()
 root.title('Volunteer Login')
 root['bg'] = '#021631'
 # Set window size
-window_width = 350
-window_height = 250
+window_width = 400
+window_height = 350
 
 # Get screen width and height
 screen_width = root.winfo_screenwidth()
@@ -796,22 +793,22 @@ root.geometry(f"{window_width}x{window_height}+{x_position}+{y_position}")
 
 
 
-Label(root, text="Username: ",bg=bg_color,fg="white",font=("Calibri", 14)).place(x=20, y=20)
-Label(root, text="Password: ",bg=bg_color,fg="white",font=("Calibri", 14)).place(x=20, y=70)
+Label(root, text="Username: ",bg=bg_color,fg="white",font=("Calibri", 14)).place(x=70, y=20)
+Label(root, text="Password: ",bg=bg_color,fg="white",font=("Calibri", 14)).place(x=70, y=70)
 
 global enrey1
 global enrey2
 
 enrey1 = Entry(root, bd=5)
-enrey1.place(x=140, y=20)
+enrey1.place(x=180, y=20)
 
 enrey2 = Entry(root, bd=5, show='*')
-enrey2.place(x=140, y=70)
+enrey2.place(x=180, y=70)
 
 
 
 # Button(root, text="Login", command=login, height=2, width=13, bd=6).place(x=100, y=120)
-log_button = Button(root, text="Log In", command=login,font=("Calibri", 12),
+log_button = Button(root, text="Login", command=login,font=("Calibri", 12),
         width=16,
         height=0,
         bg="#FFFFFF",
@@ -819,7 +816,7 @@ log_button = Button(root, text="Log In", command=login,font=("Calibri", 12),
         cursor="hand2",
         activebackground="#B8B8B8",
         activeforeground="black")
-log_button.place(x=80, y=110)
+log_button.place(x=130, y=120)
 
 add_button = Button(root, text="Create Account", command=create_account_window,font=("Calibri", 12),
         width=16,
@@ -830,18 +827,8 @@ add_button = Button(root, text="Create Account", command=create_account_window,f
         activebackground="#B8B8B8",
         activeforeground="black")
 
-add_button.place(x=80, y=150)
+add_button.place(x=130, y=170)
 
-back_button = Button(root, text="Back", command=back_to_main,font=("Calibri", 12),
-        width=16,
-        height=0,
-        bg="#FFFFFF",
-        fg="black",
-        cursor="hand2",
-        activebackground="#B8B8B8",
-        activeforeground="black")
-
-back_button.place(x=80, y=190)
 
 
 root.mainloop()

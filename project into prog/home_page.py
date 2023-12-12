@@ -7,9 +7,17 @@ def admin_login_page(root):
     root.withdraw()
 
     # Create a Toplevel window for the admin login
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
+
+    # Calculate the x and y coordinates to center the window
+    x = (screen_width - 400) // 2
+    y = (screen_height - 350) // 2
+
+    # Create a Toplevel window for the admin login
     admin_login_window = tk.Toplevel(root)
     admin_login_window.title("Admin Login")
-    admin_login_window.geometry('400x350+0+0')
+    admin_login_window.geometry(f'400x350+{x}+{y}')
     admin_login_window['bg'] = '#021631'
 
     admin_login_frame = Admin("","","")
@@ -22,19 +30,21 @@ def open_volunteer_login():
 def home_page():
     bg_color = '#021631'
 
-    #main frame initialisation
+    # main frame initialization
     root = tk.Tk()
-    root.title("The Hope Trust: A Humanitarian Management System")  # --Can change this later, only for demo
-    #root.eval("tk::PlaceWindow . center")  # --Placing the window on the centre of the screen
+    root.title("The Hope Trust: A Humanitarian Management System")
 
-    #screen_width=root.winfo_screenwidth()
-    #screen_height = root.winfo_screenheight()
+    # Calculate the screen width and height
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
 
-    #x= (screen_width-600)//2
-    #y=(screen_height-750)//2
-    #root.geometry("600x600")
-    #root.geometry(f"700x700+{x}+{y}")
-    root.geometry('400x350+0+0')
+    # Calculate the x and y coordinates to center the window
+    x = (screen_width - 400) // 2  # Assuming you want the window width to be 400
+    y = (screen_height - 350) // 2  # Assuming you want the window height to be 350
+
+    # Set the geometry of the window to center it on the screen
+    root.geometry(f"400x350+{x}+{y}")
+
     root['bg'] = '#021631'
 
     # creating frame
