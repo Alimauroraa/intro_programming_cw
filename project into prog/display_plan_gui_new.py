@@ -255,7 +255,7 @@ def get_country_coordinates(country, image_size=(1425, 625), x_offset=-70,y_offs
     "Turkmenistan": (38.9697, 59.5563),
     "Tuvalu": (-7.1095, 177.6493),
     "Uganda": (1.3733, 32.2903),
-    "Ukraine": (48.3794, 31.1656),
+    "Ukraine": (53.3794, 31.1656),
     "United Arab Emirates": (23.4241, 53.8478),
     "United States": (37.0902, -95.7129),
     "Uruguay": (-32.5228, -55.7658),
@@ -295,7 +295,34 @@ def get_country_coordinates(country, image_size=(1425, 625), x_offset=-70,y_offs
     print(f"Calculated pixel coordinates for {country}: ({pixel_x}, {pixel_y})")
 
     return (pixel_x, pixel_y)
+def display_refugees(parent, dataframe):
+    camp_id = []
+    # Find CampID and get corresponding volunteer data
+    if 'camp_id' in dataframe.columns:
+        camps = dataframe.iloc[0]['camp_id']
+        camp_list = [int(item) for item in camps.split(",")]
+        refugees_csv = pd.read_csv("Refugee_DataFrame.csv")
+        refugees_for_plan = refugees_csv[refugees_csv['Camp_ID'].isin(camp_list)]
 
+        # Create a new top-level window
+        refugees_window = tk.Toplevel(parent)
+        refugees_window.title("Refugees for Plan")
+
+        # Create Treeview widget
+        tree = ttk.Treeview(refugees_window)
+        tree["columns"] = list(refugees_for_plan.columns)
+        tree["show"] = "headings"
+
+        # Define headings
+        for col in tree["columns"]:
+            tree.heading(col, text=col)
+            tree.column(col, width=100, anchor="center")
+
+        # Insert data into the treeview
+        for idx, row in refugees_for_plan.iterrows():
+            tree.insert("", "end", values=list(row))
+
+        tree.pack(expand=True, fill='both')
 
 def show_info(dataframe):
     top = tk.Toplevel(root)
