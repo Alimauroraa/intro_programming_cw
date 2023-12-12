@@ -15,7 +15,7 @@ user_id,username,user_password,first_name,last_name,dob,user_email,contact_numbe
 14,volunteer14,111,James,Fielding,1987-01-30,james@example.com,4839274839,567 Elm Drive,"Woodland, WL 23948",China,volunteer,male,True,5.0
 15,volunteer15,111,Abigail,Fairfax,1999-11-08,abigail@example.com,3847293847,890 Maple Street,"Meadowbrook, MB 95837",Russia,volunteer,female,True,5.0
 16,volunteer16,111,Benjamin,Gatewood,1983-03-05,benjamin@example.com,4729384729,321 Birch Lane,"Hilltop, HT 18239",United Kingdom,volunteer,male,True,6.0
-17
+17,volunteer17,111,Charlotte,Easton,22/07/1998,charlotte@example.com,9384729384,654 Oak Avenue,"Seaside, SS 73829",Australia,volunteer,female,True,6.0
 18,volunteer18,111,Henry,Brighton,1992-05-14,henry@example.com,2839472938,987 Cedar Road,"Forestville, FV 37892",New Zealand,volunteer,male,True,7.0
 19,volunteer19,111,Samantha,Crossing,1984-12-07,samantha@example.com,7482938472,210 Elm Street,"Lakeview, LV 47293",Nigeria,volunteer,female,True,7.0
 20,volunteer20,111,William,Hartley,1990-10-20,william@example.com,3928472938,529 Birch Circle,"Hillside, HS 29284",Egypt,volunteer,male,True,7.0
