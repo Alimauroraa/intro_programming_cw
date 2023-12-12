@@ -5,18 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="28ad44ea-d0a3-45c2-a27c-9e867bd827fa" name="Changes" comment="ignore">
-      <change beforePath="$PROJECT_DIR$/.idea/csv-editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/csv-editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/Refugee_DataFrame.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/Refugee_DataFrame.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/Refugee_portal_volunteer_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/Refugee_portal_volunteer_test.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/create_plan_logging.log" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/project into prog/camps.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/camps.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/close_plan_logging.log" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/close_plan_logging.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/create_plan_frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/create_plan_frame.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/create_plan_logging.log" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/create_plan_logging.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/create_refugee.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/create_refugee.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/liveupdates.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/liveupdates.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/manage_camps_frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/manage_camps_frame.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/close_plan_frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/close_plan_frame.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/create_plan.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/create_plan.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/project into prog/plan.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/plan.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/plan.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/project into prog.code-workspace" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/project into prog/volunteers_file.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/volunteers_file.csv" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -82,7 +78,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "script",
+    "git-widget-placeholder": "Hao__video",
     "last_opened_file_path": "C:/Users/Hp/OneDrive/Desktop/Uni/Term 1/intro_programming_cw",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
   }
