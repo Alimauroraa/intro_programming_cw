@@ -6,14 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="28ad44ea-d0a3-45c2-a27c-9e867bd827fa" name="Changes" comment="generated a test plan">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/Refugee_DataFrame.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/Refugee_DataFrame.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/Refugee_portal_volunteer_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/Refugee_portal_volunteer_test.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/admin_credentials.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/admin_credentials.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/camps.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/camps.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/create_plan_logging.log" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/create_plan_logging.log" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/create_refugee.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/create_refugee.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/plan.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/plan.csv" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project into prog/volunteers_file.csv" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/volunteers_file.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/GUI_volunteer_login_update.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/GUI_volunteer_login_update.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/project into prog/create_plan_frame.py" beforeDir="false" afterPath="$PROJECT_DIR$/project into prog/create_plan_frame.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -79,9 +73,13 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
 
+    "git-widget-placeholder": "test",
+
+
     "git-widget-placeholder": "further-debugging",
-=======
+
     "git-widget-placeholder": "Hao__lalala",
+
 
     "last_opened_file_path": "C:/Users/Hp/OneDrive/Desktop/Uni/Term 1/intro_programming_cw",
     "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable"
@@ -134,7 +132,10 @@
       <list>
         <item itemvalue="Python.home_page" />
         <item itemvalue="Python.home_page" />
+
+
         <item itemvalue="Python.home_page" />
+
       </list>
     </recent_temporary>
   </component>
@@ -243,7 +244,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702335172988</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="changed auto generate refugee_id to auto-increment">
+      <option name="closed" value="true" />
+      <created>1702340008238</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1702340008238</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -274,6 +283,7 @@
     <MESSAGE value="Debugged refugee portal and the camp ID issue" />
     <MESSAGE value="ignore" />
     <MESSAGE value="generated a test plan" />
-    <option name="LAST_COMMIT_MESSAGE" value="generated a test plan" />
+    <MESSAGE value="changed auto generate refugee_id to auto-increment" />
+    <option name="LAST_COMMIT_MESSAGE" value="changed auto generate refugee_id to auto-increment" />
   </component>
 </project>
