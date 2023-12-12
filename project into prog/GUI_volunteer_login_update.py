@@ -488,9 +488,10 @@ def display_information():
     # Implement the functionality for displaying information here
     display_user_row(user_index, user_df)
 
-def quit_application():
-    # Implement the functionality for quitting the application here
-    root.destroy()
+# def quit_application():
+#     # Implement the functionality for quitting the application here
+#     root.destroy()
+#     # root.withdraw()
 
 def main_application():
     global main_window
@@ -589,17 +590,17 @@ def main_application():
                               activeforeground="black", )
     live_update_button.pack(pady=10, side='top', anchor='center')
 
-
-    quit_button = Button(main_window, text="Quit", command=quit_application,
-        font=("Calibri", 11),
-        width=22,
-        height=0,
-        bg="#FFFFFF",
-        fg="black",
-        cursor="hand2",
-        activebackground="#B8B8B8",
-        activeforeground="black",)
-    quit_button.pack(pady=10, side='top', anchor='center')
+    #
+    # quit_button = Button(main_window, text="Quit", command=quit_application,
+    #     font=("Calibri", 11),
+    #     width=22,
+    #     height=0,
+    #     bg="#FFFFFF",
+    #     fg="black",
+    #     cursor="hand2",
+    #     activebackground="#B8B8B8",
+    #     activeforeground="black",)
+    # quit_button.pack(pady=10, side='top', anchor='center')
 def open_refugee_portal():
     # global user_index, user_df, user
     # import refugee_portal_volunteer
@@ -773,6 +774,17 @@ def display_user_row(user_index, user_df):
     close_button.pack(pady=10)
 
 
+def hide_login_window():
+    root.withdraw()
+
+def show_login_window():
+    root.deiconify()
+
+def on_closing():
+    hide_login_window()
+
+
+
 root = tk.Toplevel()
 root.title('Volunteer Login')
 root['bg'] = '#021631'
@@ -828,6 +840,9 @@ add_button = Button(root, text="Create Account", command=create_account_window,f
         activeforeground="black")
 
 add_button.place(x=130, y=170)
+
+
+root.protocol("WM_DELETE_WINDOW", on_closing)
 
 
 
