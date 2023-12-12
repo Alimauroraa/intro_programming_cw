@@ -15,5 +15,3 @@ camp_id,location,volunteers_number,refugees_number,plan_name,current_availabilit
 14,Afghanistan,3,8,Displaced Persons Resettlement Program,42,50,3 volunteers required,"{'Medical Supplies': 10, 'Blankets': 10, 'Hygiene Supplies': 10}"
 15,Palestine State,5,5,Child Soldier Rehabilitation Initiative,45,50,5 volunteers required,"{'Clothing': 10, 'Tents': 10, 'Hygiene Supplies': 10}"
 16,Palestine State,2,14,Child Soldier Rehabilitation Initiative,36,50,2 volunteers required,"{'Food Packets': 10, 'Medical Supplies': 10}"
-17,United States,0,0,test,50,50,X volunteers required (update via manage camp),
-18,United States,1,25,test,25,50,X volunteers required (update via manage camp),
