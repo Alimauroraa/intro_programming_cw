@@ -86,6 +86,12 @@ class MainMenuWindow:
     def exit_application(self):
         self.master.destroy()
 
+    def generate_refugee_id(self):
+        if refugee_df["Refugee_ID"].empty:
+            return 1  # Start from 1 if the DataFrame is empty
+        else:
+            return refugee_df["Refugee_ID"].max() + 1
+
     def add_refugee(self):
         #self.master.iconify()
         input_window = tk.Toplevel(self.master)
@@ -120,13 +126,8 @@ class MainMenuWindow:
             else:
                 break
 
-        while True:
-            random_refugee_id = random.randint(1, 9999)
+        refugee_ID_var = tk.StringVar(value=str(self.generate_refugee_id()))
 
-            # Check if the generated ID is not already in the DataFrame
-            if random_refugee_id not in refugee_df["Refugee_ID"].values:
-                refugee_ID_var = tk.StringVar(value=str(random_refugee_id))
-                break
 
         # while True:
         #     random_profile_id = random.randint(1, 999)
@@ -265,7 +266,7 @@ class MainMenuWindow:
             self.master.deiconify()
 
         # Create StringVar for each entry
-        refugee_ID_var = tk.StringVar(value=str(random_refugee_id))
+        # refugee_ID_var = tk.StringVar(value=str(random_refugee_id))
         # camp_ID_var = tk.StringVar()
         first_name_var = tk.StringVar()
         last_name_var = tk.StringVar()
