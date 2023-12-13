@@ -4,8 +4,7 @@ import csv
 
 # Function to filter and display live updates
 def filter_and_display_updates(selected_option, live_feed_text):
-    # global selected_option
-    live_feed_text.delete(1.0, tk.END)  # Clear the current content
+    live_feed_text.delete(1.0, tk.END)  
 
     # Read live updates from "liveupdates.csv"
     with open("liveupdates.csv", mode='r') as file:
