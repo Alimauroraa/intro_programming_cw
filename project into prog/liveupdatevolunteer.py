@@ -97,11 +97,11 @@ def main_live_updates():
                                   bg="#021631", fg="white", selectcolor="#021631", activebackground="#021631",
                                   activeforeground="white")
         checkbox.pack()
-
-    submit_button = ttk.Button(frame, text="Submit Update", command=submit_update,width=14)
+    submit_button = ttk.Button(frame, text="Submit Update", command=submit_update, width=14, style="White.TButton")
     submit_button.pack(pady=10)
 
-    go_back_button = ttk.Button(frame, text="Go Back", command=go_back,width=14)
+    # Creating the Go Back button
+    go_back_button = ttk.Button(frame, text="Go Back", command=go_back, width=14, style="White.TButton")
     go_back_button.pack(pady=10)
 
     main_window_width = 700
