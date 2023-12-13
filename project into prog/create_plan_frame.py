@@ -402,14 +402,3 @@ def plan_creator_frame(parent):
 if __name__ == '__main__':
     plan_creator_frame(tk.Tk())        
     root.mainloop()
-
-
-
-
-
-#Not used: but i'll save it here for info
-# root = tk.Tk()
-# root.title("Create new plan")  # --Can change this later, only for demo
-# root.eval("tk::PlaceWindow . center")  # --Placing the window on the centre of the screen
-# root.geometry("600x600")
-# root['bg'] = '#021631'
