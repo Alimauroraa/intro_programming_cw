@@ -31,16 +31,13 @@ def display_volunteers(parent, dataframe):
         volunteer_csv = pd.read_csv("volunteers_file.csv")
         volunteers_for_plan = volunteer_csv[volunteer_csv['camp_id'].isin(camp_list)]
 
-        # Create a new top-level window
         volunteer_window = tk.Toplevel(parent)
         volunteer_window.title("Volunteers for Plan")
 
-        # Create Treeview widget
         tree = ttk.Treeview(volunteer_window)
         tree["columns"] = list(volunteers_for_plan.columns)
         tree["show"] = "headings"
 
-        # Define headings
         for col in tree["columns"]:
             tree.heading(col, text=col)
             tree.column(col, width=100, anchor="center")
@@ -55,7 +52,6 @@ def display_map(parent, geographical_area):
     map_window = tk.Toplevel(parent)
     map_window.title("Geographical Map")
 
-    # Load a world map image (you need to have a world map image file)
     map_image = Image.open("world_map.jpg")  # Replace "world_map.jpg" with the actual image file
     map_photo = ImageTk.PhotoImage(map_image)
 
@@ -74,7 +70,6 @@ def display_map(parent, geographical_area):
     print(f"Displaying red spot at coordinates: {coordinates}")
 
 def get_country_coordinates(country, image_size=(1425, 625), x_offset=-70,y_offset=10):
-    # Replace the example coordinates with your actual dataset
     coordinates_lookup = {
         "Afghanistan": (33.9391, 67.7100),
         "Albania": (41.1533, 20.1683),
@@ -304,21 +299,17 @@ def display_refugees(parent, dataframe):
         refugees_csv = pd.read_csv("Refugee_DataFrame.csv")
         refugees_for_plan = refugees_csv[refugees_csv['Camp_ID'].isin(camp_list)]
 
-        # Create a new top-level window
         refugees_window = tk.Toplevel(parent)
         refugees_window.title("Refugees for Plan")
 
-        # Create Treeview widget
         tree = ttk.Treeview(refugees_window)
         tree["columns"] = list(refugees_for_plan.columns)
         tree["show"] = "headings"
 
-        # Define headings
         for col in tree["columns"]:
             tree.heading(col, text=col)
             tree.column(col, width=100, anchor="center")
 
-        # Insert data into the treeview
         for idx, row in refugees_for_plan.iterrows():
             tree.insert("", "end", values=list(row))
 
@@ -389,7 +380,6 @@ def update_active_flag():
 def display_all_plan(root):
     df = pd.read_csv('plan.csv', parse_dates=['startDate', 'closingDate'], date_parser=date_parser)
 
-    # Convert the dates to the desired format
     df['startDate'] = df['startDate'].dt.strftime('%Y-%m-%d')
     df['closingDate'] = df['closingDate'].dt.strftime('%Y-%m-%d')
 
@@ -419,7 +409,6 @@ def display_all_plan(root):
     tree.column('geographicalArea', width=160)
     tree.column('planDesc', width=300)
     tree.column('NumberOfCamps', width=100)
-    # Adjust column widths dynamically for other columns
 
 
     # Adding scrollbar
@@ -432,7 +421,6 @@ def display_all_plan(root):
 
 def display_plan_frame(parent):
     global root
-    # Create tkinter window
     root = tk.Frame(parent,width=600, height=600, bg='#021631')
     root.grid_propagate(False)
 
