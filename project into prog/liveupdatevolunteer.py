@@ -91,7 +91,7 @@ def main_live_updates():
 
     category_states = {category_label: False for category_label in category_labels}
     style = ttk.Style()
-    style.configure("White.TButton", foreground="black", background="white")
+    style.configure("White.TButton", foreground="white", background="black")
     for category_label in category_labels:
         checkbox = tk.Checkbutton(frame, text=category_label,
                                   command=lambda label=category_label: toggle_category(label),
